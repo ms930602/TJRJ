@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.manage.mapper.MerchantMapper">
+
+	<!-- 结果Map -->
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.manage.entity.MerchantEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="dataId" jdbcType="VARCHAR" column="f_data_id"/>
+		<result property="code" jdbcType="VARCHAR" column="f_code"/>
+		<result property="name" jdbcType="VARCHAR" column="f_name"/>
+		<result property="isIndustry" jdbcType="VARCHAR" column="f_is_industry"/>
+		<result property="tegRegNum" jdbcType="VARCHAR" column="f_teg_reg_num"/>
+		<result property="comProviderProp" jdbcType="VARCHAR" column="f_com_provider_prop"/>
+		<result property="comProviderType" jdbcType="VARCHAR" column="f_com_provider_type"/>
+		<result property="regionId" jdbcType="VARCHAR" column="f_region_id"/>
+		<result property="address" jdbcType="VARCHAR" column="f_address"/>
+		<result property="zipcode" jdbcType="VARCHAR" column="f_zipcode"/>
+		<result property="legalbody" jdbcType="VARCHAR" column="f_legalbody"/>
+		<result property="linkman" jdbcType="VARCHAR" column="f_linkman"/>
+		<result property="fax" jdbcType="VARCHAR" column="f_fax"/>
+		<result property="phone" jdbcType="VARCHAR" column="f_phone"/>
+		<result property="redriedBusinessCode" jdbcType="VARCHAR" column="f_redried_business_code"/>
+		<result property="bankName" jdbcType="VARCHAR" column="f_bank_name"/>
+		<result property="bankAccount" jdbcType="VARCHAR" column="f_bank_account"/>
+		<result property="useCompany" jdbcType="VARCHAR" column="f_use_company"/>
+		<result property="pkBanktype" jdbcType="VARCHAR" column="f_pk_banktype"/>
+		<result property="status" jdbcType="VARCHAR" column="f_status"/>
+		<result property="creator" jdbcType="VARCHAR" column="f_creator"/>
+		<result property="createtime" jdbcType="TIMESTAMP" column="f_createtime"/>
+		<result property="modifier" jdbcType="VARCHAR" column="f_modifier"/>
+		<result property="modifytime" jdbcType="TIMESTAMP" column="f_modifytime"/>
+	</resultMap>
+	
+	<!-- 查询列 -->
+	<sql id="BaseColumnList">
+		f_id,f_data_id,f_code,f_name,f_is_industry,f_teg_reg_num,f_com_provider_prop,f_com_provider_type,f_region_id,f_address,f_zipcode,f_legalbody,f_linkman,f_fax,f_phone,f_redried_business_code,f_bank_name,f_bank_account,f_use_company,f_pk_banktype,f_status,f_creator,f_createtime,f_modifier,f_modifytime
+	</sql>
+			
+	<!--创建记录 -->
+	<insert id="create" parameterType="com.ms.warehouse.manage.entity.MerchantEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_base_merchant
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="dataId!=null">f_data_id,</if>
+			<if test="code!=null">f_code,</if>
+			<if test="name!=null">f_name,</if>
+			<if test="isIndustry!=null">f_is_industry,</if>
+			<if test="tegRegNum!=null">f_teg_reg_num,</if>
+			<if test="comProviderProp!=null">f_com_provider_prop,</if>
+			<if test="comProviderType!=null">f_com_provider_type,</if>
+			<if test="regionId!=null">f_region_id,</if>
+			<if test="address!=null">f_address,</if>
+			<if test="zipcode!=null">f_zipcode,</if>
+			<if test="legalbody!=null">f_legalbody,</if>
+			<if test="linkman!=null">f_linkman,</if>
+			<if test="fax!=null">f_fax,</if>
+			<if test="phone!=null">f_phone,</if>
+			<if test="redriedBusinessCode!=null">f_redried_business_code,</if>
+			<if test="bankName!=null">f_bank_name,</if>
+			<if test="bankAccount!=null">f_bank_account,</if>
+			<if test="useCompany!=null">f_use_company,</if>
+			<if test="pkBanktype!=null">f_pk_banktype,</if>
+			<if test="status!=null">f_status,</if>
+			<if test="creator!=null">f_creator,</if>
+			<if test="createtime!=null">f_createtime,</if>
+			<if test="modifier!=null">f_modifier,</if>
+			<if test="modifytime!=null">f_modifytime</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			<if test="dataId!=null">#{dataId,jdbcType=VARCHAR},</if>
+			<if test="code!=null">#{code,jdbcType=VARCHAR},</if>
+			<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
+			<if test="isIndustry!=null">#{isIndustry,jdbcType=VARCHAR},</if>
+			<if test="tegRegNum!=null">#{tegRegNum,jdbcType=VARCHAR},</if>
+			<if test="comProviderProp!=null">#{comProviderProp,jdbcType=VARCHAR},</if>
+			<if test="comProviderType!=null">#{comProviderType,jdbcType=VARCHAR},</if>
+			<if test="regionId!=null">#{regionId,jdbcType=VARCHAR},</if>
+			<if test="address!=null">#{address,jdbcType=VARCHAR},</if>
+			<if test="zipcode!=null">#{zipcode,jdbcType=VARCHAR},</if>
+			<if test="legalbody!=null">#{legalbody,jdbcType=VARCHAR},</if>
+			<if test="linkman!=null">#{linkman,jdbcType=VARCHAR},</if>
+			<if test="fax!=null">#{fax,jdbcType=VARCHAR},</if>
+			<if test="phone!=null">#{phone,jdbcType=VARCHAR},</if>
+			<if test="redriedBusinessCode!=null">#{redriedBusinessCode,jdbcType=VARCHAR},</if>
+			<if test="bankName!=null">#{bankName,jdbcType=VARCHAR},</if>
+			<if test="bankAccount!=null">#{bankAccount,jdbcType=VARCHAR},</if>
+			<if test="useCompany!=null">#{useCompany,jdbcType=VARCHAR},</if>
+			<if test="pkBanktype!=null">#{pkBanktype,jdbcType=VARCHAR},</if>
+			<if test="status!=null">#{status,jdbcType=VARCHAR},</if>
+			<if test="creator!=null">#{creator,jdbcType=VARCHAR},</if>
+			<if test="createtime!=null">#{createtime,jdbcType=TIMESTAMP},</if>
+			<if test="modifier!=null">#{modifier,jdbcType=VARCHAR},</if>
+			<if test="modifytime!=null">#{modifytime,jdbcType=TIMESTAMP}</if>
+		</trim>
+	</insert>
+
+	<!--批量创建记录 -->
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		<foreach collection="list" item="item" index="index" separator=";">
+			INSERT INTO t_base_merchant
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+					<if test="item.dataId!=null">f_data_id,</if>
+					<if test="item.code!=null">f_code,</if>
+					<if test="item.name!=null">f_name,</if>
+					<if test="item.isIndustry!=null">f_is_industry,</if>
+					<if test="item.tegRegNum!=null">f_teg_reg_num,</if>
+					<if test="item.comProviderProp!=null">f_com_provider_prop,</if>
+					<if test="item.comProviderType!=null">f_com_provider_type,</if>
+					<if test="item.regionId!=null">f_region_id,</if>
+					<if test="item.address!=null">f_address,</if>
+					<if test="item.zipcode!=null">f_zipcode,</if>
+					<if test="item.legalbody!=null">f_legalbody,</if>
+					<if test="item.linkman!=null">f_linkman,</if>
+					<if test="item.fax!=null">f_fax,</if>
+					<if test="item.phone!=null">f_phone,</if>
+					<if test="item.redriedBusinessCode!=null">f_redried_business_code,</if>
+					<if test="item.bankName!=null">f_bank_name,</if>
+					<if test="item.bankAccount!=null">f_bank_account,</if>
+					<if test="item.useCompany!=null">f_use_company,</if>
+					<if test="item.pkBanktype!=null">f_pk_banktype,</if>
+					<if test="item.status!=null">f_status,</if>
+					<if test="item.creator!=null">f_creator,</if>
+					<if test="item.createtime!=null">f_createtime,</if>
+					<if test="item.modifier!=null">f_modifier,</if>
+					<if test="item.modifytime!=null">f_modifytime</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+					<if test="item.dataId!=null">#{item.dataId,jdbcType=VARCHAR},</if>
+					<if test="item.code!=null">#{item.code,jdbcType=VARCHAR},</if>
+					<if test="item.name!=null">#{item.name,jdbcType=VARCHAR},</if>
+					<if test="item.isIndustry!=null">#{item.isIndustry,jdbcType=VARCHAR},</if>
+					<if test="item.tegRegNum!=null">#{item.tegRegNum,jdbcType=VARCHAR},</if>
+					<if test="item.comProviderProp!=null">#{item.comProviderProp,jdbcType=VARCHAR},</if>
+					<if test="item.comProviderType!=null">#{item.comProviderType,jdbcType=VARCHAR},</if>
+					<if test="item.regionId!=null">#{item.regionId,jdbcType=VARCHAR},</if>
+					<if test="item.address!=null">#{item.address,jdbcType=VARCHAR},</if>
+					<if test="item.zipcode!=null">#{item.zipcode,jdbcType=VARCHAR},</if>
+					<if test="item.legalbody!=null">#{item.legalbody,jdbcType=VARCHAR},</if>
+					<if test="item.linkman!=null">#{item.linkman,jdbcType=VARCHAR},</if>
+					<if test="item.fax!=null">#{item.fax,jdbcType=VARCHAR},</if>
+					<if test="item.phone!=null">#{item.phone,jdbcType=VARCHAR},</if>
+					<if test="item.redriedBusinessCode!=null">#{item.redriedBusinessCode,jdbcType=VARCHAR},</if>
+					<if test="item.bankName!=null">#{item.bankName,jdbcType=VARCHAR},</if>
+					<if test="item.bankAccount!=null">#{item.bankAccount,jdbcType=VARCHAR},</if>
+					<if test="item.useCompany!=null">#{item.useCompany,jdbcType=VARCHAR},</if>
+					<if test="item.pkBanktype!=null">#{item.pkBanktype,jdbcType=VARCHAR},</if>
+					<if test="item.status!=null">#{item.status,jdbcType=VARCHAR},</if>
+					<if test="item.creator!=null">#{item.creator,jdbcType=VARCHAR},</if>
+					<if test="item.createtime!=null">#{item.createtime,jdbcType=TIMESTAMP},</if>
+					<if test="item.modifier!=null">#{item.modifier,jdbcType=VARCHAR},</if>
+					<if test="item.modifytime!=null">#{item.modifytime,jdbcType=TIMESTAMP}</if>
+			</trim>
+		</foreach>
+	</insert>
+	
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.ms.warehouse.manage.entity.MerchantEntity">
+		UPDATE t_base_merchant 
+		<set>
+			<if test="dataId!=null">f_data_id = #{dataId,jdbcType=VARCHAR},</if>
+			<if test="code!=null">f_code = #{code,jdbcType=VARCHAR},</if>
+			<if test="name!=null">f_name = #{name,jdbcType=VARCHAR},</if>
+			<if test="isIndustry!=null">f_is_industry = #{isIndustry,jdbcType=VARCHAR},</if>
+			<if test="tegRegNum!=null">f_teg_reg_num = #{tegRegNum,jdbcType=VARCHAR},</if>
+			<if test="comProviderProp!=null">f_com_provider_prop = #{comProviderProp,jdbcType=VARCHAR},</if>
+			<if test="comProviderType!=null">f_com_provider_type = #{comProviderType,jdbcType=VARCHAR},</if>
+			<if test="regionId!=null">f_region_id = #{regionId,jdbcType=VARCHAR},</if>
+			<if test="address!=null">f_address = #{address,jdbcType=VARCHAR},</if>
+			<if test="zipcode!=null">f_zipcode = #{zipcode,jdbcType=VARCHAR},</if>
+			<if test="legalbody!=null">f_legalbody = #{legalbody,jdbcType=VARCHAR},</if>
+			<if test="linkman!=null">f_linkman = #{linkman,jdbcType=VARCHAR},</if>
+			<if test="fax!=null">f_fax = #{fax,jdbcType=VARCHAR},</if>
+			<if test="phone!=null">f_phone = #{phone,jdbcType=VARCHAR},</if>
+			<if test="redriedBusinessCode!=null">f_redried_business_code = #{redriedBusinessCode,jdbcType=VARCHAR},</if>
+			<if test="bankName!=null">f_bank_name = #{bankName,jdbcType=VARCHAR},</if>
+			<if test="bankAccount!=null">f_bank_account = #{bankAccount,jdbcType=VARCHAR},</if>
+			<if test="useCompany!=null">f_use_company = #{useCompany,jdbcType=VARCHAR},</if>
+			<if test="pkBanktype!=null">f_pk_banktype = #{pkBanktype,jdbcType=VARCHAR},</if>
+			<if test="status!=null">f_status = #{status,jdbcType=VARCHAR},</if>
+			<if test="creator!=null">f_creator = #{creator,jdbcType=VARCHAR},</if>
+			<if test="createtime!=null">f_createtime = #{createtime,jdbcType=TIMESTAMP},</if>
+			<if test="modifier!=null">f_modifier = #{modifier,jdbcType=VARCHAR},</if>
+			<if test="modifytime!=null">f_modifytime = #{modifytime,jdbcType=TIMESTAMP}</if>
+		</set>
+		<where> 
+			f_id  = #{id}
+		</where>				
+	</update>
+	
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_base_merchant 
+			<set>
+				<if test="item.dataId!=null">f_data_id = #{item.dataId,jdbcType=VARCHAR},</if>
+				<if test="item.code!=null">f_code = #{item.code,jdbcType=VARCHAR},</if>
+				<if test="item.name!=null">f_name = #{item.name,jdbcType=VARCHAR},</if>
+				<if test="item.isIndustry!=null">f_is_industry = #{item.isIndustry,jdbcType=VARCHAR},</if>
+				<if test="item.tegRegNum!=null">f_teg_reg_num = #{item.tegRegNum,jdbcType=VARCHAR},</if>
+				<if test="item.comProviderProp!=null">f_com_provider_prop = #{item.comProviderProp,jdbcType=VARCHAR},</if>
+				<if test="item.comProviderType!=null">f_com_provider_type = #{item.comProviderType,jdbcType=VARCHAR},</if>
+				<if test="item.regionId!=null">f_region_id = #{item.regionId,jdbcType=VARCHAR},</if>
+				<if test="item.address!=null">f_address = #{item.address,jdbcType=VARCHAR},</if>
+				<if test="item.zipcode!=null">f_zipcode = #{item.zipcode,jdbcType=VARCHAR},</if>
+				<if test="item.legalbody!=null">f_legalbody = #{item.legalbody,jdbcType=VARCHAR},</if>
+				<if test="item.linkman!=null">f_linkman = #{item.linkman,jdbcType=VARCHAR},</if>
+				<if test="item.fax!=null">f_fax = #{item.fax,jdbcType=VARCHAR},</if>
+				<if test="item.phone!=null">f_phone = #{item.phone,jdbcType=VARCHAR},</if>
+				<if test="item.redriedBusinessCode!=null">f_redried_business_code = #{item.redriedBusinessCode,jdbcType=VARCHAR},</if>
+				<if test="item.bankName!=null">f_bank_name = #{item.bankName,jdbcType=VARCHAR},</if>
+				<if test="item.bankAccount!=null">f_bank_account = #{item.bankAccount,jdbcType=VARCHAR},</if>
+				<if test="item.useCompany!=null">f_use_company = #{item.useCompany,jdbcType=VARCHAR},</if>
+				<if test="item.pkBanktype!=null">f_pk_banktype = #{item.pkBanktype,jdbcType=VARCHAR},</if>
+				<if test="item.status!=null">f_status = #{item.status,jdbcType=VARCHAR},</if>
+				<if test="item.creator!=null">f_creator = #{item.creator,jdbcType=VARCHAR},</if>
+				<if test="item.createtime!=null">f_createtime = #{item.createtime,jdbcType=TIMESTAMP},</if>
+				<if test="item.modifier!=null">f_modifier = #{item.modifier,jdbcType=VARCHAR},</if>
+				<if test="item.modifytime!=null">f_modifytime = #{item.modifytime,jdbcType=TIMESTAMP}</if>
+			</set>
+			<where> 
+				f_id  = #{item.id}
+			</where>	
+		</foreach>
+	</update>	
+	
+	
+	<!-- 按ID查询记录 -->
+	<select id="queryById" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_base_merchant 
+		WHERE f_id  = #{id}	
+	</select>
+    <!-- 按map查询记录 -->
+	<select id="queyByMapsParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_base_merchant 
+		<where>
+		   <if test="code !=null and ''!=code">
+		       and f_code = #{code,jdbcType=VARCHAR}
+		   </if>
+		</where>
+	</select>
+	 <!-- 查询最大code记录 -->
+	<select id="queryMaxWarCode"  resultType="String">
+       select max(t.f_code) as code from t_base_merchant t where t.f_code REGEXP '^K[0-9]{7}'
+	</select>
+	<!-- 按Id删除 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_base_merchant WHERE f_id  = #{id}
+	</delete>
+
+	<!-- 按Id批量删除 -->
+	<delete id="batchDeleteById" parameterType="Long[]">
+		DELETE FROM t_base_merchant WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</delete>
+	
+	
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="dataId!=null and dataId!=''">AND t.f_data_id = #{dataId,jdbcType=VARCHAR}</if>
+			<if test="code!=null and code!=''">AND t.f_code = #{code,jdbcType=VARCHAR}</if>
+			<if test="name!=null and name!=''">AND t.f_name = #{name,jdbcType=VARCHAR}</if>
+			<if test="isIndustry!=null and isIndustry!=''">AND t.f_is_industry = #{isIndustry,jdbcType=VARCHAR}</if>
+			<if test="tegRegNum!=null and tegRegNum!=''">AND t.f_teg_reg_num = #{tegRegNum,jdbcType=VARCHAR}</if>
+			<if test="comProviderProp!=null and comProviderProp!=''">AND t.f_com_provider_prop = #{comProviderProp,jdbcType=VARCHAR}</if>
+			<if test="comProviderType!=null and comProviderType!=''">AND t.f_com_provider_type = #{comProviderType,jdbcType=VARCHAR}</if>
+			<if test="regionId!=null and regionId!=''">AND t.f_region_id = #{regionId,jdbcType=VARCHAR}</if>
+			<if test="address!=null and address!=''">AND t.f_address = #{address,jdbcType=VARCHAR}</if>
+			<if test="zipcode!=null and zipcode!=''">AND t.f_zipcode = #{zipcode,jdbcType=VARCHAR}</if>
+			<if test="legalbody!=null and legalbody!=''">AND t.f_legalbody = #{legalbody,jdbcType=VARCHAR}</if>
+			<if test="linkman!=null and linkman!=''">AND t.f_linkman = #{linkman,jdbcType=VARCHAR}</if>
+			<if test="fax!=null and fax!=''">AND t.f_fax = #{fax,jdbcType=VARCHAR}</if>
+			<if test="phone!=null and phone!=''">AND t.f_phone = #{phone,jdbcType=VARCHAR}</if>
+			<if test="redriedBusinessCode!=null and redriedBusinessCode!=''">AND t.f_redried_business_code = #{redriedBusinessCode,jdbcType=VARCHAR}</if>
+			<if test="bankName!=null and bankName!=''">AND t.f_bank_name = #{bankName,jdbcType=VARCHAR}</if>
+			<if test="bankAccount!=null and bankAccount!=''">AND t.f_bank_account = #{bankAccount,jdbcType=VARCHAR}</if>
+			<if test="useCompany!=null and useCompany!=''">AND t.f_use_company = #{useCompany,jdbcType=VARCHAR}</if>
+			<if test="pkBanktype!=null and pkBanktype!=''">AND t.f_pk_banktype = #{pkBanktype,jdbcType=VARCHAR}</if>
+			<if test="status!=null and status!=''">AND t.f_status = #{status,jdbcType=VARCHAR}</if>
+			<if test="creator!=null and creator!=''">AND t.f_creator = #{creator,jdbcType=VARCHAR}</if>
+			<if test="createtime!=null">AND t.f_createtime = #{createtime,jdbcType=TIMESTAMP}</if>
+			<if test="modifier!=null and modifier!=''">AND t.f_modifier = #{modifier,jdbcType=VARCHAR}</if>
+			<if test="modifytime!=null">AND t.f_modifytime = #{modifytime,jdbcType=TIMESTAMP}</if>
+		</where>
+	</sql>
+	
+	<sql id="queryFrom">
+		FROM t_base_merchant
+	</sql>
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.dataId!=null and whereCondition.dataId!=''">AND t.f_data_id like #{whereCondition.dataIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.code!=null and whereCondition.code!=''">AND t.f_code like #{whereCondition.codeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.name!=null and whereCondition.name!=''">AND t.f_name like #{whereCondition.nameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.isIndustry!=null and whereCondition.isIndustry!=''">AND t.f_is_industry like #{whereCondition.isIndustryByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.tegRegNum!=null and whereCondition.tegRegNum!=''">AND t.f_teg_reg_num like #{whereCondition.tegRegNumByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.comProviderProp!=null and whereCondition.comProviderProp!=''">AND t.f_com_provider_prop like #{whereCondition.comProviderPropByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.comProviderType!=null and whereCondition.comProviderType!=''">AND t.f_com_provider_type like #{whereCondition.comProviderTypeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.regionId!=null and whereCondition.regionId!=''">AND t.f_region_id like #{whereCondition.regionIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.address!=null and whereCondition.address!=''">AND t.f_address like #{whereCondition.addressByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.zipcode!=null and whereCondition.zipcode!=''">AND t.f_zipcode like #{whereCondition.zipcodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.legalbody!=null and whereCondition.legalbody!=''">AND t.f_legalbody like #{whereCondition.legalbodyByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.linkman!=null and whereCondition.linkman!=''">AND t.f_linkman like #{whereCondition.linkmanByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.fax!=null and whereCondition.fax!=''">AND t.f_fax like #{whereCondition.faxByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.phone!=null and whereCondition.phone!=''">AND t.f_phone like #{whereCondition.phoneByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.redriedBusinessCode!=null and whereCondition.redriedBusinessCode!=''">AND t.f_redried_business_code like #{whereCondition.redriedBusinessCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.bankName!=null and whereCondition.bankName!=''">AND t.f_bank_name like #{whereCondition.bankNameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.bankAccount!=null and whereCondition.bankAccount!=''">AND t.f_bank_account like #{whereCondition.bankAccountByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.useCompany!=null and whereCondition.useCompany!=''">AND t.f_use_company like #{whereCondition.useCompanyByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.pkBanktype!=null and whereCondition.pkBanktype!=''">AND t.f_pk_banktype like #{whereCondition.pkBanktypeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.status!=null and whereCondition.status!=''">AND t.f_status like #{whereCondition.statusByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.creator!=null and whereCondition.creator!=''">AND t.f_creator like #{whereCondition.creatorByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.createtime!=null">AND t.f_createtime = #{whereCondition.createtime,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.modifier!=null and whereCondition.modifier!=''">AND t.f_modifier like #{whereCondition.modifierByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.modifytime!=null">AND t.f_modifytime = #{whereCondition.modifytime,jdbcType=TIMESTAMP}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+						t.f_data_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_name like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_is_industry like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_teg_reg_num like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_com_provider_prop like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_com_provider_type like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_region_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_address like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_zipcode like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_legalbody like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_linkman like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_fax like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_phone like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_redried_business_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_bank_name like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_bank_account like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_use_company like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_pk_banktype like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_status like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_creator like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_modifier like #{keyWordByLike,jdbcType=VARCHAR} 
+					)
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 按对象查询 -->
+	<select id="queryByEntity" parameterType="com.ms.warehouse.manage.entity.MerchantEntity" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="where" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+		<choose>
+			<when test="orderField==null">
+				ORDER BY f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryCount" resultType="int"
+		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)  
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+	</select>
+	<!--获取客户-->
+	<select id="getAllMerchantEntitycustomer" parameterType="string" resultMap="BaseResultMap">
+		SELECT * FROM t_base_merchant WHERE f_status = '2' AND f_com_provider_prop ='2'
+		AND (f_name like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR f_code like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR #{keyword}='')
+		limit 0,10
+	</select>
+	<!--获取发货单位-->
+	<select id="getAllMerchantEntitytravellingtrader" parameterType="string" resultMap="BaseResultMap">
+		SELECT * FROM t_base_merchant WHERE  f_status = '2' AND f_com_provider_prop ='1'
+		AND (f_name like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR f_code like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR #{keyword}='')
+		limit 0,10
+	</select>
+</mapper>
+

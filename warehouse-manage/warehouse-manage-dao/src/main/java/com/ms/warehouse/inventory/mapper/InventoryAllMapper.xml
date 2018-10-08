@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.inventory.mapper.InventoryAllMapper">
+    
+    <!-- 库存,库存明细,货位托盘结果Map -->
+	<resultMap id="BaseInAllMap" type="com.ms.warehouse.inventory.entity.InventoryAllEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="materId" jdbcType="INTEGER" column="f_mater_id"/>
+		<result property="materCode" jdbcType="VARCHAR" column="f_mater_code"/>
+		<result property="materName" jdbcType="VARCHAR" column="f_mater_name"/>
+		<result property="materVersionId" jdbcType="INTEGER" column="f_mater_version_id"/>
+		<result property="materVersion" jdbcType="VARCHAR" column="f_mater_version"/>
+		<result property="materCigbrandId" jdbcType="INTEGER" column="f_mater_cigbrand_id"/>
+		<result property="materCigbrand" jdbcType="VARCHAR" column="f_mater_cigbrand"/>
+		<result property="totalCount" jdbcType="DECIMAL" column="f_total_count"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPersonId" jdbcType="INTEGER" column="f_created_person_id"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPersonId" jdbcType="INTEGER" column="f_updated_person_id"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+		<result property="cigtype" jdbcType="INTEGER" column="f_cigtype"/>
+		<result property="detailId" jdbcType="INTEGER" column="detailId"/>
+		<result property="countMap" jdbcType="INTEGER" column="countMap"/>
+		<result property="nameType" jdbcType="INTEGER" column="nameType"/>
+		<result property="inventQuality" jdbcType="DECIMAL" column="f_invent_quality"/>
+		<result property="outQuality" jdbcType="DECIMAL" column="f_out_quality"/>
+		<result property="surplusQuality" jdbcType="DECIMAL" column="f_surplus_quality"/>
+		<result property="outoquality" jdbcType="DECIMAL" column="f_outof_quality"/>
+		<result property="produceDate" jdbcType="TIMESTAMP" column="f_produce_date"/>
+	  	<result property="batchNo" jdbcType="VARCHAR" column="f_batch_no"/>
+		<result property="localmapId" jdbcType="INTEGER" column="localmapId"/>
+		<result property="quality" jdbcType="DECIMAL" column="f_quality"/>
+		<result property="trayRfid" jdbcType="VARCHAR" column="f_tray_rfid"/>
+		<result property="localId" jdbcType="INTEGER" column="f_local_id"/>
+		<result property="localCode" jdbcType="VARCHAR" column="f_local_code"/>
+		<result property="localRfid" jdbcType="VARCHAR" column="f_local_rfid"/>
+		<result property="status" jdbcType="INTEGER" column="f_status"/>
+		<result property="soleCode" jdbcType="VARCHAR" column="f_sole_code"/>
+		<result property="trayCode" jdbcType="VARCHAR" column="f_tray_code"/>
+		<result property="outDate" jdbcType="TIMESTAMP" column="f_out_date"/>
+		
+		<result property="lockStock" jdbcType="DECIMAL" column="f_lock_stock"/>
+		<result property="availableStocks" jdbcType="DECIMAL" column="availableStocks"/>
+	    <result property="subverId" jdbcType="INTEGER" column="f_subver_id"/>
+        <result property="subverName" jdbcType="VARCHAR" column="f_subver_name"/>
+        <result property="descript" jdbcType="VARCHAR" column="descript"/>
+	</resultMap>
+	
+	<!-- 库存明细,货位托盘结果Map -->
+	<resultMap id="BaseResultInAllMap" type="com.ms.warehouse.inventory.entity.InventoryAllEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="materId" jdbcType="INTEGER" column="f_mater_id"/>
+		<result property="materCode" jdbcType="VARCHAR" column="f_mater_code"/>
+		<result property="materName" jdbcType="VARCHAR" column="f_mater_name"/>
+		<result property="materVersionId" jdbcType="INTEGER" column="f_mater_version_id"/>
+		<result property="materVersion" jdbcType="VARCHAR" column="f_mater_version"/>
+		<result property="materCigbrandId" jdbcType="INTEGER" column="f_mater_cigbrand_id"/>
+		<result property="materCigbrand" jdbcType="VARCHAR" column="f_mater_cigbrand"/>
+		<result property="totalCount" jdbcType="DECIMAL" column="f_total_count"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPersonId" jdbcType="INTEGER" column="f_created_person_id"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPersonId" jdbcType="INTEGER" column="f_updated_person_id"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+		<result property="cigtype" jdbcType="INTEGER" column="f_cigtype"/>
+		<result property="lockStock" jdbcType="DECIMAL" column="f_lock_stock"/>
+		<result property="availableStocks" jdbcType="DECIMAL" column="availableStocks"/>
+	    <result property="subverId" jdbcType="INTEGER" column="f_subver_id"/>
+        <result property="subverName" jdbcType="VARCHAR" column="f_subver_name"/>
+		
+		<result property="detailId" jdbcType="INTEGER" column="detailId"/>
+		<result property="countMap" jdbcType="INTEGER" column="countMap"/>
+		<result property="nameType" jdbcType="INTEGER" column="nameType"/>
+		
+		<result property="inventQuality" jdbcType="DECIMAL" column="f_invent_quality"/>
+		<result property="outQuality" jdbcType="DECIMAL" column="f_out_quality"/>
+		<result property="surplusQuality" jdbcType="DECIMAL" column="f_surplus_quality"/>
+		<result property="outoquality" jdbcType="DECIMAL" column="f_outof_quality"/>
+		<result property="produceDate" jdbcType="TIMESTAMP" column="f_produce_date"/>
+	  	<result property="batchNo" jdbcType="VARCHAR" column="f_batch_no"/>
+		<collection property="itlmEntities" column="detailId" ofType="com.ms.warehouse.inventory.entity.InventorytraylocalmapEntity">
+		    <result property="id" jdbcType="INTEGER" column="localmapId"/>
+			<result property="quality" jdbcType="DECIMAL" column="f_quality"/>
+			<result property="trayRfid" jdbcType="VARCHAR" column="f_tray_rfid"/>
+			<result property="localId" jdbcType="INTEGER" column="f_local_id"/>
+			<result property="localCode" jdbcType="VARCHAR" column="f_local_code"/>
+			<result property="localRfid" jdbcType="VARCHAR" column="f_local_rfid"/>
+			<result property="status" jdbcType="INTEGER" column="f_status"/>
+			<result property="soleCode" jdbcType="VARCHAR" column="f_sole_code"/>
+			<result property="trayCode" jdbcType="VARCHAR" column="f_tray_code"/>
+			<result property="outDate" jdbcType="TIMESTAMP" column="f_out_date"/>
+  	    </collection>
+	</resultMap>
+	
+	
+	
+	
+	
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="materId!=null">AND t.f_mater_id = #{materId,jdbcType=INTEGER}</if>
+			<if test="materCode!=null and materCode!=''">AND t.f_mater_code = #{materCode,jdbcType=VARCHAR}</if>
+			<if test="materName!=null and materName!=''">AND t.f_mater_name = #{materName,jdbcType=VARCHAR}</if>
+			<if test="materVersionId!=null">AND t.f_mater_version_id = #{materVersionId,jdbcType=INTEGER}</if>
+			<if test="materVersion!=null and materVersion!=''">AND t.f_mater_version = #{materVersion,jdbcType=VARCHAR}</if>
+			<if test="materCigbrandId!=null">AND t.f_mater_cigbrand_id = #{materCigbrandId,jdbcType=INTEGER}</if>
+			<if test="materCigbrand!=null and materCigbrand!=''">AND t.f_mater_cigbrand = #{materCigbrand,jdbcType=VARCHAR}</if>
+			<if test="totalCount!=null">AND t.f_total_count = #{totalCount,jdbcType=DECIMAL}</if>
+			<if test="createdDate!=null">AND t.f_created_date = #{createdDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdPersonId!=null">AND t.f_created_person_id = #{createdPersonId,jdbcType=INTEGER}</if>
+			<if test="createdPerson!=null and createdPerson!=''">AND t.f_created_person = #{createdPerson,jdbcType=VARCHAR}</if>
+			<if test="updatedDate!=null">AND t.f_updated_date = #{updatedDate,jdbcType=TIMESTAMP}</if>
+			<if test="updatedPersonId!=null">AND t.f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER}</if>
+			<if test="updatedPerson!=null and updatedPerson!=''">AND t.f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+	
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.materId!=null">AND t.f_mater_id = #{whereCondition.materId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.materCode!=null and whereCondition.materCode!=''">AND t.f_mater_code like #{whereCondition.materCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.materName!=null and whereCondition.materName!=''">AND t.f_mater_name like #{whereCondition.materNameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.materVersionId!=null">AND t.f_mater_version_id = #{whereCondition.materVersionId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.materVersion!=null and whereCondition.materVersion!=''">AND t.f_mater_version like #{whereCondition.materVersionByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.materCigbrandId!=null">AND t.f_mater_cigbrand_id = #{whereCondition.materCigbrandId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.materCigbrand!=null and whereCondition.materCigbrand!=''">AND t.f_mater_cigbrand like #{whereCondition.materCigbrandByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.totalCount!=null">AND t.f_total_count = #{whereCondition.totalCount,jdbcType=DECIMAL}</if>
+				<if test="whereCondition.createdDate!=null">AND t.f_created_date = #{whereCondition.createdDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdPersonId!=null">AND t.f_created_person_id = #{whereCondition.createdPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.createdPerson!=null and whereCondition.createdPerson!=''">AND t.f_created_person like #{whereCondition.createdPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.updatedDate!=null">AND t.f_updated_date = #{whereCondition.updatedDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.updatedPersonId!=null">AND t.f_updated_person_id = #{whereCondition.updatedPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.updatedPerson!=null and whereCondition.updatedPerson!=''">AND t.f_updated_person like #{whereCondition.updatedPersonByLike,jdbcType=VARCHAR}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+						t.f_mater_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_mater_name like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_mater_version like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_mater_cigbrand like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_created_person like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_updated_person like #{keyWordByLike,jdbcType=VARCHAR} 
+					)
+			</if>
+			<if test="startTime!=null and startTime!=''">AND t.f_created_date &gt;= #{startTime}</if>
+			<if test="endTime!=null and endTime!=''">AND t.f_created_date &lt;= #{endTime}</if>
+		</where>
+	</sql>
+	
+	<!-- 分页查询库存,库存明细,货位托盘 -->
+	<select id="queryInAllByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseInAllMap">
+		SELECT
+			invdl.f_quality,invdl.f_tray_rfid,invdl.f_local_id,invdl.f_local_code,
+			invdl.f_local_rfid,invdl.f_status,invdl.f_out_date,invdl.f_tray_code,
+			invdl.f_sole_code,invdl.f_id as localmapId,
+			inv.f_mater_id,inv.f_mater_code,inv.f_mater_name,inv.f_cigtype,
+			inv.f_mater_version_id,inv.f_mater_version,inv.f_mater_cigbrand_id,
+			inv.f_mater_cigbrand,inv.f_total_count,inv.f_created_date,inv.f_created_person_id,
+			inv.f_created_person,inv.f_updated_date,inv.f_updated_person_id,inv.f_updated_person,
+			inv.f_subver_id,inv.f_subver_name,
+			invd.f_id,invd.f_batch_no,invd.f_invent_quality,invd.f_out_quality,invd.f_surplus_quality,
+			invd.f_outof_quality,invd.f_produce_date
+			FROM
+			t_ware_inventorymain AS inv
+			LEFT JOIN t_ware_inventorydetail AS invd ON inv.f_id = invd.f_main_id
+			LEFT JOIN t_ware_inventorytraylocalmap AS invdl ON invd.f_id = invdl.f_detail_id
+			<where>
+				1=1
+				<if test="whereCondition!=null">
+					<if test="whereCondition.materCode!=null and whereCondition.materCode!=''">AND inv.f_mater_code like #{whereCondition.materCodeByLike,jdbcType=VARCHAR}</if>
+					<if test="whereCondition.materName!=null and whereCondition.materName!=''">AND inv.f_mater_name like #{whereCondition.materNameByLike,jdbcType=VARCHAR}</if>
+				
+				</if>
+				<if test="keyWord!=null and keyWord!=''">
+					AND (
+							inv.f_mater_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+							inv.f_mater_name like #{keyWordByLike,jdbcType=VARCHAR}  
+						)
+				</if>
+			</where>
+		<choose>
+			<when test="orderField==null">
+				ORDER BY inv.f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryInAllCount" resultType="int"
+		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)  
+			FROM
+			t_ware_inventorymain AS inv
+			LEFT JOIN t_ware_inventorydetail AS invd ON inv.f_id = invd.f_main_id
+			LEFT JOIN t_ware_inventorytraylocalmap AS invdl ON invd.f_id = invdl.f_detail_id
+		    <where>
+				1=1
+				<if test="whereCondition!=null">
+					<if test="whereCondition.materCode!=null and whereCondition.materCode!=''">AND inv.f_mater_code like #{whereCondition.materCodeByLike,jdbcType=VARCHAR}</if>
+					<if test="whereCondition.materName!=null and whereCondition.materName!=''">AND inv.f_mater_name like #{whereCondition.materNameByLike,jdbcType=VARCHAR}</if>
+				
+				</if>
+				<if test="keyWord!=null and keyWord!=''">
+					AND (
+							inv.f_mater_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+							inv.f_mater_name like #{keyWordByLike,jdbcType=VARCHAR}  
+						)
+				</if>
+			</where>
+	</select>
+	
+	<!-- 根据库存主表ID查询库存明细、尾盘和货位托盘详情 -->
+	<select id="queryInAllbyId" parameterType="int"
+		resultMap="BaseResultInAllMap">
+		(SELECT
+		    0    as  nameType,
+			invdl.f_id AS localmapId,
+			invdl.f_quality,
+			invdl.f_tray_rfid,
+			invdl.f_local_id,
+			invdl.f_local_code,
+			(SELECT t2.f_descript FROM t_ware_inventorytraylocalmap as t1 
+            LEFT JOIN t_base_locationinfo as t2 on t1.f_local_code=t2.f_local_code
+            WHERE t1.f_local_code=invdl.f_local_code LIMIT 1) as descript,
+			invdl.f_local_rfid,
+			invdl.f_status,
+			invdl.f_out_date,
+			invdl.f_tray_code,
+			invdl.f_sole_code,
+			invd.f_id AS detailId,
+			invd.f_batch_no,
+			invd.f_invent_quality,
+			invd.f_out_quality,
+			invd.f_surplus_quality,
+			invd.f_outof_quality,
+			invd.f_produce_date,
+			invd.f_cigtype
+			FROM
+				t_ware_inventorydetail AS invd
+			LEFT JOIN t_ware_inventorytraylocalmap AS invdl ON invd.f_id = invdl.f_detail_id
+			WHERE  invd.f_main_id = #{id})
+			UNION 
+		(SELECT 
+		      1    as  nameType,
+			  NULL as  localmapId,
+			  NULL as  f_quality,
+			  NULL as  f_tray_rfid,
+			  NULL as  f_local_id,
+			  NULL as  f_local_code,
+              NULL as  descript,
+			  NULL as  f_local_rfid,
+			  NULL as  f_status,
+			  NULL as  f_out_date,
+			  NULL as  f_tray_code,
+			  NULL as  f_sole_code,
+			  FLOOR(RAND() * 10000)  as detailId,
+			  NULL as f_batch_no,
+			  NULL as f_invent_quality,
+			  NULL as f_out_quality,
+			  w1.f_quality as f_surplus_quality,
+			  w1.f_outof_quality as f_outof_quality,
+			  NULL as f_produce_date,
+			  w1.f_cigtype as f_cigtype
+			FROM t_ware_lefttray w1 LEFT JOIN t_ware_inventorydetail w2 on w1.f_mater_code=w2.f_mater_code
+			WHERE w2.f_main_id=#{id}
+			GROUP BY w1.f_id)
+			ORDER BY detailId 
+	</select>
+	
+	<!-- 查询库存,库存明细,货位托盘 -->
+	<select id="queryInAll" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseInAllMap">
+		SELECT
+			inv.f_id,
+			inv.f_mater_id,
+			inv.f_mater_code,
+			inv.f_mater_name,
+			inv.f_mater_version_id,
+			inv.f_mater_version,
+			inv.f_mater_cigbrand_id,
+			inv.f_mater_cigbrand,
+			inv.f_total_count,
+			inv.f_lock_stock,
+			(inv.f_total_count-inv.f_lock_stock) as availableStocks,
+			inv.f_created_date,
+			inv.f_created_person_id,
+			inv.f_created_person,
+			inv.f_updated_date,
+			inv.f_updated_person_id,
+			inv.f_updated_person,
+			inv.f_cigtype,
+		    inv.f_subver_id,inv.f_subver_name,
+			invd.f_id as detailId,invd.f_batch_no,invd.f_invent_quality,invd.f_out_quality,invd.f_surplus_quality,
+			invd.f_outof_quality,invd.f_produce_date,
+			invdl.f_id as localmapId,invdl.f_quality,invdl.f_tray_rfid,invdl.f_local_id,invdl.f_local_code,
+			(SELECT t2.f_descript FROM t_ware_inventorytraylocalmap as t1 
+	        LEFT JOIN t_base_locationinfo as t2 on t1.f_local_code=t2.f_local_code
+	        WHERE t1.f_local_code=invdl.f_local_code LIMIT 1) as descript,
+			invdl.f_local_rfid,invdl.f_status,invdl.f_out_date,invdl.f_tray_code,
+			invdl.f_sole_code
+			FROM
+			t_ware_inventorymain AS inv
+			LEFT JOIN t_ware_inventorydetail AS invd ON inv.f_id = invd.f_main_id
+			LEFT JOIN t_ware_inventorytraylocalmap AS invdl ON invd.f_id = invdl.f_detail_id
+			LEFT JOIN t_ware_lefttray w  ON inv.f_mater_code=w.f_mater_code
+            ORDER BY inv.f_created_date DESC
+	</select>
+	
+</mapper>
+
