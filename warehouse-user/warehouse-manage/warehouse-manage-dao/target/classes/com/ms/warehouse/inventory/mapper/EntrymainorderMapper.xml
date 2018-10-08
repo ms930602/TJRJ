@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.inventory.mapper.EntrymainorderMapper">
+
+	<!-- 结果Map -->
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.inventory.entity.EntrymainorderEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="orderNumber" jdbcType="VARCHAR" column="f_order_number"/>
+		<result property="shipmentNumber" jdbcType="VARCHAR" column="f_shipment_number"/>
+		<result property="shipmentDate" jdbcType="TIMESTAMP" column="f_shipment_date"/>
+		<result property="plateNumber" jdbcType="VARCHAR" column="f_plate_number"/>
+		<result property="totalQuality" jdbcType="DECIMAL" column="f_total_quality"/>
+		<result property="deliveryDate" jdbcType="TIMESTAMP" column="f_delivery_date"/>
+		<result property="transportType" jdbcType="VARCHAR" column="f_transport_type"/>
+		<result property="carrier" jdbcType="VARCHAR" column="f_carrier"/>
+		<result property="phoneNumber" jdbcType="VARCHAR" column="f_phone_number"/>
+		<result property="carrierUnit" jdbcType="VARCHAR" column="f_carrier_unit"/>
+		<result property="carrierUnitCode" jdbcType="VARCHAR" column="f_carrier_unit_code"/>
+		<result property="reservationDate" jdbcType="TIMESTAMP" column="f_reservation_date"/>
+		<result property="shipmentRemark" jdbcType="VARCHAR" column="f_shipment_remark"/>
+		<result property="contractNumber" jdbcType="VARCHAR" column="f_contract_number"/>
+		<result property="contractDate" jdbcType="TIMESTAMP" column="f_contract_date"/>
+		<result property="originWarehouseCode" jdbcType="VARCHAR" column="f_origin_warehouse_code"/>
+		<result property="originWarehouseName" jdbcType="VARCHAR" column="f_origin_warehouse_name"/>
+		<result property="intoWarehouseCode" jdbcType="VARCHAR" column="f_into_warehouse_code"/>
+		<result property="intoWarehouseName" jdbcType="VARCHAR" column="f_into_warehouse_name"/>
+		<result property="deliveryRequire" jdbcType="VARCHAR" column="f_delivery_require"/>
+		<result property="remark" jdbcType="VARCHAR" column="f_remark"/>
+		<result property="entryCompliteDate" jdbcType="TIMESTAMP" column="f_entry_complite_date"/>
+		<result property="status" jdbcType="INTEGER" column="f_status"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPersonId" jdbcType="INTEGER" column="f_created_person_id"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPersonId" jdbcType="INTEGER" column="f_updated_person_id"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+		<result property="entryChannelCode" jdbcType="VARCHAR" column="f_entry_channel_code"/>
+		<result property="transportCode" jdbcType="VARCHAR" column="f_transport_code"/>
+		<result property="isDelete" jdbcType="TINYINT" column="f_is_delete"/>
+	
+
+		<result property="materCode" jdbcType="VARCHAR" column="f_mater_code"/>
+		<result property="materName" jdbcType="VARCHAR" column="f_mater_name"/>
+		<result property="quality" jdbcType="DECIMAL" column="f_quality"/>
+		<result property="batchNo" jdbcType="VARCHAR" column="f_batch_no"/>
+		<result property="materVersion" jdbcType="VARCHAR" column="f_mater_version"/>
+		<result property="materCigbrand" jdbcType="VARCHAR" column="f_mater_cigbrand"/>
+		<result property="actualQuality" jdbcType="DECIMAL" column="f_actual_quality"/>
+		<result property="produceDate" jdbcType="TIMESTAMP" column="f_produce_date"/>
+	
+	    <result property="orderdetailId" jdbcType="INTEGER" column="f_orderdetail_id"/>
+		<result property="cigsmokeQuality" jdbcType="DECIMAL" column="f_cigsmoke_quality"/>
+		<result property="trayRfid" jdbcType="VARCHAR" column="f_tray_rfid"/>
+		<result property="localId" jdbcType="INTEGER" column="f_local_id"/>
+		<result property="localCode" jdbcType="VARCHAR" column="f_local_code"/>
+		<result property="localRfid" jdbcType="VARCHAR" column="f_local_rfid"/>
+		<result property="trayStatus" jdbcType="INTEGER" column="trayStatus"/>
+		<result property="soleCode" jdbcType="VARCHAR" column="f_sole_code"/>
+		<result property="trayCode" jdbcType="VARCHAR" column="f_tray_code"/>
+		<result property="wareMethod" jdbcType="INTEGER" column="f_ware_method"/>
+		<result property="blStatus" jdbcType="INTEGER" column="blStatus"/>
+		<result property="subverId" jdbcType="INTEGER" column="f_subver_id"/>
+		<result property="subverName" jdbcType="VARCHAR" column="f_subver_name"/>
+		
+		<!-- <result property="realinQuality" jdbcType="VARCHAR" column="f_realin_quality"/> -->
+		<result property="orignMethod" jdbcType="INTEGER" column="f_orign_method"/>
+	</resultMap>
+
+	<!-- 查询列 -->
+	<sql id="BaseColumnList">
+		f_id,f_order_number,f_shipment_number,f_shipment_date,f_plate_number,f_total_quality,f_delivery_date,f_transport_type,f_carrier,f_phone_number,f_carrier_unit,f_carrier_unit_code,f_reservation_date,f_shipment_remark,f_contract_number,f_contract_date,f_origin_warehouse_code,f_origin_warehouse_name,f_into_warehouse_code,f_into_warehouse_name,f_delivery_require,f_remark,f_entry_complite_date,f_status,f_created_date,f_created_person_id,f_created_person,f_updated_date,f_updated_person_id,f_updated_person,f_entry_channel_code,f_transport_code,f_is_delete,f_orign_method
+	</sql>
+
+	<!--创建记录 -->
+	<insert id="create" parameterType="com.ms.warehouse.inventory.entity.EntrymainorderEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_ware_entrymainorder
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="orderNumber!=null">f_order_number,</if>
+			<if test="shipmentNumber!=null">f_shipment_number,</if>
+			<if test="shipmentDate!=null">f_shipment_date,</if>
+			<if test="plateNumber!=null">f_plate_number,</if>
+			<if test="totalQuality!=null">f_total_quality,</if>
+			<if test="deliveryDate!=null">f_delivery_date,</if>
+			<if test="transportType!=null">f_transport_type,</if>
+			<if test="carrier!=null">f_carrier,</if>
+			<if test="phoneNumber!=null">f_phone_number,</if>
+			<if test="carrierUnit!=null">f_carrier_unit,</if>
+			<if test="carrierUnitCode!=null">f_carrier_unit_code,</if>
+			<if test="reservationDate!=null">f_reservation_date,</if>
+			<if test="shipmentRemark!=null">f_shipment_remark,</if>
+			<if test="contractNumber!=null">f_contract_number,</if>
+			<if test="contractDate!=null">f_contract_date,</if>
+			<if test="originWarehouseCode!=null">f_origin_warehouse_code,</if>
+			<if test="originWarehouseName!=null">f_origin_warehouse_name,</if>
+			<if test="intoWarehouseCode!=null">f_into_warehouse_code,</if>
+			<if test="intoWarehouseName!=null">f_into_warehouse_name,</if>
+			<if test="deliveryRequire!=null">f_delivery_require,</if>
+			<if test="remark!=null">f_remark,</if>
+			<if test="entryCompliteDate!=null">f_entry_complite_date,</if>
+			<if test="status!=null">f_status,</if>
+			<if test="createdDate!=null">f_created_date,</if>
+			<if test="createdPersonId!=null">f_created_person_id,</if>
+			<if test="createdPerson!=null">f_created_person,</if>
+			<if test="updatedDate!=null">f_updated_date,</if>
+			<if test="updatedPersonId!=null">f_updated_person_id,</if>
+			<if test="updatedPerson!=null">f_updated_person,</if>
+			<if test="entryChannelCode!=null">f_entry_channel_code,</if>
+			<if test="transportCode!=null">f_transport_code,</if>
+			<if test="isDelete!=null">f_is_delete,</if>
+			<if test="orignMethod!=null">f_orign_method</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			<if test="orderNumber!=null">#{orderNumber,jdbcType=VARCHAR},</if>
+			<if test="shipmentNumber!=null">#{shipmentNumber,jdbcType=VARCHAR},</if>
+			<if test="shipmentDate!=null">#{shipmentDate,jdbcType=TIMESTAMP},</if>
+			<if test="plateNumber!=null">#{plateNumber,jdbcType=VARCHAR},</if>
+			<if test="totalQuality!=null">#{totalQuality,jdbcType=DECIMAL},</if>
+			<if test="deliveryDate!=null">#{deliveryDate,jdbcType=TIMESTAMP},</if>
+			<if test="transportType!=null">#{transportType,jdbcType=VARCHAR},</if>
+			<if test="carrier!=null">#{carrier,jdbcType=VARCHAR},</if>
+			<if test="phoneNumber!=null">#{phoneNumber,jdbcType=VARCHAR},</if>
+			<if test="carrierUnit!=null">#{carrierUnit,jdbcType=VARCHAR},</if>
+			<if test="carrierUnitCode!=null">#{carrierUnitCode,jdbcType=VARCHAR},</if>
+			<if test="reservationDate!=null">#{reservationDate,jdbcType=TIMESTAMP},</if>
+			<if test="shipmentRemark!=null">#{shipmentRemark,jdbcType=VARCHAR},</if>
+			<if test="contractNumber!=null">#{contractNumber,jdbcType=VARCHAR},</if>
+			<if test="contractDate!=null">#{contractDate,jdbcType=TIMESTAMP},</if>
+			<if test="originWarehouseCode!=null">#{originWarehouseCode,jdbcType=VARCHAR},</if>
+			<if test="originWarehouseName!=null">#{originWarehouseName,jdbcType=VARCHAR},</if>
+			<if test="intoWarehouseCode!=null">#{intoWarehouseCode,jdbcType=VARCHAR},</if>
+			<if test="intoWarehouseName!=null">#{intoWarehouseName,jdbcType=VARCHAR},</if>
+			<if test="deliveryRequire!=null">#{deliveryRequire,jdbcType=VARCHAR},</if>
+			<if test="remark!=null">#{remark,jdbcType=VARCHAR},</if>
+			<if test="entryCompliteDate!=null">#{entryCompliteDate,jdbcType=TIMESTAMP},</if>
+			<if test="status!=null">#{status,jdbcType=INTEGER},</if>
+			<if test="createdDate!=null">#{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">#{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">#{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">#{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">#{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">#{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="entryChannelCode!=null">#{entryChannelCode,jdbcType=VARCHAR},</if>
+			<if test="transportCode!=null">#{transportCode,jdbcType=VARCHAR},</if>
+			<if test="isDelete!=null">#{isDelete,jdbcType=TINYINT},</if>
+			<if test="orignMethod!=null">#{orignMethod,jdbcType=INTEGER}</if>
+		</trim>
+	</insert>
+
+	<!--批量创建记录 -->
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		<foreach collection="list" item="item" index="index" separator=";">
+			INSERT INTO t_ware_entrymainorder
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="item.orderNumber!=null">f_order_number,</if>
+				<if test="item.shipmentNumber!=null">f_shipment_number,</if>
+				<if test="item.shipmentDate!=null">f_shipment_date,</if>
+				<if test="item.plateNumber!=null">f_plate_number,</if>
+				<if test="item.totalQuality!=null">f_total_quality,</if>
+				<if test="item.deliveryDate!=null">f_delivery_date,</if>
+				<if test="item.transportType!=null">f_transport_type,</if>
+				<if test="item.carrier!=null">f_carrier,</if>
+				<if test="item.phoneNumber!=null">f_phone_number,</if>
+				<if test="item.carrierUnit!=null">f_carrier_unit,</if>
+				<if test="item.carrierUnitCode!=null">f_carrier_unit_code,</if>
+				<if test="item.reservationDate!=null">f_reservation_date,</if>
+				<if test="item.shipmentRemark!=null">f_shipment_remark,</if>
+				<if test="item.contractNumber!=null">f_contract_number,</if>
+				<if test="item.contractDate!=null">f_contract_date,</if>
+				<if test="item.originWarehouseCode!=null">f_origin_warehouse_code,</if>
+				<if test="item.originWarehouseName!=null">f_origin_warehouse_name,</if>
+				<if test="item.intoWarehouseCode!=null">f_into_warehouse_code,</if>
+				<if test="item.intoWarehouseName!=null">f_into_warehouse_name,</if>
+				<if test="item.deliveryRequire!=null">f_delivery_require,</if>
+				<if test="item.remark!=null">f_remark,</if>
+				<if test="item.entryCompliteDate!=null">f_entry_complite_date,</if>
+				<if test="item.status!=null">f_status,</if>
+				<if test="item.createdDate!=null">f_created_date,</if>
+				<if test="item.createdPersonId!=null">f_created_person_id,</if>
+				<if test="item.createdPerson!=null">f_created_person,</if>
+				<if test="item.updatedDate!=null">f_updated_date,</if>
+				<if test="item.updatedPersonId!=null">f_updated_person_id,</if>
+				<if test="item.updatedPerson!=null">f_updated_person,</if>
+				<if test="item.entryChannelCode!=null">f_entry_channel_code,</if>
+				<if test="item.transportCode!=null">f_transport_code,</if>
+					<if test="item.isDelete!=null">f_is_delete,</if>
+					<if test="item.orignMethod!=null">f_orign_method</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+				<if test="item.orderNumber!=null">#{item.orderNumber,jdbcType=VARCHAR},</if>
+				<if test="item.shipmentNumber!=null">#{item.shipmentNumber,jdbcType=VARCHAR},</if>
+				<if test="item.shipmentDate!=null">#{item.shipmentDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.plateNumber!=null">#{item.plateNumber,jdbcType=VARCHAR},</if>
+				<if test="item.totalQuality!=null">#{item.totalQuality,jdbcType=DECIMAL},</if>
+				<if test="item.deliveryDate!=null">#{item.deliveryDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.transportType!=null">#{item.transportType,jdbcType=VARCHAR},</if>
+				<if test="item.carrier!=null">#{item.carrier,jdbcType=VARCHAR},</if>
+				<if test="item.phoneNumber!=null">#{item.phoneNumber,jdbcType=VARCHAR},</if>
+				<if test="item.carrierUnit!=null">#{item.carrierUnit,jdbcType=VARCHAR},</if>
+				<if test="item.carrierUnitCode!=null">#{item.carrierUnitCode,jdbcType=VARCHAR},</if>
+				<if test="item.reservationDate!=null">#{item.reservationDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.shipmentRemark!=null">#{item.shipmentRemark,jdbcType=VARCHAR},</if>
+				<if test="item.contractNumber!=null">#{item.contractNumber,jdbcType=VARCHAR},</if>
+				<if test="item.contractDate!=null">#{item.contractDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.originWarehouseCode!=null">#{item.originWarehouseCode,jdbcType=VARCHAR},</if>
+				<if test="item.originWarehouseName!=null">#{item.originWarehouseName,jdbcType=VARCHAR},</if>
+				<if test="item.intoWarehouseCode!=null">#{item.intoWarehouseCode,jdbcType=VARCHAR},</if>
+				<if test="item.intoWarehouseName!=null">#{item.intoWarehouseName,jdbcType=VARCHAR},</if>
+				<if test="item.deliveryRequire!=null">#{item.deliveryRequire,jdbcType=VARCHAR},</if>
+				<if test="item.remark!=null">#{item.remark,jdbcType=VARCHAR},</if>
+				<if test="item.entryCompliteDate!=null">#{item.entryCompliteDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.status!=null">#{item.status,jdbcType=INTEGER},</if>
+				<if test="item.createdDate!=null">#{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPersonId!=null">#{item.createdPersonId,jdbcType=INTEGER},</if>
+				<if test="item.createdPerson!=null">#{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">#{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPersonId!=null">#{item.updatedPersonId,jdbcType=INTEGER},</if>
+				<if test="item.updatedPerson!=null">#{item.updatedPerson,jdbcType=VARCHAR},</if>
+				<if test="item.entryChannelCode!=null">#{item.entryChannelCode,jdbcType=VARCHAR},</if>
+				<if test="item.transportCode!=null">#{item.transportCode,jdbcType=VARCHAR},</if>
+					<if test="item.isDelete!=null">#{item.isDelete,jdbcType=TINYINT},</if>
+					<if test="item.orignMethod!=null">#{item.orignMethod,jdbcType=INTEGER}</if>
+			</trim>
+		</foreach>
+	</insert>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.ms.warehouse.inventory.entity.EntrymainorderEntity">
+		UPDATE t_ware_entrymainorder
+		<set>
+			<if test="orderNumber!=null">f_order_number = #{orderNumber,jdbcType=VARCHAR},</if>
+			<if test="shipmentNumber!=null">f_shipment_number = #{shipmentNumber,jdbcType=VARCHAR},</if>
+			<if test="shipmentDate!=null">f_shipment_date = #{shipmentDate,jdbcType=TIMESTAMP},</if>
+			<if test="plateNumber!=null">f_plate_number = #{plateNumber,jdbcType=VARCHAR},</if>
+			<if test="totalQuality!=null">f_total_quality = #{totalQuality,jdbcType=DECIMAL},</if>
+			<if test="deliveryDate!=null">f_delivery_date = #{deliveryDate,jdbcType=TIMESTAMP},</if>
+			<if test="transportType!=null">f_transport_type = #{transportType,jdbcType=VARCHAR},</if>
+			<if test="carrier!=null">f_carrier = #{carrier,jdbcType=VARCHAR},</if>
+			<if test="phoneNumber!=null">f_phone_number = #{phoneNumber,jdbcType=VARCHAR},</if>
+			<if test="carrierUnit!=null">f_carrier_unit = #{carrierUnit,jdbcType=VARCHAR},</if>
+			<if test="carrierUnitCode!=null">f_carrier_unit_code = #{carrierUnitCode,jdbcType=VARCHAR},</if>
+			<if test="reservationDate!=null">f_reservation_date = #{reservationDate,jdbcType=TIMESTAMP},</if>
+			<if test="shipmentRemark!=null">f_shipment_remark = #{shipmentRemark,jdbcType=VARCHAR},</if>
+			<if test="contractNumber!=null">f_contract_number = #{contractNumber,jdbcType=VARCHAR},</if>
+			<if test="contractDate!=null">f_contract_date = #{contractDate,jdbcType=TIMESTAMP},</if>
+			<if test="originWarehouseCode!=null">f_origin_warehouse_code = #{originWarehouseCode,jdbcType=VARCHAR},</if>
+			<if test="originWarehouseName!=null">f_origin_warehouse_name = #{originWarehouseName,jdbcType=VARCHAR},</if>
+			<if test="intoWarehouseCode!=null">f_into_warehouse_code = #{intoWarehouseCode,jdbcType=VARCHAR},</if>
+			<if test="intoWarehouseName!=null">f_into_warehouse_name = #{intoWarehouseName,jdbcType=VARCHAR},</if>
+			<if test="deliveryRequire!=null">f_delivery_require = #{deliveryRequire,jdbcType=VARCHAR},</if>
+			<if test="remark!=null">f_remark = #{remark,jdbcType=VARCHAR},</if>
+			<if test="entryCompliteDate!=null">f_entry_complite_date = #{entryCompliteDate,jdbcType=TIMESTAMP},</if>
+			<if test="status!=null">f_status = #{status,jdbcType=INTEGER},</if>
+			<if test="createdDate!=null">f_created_date = #{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">f_created_person_id = #{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">f_created_person = #{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">f_updated_date = #{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">f_updated_person = #{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="entryChannelCode!=null">f_entry_channel_code = #{entryChannelCode,jdbcType=VARCHAR},</if>
+			<if test="transportCode!=null">f_transport_code = #{transportCode,jdbcType=VARCHAR},</if>
+			<if test="isDelete!=null">f_is_delete = #{isDelete,jdbcType=TINYINT},</if>
+			<if test="orignMethod!=null">f_orign_method = #{orignMethod,jdbcType=INTEGER}</if>
+		</set>
+		<where>
+			f_id  = #{id}
+		</where>
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_ware_entrymainorder
+			<set>
+				<if test="item.orderNumber!=null">f_order_number = #{item.orderNumber,jdbcType=VARCHAR},</if>
+				<if test="item.shipmentNumber!=null">f_shipment_number = #{item.shipmentNumber,jdbcType=VARCHAR},</if>
+				<if test="item.shipmentDate!=null">f_shipment_date = #{item.shipmentDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.plateNumber!=null">f_plate_number = #{item.plateNumber,jdbcType=VARCHAR},</if>
+				<if test="item.totalQuality!=null">f_total_quality = #{item.totalQuality,jdbcType=DECIMAL},</if>
+				<if test="item.deliveryDate!=null">f_delivery_date = #{item.deliveryDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.transportType!=null">f_transport_type = #{item.transportType,jdbcType=VARCHAR},</if>
+				<if test="item.carrier!=null">f_carrier = #{item.carrier,jdbcType=VARCHAR},</if>
+				<if test="item.phoneNumber!=null">f_phone_number = #{item.phoneNumber,jdbcType=VARCHAR},</if>
+				<if test="item.carrierUnit!=null">f_carrier_unit = #{item.carrierUnit,jdbcType=VARCHAR},</if>
+				<if test="item.carrierUnitCode!=null">f_carrier_unit_code = #{item.carrierUnitCode,jdbcType=VARCHAR},</if>
+				<if test="item.reservationDate!=null">f_reservation_date = #{item.reservationDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.shipmentRemark!=null">f_shipment_remark = #{item.shipmentRemark,jdbcType=VARCHAR},</if>
+				<if test="item.contractNumber!=null">f_contract_number = #{item.contractNumber,jdbcType=VARCHAR},</if>
+				<if test="item.contractDate!=null">f_contract_date = #{item.contractDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.originWarehouseCode!=null">f_origin_warehouse_code = #{item.originWarehouseCode,jdbcType=VARCHAR},</if>
+				<if test="item.originWarehouseName!=null">f_origin_warehouse_name = #{item.originWarehouseName,jdbcType=VARCHAR},</if>
+				<if test="item.intoWarehouseCode!=null">f_into_warehouse_code = #{item.intoWarehouseCode,jdbcType=VARCHAR},</if>
+				<if test="item.intoWarehouseName!=null">f_into_warehouse_name = #{item.intoWarehouseName,jdbcType=VARCHAR},</if>
+				<if test="item.deliveryRequire!=null">f_delivery_require = #{item.deliveryRequire,jdbcType=VARCHAR},</if>
+				<if test="item.remark!=null">f_remark = #{item.remark,jdbcType=VARCHAR},</if>
+				<if test="item.entryCompliteDate!=null">f_entry_complite_date = #{item.entryCompliteDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.status!=null">f_status = #{item.status,jdbcType=INTEGER},</if>
+				<if test="item.createdDate!=null">f_created_date = #{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPersonId!=null">f_created_person_id = #{item.createdPersonId,jdbcType=INTEGER},</if>
+				<if test="item.createdPerson!=null">f_created_person = #{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">f_updated_date = #{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPersonId!=null">f_updated_person_id = #{item.updatedPersonId,jdbcType=INTEGER},</if>
+				<if test="item.updatedPerson!=null">f_updated_person = #{item.updatedPerson,jdbcType=VARCHAR},</if>
+				<if test="item.entryChannelCode!=null">f_entry_channel_code = #{item.entryChannelCode,jdbcType=VARCHAR},</if>
+				<if test="item.transportCode!=null">f_transport_code = #{item.transportCode,jdbcType=VARCHAR},</if>
+				<if test="item.isDelete!=null">f_is_delete = #{item.isDelete,jdbcType=TINYINT},</if>
+				<if test="item.orignMethod!=null">f_orign_method = #{item.orignMethod,jdbcType=INTEGER}</if>
+			</set>
+			<where>
+				f_id  = #{item.id}
+			</where>
+		</foreach>
+	</update>
+
+
+	<!-- 按ID查询记录 -->
+	<select id="queryById" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_ware_entrymainorder
+		WHERE f_id  = #{id}
+	</select>
+	<!-- 按条件查询记录 -->
+	<select id="selectEntrymainorderList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_ware_entrymainorder
+		<where>
+		     <if test="status1 !=null and status2 !=null">
+		          and f_status in (#{status1,jdbcType=INTEGER},#{status2,jdbcType=INTEGER})
+		     </if>
+		</where>
+	</select>
+	<!-- 按Id删除 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_ware_entrymainorder WHERE f_id  = #{id}
+	</delete>
+
+	<!-- 按Id批量删除 -->
+	<delete id="batchDeleteById" parameterType="Long[]">
+		DELETE FROM t_ware_entrymainorder WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</delete>
+
+
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="orderNumber!=null and orderNumber!=''">AND t.f_order_number = #{orderNumber,jdbcType=VARCHAR}</if>
+			<if test="shipmentNumber!=null and shipmentNumber!=''">AND t.f_shipment_number = #{shipmentNumber,jdbcType=VARCHAR}</if>
+			<if test="shipmentDate!=null">AND t.f_shipment_date = #{shipmentDate,jdbcType=TIMESTAMP}</if>
+			<if test="plateNumber!=null and plateNumber!=''">AND t.f_plate_number = #{plateNumber,jdbcType=VARCHAR}</if>
+			<if test="totalQuality!=null">AND t.f_total_quality = #{totalQuality,jdbcType=DECIMAL}</if>
+			<if test="deliveryDate!=null">AND t.f_delivery_date = #{deliveryDate,jdbcType=TIMESTAMP}</if>
+			<if test="transportType!=null and transportType!=''">AND t.f_transport_type = #{transportType,jdbcType=VARCHAR}</if>
+			<if test="carrier!=null and carrier!=''">AND t.f_carrier = #{carrier,jdbcType=VARCHAR}</if>
+			<if test="phoneNumber!=null and phoneNumber!=''">AND t.f_phone_number = #{phoneNumber,jdbcType=VARCHAR}</if>
+			<if test="carrierUnit!=null and carrierUnit!=''">AND t.f_carrier_unit = #{carrierUnit,jdbcType=VARCHAR}</if>
+			<if test="carrierUnitCode!=null and carrierUnitCode!=''">AND t.f_carrier_unit_code = #{carrierUnitCode,jdbcType=VARCHAR}</if>
+			<if test="reservationDate!=null">AND t.f_reservation_date = #{reservationDate,jdbcType=TIMESTAMP}</if>
+			<if test="shipmentRemark!=null and shipmentRemark!=''">AND t.f_shipment_remark = #{shipmentRemark,jdbcType=VARCHAR}</if>
+			<if test="contractNumber!=null and contractNumber!=''">AND t.f_contract_number = #{contractNumber,jdbcType=VARCHAR}</if>
+			<if test="contractDate!=null">AND t.f_contract_date = #{contractDate,jdbcType=TIMESTAMP}</if>
+			<if test="originWarehouseCode!=null and originWarehouseCode!=''">AND t.f_origin_warehouse_code = #{originWarehouseCode,jdbcType=VARCHAR}</if>
+			<if test="originWarehouseName!=null and originWarehouseName!=''">AND t.f_origin_warehouse_name = #{originWarehouseName,jdbcType=VARCHAR}</if>
+			<if test="intoWarehouseCode!=null and intoWarehouseCode!=''">AND t.f_into_warehouse_code = #{intoWarehouseCode,jdbcType=VARCHAR}</if>
+			<if test="intoWarehouseName!=null and intoWarehouseName!=''">AND t.f_into_warehouse_name = #{intoWarehouseName,jdbcType=VARCHAR}</if>
+			<if test="deliveryRequire!=null and deliveryRequire!=''">AND t.f_delivery_require = #{deliveryRequire,jdbcType=VARCHAR}</if>
+			<if test="remark!=null and remark!=''">AND t.f_remark = #{remark,jdbcType=VARCHAR}</if>
+			<if test="entryCompliteDate!=null">AND t.f_entry_complite_date = #{entryCompliteDate,jdbcType=TIMESTAMP}</if>
+			<if test="status!=null">AND t.f_status = #{status,jdbcType=INTEGER}</if>
+			<if test="createdDate!=null">AND t.f_created_date = #{createdDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdPersonId!=null">AND t.f_created_person_id = #{createdPersonId,jdbcType=INTEGER}</if>
+			<if test="createdPerson!=null and createdPerson!=''">AND t.f_created_person = #{createdPerson,jdbcType=VARCHAR}</if>
+			<if test="updatedDate!=null">AND t.f_updated_date = #{updatedDate,jdbcType=TIMESTAMP}</if>
+			<if test="updatedPersonId!=null">AND t.f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER}</if>
+			<if test="updatedPerson!=null and updatedPerson!=''">AND t.f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+			<if test="entryChannelCode!=null and entryChannelCode!=''">AND t.f_entry_channel_code = #{entryChannelCode,jdbcType=VARCHAR}</if>
+			<if test="transportCode!=null and transportCode!=''">AND t.f_transport_code = #{transportCode,jdbcType=VARCHAR}</if>
+			<if test="isDelete!=null">AND t.f_is_delete = #{isDelete,jdbcType=TINYINT}</if>
+			<if test="orignMethod!=null">AND t.f_orign_method = #{orignMethod,jdbcType=INTEGER}</if>
+		</where>
+	</sql>
+
+	<sql id="queryFrom">
+		FROM t_ware_entrymainorder
+	</sql>
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.orderNumber!=null and whereCondition.orderNumber!=''">AND t.f_order_number like #{whereCondition.orderNumberByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.shipmentNumber!=null and whereCondition.shipmentNumber!=''">AND t.f_shipment_number like #{whereCondition.shipmentNumberByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.shipmentDate!=null">AND t.f_shipment_date = #{whereCondition.shipmentDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.plateNumber!=null and whereCondition.plateNumber!=''">AND t.f_plate_number like #{whereCondition.plateNumberByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.totalQuality!=null">AND t.f_total_quality = #{whereCondition.totalQuality,jdbcType=DECIMAL}</if>
+				<if test="whereCondition.deliveryDate!=null">AND t.f_delivery_date = #{whereCondition.deliveryDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.transportType!=null and whereCondition.transportType!=''">AND t.f_transport_type like #{whereCondition.transportTypeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.carrier!=null and whereCondition.carrier!=''">AND t.f_carrier like #{whereCondition.carrierByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.phoneNumber!=null and whereCondition.phoneNumber!=''">AND t.f_phone_number like #{whereCondition.phoneNumberByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.carrierUnit!=null and whereCondition.carrierUnit!=''">AND t.f_carrier_unit like #{whereCondition.carrierUnitByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.carrierUnitCode!=null and whereCondition.carrierUnitCode!=''">AND t.f_carrier_unit_code like #{whereCondition.carrierUnitCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.reservationDate!=null">AND t.f_reservation_date = #{whereCondition.reservationDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.shipmentRemark!=null and whereCondition.shipmentRemark!=''">AND t.f_shipment_remark like #{whereCondition.shipmentRemarkByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.contractNumber!=null and whereCondition.contractNumber!=''">AND t.f_contract_number like #{whereCondition.contractNumberByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.contractDate!=null">AND t.f_contract_date = #{whereCondition.contractDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.originWarehouseCode!=null and whereCondition.originWarehouseCode!=''">AND t.f_origin_warehouse_code like #{whereCondition.originWarehouseCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.originWarehouseName!=null and whereCondition.originWarehouseName!=''">AND t.f_origin_warehouse_name like #{whereCondition.originWarehouseNameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.intoWarehouseCode!=null and whereCondition.intoWarehouseCode!=''">AND t.f_into_warehouse_code like #{whereCondition.intoWarehouseCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.intoWarehouseName!=null and whereCondition.intoWarehouseName!=''">AND t.f_into_warehouse_name like #{whereCondition.intoWarehouseNameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.deliveryRequire!=null and whereCondition.deliveryRequire!=''">AND t.f_delivery_require like #{whereCondition.deliveryRequireByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.remark!=null and whereCondition.remark!=''">AND t.f_remark like #{whereCondition.remarkByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.entryCompliteDate!=null">AND t.f_entry_complite_date = #{whereCondition.entryCompliteDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.status!=null">AND t.f_status = #{whereCondition.status,jdbcType=INTEGER}</if>
+				<if test="whereCondition.createdDate!=null">AND t.f_created_date = #{whereCondition.createdDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdPersonId!=null">AND t.f_created_person_id = #{whereCondition.createdPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.createdPerson!=null and whereCondition.createdPerson!=''">AND t.f_created_person like #{whereCondition.createdPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.updatedDate!=null">AND t.f_updated_date = #{whereCondition.updatedDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.updatedPersonId!=null">AND t.f_updated_person_id = #{whereCondition.updatedPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.updatedPerson!=null and whereCondition.updatedPerson!=''">AND t.f_updated_person like #{whereCondition.updatedPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.entryChannelCode!=null and whereCondition.entryChannelCode!=''">AND t.f_entry_channel_code like #{whereCondition.entryChannelCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.transportCode!=null and whereCondition.transportCode!=''">AND t.f_transport_code like #{whereCondition.transportCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.isDelete!=null">AND t.f_is_delete = #{whereCondition.isDelete,jdbcType=TINYINT}</if>
+				<if test="whereCondition.orignMethod!=null">AND t.f_orign_method = #{whereCondition.orignMethod,jdbcType=INTEGER}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+				t.f_order_number like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_shipment_number like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_plate_number like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_transport_type like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_carrier like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_phone_number like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_carrier_unit like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_carrier_unit_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_shipment_remark like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_contract_number like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_origin_warehouse_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_origin_warehouse_name like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_into_warehouse_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_into_warehouse_name like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_delivery_require like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_remark like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_created_person like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_updated_person like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_entry_channel_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_transport_code like #{keyWordByLike,jdbcType=VARCHAR}
+				)
+			</if>
+			<if test="startTime!=null and startTime!=''">AND t.f_created_date &gt;= #{startTime}</if>
+			<if test="endTime!=null and endTime!=''">AND t.f_created_date &lt;= #{endTime}</if>
+		</where>
+	</sql>
+
+	<!-- 按对象查询 -->
+	<select id="queryByEntity" parameterType="com.ms.warehouse.inventory.entity.EntrymainorderEntity" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="where" />
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+			resultMap="BaseResultMap">
+		SELECT
+		<include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+		<choose>
+			<when test="orderField==null">
+				ORDER BY f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryCount" resultType="int"
+			parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+	</select>
+	
+	<!-- 根据批次号查询入库 -->
+	<select id="selectEntrymainor" parameterType="String" resultMap="BaseResultMap">
+		SELECT
+			e.f_id,
+			e.f_order_number,
+			e.f_shipment_number,
+			e.f_shipment_date,
+			e.f_plate_number,
+			e.f_total_quality,
+			e.f_delivery_date,
+			e.f_transport_type,
+			e.f_carrier,
+			e.f_phone_number,
+			e.f_carrier_unit,
+			e.f_carrier_unit_code,
+			e.f_reservation_date,
+			e.f_shipment_remark,
+			e.f_contract_number,
+			e.f_contract_date,
+			e.f_origin_warehouse_code,
+			e.f_origin_warehouse_name,
+			e.f_into_warehouse_code,
+			e.f_into_warehouse_name,
+			e.f_delivery_require,
+			e.f_remark,
+			e.f_entry_complite_date,
+			e.f_status,
+			e.f_created_date,
+			e.f_created_person_id,
+			e.f_created_person,
+			e.f_updated_date,
+			e.f_updated_person_id,
+			e.f_updated_person,
+			e.f_entry_channel_code,
+			e.f_transport_code,
+			e.f_is_delete,
+			ed.f_mater_code,
+			ed.f_mater_name,
+			ed.f_quality,
+			ed.f_batch_no,
+			ed.f_mater_version,
+			ed.f_mater_cigbrand,
+			ed.f_actual_quality,
+			ed.f_produce_date,
+			ed.f_subver_id,
+			ed.f_subver_name
+			FROM
+			t_ware_entrymainorder AS e
+			left JOIN t_ware_entryorderdetail AS ed ON e.f_id = ed.f_mainorder_id
+			WHERE ed.f_batch_no = #{batchNo}
+	</select>
+	
+	<!-- 查询记录数 -->
+	<select id="queryStaById" resultType="int"
+			parameterType="long">
+			SELECT
+				COUNT(1)
+			FROM
+				t_ware_entrytraylocalmap twl
+			WHERE
+				twl.f_orderdetail_id IN (
+					SELECT
+						twe.f_id
+					FROM
+						t_ware_entryorderdetail twe
+					WHERE
+						twe.f_mainorder_id = #{mainorderId}
+				)
+			AND twl.f_status = 0
+	</select>
+	
+	<update id="updateStatus" parameterType="java.util.HashMap">
+		   UPDATE t_ware_entrymainorder  twe 
+		   SET twe.f_status = #{status} 
+		   WHERE  twe.f_id  = #{id}
+	</update>
+	
+	<select id="checkshipmentNumber" parameterType="string" resultMap="BaseResultMap">
+		SELECT * FROM t_ware_entrymainorder WHERE f_shipment_number= #{shipmentNumber} AND f_is_delete = 0
+	</select>
+	
+	
+	<select id="checkcontractNumber" parameterType="string" resultMap="BaseResultMap">
+		SELECT * FROM t_ware_entrymainorder WHERE f_contract_number= #{contractNumber} AND f_is_delete = 0
+	</select>
+	
+	<!-- 根据托盘货位ID查询入库 -->
+	<select id="selectbytrayRfid" parameterType="String" resultMap="BaseResultMap">
+		SELECT
+			elm.f_id,e.f_order_number,e.f_shipment_number,e.f_shipment_date,e.f_plate_number,
+			e.f_total_quality,e.f_delivery_date,e.f_transport_type,e.f_carrier,e.f_phone_number,
+			e.f_carrier_unit,e.f_carrier_unit_code,e.f_reservation_date,e.f_shipment_remark,
+			e.f_contract_number,e.f_contract_date,e.f_origin_warehouse_code,e.f_origin_warehouse_name,
+			e.f_into_warehouse_code,e.f_into_warehouse_name,e.f_delivery_require,e.f_remark,e.f_entry_complite_date,
+			e.f_status,e.f_created_date,e.f_created_person_id,e.f_created_person,e.f_updated_date,e.f_updated_person_id,
+			e.f_updated_person,e.f_entry_channel_code,e.f_transport_code,e.f_is_delete,
+			ed.f_mater_code,ed.f_mater_name,ed.f_quality,ed.f_batch_no,ed.f_mater_version,ed.f_mater_cigbrand,
+			ed.f_produce_date,elm.f_realin_quality as f_actual_quality,
+		    elm.f_orderdetail_id,elm.f_cigsmoke_quality,elm.f_tray_rfid,elm.f_local_id,elm.f_local_code,elm.f_local_rfid,
+		    elm.f_status as trayStatus,elm.f_sole_code,elm.f_tray_code,elm.f_ware_method,
+		    bl.f_status as  blStatus
+			FROM
+			t_ware_entrymainorder AS e
+			left JOIN t_ware_entryorderdetail AS ed ON e.f_id = ed.f_mainorder_id
+            LEFT JOIN t_ware_entrytraylocalmap as elm on elm.f_orderdetail_id=ed.f_id
+            LEFT JOIN t_base_locationinfo as bl on elm.f_local_id=bl.f_id
+			WHERE elm.f_tray_rfid = #{trayRfid} and elm.f_status!=1
+	</select>
+			
+	<!-- 查询记录数 -->
+	<select id="checkPlate" resultType="int"
+			parameterType="String">
+		SELECT count(*) FROM t_ware_entrymainorder twe 
+		WHERE twe.f_plate_number = #{plateNumber}
+        and twe.f_status = 1
+	</select>
+	
+</mapper>
+

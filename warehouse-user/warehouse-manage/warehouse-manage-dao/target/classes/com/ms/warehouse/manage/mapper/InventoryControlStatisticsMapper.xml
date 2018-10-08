@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.manage.mapper.InventoryControlStatisticsMapper">
+	<!-- 查询存量控制统计集合 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultType="com.ms.warehouse.manage.entity.InventoryControlStatisticsEntity">
+	     SELECT t.* FROM (
+			SELECT
+			datediff(CURDATE(), a.f_created_date) as storageTime,
+				a.f_id as id,
+				b.f_mater_code as officialMaterCode,
+				b.f_mater_name as officialMaterName,
+				c.f_code as testMaterCode,
+				c.f_name as testMaterName,
+			    d.f_bra_name as brandName,
+			    e.f_pacs_name as pacsName,
+                a.f_surplus_quality as surplusQuality
+			FROM
+				t_ware_inventorydetail a
+			LEFT JOIN t_base_materialinfo b ON a.f_mater_code = b.f_mater_code
+			LEFT JOIN t_base_testcigarette c ON b.f_mater_code = c.f_code
+			LEFT JOIN t_mater_cigbrand d ON (b.f_cigbrand=d.f_data_id OR c.f_cigbrand=d.f_data_id) 
+			LEFT JOIN t_mater_packspec e ON (b.f_packagestandards =e.f_data_id OR c.f_packagestandards=e.f_data_id)	
+			)  t
+			<include refid="whereForLike"/>	
+    </select>
+    	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.officialMaterCode!=null and whereCondition.officialMaterCode!=''">AND t.officialMaterCode like #{whereCondition.officialMaterCode,jdbcType=VARCHAR}</if>
+			</if>
+		</where>
+	</sql>
+</mapper>
+

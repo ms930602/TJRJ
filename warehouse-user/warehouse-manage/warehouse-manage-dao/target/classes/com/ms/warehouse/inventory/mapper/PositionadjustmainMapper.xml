@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.inventory.mapper.PositionadjustmainMapper">
+
+	<!-- 结果Map -->
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.inventory.entity.PositionadjustmainEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="orderNumber" jdbcType="VARCHAR" column="f_order_number"/>
+		<result property="status" jdbcType="INTEGER" column="f_status"/>
+		<result property="remark" jdbcType="VARCHAR" column="f_remark"/>
+		<result property="complitDate" jdbcType="TIMESTAMP" column="f_complit_date"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPersonId" jdbcType="INTEGER" column="f_created_person_id"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPersonId" jdbcType="INTEGER" column="f_updated_person_id"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+		<result property="floorCode" jdbcType="VARCHAR" column="f_floor_code"/>
+		<result property="floorName" jdbcType="VARCHAR" column="f_floor_name"/>
+		
+		<result property="posDetailId" jdbcType="INTEGER" column="posDetailId"/>
+		<result property="origTrayRfid" jdbcType="VARCHAR" column="f_orig_tray_rfid"/>
+		<result property="origLocalCode" jdbcType="VARCHAR" column="f_orig_local_code"/>
+		<result property="destLocalCode" jdbcType="VARCHAR" column="f_dest_local_code"/>
+		<result property="operator" jdbcType="VARCHAR" column="f_operator"/>
+		<result property="operatorId" jdbcType="INTEGER" column="f_operator_id"/>
+		<result property="materCode" jdbcType="VARCHAR" column="f_mater_code"/>
+		<result property="materName" jdbcType="VARCHAR" column="f_mater_name"/>
+		<result property="materVersion" jdbcType="VARCHAR" column="f_mater_version"/>
+		<result property="materCigbrand" jdbcType="VARCHAR" column="f_mater_cigbrand"/>
+		<result property="soleCode" jdbcType="VARCHAR" column="f_sole_code"/>
+		<result property="posDetailStatus" jdbcType="INTEGER" column="posDetailStatus"/>
+		<result property="trayCode" jdbcType="VARCHAR" column="f_tray_code"/>
+		<result property="inventorytraylocalmapId" jdbcType="INTEGER" column="f_inventorytraylocalmap_id"/>
+		<result property="cigtype" jdbcType="INTEGER" column="f_cigtype"/>
+		<result property="oldDescript" jdbcType="VARCHAR" column="oldDescript"/>
+		<result property="newDescript" jdbcType="VARCHAR" column="newDescript"/>
+	</resultMap>
+	<resultMap id="InvenResultMap" type="com.ms.warehouse.inventory.entity.InventorytraylocalPageEntity">
+		<result property="materCode" jdbcType="VARCHAR" column="f_mater_code"/>
+		<result property="materName" jdbcType="VARCHAR" column="f_mater_name"/>
+		<result property="materVersion" jdbcType="VARCHAR" column="f_mater_version"/>
+		<result property="materCigbrand" jdbcType="VARCHAR" column="f_mater_cigbrand"/>
+		<result property="soleCode" jdbcType="VARCHAR" column="f_sole_code"/>
+		<result property="trayCode" jdbcType="VARCHAR" column="f_tray_code"/>
+		<result property="trayRfid" jdbcType="VARCHAR" column="f_tray_rfid"/>
+		<result property="localCode" jdbcType="VARCHAR" column="f_local_code"/>
+		<result property="floorAreaCode" jdbcType="VARCHAR" column="f_floor_area_code"/>
+		<result property="batchNo" jdbcType="VARCHAR" column="f_batch_no"/>
+		<result property="quality" jdbcType="VARCHAR" column="f_quality"/>
+		<result property="cigtype" jdbcType="INTEGER" column="f_cigtype"/>
+		<result property="subverId" jdbcType="INTEGER" column="f_subver_id"/>
+		<result property="subverName" jdbcType="VARCHAR" column="f_subver_name"/>
+		<result property="descript" jdbcType="VARCHAR" column="f_descript"/>
+	</resultMap>
+	<!-- 查询列 -->
+	<sql id="BaseColumnList">
+		f_id,f_order_number,f_status,f_remark,f_complit_date,f_created_date,f_created_person_id,f_created_person,f_updated_date,f_updated_person_id,f_updated_person,f_floor_code,f_floor_name
+	</sql>
+			
+	<!--创建记录 -->
+	<insert id="create" parameterType="com.ms.warehouse.inventory.entity.PositionadjustmainEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_ware_positionadjustmain
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="orderNumber!=null">f_order_number,</if>
+			<if test="status!=null">f_status,</if>
+			<if test="remark!=null">f_remark,</if>
+			<if test="complitDate!=null">f_complit_date,</if>
+			<if test="createdDate!=null">f_created_date,</if>
+			<if test="createdPersonId!=null">f_created_person_id,</if>
+			<if test="createdPerson!=null">f_created_person,</if>
+			<if test="updatedDate!=null">f_updated_date,</if>
+			<if test="updatedPersonId!=null">f_updated_person_id,</if>
+			<if test="updatedPerson!=null">f_updated_person,</if>
+			<if test="floorCode!=null">f_floor_code,</if>
+			<if test="floorName!=null">f_floor_name</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			<if test="orderNumber!=null">#{orderNumber,jdbcType=VARCHAR},</if>
+			<if test="status!=null">#{status,jdbcType=INTEGER},</if>
+			<if test="remark!=null">#{remark,jdbcType=VARCHAR},</if>
+			<if test="complitDate!=null">#{complitDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdDate!=null">#{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">#{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">#{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">#{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">#{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">#{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="floorCode!=null">#{floorCode,jdbcType=VARCHAR},</if>
+			<if test="floorName!=null">#{floorName,jdbcType=VARCHAR}</if>
+		</trim>
+	</insert>
+
+	<!--批量创建记录 -->
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		<foreach collection="list" item="item" index="index" separator=";">
+			INSERT INTO t_ware_positionadjustmain
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+					<if test="item.orderNumber!=null">f_order_number,</if>
+					<if test="item.status!=null">f_status,</if>
+					<if test="item.remark!=null">f_remark,</if>
+					<if test="item.complitDate!=null">f_complit_date,</if>
+					<if test="item.createdDate!=null">f_created_date,</if>
+					<if test="item.createdPersonId!=null">f_created_person_id,</if>
+					<if test="item.createdPerson!=null">f_created_person,</if>
+					<if test="item.updatedDate!=null">f_updated_date,</if>
+					<if test="item.updatedPersonId!=null">f_updated_person_id,</if>
+					<if test="item.updatedPerson!=null">f_updated_person,</if>
+					<if test="item.floorCode!=null">f_floor_code,</if>
+					<if test="item.floorName!=null">f_floor_name</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+					<if test="item.orderNumber!=null">#{item.orderNumber,jdbcType=VARCHAR},</if>
+					<if test="item.status!=null">#{item.status,jdbcType=INTEGER},</if>
+					<if test="item.remark!=null">#{item.remark,jdbcType=VARCHAR},</if>
+					<if test="item.complitDate!=null">#{item.complitDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.createdDate!=null">#{item.createdDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.createdPersonId!=null">#{item.createdPersonId,jdbcType=INTEGER},</if>
+					<if test="item.createdPerson!=null">#{item.createdPerson,jdbcType=VARCHAR},</if>
+					<if test="item.updatedDate!=null">#{item.updatedDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.updatedPersonId!=null">#{item.updatedPersonId,jdbcType=INTEGER},</if>
+					<if test="item.updatedPerson!=null">#{item.updatedPerson,jdbcType=VARCHAR},</if>
+					<if test="item.floorCode!=null">#{item.floorCode,jdbcType=VARCHAR},</if>
+					<if test="item.floorName!=null">#{item.floorName,jdbcType=VARCHAR}</if>
+			</trim>
+		</foreach>
+	</insert>
+	
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.ms.warehouse.inventory.entity.PositionadjustmainEntity">
+		UPDATE t_ware_positionadjustmain 
+		<set>
+			<if test="orderNumber!=null">f_order_number = #{orderNumber,jdbcType=VARCHAR},</if>
+			<if test="status!=null">f_status = #{status,jdbcType=INTEGER},</if>
+			<if test="remark!=null">f_remark = #{remark,jdbcType=VARCHAR},</if>
+			<if test="complitDate!=null">f_complit_date = #{complitDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdDate!=null">f_created_date = #{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">f_created_person_id = #{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">f_created_person = #{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">f_updated_date = #{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">f_updated_person = #{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="floorCode!=null">f_floor_code = #{floorCode,jdbcType=VARCHAR},</if>
+			<if test="floorName!=null">f_floor_name = #{floorName,jdbcType=VARCHAR}</if>
+		</set>
+		<where> 
+			f_id  = #{id}
+		</where>				
+	</update>
+	
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_ware_positionadjustmain 
+			<set>
+				<if test="item.orderNumber!=null">f_order_number = #{item.orderNumber,jdbcType=VARCHAR},</if>
+				<if test="item.status!=null">f_status = #{item.status,jdbcType=INTEGER},</if>
+				<if test="item.remark!=null">f_remark = #{item.remark,jdbcType=VARCHAR},</if>
+				<if test="item.complitDate!=null">f_complit_date = #{item.complitDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdDate!=null">f_created_date = #{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPersonId!=null">f_created_person_id = #{item.createdPersonId,jdbcType=INTEGER},</if>
+				<if test="item.createdPerson!=null">f_created_person = #{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">f_updated_date = #{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPersonId!=null">f_updated_person_id = #{item.updatedPersonId,jdbcType=INTEGER},</if>
+				<if test="item.updatedPerson!=null">f_updated_person = #{item.updatedPerson,jdbcType=VARCHAR},</if>
+				<if test="item.floorCode!=null">f_floor_code = #{item.floorCode,jdbcType=VARCHAR},</if>
+				<if test="item.floorName!=null">f_floor_name = #{item.floorName,jdbcType=VARCHAR}</if>
+			</set>
+			<where> 
+				f_id  = #{item.id}
+			</where>	
+		</foreach>
+	</update>	
+	
+	
+	<!-- 按ID查询记录 -->
+	<select id="queryById" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_ware_positionadjustmain 
+		WHERE f_id  = #{id}	
+	</select>
+	
+	<!-- 按Id删除 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_ware_positionadjustmain WHERE f_id  = #{id}
+	</delete>
+
+	<!-- 按Id批量删除 -->
+	<delete id="batchDeleteById" parameterType="Long[]">
+		DELETE FROM t_ware_positionadjustmain WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</delete>
+	
+	
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="orderNumber!=null and orderNumber!=''">AND t.f_order_number = #{orderNumber,jdbcType=VARCHAR}</if>
+			<if test="status!=null">AND t.f_status = #{status,jdbcType=INTEGER}</if>
+			<if test="remark!=null and remark!=''">AND t.f_remark = #{remark,jdbcType=VARCHAR}</if>
+			<if test="complitDate!=null">AND t.f_complit_date = #{complitDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdDate!=null">AND t.f_created_date = #{createdDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdPersonId!=null">AND t.f_created_person_id = #{createdPersonId,jdbcType=INTEGER}</if>
+			<if test="createdPerson!=null and createdPerson!=''">AND t.f_created_person = #{createdPerson,jdbcType=VARCHAR}</if>
+			<if test="updatedDate!=null">AND t.f_updated_date = #{updatedDate,jdbcType=TIMESTAMP}</if>
+			<if test="updatedPersonId!=null">AND t.f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER}</if>
+			<if test="updatedPerson!=null and updatedPerson!=''">AND t.f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+	
+	<sql id="queryFrom">
+		FROM t_ware_positionadjustmain
+	</sql>
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.orderNumber!=null and whereCondition.orderNumber!=''">AND t.f_order_number like #{whereCondition.orderNumberByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.status!=null">AND t.f_status = #{whereCondition.status,jdbcType=INTEGER}</if>
+				<if test="whereCondition.remark!=null and whereCondition.remark!=''">AND t.f_remark like #{whereCondition.remarkByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.complitDate!=null">AND t.f_complit_date = #{whereCondition.complitDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdDate!=null">AND t.f_created_date = #{whereCondition.createdDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdPersonId!=null">AND t.f_created_person_id = #{whereCondition.createdPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.createdPerson!=null and whereCondition.createdPerson!=''">AND t.f_created_person like #{whereCondition.createdPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.updatedDate!=null">AND t.f_updated_date = #{whereCondition.updatedDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.updatedPersonId!=null">AND t.f_updated_person_id = #{whereCondition.updatedPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.updatedPerson!=null and whereCondition.updatedPerson!=''">AND t.f_updated_person like #{whereCondition.updatedPersonByLike,jdbcType=VARCHAR}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+						t.f_order_number like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_remark like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_created_person like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_updated_person like #{keyWordByLike,jdbcType=VARCHAR} 
+					)
+			</if>
+			<if test="startTime!=null and startTime!=''">AND t.f_created_date &gt;= #{startTime}</if>
+			<if test="endTime!=null and endTime!=''">AND t.f_created_date &lt;= #{endTime}</if>
+		</where>
+	</sql>
+	
+	<!-- 按对象查询 -->
+	<select id="queryByEntity" parameterType="com.ms.warehouse.inventory.entity.PositionadjustmainEntity" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="where" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+		<choose>
+			<when test="orderField==null">
+				ORDER BY f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryCount" resultType="int"
+		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)  
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+	</select>
+	
+	<!-- 按批次号查询记录 -->
+	<select id="queryByBatchNo" parameterType="String" resultMap="BaseResultMap">
+		SELECT p.* FROM t_ware_positionadjustmain p 
+		LEFT JOIN t_ware_positionadjustdetail pd on  p.f_id =pd.f_main_id  
+		LEFT JOIN t_ware_inventorytraylocalmap ild on  ild.f_id =pd.f_inventorytraylocalmap_id
+		WHERE ild.f_batch_no=#{batchNo}
+		GROUP BY p.f_id
+	</select>
+	
+	<select id="queryInventorytraylocalPage" 
+	 parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+	 resultMap="InvenResultMap">
+		SELECT 
+		a.f_batch_no,a.f_quality,a.f_cigtype,c.f_mater_code,c.f_mater_name,
+		c.f_mater_version,c.f_mater_cigbrand,a.f_sole_code,a.f_tray_code,
+		a.f_tray_rfid,a.f_local_code,e.f_floor_area_code,
+		a.f_subver_id,a.f_subver_name,f_descript
+		FROM t_ware_inventorytraylocalmap a 
+		LEFT JOIN t_ware_inventorydetail b ON a.f_detail_id = b.f_id
+		LEFT JOIN t_ware_inventorymain c ON b.f_main_id = c.f_id
+		LEFT JOIN t_base_locationinfo d ON a.f_local_id = d.f_id
+		LEFT JOIN t_base_areainfo e ON d.f_area_id = e.f_id
+		WHERE 1=1
+		<if test="whereCondition.floorAreaCode != null and whereCondition.floorAreaCode != ''">
+			AND e.f_floor_area_code = #{whereCondition.floorAreaCode,jdbcType=VARCHAR}
+		</if>
+		<if test="whereCondition.localCode != null and whereCondition.localCode != ''">
+			AND a.f_local_code LIKE CONCAT(#{whereCondition.localCode,jdbcType=VARCHAR},'-%')
+		</if>
+		<if test="whereCondition.materName != null and whereCondition.materName != ''">
+			AND c.f_mater_name LIKE CONCAT('%',#{whereCondition.materName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="whereCondition.cigtype != null">
+			AND a.f_cigtype = #{whereCondition.cigtype,jdbcType=INTEGER}
+		</if>
+		ORDER BY a.f_local_code
+	</select>
+	
+	
+	<!-- 分页货位调整及其明细查询 -->
+	<select id="queryPPdByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseResultMap">
+		SELECT
+			pd.f_id as posDetailId,
+			pd.f_main_id,
+			pd.f_orig_tray_rfid,
+			(SELECT t2.f_descript FROM t_ware_positionadjustdetail as t1 
+	          LEFT JOIN t_base_locationinfo as t2 on t1.f_orig_local_code=t2.f_local_code
+	          WHERE t1.f_orig_local_code=pd.f_orig_local_code LIMIT 1) as oldDescript,
+            (SELECT t2.f_descript FROM t_ware_positionadjustdetail as t1 
+	          LEFT JOIN t_base_locationinfo as t2 on t1.f_dest_local_code=t2.f_local_code
+	          WHERE t1.f_dest_local_code=pd.f_dest_local_code LIMIT 1) as newDescript,
+			pd.f_orig_local_code,
+			pd.f_dest_local_code,
+			pd.f_operator,
+			pd.f_operator_id,
+			pd.f_mater_code,
+			pd.f_mater_name,
+			pd.f_mater_version,
+			pd.f_mater_cigbrand,
+			pd.f_sole_code,
+			pd.f_status  as posDetailStatus,
+			pd.f_tray_code,
+			pd.f_inventorytraylocalmap_id,
+			pd.f_cigtype,
+			p.f_id,
+			p.f_order_number,
+			p.f_status,
+			p.f_remark,
+			p.f_complit_date,
+			p.f_created_date,
+			p.f_created_person_id,
+			p.f_created_person,
+			p.f_updated_date,
+			p.f_updated_person_id,
+			p.f_updated_person,
+			p.f_floor_code,
+			p.f_floor_name
+			FROM
+			t_ware_positionadjustmain AS p
+			LEFT JOIN t_ware_positionadjustdetail AS pd ON p.f_id = pd.f_main_id
+        <where>
+			1=1
+			and pd.f_status = 0
+			<if test="whereCondition!=null">
+				<if test="whereCondition.floorCode!=null and whereCondition.floorCode!=''">AND p.f_floor_code = #{whereCondition.floorCode,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.floorName!=null and whereCondition.floorName!=''">AND p.f_floor_name like #{whereCondition.floorName,jdbcType=VARCHAR}</if>
+			</if>
+		</where>
+		<choose>
+			<when test="orderField==null">
+				ORDER BY p.f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询货位调整及其明细记录数 -->
+	<select id="queryPPdCount" resultType="int"
+		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)  
+		FROM
+			t_ware_positionadjustmain AS p
+			LEFT JOIN t_ware_positionadjustdetail AS pd ON p.f_id = pd.f_main_id
+		<where>
+			1=1
+			and pd.f_status = 0
+			<if test="whereCondition!=null">
+				<if test="whereCondition.floorCode!=null and whereCondition.floorCode!=''">AND p.f_floor_code = #{whereCondition.floorCode,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.floorName!=null and whereCondition.floorName!=''">AND p.f_floor_name like #{whereCondition.floorName,jdbcType=VARCHAR}</if>
+			</if>
+		</where>
+	</select>
+</mapper>
+

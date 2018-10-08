@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.manage.mapper.TestcigaretteMapper">
+
+	<!-- 结果Map -->
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.manage.entity.TestcigaretteEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="dataId" jdbcType="VARCHAR" column="f_data_id"/>
+		<result property="code" jdbcType="VARCHAR" column="f_code"/>
+		<result property="name" jdbcType="VARCHAR" column="f_name"/>
+		<result property="versioncode" jdbcType="VARCHAR" column="f_versioncode"/>
+		<result property="cigbrand" jdbcType="VARCHAR" column="f_cigbrand"/>
+		<result property="testDarptment" jdbcType="VARCHAR" column="f_test_darptment"/>
+		<result property="barbarcode" jdbcType="VARCHAR" column="f_barbarcode"/>
+		<result property="inventoreId" jdbcType="VARCHAR" column="f_inventore_id"/>
+		<result property="cigarettetype" jdbcType="VARCHAR" column="f_cigarettetype"/>
+		<result property="standardscode" jdbcType="VARCHAR" column="f_standardscode"/>
+		<result property="formulacode" jdbcType="VARCHAR" column="f_formulacode"/>
+		<result property="packingcode" jdbcType="VARCHAR" column="f_packingcode"/>
+		<result property="pricetype" jdbcType="VARCHAR" column="f_pricetype"/>
+		<result property="filterlength" jdbcType="VARCHAR" column="f_filterlength"/>
+		<result property="ciggirth" jdbcType="VARCHAR" column="f_ciggirth"/>
+		<result property="ciglength" jdbcType="VARCHAR" column="f_ciglength"/>
+		<result property="cigtotallen" jdbcType="VARCHAR" column="f_cigtotallen"/>
+		<result property="packageform" jdbcType="VARCHAR" column="f_packageform"/>
+		<result property="producttype" jdbcType="VARCHAR" column="f_producttype"/>
+		<result property="cigtype" jdbcType="VARCHAR" column="f_cigtype"/>
+		<result property="linkTobaccoCut" jdbcType="VARCHAR" column="f_link_tobacco_cut"/>
+		<result property="status" jdbcType="VARCHAR" column="f_status"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+		<result property="verName" jdbcType="VARCHAR" column="verName"/>
+		<result property="braName" jdbcType="VARCHAR" column="braName"/>
+		<result property="cigName" jdbcType="VARCHAR" column="cigName"/>
+		<result property="paciName" jdbcType="VARCHAR" column="paciName"/>
+		<result property="pacName" jdbcType="VARCHAR" column="pacName"/>
+		<result property="packagestandards" jdbcType="VARCHAR" column="f_packagestandards"/>
+	</resultMap>
+	
+	<!-- 查询列 -->
+	<sql id="BaseColumnList">
+		f_id,f_data_id,f_code,f_name,f_versioncode,f_cigbrand,f_test_darptment,f_barbarcode,f_inventore_id,f_cigarettetype,f_standardscode,f_formulacode,f_packingcode,f_pricetype,f_filterlength,f_ciggirth,f_ciglength,f_cigtotallen,f_packageform,f_producttype,f_cigtype,f_link_tobacco_cut,f_status,f_created_date,f_created_person,f_updated_date,f_updated_person,f_packagestandards
+	</sql>
+			
+	<!--创建记录 -->
+	<insert id="create" parameterType="com.ms.warehouse.manage.entity.TestcigaretteEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_base_testcigarette
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="dataId!=null">f_data_id,</if>
+			<if test="code!=null">f_code,</if>
+			<if test="name!=null">f_name,</if>
+			<if test="versioncode!=null">f_versioncode,</if>
+			<if test="cigbrand!=null">f_cigbrand,</if>
+			<if test="testDarptment!=null">f_test_darptment,</if>
+			<if test="barbarcode!=null">f_barbarcode,</if>
+			<if test="inventoreId!=null">f_inventore_id,</if>
+			<if test="cigarettetype!=null">f_cigarettetype,</if>
+			<if test="standardscode!=null">f_standardscode,</if>
+			<if test="formulacode!=null">f_formulacode,</if>
+			<if test="packingcode!=null">f_packingcode,</if>
+			<if test="pricetype!=null">f_pricetype,</if>
+			<if test="filterlength!=null">f_filterlength,</if>
+			<if test="ciggirth!=null">f_ciggirth,</if>
+			<if test="ciglength!=null">f_ciglength,</if>
+			<if test="cigtotallen!=null">f_cigtotallen,</if>
+			<if test="packageform!=null">f_packageform,</if>
+			<if test="producttype!=null">f_producttype,</if>
+			<if test="cigtype!=null">f_cigtype,</if>
+			<if test="linkTobaccoCut!=null">f_link_tobacco_cut,</if>
+			<if test="status!=null">f_status,</if>
+			<if test="createdDate!=null">f_created_date,</if>
+			<if test="createdPerson!=null">f_created_person,</if>
+			<if test="updatedDate!=null">f_updated_date,</if>
+			<if test="updatedPerson!=null">f_updated_person,</if>
+			<if test="packagestandards!=null">f_packagestandards</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			<if test="dataId!=null">#{dataId,jdbcType=VARCHAR},</if>
+			<if test="code!=null">#{code,jdbcType=VARCHAR},</if>
+			<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
+			<if test="versioncode!=null">#{versioncode,jdbcType=VARCHAR},</if>
+			<if test="cigbrand!=null">#{cigbrand,jdbcType=VARCHAR},</if>
+			<if test="testDarptment!=null">#{testDarptment,jdbcType=VARCHAR},</if>
+			<if test="barbarcode!=null">#{barbarcode,jdbcType=VARCHAR},</if>
+			<if test="inventoreId!=null">#{inventoreId,jdbcType=VARCHAR},</if>
+			<if test="cigarettetype!=null">#{cigarettetype,jdbcType=VARCHAR},</if>
+			<if test="standardscode!=null">#{standardscode,jdbcType=VARCHAR},</if>
+			<if test="formulacode!=null">#{formulacode,jdbcType=VARCHAR},</if>
+			<if test="packingcode!=null">#{packingcode,jdbcType=VARCHAR},</if>
+			<if test="pricetype!=null">#{pricetype,jdbcType=VARCHAR},</if>
+			<if test="filterlength!=null">#{filterlength,jdbcType=VARCHAR},</if>
+			<if test="ciggirth!=null">#{ciggirth,jdbcType=VARCHAR},</if>
+			<if test="ciglength!=null">#{ciglength,jdbcType=VARCHAR},</if>
+			<if test="cigtotallen!=null">#{cigtotallen,jdbcType=VARCHAR},</if>
+			<if test="packageform!=null">#{packageform,jdbcType=VARCHAR},</if>
+			<if test="producttype!=null">#{producttype,jdbcType=VARCHAR},</if>
+			<if test="cigtype!=null">#{cigtype,jdbcType=VARCHAR},</if>
+			<if test="linkTobaccoCut!=null">#{linkTobaccoCut,jdbcType=VARCHAR},</if>
+			<if test="status!=null">#{status,jdbcType=VARCHAR},</if>
+			<if test="createdDate!=null">#{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPerson!=null">#{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">#{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPerson!=null">#{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="packagestandards!=null">#{packagestandards,jdbcType=VARCHAR}</if>
+		</trim>
+	</insert>
+	
+	<!--批量创建记录 -->
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		<foreach collection="list" item="item" index="index" separator=";">
+			INSERT INTO t_base_testcigarette
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+					<if test="item.dataId!=null">f_data_id,</if>
+					<if test="item.code!=null">f_code,</if>
+					<if test="item.name!=null">f_name,</if>
+					<if test="item.versioncode!=null">f_versioncode,</if>
+					<if test="item.cigbrand!=null">f_cigbrand,</if>
+					<if test="item.testDarptment!=null">f_test_darptment,</if>
+					<if test="item.barbarcode!=null">f_barbarcode,</if>
+					<if test="item.inventoreId!=null">f_inventore_id,</if>
+					<if test="item.cigarettetype!=null">f_cigarettetype,</if>
+					<if test="item.standardscode!=null">f_standardscode,</if>
+					<if test="item.formulacode!=null">f_formulacode,</if>
+					<if test="item.packingcode!=null">f_packingcode,</if>
+					<if test="item.pricetype!=null">f_pricetype,</if>
+					<if test="item.filterlength!=null">f_filterlength,</if>
+					<if test="item.ciggirth!=null">f_ciggirth,</if>
+					<if test="item.ciglength!=null">f_ciglength,</if>
+					<if test="item.cigtotallen!=null">f_cigtotallen,</if>
+					<if test="item.packageform!=null">f_packageform,</if>
+					<if test="item.producttype!=null">f_producttype,</if>
+					<if test="item.cigtype!=null">f_cigtype,</if>
+					<if test="item.linkTobaccoCut!=null">f_link_tobacco_cut,</if>
+					<if test="item.status!=null">f_status,</if>
+					<if test="item.createdDate!=null">f_created_date,</if>
+					<if test="item.createdPerson!=null">f_created_person,</if>
+					<if test="item.updatedDate!=null">f_updated_date,</if>
+					<if test="item.updatedPerson!=null">f_updated_person,</if>
+					<if test="item.packagestandards!=null">f_packagestandards</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+					<if test="item.dataId!=null">#{item.dataId,jdbcType=VARCHAR},</if>
+					<if test="item.code!=null">#{item.code,jdbcType=VARCHAR},</if>
+					<if test="item.name!=null">#{item.name,jdbcType=VARCHAR},</if>
+					<if test="item.versioncode!=null">#{item.versioncode,jdbcType=VARCHAR},</if>
+					<if test="item.cigbrand!=null">#{item.cigbrand,jdbcType=VARCHAR},</if>
+					<if test="item.testDarptment!=null">#{item.testDarptment,jdbcType=VARCHAR},</if>
+					<if test="item.barbarcode!=null">#{item.barbarcode,jdbcType=VARCHAR},</if>
+					<if test="item.inventoreId!=null">#{item.inventoreId,jdbcType=VARCHAR},</if>
+					<if test="item.cigarettetype!=null">#{item.cigarettetype,jdbcType=VARCHAR},</if>
+					<if test="item.standardscode!=null">#{item.standardscode,jdbcType=VARCHAR},</if>
+					<if test="item.formulacode!=null">#{item.formulacode,jdbcType=VARCHAR},</if>
+					<if test="item.packingcode!=null">#{item.packingcode,jdbcType=VARCHAR},</if>
+					<if test="item.pricetype!=null">#{item.pricetype,jdbcType=VARCHAR},</if>
+					<if test="item.filterlength!=null">#{item.filterlength,jdbcType=VARCHAR},</if>
+					<if test="item.ciggirth!=null">#{item.ciggirth,jdbcType=VARCHAR},</if>
+					<if test="item.ciglength!=null">#{item.ciglength,jdbcType=VARCHAR},</if>
+					<if test="item.cigtotallen!=null">#{item.cigtotallen,jdbcType=VARCHAR},</if>
+					<if test="item.packageform!=null">#{item.packageform,jdbcType=VARCHAR},</if>
+					<if test="item.producttype!=null">#{item.producttype,jdbcType=VARCHAR},</if>
+					<if test="item.cigtype!=null">#{item.cigtype,jdbcType=VARCHAR},</if>
+					<if test="item.linkTobaccoCut!=null">#{item.linkTobaccoCut,jdbcType=VARCHAR},</if>
+					<if test="item.status!=null">#{item.status,jdbcType=VARCHAR},</if>
+					<if test="item.createdDate!=null">#{item.createdDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.createdPerson!=null">#{item.createdPerson,jdbcType=VARCHAR},</if>
+					<if test="item.updatedDate!=null">#{item.updatedDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.updatedPerson!=null">#{item.updatedPerson,jdbcType=VARCHAR},</if>
+					<if test="item.packagestandards!=null">#{item.packagestandards,jdbcType=VARCHAR}</if>
+			</trim>
+		</foreach>
+	</insert>
+	
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.ms.warehouse.manage.entity.TestcigaretteEntity">
+		UPDATE t_base_testcigarette 
+		<set>
+			<if test="dataId!=null">f_data_id = #{dataId,jdbcType=VARCHAR},</if>
+			<if test="code!=null">f_code = #{code,jdbcType=VARCHAR},</if>
+			<if test="name!=null">f_name = #{name,jdbcType=VARCHAR},</if>
+			<if test="versioncode!=null">f_versioncode = #{versioncode,jdbcType=VARCHAR},</if>
+			<if test="cigbrand!=null">f_cigbrand = #{cigbrand,jdbcType=VARCHAR},</if>
+			<if test="testDarptment!=null">f_test_darptment = #{testDarptment,jdbcType=VARCHAR},</if>
+			<if test="barbarcode!=null">f_barbarcode = #{barbarcode,jdbcType=VARCHAR},</if>
+			<if test="inventoreId!=null">f_inventore_id = #{inventoreId,jdbcType=VARCHAR},</if>
+			<if test="cigarettetype!=null">f_cigarettetype = #{cigarettetype,jdbcType=VARCHAR},</if>
+			<if test="standardscode!=null">f_standardscode = #{standardscode,jdbcType=VARCHAR},</if>
+			<if test="formulacode!=null">f_formulacode = #{formulacode,jdbcType=VARCHAR},</if>
+			<if test="packingcode!=null">f_packingcode = #{packingcode,jdbcType=VARCHAR},</if>
+			<if test="pricetype!=null">f_pricetype = #{pricetype,jdbcType=VARCHAR},</if>
+			<if test="filterlength!=null">f_filterlength = #{filterlength,jdbcType=VARCHAR},</if>
+			<if test="ciggirth!=null">f_ciggirth = #{ciggirth,jdbcType=VARCHAR},</if>
+			<if test="ciglength!=null">f_ciglength = #{ciglength,jdbcType=VARCHAR},</if>
+			<if test="cigtotallen!=null">f_cigtotallen = #{cigtotallen,jdbcType=VARCHAR},</if>
+			<if test="packageform!=null">f_packageform = #{packageform,jdbcType=VARCHAR},</if>
+			<if test="producttype!=null">f_producttype = #{producttype,jdbcType=VARCHAR},</if>
+			<if test="cigtype!=null">f_cigtype = #{cigtype,jdbcType=VARCHAR},</if>
+			<if test="linkTobaccoCut!=null">f_link_tobacco_cut = #{linkTobaccoCut,jdbcType=VARCHAR},</if>
+			<if test="status!=null">f_status = #{status,jdbcType=VARCHAR},</if>
+			<if test="createdDate!=null">f_created_date = #{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPerson!=null">f_created_person = #{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">f_updated_date = #{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPerson!=null">f_updated_person = #{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="packagestandards!=null">f_packagestandards = #{packagestandards,jdbcType=VARCHAR}</if>
+		</set>
+		<where> 
+			f_id  = #{id}
+		</where>				
+	</update>
+	
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_base_testcigarette 
+			<set>
+				<if test="item.dataId!=null">f_data_id = #{item.dataId,jdbcType=VARCHAR},</if>
+				<if test="item.code!=null">f_code = #{item.code,jdbcType=VARCHAR},</if>
+				<if test="item.name!=null">f_name = #{item.name,jdbcType=VARCHAR},</if>
+				<if test="item.versioncode!=null">f_versioncode = #{item.versioncode,jdbcType=VARCHAR},</if>
+				<if test="item.cigbrand!=null">f_cigbrand = #{item.cigbrand,jdbcType=VARCHAR},</if>
+				<if test="item.testDarptment!=null">f_test_darptment = #{item.testDarptment,jdbcType=VARCHAR},</if>
+				<if test="item.barbarcode!=null">f_barbarcode = #{item.barbarcode,jdbcType=VARCHAR},</if>
+				<if test="item.inventoreId!=null">f_inventore_id = #{item.inventoreId,jdbcType=VARCHAR},</if>
+				<if test="item.cigarettetype!=null">f_cigarettetype = #{item.cigarettetype,jdbcType=VARCHAR},</if>
+				<if test="item.standardscode!=null">f_standardscode = #{item.standardscode,jdbcType=VARCHAR},</if>
+				<if test="item.formulacode!=null">f_formulacode = #{item.formulacode,jdbcType=VARCHAR},</if>
+				<if test="item.packingcode!=null">f_packingcode = #{item.packingcode,jdbcType=VARCHAR},</if>
+				<if test="item.pricetype!=null">f_pricetype = #{item.pricetype,jdbcType=VARCHAR},</if>
+				<if test="item.filterlength!=null">f_filterlength = #{item.filterlength,jdbcType=VARCHAR},</if>
+				<if test="item.ciggirth!=null">f_ciggirth = #{item.ciggirth,jdbcType=VARCHAR},</if>
+				<if test="item.ciglength!=null">f_ciglength = #{item.ciglength,jdbcType=VARCHAR},</if>
+				<if test="item.cigtotallen!=null">f_cigtotallen = #{item.cigtotallen,jdbcType=VARCHAR},</if>
+				<if test="item.packageform!=null">f_packageform = #{item.packageform,jdbcType=VARCHAR},</if>
+				<if test="item.producttype!=null">f_producttype = #{item.producttype,jdbcType=VARCHAR},</if>
+				<if test="item.cigtype!=null">f_cigtype = #{item.cigtype,jdbcType=VARCHAR},</if>
+				<if test="item.linkTobaccoCut!=null">f_link_tobacco_cut = #{item.linkTobaccoCut,jdbcType=VARCHAR},</if>
+				<if test="item.status!=null">f_status = #{item.status,jdbcType=VARCHAR},</if>
+				<if test="item.createdDate!=null">f_created_date = #{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPerson!=null">f_created_person = #{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">f_updated_date = #{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPerson!=null">f_updated_person = #{item.updatedPerson,jdbcType=VARCHAR},</if>
+				<if test="item.packagestandards!=null">f_packagestandards = #{item.packagestandards,jdbcType=VARCHAR}</if>
+			</set>
+			<where> 
+				f_id  = #{item.id}
+			</where>	
+		</foreach>
+	</update>	
+	
+	
+	<!-- 按ID查询记录 -->
+	<select id="queryById" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_base_testcigarette 
+		WHERE f_id  = #{id}	
+	</select>
+	
+	<!-- 按Id删除 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_base_testcigarette WHERE f_id  = #{id}
+	</delete>
+
+	<!-- 按Id批量删除 -->
+	<delete id="batchDeleteById" parameterType="Long[]">
+		DELETE FROM t_base_testcigarette WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</delete>
+	
+	
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="dataId!=null and dataId!=''">AND t.f_data_id = #{dataId,jdbcType=VARCHAR}</if>
+			<if test="code!=null and code!=''">AND t.f_code = #{code,jdbcType=VARCHAR}</if>
+			<if test="name!=null and name!=''">AND t.f_name = #{name,jdbcType=VARCHAR}</if>
+			<if test="versioncode!=null and versioncode!=''">AND t.f_versioncode = #{versioncode,jdbcType=VARCHAR}</if>
+			<if test="cigbrand!=null and cigbrand!=''">AND t.f_cigbrand = #{cigbrand,jdbcType=VARCHAR}</if>
+			<if test="testDarptment!=null and testDarptment!=''">AND t.f_test_darptment = #{testDarptment,jdbcType=VARCHAR}</if>
+			<if test="barbarcode!=null and barbarcode!=''">AND t.f_barbarcode = #{barbarcode,jdbcType=VARCHAR}</if>
+			<if test="inventoreId!=null and inventoreId!=''">AND t.f_inventore_id = #{inventoreId,jdbcType=VARCHAR}</if>
+			<if test="cigarettetype!=null and cigarettetype!=''">AND t.f_cigarettetype = #{cigarettetype,jdbcType=VARCHAR}</if>
+			<if test="standardscode!=null and standardscode!=''">AND t.f_standardscode = #{standardscode,jdbcType=VARCHAR}</if>
+			<if test="formulacode!=null and formulacode!=''">AND t.f_formulacode = #{formulacode,jdbcType=VARCHAR}</if>
+			<if test="packingcode!=null and packingcode!=''">AND t.f_packingcode = #{packingcode,jdbcType=VARCHAR}</if>
+			<if test="pricetype!=null and pricetype!=''">AND t.f_pricetype = #{pricetype,jdbcType=VARCHAR}</if>
+			<if test="filterlength!=null and filterlength!=''">AND t.f_filterlength = #{filterlength,jdbcType=VARCHAR}</if>
+			<if test="ciggirth!=null and ciggirth!=''">AND t.f_ciggirth = #{ciggirth,jdbcType=VARCHAR}</if>
+			<if test="ciglength!=null and ciglength!=''">AND t.f_ciglength = #{ciglength,jdbcType=VARCHAR}</if>
+			<if test="cigtotallen!=null and cigtotallen!=''">AND t.f_cigtotallen = #{cigtotallen,jdbcType=VARCHAR}</if>
+			<if test="packageform!=null and packageform!=''">AND t.f_packageform = #{packageform,jdbcType=VARCHAR}</if>
+			<if test="producttype!=null and producttype!=''">AND t.f_producttype = #{producttype,jdbcType=VARCHAR}</if>
+			<if test="cigtype!=null and cigtype!=''">AND t.f_cigtype = #{cigtype,jdbcType=VARCHAR}</if>
+			<if test="linkTobaccoCut!=null and linkTobaccoCut!=''">AND t.f_link_tobacco_cut = #{linkTobaccoCut,jdbcType=VARCHAR}</if>
+			<if test="status!=null and status!=''">AND t.f_status = #{status,jdbcType=VARCHAR}</if>
+			<if test="createdDate!=null">AND t.f_created_date = #{createdDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdPerson!=null and createdPerson!=''">AND t.f_created_person = #{createdPerson,jdbcType=VARCHAR}</if>
+			<if test="updatedDate!=null">AND t.f_updated_date = #{updatedDate,jdbcType=TIMESTAMP}</if>
+			<if test="updatedPerson!=null and updatedPerson!=''">AND t.f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+	
+	<sql id="queryFrom">
+		FROM t_base_testcigarette
+	</sql>
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.dataId!=null and whereCondition.dataId!=''">AND t.f_data_id like #{whereCondition.dataIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.code!=null and whereCondition.code!=''">AND t.f_code like #{whereCondition.codeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.name!=null and whereCondition.name!=''">AND t.f_name like #{whereCondition.nameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.versioncode!=null and whereCondition.versioncode!=''">AND t.f_versioncode like #{whereCondition.versioncodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.cigbrand!=null and whereCondition.cigbrand!=''">AND t.f_cigbrand like #{whereCondition.cigbrandByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.testDarptment!=null and whereCondition.testDarptment!=''">AND t.f_test_darptment like #{whereCondition.testDarptmentByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.barbarcode!=null and whereCondition.barbarcode!=''">AND t.f_barbarcode like #{whereCondition.barbarcodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.inventoreId!=null and whereCondition.inventoreId!=''">AND t.f_inventore_id like #{whereCondition.inventoreIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.cigarettetype!=null and whereCondition.cigarettetype!=''">AND t.f_cigarettetype like #{whereCondition.cigarettetypeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.standardscode!=null and whereCondition.standardscode!=''">AND t.f_standardscode like #{whereCondition.standardscodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.formulacode!=null and whereCondition.formulacode!=''">AND t.f_formulacode like #{whereCondition.formulacodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.packingcode!=null and whereCondition.packingcode!=''">AND t.f_packingcode like #{whereCondition.packingcodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.pricetype!=null and whereCondition.pricetype!=''">AND t.f_pricetype like #{whereCondition.pricetypeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.filterlength!=null and whereCondition.filterlength!=''">AND t.f_filterlength like #{whereCondition.filterlengthByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.ciggirth!=null and whereCondition.ciggirth!=''">AND t.f_ciggirth like #{whereCondition.ciggirthByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.ciglength!=null and whereCondition.ciglength!=''">AND t.f_ciglength like #{whereCondition.ciglengthByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.cigtotallen!=null and whereCondition.cigtotallen!=''">AND t.f_cigtotallen like #{whereCondition.cigtotallenByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.packageform!=null and whereCondition.packageform!=''">AND t.f_packageform like #{whereCondition.packageformByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.producttype!=null and whereCondition.producttype!=''">AND t.f_producttype like #{whereCondition.producttypeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.cigtype!=null and whereCondition.cigtype!=''">AND t.f_cigtype like #{whereCondition.cigtypeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.linkTobaccoCut!=null and whereCondition.linkTobaccoCut!=''">AND t.f_link_tobacco_cut like #{whereCondition.linkTobaccoCutByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.status!=null and whereCondition.status!=''">AND t.f_status like #{whereCondition.statusByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.createdDate!=null">AND t.f_created_date = #{whereCondition.createdDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdPerson!=null and whereCondition.createdPerson!=''">AND t.f_created_person like #{whereCondition.createdPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.updatedDate!=null">AND t.f_updated_date = #{whereCondition.updatedDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.updatedPerson!=null and whereCondition.updatedPerson!=''">AND t.f_updated_person like #{whereCondition.updatedPersonByLike,jdbcType=VARCHAR}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+						t.f_data_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_name like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_versioncode like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_cigbrand like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_test_darptment like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_barbarcode like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_inventore_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_cigarettetype like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_standardscode like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_formulacode like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_packingcode like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_pricetype like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_filterlength like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_ciggirth like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_ciglength like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_cigtotallen like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_packageform like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_producttype like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_cigtype like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_link_tobacco_cut like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_status like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_created_person like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_updated_person like #{keyWordByLike,jdbcType=VARCHAR} 
+					)
+			</if>
+			<if test="startTime!=null and startTime!=''">AND t.f_created_date &gt;= #{startTime}</if>
+			<if test="endTime!=null and endTime!=''">AND t.f_created_date &lt;= #{endTime}</if>
+		</where>
+	</sql>
+	
+	<!-- 按对象查询 -->
+	<select id="queryByEntity" parameterType="com.ms.warehouse.manage.entity.TestcigaretteEntity" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="where" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseResultMap">
+		SELECT 
+		        t.f_id,t.f_data_id,t.f_code,t.f_name,t.f_versioncode,t.f_cigbrand,t.f_test_darptment,t.f_barbarcode,
+				t.f_inventore_id,t.f_cigarettetype,t.f_standardscode,t.f_formulacode,t.f_packingcode,t.f_pricetype,
+				t.f_filterlength,t.f_ciggirth,t.f_ciglength,t.f_cigtotallen,t.f_packageform,t.f_producttype,t.f_cigtype,
+				t.f_link_tobacco_cut,t.f_status,t.f_created_date,t.f_created_person,t.f_updated_date,t.f_updated_person,
+				t.f_packagestandards,
+		c1.`f_ver_name` AS verName,
+		c2.f_bra_name AS braName,
+		c6.`f_cig_name` AS cigName,
+		p2.`f_paci_name` AS paciName,
+		p1.`f_pac_name` AS pacName
+		 FROM t_base_testcigarette t
+		LEFT JOIN `t_mater_cigversion` AS c1 ON t.f_versioncode = c1.`f_data_id`
+		LEFT JOIN `t_mater_cigbrand` AS c2 ON t.f_cigbrand = c2.`f_data_id`
+		LEFT JOIN `t_mater_cigtype` AS c6 ON t.f_cigtype = c6.`f_data_id`
+		LEFT JOIN `t_mater_packageform` AS p1 ON t.f_packageform = p1.`f_data_id`
+		LEFT JOIN `t_mater_packidentifier` AS p2 ON t.f_packingcode = p2.`f_data_id`
+		<include refid="whereForLike" />
+		<choose>
+			<when test="orderField==null">
+				ORDER BY f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryCount" resultType="int"
+		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)  
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+	</select>
+
+	<!--查询所有-->
+	<select id="queryAlllist" resultMap="BaseResultMap">
+		SELECT * FROM t_base_testcigarette
+	</select>
+
+	<!--根据编码获取对象-->
+	<select id="queryByCode" parameterType="string" resultMap="BaseResultMap">
+		SELECT
+			t2.f_bra_name AS braName,
+			t3.f_ver_name AS verName,
+			t1.*
+		FROM
+			t_base_testcigarette t1
+		LEFT JOIN t_mater_cigbrand t2 ON t1.f_cigbrand = t2.f_data_id
+		LEFT JOIN t_mater_cigversion t3 ON t1.f_versioncode = t3.f_data_id
+		WHERE  f_code=#{code,jdbcType=VARCHAR}
+	</select>
+</mapper>
+

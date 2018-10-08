@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.manage.mapper.DepartmentMapper">
+
+	<!-- 结果Map -->
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.manage.entity.DepartmentEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="depName" jdbcType="VARCHAR" column="f_dep_name"/>
+		<result property="depPrincipal" jdbcType="VARCHAR" column="f_dep_principal"/>
+		<result property="parentId" jdbcType="INTEGER" column="f_parent_id"/>
+		<result property="descript" jdbcType="VARCHAR" column="f_descript"/>
+		<result property="enabled" jdbcType="TINYINT" column="f_enabled"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPersonId" jdbcType="INTEGER" column="f_created_person_id"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPersonId" jdbcType="INTEGER" column="f_updated_person_id"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+	</resultMap>
+	
+	<!-- 查询列 -->
+	<sql id="BaseColumnList">
+		f_id,f_dep_name,f_dep_principal,f_parent_id,f_descript,f_enabled,f_created_date,f_created_person_id,f_created_person,f_updated_date,f_updated_person_id,f_updated_person
+	</sql>
+			
+	<!--创建记录 -->
+	<insert id="create" parameterType="com.ms.warehouse.manage.entity.DepartmentEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_base_department
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="depName!=null">f_dep_name,</if>
+			<if test="depPrincipal!=null">f_dep_principal,</if>
+			<if test="parentId!=null">f_parent_id,</if>
+			<if test="descript!=null">f_descript,</if>
+			<if test="enabled!=null">f_enabled,</if>
+			<if test="createdDate!=null">f_created_date,</if>
+			<if test="createdPersonId!=null">f_created_person_id,</if>
+			<if test="createdPerson!=null">f_created_person,</if>
+			<if test="updatedDate!=null">f_updated_date,</if>
+			<if test="updatedPersonId!=null">f_updated_person_id,</if>
+			<if test="updatedPerson!=null">f_updated_person</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			<if test="depName!=null">#{depName,jdbcType=VARCHAR},</if>
+			<if test="depPrincipal!=null">#{depPrincipal,jdbcType=VARCHAR},</if>
+			<if test="parentId!=null">#{parentId,jdbcType=INTEGER},</if>
+			<if test="descript!=null">#{descript,jdbcType=VARCHAR},</if>
+			<if test="enabled!=null">#{enabled,jdbcType=TINYINT},</if>
+			<if test="createdDate!=null">#{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">#{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">#{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">#{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">#{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">#{updatedPerson,jdbcType=VARCHAR}</if>
+		</trim>
+	</insert>
+
+	<!--批量创建记录 -->
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		<foreach collection="list" item="item" index="index" separator=";">
+			INSERT INTO t_base_department
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+					<if test="item.depName!=null">f_dep_name,</if>
+					<if test="item.depPrincipal!=null">f_dep_principal,</if>
+					<if test="item.parentId!=null">f_parent_id,</if>
+					<if test="item.descript!=null">f_descript,</if>
+					<if test="item.enabled!=null">f_enabled,</if>
+					<if test="item.createdDate!=null">f_created_date,</if>
+					<if test="item.createdPersonId!=null">f_created_person_id,</if>
+					<if test="item.createdPerson!=null">f_created_person,</if>
+					<if test="item.updatedDate!=null">f_updated_date,</if>
+					<if test="item.updatedPersonId!=null">f_updated_person_id,</if>
+					<if test="item.updatedPerson!=null">f_updated_person</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+					<if test="item.depName!=null">#{item.depName,jdbcType=VARCHAR},</if>
+					<if test="item.depPrincipal!=null">#{item.depPrincipal,jdbcType=VARCHAR},</if>
+					<if test="item.parentId!=null">#{item.parentId,jdbcType=INTEGER},</if>
+					<if test="item.descript!=null">#{item.descript,jdbcType=VARCHAR},</if>
+					<if test="item.enabled!=null">#{item.enabled,jdbcType=TINYINT},</if>
+					<if test="item.createdDate!=null">#{item.createdDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.createdPersonId!=null">#{item.createdPersonId,jdbcType=INTEGER},</if>
+					<if test="item.createdPerson!=null">#{item.createdPerson,jdbcType=VARCHAR},</if>
+					<if test="item.updatedDate!=null">#{item.updatedDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.updatedPersonId!=null">#{item.updatedPersonId,jdbcType=INTEGER},</if>
+					<if test="item.updatedPerson!=null">#{item.updatedPerson,jdbcType=VARCHAR}</if>
+			</trim>
+		</foreach>
+	</insert>
+	
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.ms.warehouse.manage.entity.DepartmentEntity">
+		UPDATE t_base_department 
+		<set>
+			<if test="depName!=null">f_dep_name = #{depName,jdbcType=VARCHAR},</if>
+			<if test="depPrincipal!=null">f_dep_principal = #{depPrincipal,jdbcType=VARCHAR},</if>
+			<if test="parentId!=null">f_parent_id = #{parentId,jdbcType=INTEGER},</if>
+			<if test="descript!=null">f_descript = #{descript,jdbcType=VARCHAR},</if>
+			<if test="enabled!=null">f_enabled = #{enabled,jdbcType=TINYINT},</if>
+			<if test="createdDate!=null">f_created_date = #{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">f_created_person_id = #{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">f_created_person = #{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">f_updated_date = #{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+		</set>
+		<where> 
+			f_id  = #{id}
+		</where>				
+	</update>
+	
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_base_department 
+			<set>
+				<if test="item.depName!=null">f_dep_name = #{item.depName,jdbcType=VARCHAR},</if>
+				<if test="item.depPrincipal!=null">f_dep_principal = #{item.depPrincipal,jdbcType=VARCHAR},</if>
+				<if test="item.parentId!=null">f_parent_id = #{item.parentId,jdbcType=INTEGER},</if>
+				<if test="item.descript!=null">f_descript = #{item.descript,jdbcType=VARCHAR},</if>
+				<if test="item.enabled!=null">f_enabled = #{item.enabled,jdbcType=TINYINT},</if>
+				<if test="item.createdDate!=null">f_created_date = #{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPersonId!=null">f_created_person_id = #{item.createdPersonId,jdbcType=INTEGER},</if>
+				<if test="item.createdPerson!=null">f_created_person = #{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">f_updated_date = #{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPersonId!=null">f_updated_person_id = #{item.updatedPersonId,jdbcType=INTEGER},</if>
+				<if test="item.updatedPerson!=null">f_updated_person = #{item.updatedPerson,jdbcType=VARCHAR}</if>
+			</set>
+			<where> 
+				f_id  = #{item.id}
+			</where>	
+		</foreach>
+	</update>	
+	
+	
+	<!-- 按ID查询记录 -->
+	<select id="queryById" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_base_department 
+		WHERE f_id  = #{id}	
+	</select>
+	
+	<!-- 按Id删除 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_base_department WHERE f_id  = #{id}
+	</delete>
+
+	<!-- 按Id批量删除 -->
+	<delete id="batchDeleteById" parameterType="Long[]">
+		DELETE FROM t_base_department WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</delete>
+	
+	
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="depName!=null and depName!=''">AND t.f_dep_name = #{depName,jdbcType=VARCHAR}</if>
+			<if test="depPrincipal!=null and depPrincipal!=''">AND t.f_dep_principal = #{depPrincipal,jdbcType=VARCHAR}</if>
+			<if test="parentId!=null">AND t.f_parent_id = #{parentId,jdbcType=INTEGER}</if>
+			<if test="descript!=null and descript!=''">AND t.f_descript = #{descript,jdbcType=VARCHAR}</if>
+			<if test="enabled!=null">AND t.f_enabled = #{enabled,jdbcType=TINYINT}</if>
+			<if test="createdDate!=null">AND t.f_created_date = #{createdDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdPersonId!=null">AND t.f_created_person_id = #{createdPersonId,jdbcType=INTEGER}</if>
+			<if test="createdPerson!=null and createdPerson!=''">AND t.f_created_person = #{createdPerson,jdbcType=VARCHAR}</if>
+			<if test="updatedDate!=null">AND t.f_updated_date = #{updatedDate,jdbcType=TIMESTAMP}</if>
+			<if test="updatedPersonId!=null">AND t.f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER}</if>
+			<if test="updatedPerson!=null and updatedPerson!=''">AND t.f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+	
+	<sql id="queryFrom">
+		FROM t_base_department
+	</sql>
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.depName!=null and whereCondition.depName!=''">AND t.f_dep_name like #{whereCondition.depNameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.depPrincipal!=null and whereCondition.depPrincipal!=''">AND t.f_dep_principal like #{whereCondition.depPrincipalByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.parentId!=null">AND t.f_parent_id = #{whereCondition.parentId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.descript!=null and whereCondition.descript!=''">AND t.f_descript like #{whereCondition.descriptByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.enabled!=null">AND t.f_enabled = #{whereCondition.enabled,jdbcType=TINYINT}</if>
+				<if test="whereCondition.createdDate!=null">AND t.f_created_date = #{whereCondition.createdDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdPersonId!=null">AND t.f_created_person_id = #{whereCondition.createdPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.createdPerson!=null and whereCondition.createdPerson!=''">AND t.f_created_person like #{whereCondition.createdPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.updatedDate!=null">AND t.f_updated_date = #{whereCondition.updatedDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.updatedPersonId!=null">AND t.f_updated_person_id = #{whereCondition.updatedPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.updatedPerson!=null and whereCondition.updatedPerson!=''">AND t.f_updated_person like #{whereCondition.updatedPersonByLike,jdbcType=VARCHAR}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+						t.f_dep_name like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_dep_principal like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_descript like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_created_person like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_updated_person like #{keyWordByLike,jdbcType=VARCHAR} 
+					)
+			</if>
+			<if test="startTime!=null and startTime!=''">AND t.f_created_date &gt;= #{startTime}</if>
+			<if test="endTime!=null and endTime!=''">AND t.f_created_date &lt;= #{endTime}</if>
+		</where>
+	</sql>
+	
+	<!-- 按对象查询 -->
+	<select id="queryByEntity" parameterType="com.ms.warehouse.manage.entity.DepartmentEntity" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="where" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+		<choose>
+			<when test="orderField==null">
+				ORDER BY f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryCount" resultType="int"
+		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)  
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+	</select>
+	
+	<!-- ****************自定义SQL***************** -->
+	<!-- 获取包括父类部门名称字段的列表信息 -->
+	<select id="queryFullByPage" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		f_id AS id,
+		f_dep_name AS depName,
+		f_dep_principal AS depPrincipal,
+		f_parent_id AS parentId,
+		IFNULL((SELECT f_dep_name FROM t_base_department b WHERE b.f_id = a.f_parent_id LIMIT 1),'') AS parentName,
+		f_descript AS descript,
+		f_enabled AS enabled,
+		f_created_date AS createdDate,
+		f_created_person_id AS createdPersonId,
+		f_created_person AS createdPerson,
+		f_updated_date AS updatedDate,
+		f_updated_person_id AS updatedPersonId,
+		f_updated_person AS updatedPerson
+		FROM t_base_department a
+		where 1=1 
+		<if test="enabled!=null and enabled!=''">AND a.f_enabled=${enabled}</if>
+		<if test="depName!=null and depName!=''">AND a.f_dep_name LIKE CONCAT('%',#{depName},'%')</if>
+		order by a.f_id DESC
+	</select>
+</mapper>
+

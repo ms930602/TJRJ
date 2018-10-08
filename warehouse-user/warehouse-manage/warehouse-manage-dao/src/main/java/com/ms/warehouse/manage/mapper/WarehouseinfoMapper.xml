@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.manage.mapper.WarehouseinfoMapper">
+
+	<!-- 结果Map -->
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.manage.entity.WarehouseinfoEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="dataId" jdbcType="VARCHAR" column="f_data_id"/>
+		<result property="warCode" jdbcType="VARCHAR" column="f_war_code"/>
+		<result property="warName" jdbcType="VARCHAR" column="f_war_name"/>
+		<result property="warTypeId" jdbcType="VARCHAR" column="f_war_type_id"/>
+		<result property="stockOrgId" jdbcType="VARCHAR" column="f_stock_org_id"/>
+		<result property="warProp" jdbcType="VARCHAR" column="f_war_prop"/>
+		<result property="warAddress" jdbcType="VARCHAR" column="f_war_address"/>
+		<result property="leaderNane" jdbcType="VARCHAR" column="f_leader_nane"/>
+		<result property="phoneNum" jdbcType="VARCHAR" column="f_phone_num"/>
+		<result property="zipCode" jdbcType="VARCHAR" column="f_zip_code"/>
+		<result property="companyId" jdbcType="VARCHAR" column="f_company_id"/>
+		<result property="isSupStore" jdbcType="VARCHAR" column="f_is_sup_store"/>
+		<result property="productPoint" jdbcType="VARCHAR" column="f_product_point"/>
+		<result property="status" jdbcType="VARCHAR" column="f_status"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+	</resultMap>
+	
+	<!-- 查询列 -->
+	<sql id="BaseColumnList">
+		f_id,f_data_id,f_war_code,f_war_name,f_war_type_id,f_stock_org_id,f_war_prop,f_war_address,f_leader_nane,f_phone_num,f_zip_code,f_company_id,f_is_sup_store,f_product_point,f_status,f_created_date,f_created_person,f_updated_date,f_updated_person
+	</sql>
+			
+	<!--创建记录 -->
+	<insert id="create" parameterType="com.ms.warehouse.manage.entity.WarehouseinfoEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_base_warehouseinfo
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="dataId!=null">f_data_id,</if>
+			<if test="warCode!=null">f_war_code,</if>
+			<if test="warName!=null">f_war_name,</if>
+			<if test="warTypeId!=null">f_war_type_id,</if>
+			<if test="stockOrgId!=null">f_stock_org_id,</if>
+			<if test="warProp!=null">f_war_prop,</if>
+			<if test="warAddress!=null">f_war_address,</if>
+			<if test="leaderNane!=null">f_leader_nane,</if>
+			<if test="phoneNum!=null">f_phone_num,</if>
+			<if test="zipCode!=null">f_zip_code,</if>
+			<if test="companyId!=null">f_company_id,</if>
+			<if test="isSupStore!=null">f_is_sup_store,</if>
+			<if test="productPoint!=null">f_product_point,</if>
+			<if test="status!=null">f_status,</if>
+			<if test="createdDate!=null">f_created_date,</if>
+			<if test="createdPerson!=null">f_created_person,</if>
+			<if test="updatedDate!=null">f_updated_date,</if>
+			<if test="updatedPerson!=null">f_updated_person</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			<if test="dataId!=null">#{dataId,jdbcType=VARCHAR},</if>
+			<if test="warCode!=null">#{warCode,jdbcType=VARCHAR},</if>
+			<if test="warName!=null">#{warName,jdbcType=VARCHAR},</if>
+			<if test="warTypeId!=null">#{warTypeId,jdbcType=VARCHAR},</if>
+			<if test="stockOrgId!=null">#{stockOrgId,jdbcType=VARCHAR},</if>
+			<if test="warProp!=null">#{warProp,jdbcType=VARCHAR},</if>
+			<if test="warAddress!=null">#{warAddress,jdbcType=VARCHAR},</if>
+			<if test="leaderNane!=null">#{leaderNane,jdbcType=VARCHAR},</if>
+			<if test="phoneNum!=null">#{phoneNum,jdbcType=VARCHAR},</if>
+			<if test="zipCode!=null">#{zipCode,jdbcType=VARCHAR},</if>
+			<if test="companyId!=null">#{companyId,jdbcType=VARCHAR},</if>
+			<if test="isSupStore!=null">#{isSupStore,jdbcType=VARCHAR},</if>
+			<if test="productPoint!=null">#{productPoint,jdbcType=VARCHAR},</if>
+			<if test="status!=null">#{status,jdbcType=VARCHAR},</if>
+			<if test="createdDate!=null">#{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPerson!=null">#{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">#{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPerson!=null">#{updatedPerson,jdbcType=VARCHAR}</if>
+		</trim>
+	</insert>
+
+	<!--批量创建记录 -->
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		<foreach collection="list" item="item" index="index" separator=";">
+			INSERT INTO t_base_warehouseinfo
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+					<if test="item.dataId!=null">f_data_id,</if>
+					<if test="item.warCode!=null">f_war_code,</if>
+					<if test="item.warName!=null">f_war_name,</if>
+					<if test="item.warTypeId!=null">f_war_type_id,</if>
+					<if test="item.stockOrgId!=null">f_stock_org_id,</if>
+					<if test="item.warProp!=null">f_war_prop,</if>
+					<if test="item.warAddress!=null">f_war_address,</if>
+					<if test="item.leaderNane!=null">f_leader_nane,</if>
+					<if test="item.phoneNum!=null">f_phone_num,</if>
+					<if test="item.zipCode!=null">f_zip_code,</if>
+					<if test="item.companyId!=null">f_company_id,</if>
+					<if test="item.isSupStore!=null">f_is_sup_store,</if>
+					<if test="item.productPoint!=null">f_product_point,</if>
+					<if test="item.status!=null">f_status,</if>
+					<if test="item.createdDate!=null">f_created_date,</if>
+					<if test="item.createdPerson!=null">f_created_person,</if>
+					<if test="item.updatedDate!=null">f_updated_date,</if>
+					<if test="item.updatedPerson!=null">f_updated_person</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+					<if test="item.dataId!=null">#{item.dataId,jdbcType=VARCHAR},</if>
+					<if test="item.warCode!=null">#{item.warCode,jdbcType=VARCHAR},</if>
+					<if test="item.warName!=null">#{item.warName,jdbcType=VARCHAR},</if>
+					<if test="item.warTypeId!=null">#{item.warTypeId,jdbcType=VARCHAR},</if>
+					<if test="item.stockOrgId!=null">#{item.stockOrgId,jdbcType=VARCHAR},</if>
+					<if test="item.warProp!=null">#{item.warProp,jdbcType=VARCHAR},</if>
+					<if test="item.warAddress!=null">#{item.warAddress,jdbcType=VARCHAR},</if>
+					<if test="item.leaderNane!=null">#{item.leaderNane,jdbcType=VARCHAR},</if>
+					<if test="item.phoneNum!=null">#{item.phoneNum,jdbcType=VARCHAR},</if>
+					<if test="item.zipCode!=null">#{item.zipCode,jdbcType=VARCHAR},</if>
+					<if test="item.companyId!=null">#{item.companyId,jdbcType=VARCHAR},</if>
+					<if test="item.isSupStore!=null">#{item.isSupStore,jdbcType=VARCHAR},</if>
+					<if test="item.productPoint!=null">#{item.productPoint,jdbcType=VARCHAR},</if>
+					<if test="item.status!=null">#{item.status,jdbcType=VARCHAR},</if>
+					<if test="item.createdDate!=null">#{item.createdDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.createdPerson!=null">#{item.createdPerson,jdbcType=VARCHAR},</if>
+					<if test="item.updatedDate!=null">#{item.updatedDate,jdbcType=TIMESTAMP},</if>
+					<if test="item.updatedPerson!=null">#{item.updatedPerson,jdbcType=VARCHAR}</if>
+			</trim>
+		</foreach>
+	</insert>
+	
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.ms.warehouse.manage.entity.WarehouseinfoEntity">
+		UPDATE t_base_warehouseinfo 
+		<set>
+			<if test="dataId!=null">f_data_id = #{dataId,jdbcType=VARCHAR},</if>
+			<if test="warCode!=null">f_war_code = #{warCode,jdbcType=VARCHAR},</if>
+			<if test="warName!=null">f_war_name = #{warName,jdbcType=VARCHAR},</if>
+			<if test="warTypeId!=null">f_war_type_id = #{warTypeId,jdbcType=VARCHAR},</if>
+			<if test="stockOrgId!=null">f_stock_org_id = #{stockOrgId,jdbcType=VARCHAR},</if>
+			<if test="warProp!=null">f_war_prop = #{warProp,jdbcType=VARCHAR},</if>
+			<if test="warAddress!=null">f_war_address = #{warAddress,jdbcType=VARCHAR},</if>
+			<if test="leaderNane!=null">f_leader_nane = #{leaderNane,jdbcType=VARCHAR},</if>
+			<if test="phoneNum!=null">f_phone_num = #{phoneNum,jdbcType=VARCHAR},</if>
+			<if test="zipCode!=null">f_zip_code = #{zipCode,jdbcType=VARCHAR},</if>
+			<if test="companyId!=null">f_company_id = #{companyId,jdbcType=VARCHAR},</if>
+			<if test="isSupStore!=null">f_is_sup_store = #{isSupStore,jdbcType=VARCHAR},</if>
+			<if test="productPoint!=null">f_product_point = #{productPoint,jdbcType=VARCHAR},</if>
+			<if test="status!=null">f_status = #{status,jdbcType=VARCHAR},</if>
+			<if test="createdDate!=null">f_created_date = #{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPerson!=null">f_created_person = #{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">f_updated_date = #{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPerson!=null">f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+		</set>
+		<where> 
+			f_id  = #{id}
+		</where>				
+	</update>
+	
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_base_warehouseinfo 
+			<set>
+				<if test="item.dataId!=null">f_data_id = #{item.dataId,jdbcType=VARCHAR},</if>
+				<if test="item.warCode!=null">f_war_code = #{item.warCode,jdbcType=VARCHAR},</if>
+				<if test="item.warName!=null">f_war_name = #{item.warName,jdbcType=VARCHAR},</if>
+				<if test="item.warTypeId!=null">f_war_type_id = #{item.warTypeId,jdbcType=VARCHAR},</if>
+				<if test="item.stockOrgId!=null">f_stock_org_id = #{item.stockOrgId,jdbcType=VARCHAR},</if>
+				<if test="item.warProp!=null">f_war_prop = #{item.warProp,jdbcType=VARCHAR},</if>
+				<if test="item.warAddress!=null">f_war_address = #{item.warAddress,jdbcType=VARCHAR},</if>
+				<if test="item.leaderNane!=null">f_leader_nane = #{item.leaderNane,jdbcType=VARCHAR},</if>
+				<if test="item.phoneNum!=null">f_phone_num = #{item.phoneNum,jdbcType=VARCHAR},</if>
+				<if test="item.zipCode!=null">f_zip_code = #{item.zipCode,jdbcType=VARCHAR},</if>
+				<if test="item.companyId!=null">f_company_id = #{item.companyId,jdbcType=VARCHAR},</if>
+				<if test="item.isSupStore!=null">f_is_sup_store = #{item.isSupStore,jdbcType=VARCHAR},</if>
+				<if test="item.productPoint!=null">f_product_point = #{item.productPoint,jdbcType=VARCHAR},</if>
+				<if test="item.status!=null">f_status = #{item.status,jdbcType=VARCHAR},</if>
+				<if test="item.createdDate!=null">f_created_date = #{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPerson!=null">f_created_person = #{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">f_updated_date = #{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPerson!=null">f_updated_person = #{item.updatedPerson,jdbcType=VARCHAR}</if>
+			</set>
+			<where> 
+				f_id  = #{item.id}
+			</where>	
+		</foreach>
+	</update>	
+	
+	
+	<!-- 按ID查询记录 -->
+	<select id="queryById" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_base_warehouseinfo 
+		WHERE f_id  = #{id}	
+	</select>
+	
+    <!-- 按map查询记录 -->
+	<select id="queyByMapsParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_base_warehouseinfo 
+		<where>
+		    <if test="warCode !=null and ''!= warCode">
+		         and f_war_code = #{warCode,jdbcType=VARCHAR}
+		    </if>
+		</where>
+	</select>
+	<!-- 查询已生成最大编码 -->
+	<select id="queryMaxWarCode"  resultType="String">
+		select max(t.f_war_code) as warCode from t_base_warehouseinfo t where t.f_war_code REGEXP '^C[0-9]{9}'
+	</select>
+	<!-- 按Id删除 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_base_warehouseinfo WHERE f_id  = #{id}
+	</delete>
+
+	<!-- 按Id批量删除 -->
+	<delete id="batchDeleteById" parameterType="Long[]">
+		DELETE FROM t_base_warehouseinfo WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</delete>
+	
+	
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="dataId!=null and dataId!=''">AND t.f_data_id = #{dataId,jdbcType=VARCHAR}</if>
+			<if test="warCode!=null and warCode!=''">AND t.f_war_code = #{warCode,jdbcType=VARCHAR}</if>
+			<if test="warName!=null and warName!=''">AND t.f_war_name = #{warName,jdbcType=VARCHAR}</if>
+			<if test="warTypeId!=null and warTypeId!=''">AND t.f_war_type_id = #{warTypeId,jdbcType=VARCHAR}</if>
+			<if test="stockOrgId!=null and stockOrgId!=''">AND t.f_stock_org_id = #{stockOrgId,jdbcType=VARCHAR}</if>
+			<if test="warProp!=null and warProp!=''">AND t.f_war_prop = #{warProp,jdbcType=VARCHAR}</if>
+			<if test="warAddress!=null and warAddress!=''">AND t.f_war_address = #{warAddress,jdbcType=VARCHAR}</if>
+			<if test="leaderNane!=null and leaderNane!=''">AND t.f_leader_nane = #{leaderNane,jdbcType=VARCHAR}</if>
+			<if test="phoneNum!=null and phoneNum!=''">AND t.f_phone_num = #{phoneNum,jdbcType=VARCHAR}</if>
+			<if test="zipCode!=null and zipCode!=''">AND t.f_zip_code = #{zipCode,jdbcType=VARCHAR}</if>
+			<if test="companyId!=null and companyId!=''">AND t.f_company_id = #{companyId,jdbcType=VARCHAR}</if>
+			<if test="isSupStore!=null and isSupStore!=''">AND t.f_is_sup_store = #{isSupStore,jdbcType=VARCHAR}</if>
+			<if test="productPoint!=null and productPoint!=''">AND t.f_product_point = #{productPoint,jdbcType=VARCHAR}</if>
+			<if test="status!=null and status!=''">AND t.f_status = #{status,jdbcType=VARCHAR}</if>
+			<if test="createdDate!=null">AND t.f_created_date = #{createdDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdPerson!=null and createdPerson!=''">AND t.f_created_person = #{createdPerson,jdbcType=VARCHAR}</if>
+			<if test="updatedDate!=null">AND t.f_updated_date = #{updatedDate,jdbcType=TIMESTAMP}</if>
+			<if test="updatedPerson!=null and updatedPerson!=''">AND t.f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+	
+	<sql id="queryFrom">
+		FROM t_base_warehouseinfo
+	</sql>
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.dataId!=null and whereCondition.dataId!=''">AND t.f_data_id like #{whereCondition.dataIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.warCode!=null and whereCondition.warCode!=''">AND t.f_war_code like #{whereCondition.warCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.warName!=null and whereCondition.warName!=''">AND t.f_war_name like #{whereCondition.warNameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.warTypeId!=null and whereCondition.warTypeId!=''">AND t.f_war_type_id like #{whereCondition.warTypeIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.stockOrgId!=null and whereCondition.stockOrgId!=''">AND t.f_stock_org_id like #{whereCondition.stockOrgIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.warProp!=null and whereCondition.warProp!=''">AND t.f_war_prop like #{whereCondition.warPropByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.warAddress!=null and whereCondition.warAddress!=''">AND t.f_war_address like #{whereCondition.warAddressByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.leaderNane!=null and whereCondition.leaderNane!=''">AND t.f_leader_nane like #{whereCondition.leaderNaneByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.phoneNum!=null and whereCondition.phoneNum!=''">AND t.f_phone_num like #{whereCondition.phoneNumByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.zipCode!=null and whereCondition.zipCode!=''">AND t.f_zip_code like #{whereCondition.zipCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.companyId!=null and whereCondition.companyId!=''">AND t.f_company_id like #{whereCondition.companyIdByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.isSupStore!=null and whereCondition.isSupStore!=''">AND t.f_is_sup_store like #{whereCondition.isSupStoreByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.productPoint!=null and whereCondition.productPoint!=''">AND t.f_product_point like #{whereCondition.productPointByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.status!=null and whereCondition.status!=''">AND t.f_status like #{whereCondition.statusByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.createdDate!=null">AND t.f_created_date = #{whereCondition.createdDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdPerson!=null and whereCondition.createdPerson!=''">AND t.f_created_person like #{whereCondition.createdPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.updatedDate!=null">AND t.f_updated_date = #{whereCondition.updatedDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.updatedPerson!=null and whereCondition.updatedPerson!=''">AND t.f_updated_person like #{whereCondition.updatedPersonByLike,jdbcType=VARCHAR}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+						t.f_data_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_war_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_war_name like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_war_type_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_stock_org_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_war_prop like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_war_address like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_leader_nane like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_phone_num like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_zip_code like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_company_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_is_sup_store like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_product_point like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_status like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_created_person like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_updated_person like #{keyWordByLike,jdbcType=VARCHAR} 
+					)
+			</if>
+			<if test="startTime!=null and startTime!=''">AND t.f_created_date &gt;= #{startTime}</if>
+			<if test="endTime!=null and endTime!=''">AND t.f_created_date &lt;= #{endTime}</if>
+		</where>
+	</sql>
+	
+	<!-- 按对象查询 -->
+	<select id="queryByEntity" parameterType="com.ms.warehouse.manage.entity.WarehouseinfoEntity" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="where" />
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+		<choose>
+			<when test="orderField==null">
+				ORDER BY f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryCount" resultType="int"
+		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)  
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+	</select>
+
+	<!--获取成品, 福祥促试仓库-->
+	<select id="queryendproduct" parameterType="string" resultMap="BaseResultMap">
+		SELECT * FROM t_base_warehouseinfo WHERE f_war_type_id in ('01','10') AND f_status = '2'
+		AND (f_war_code like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR f_war_name like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR #{keyword}='')
+		
+	</select>
+</mapper>
+

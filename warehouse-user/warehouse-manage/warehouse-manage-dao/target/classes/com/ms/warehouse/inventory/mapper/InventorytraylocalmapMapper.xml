@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ms.warehouse.inventory.mapper.InventorytraylocalmapMapper">
+
+	<!-- 结果Map -->
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.inventory.entity.InventorytraylocalmapEntity">
+		<result property="id" jdbcType="INTEGER" column="f_id"/>
+		<result property="detailId" jdbcType="INTEGER" column="f_detail_id"/>
+		<result property="materCode" jdbcType="VARCHAR" column="f_mater_code"/>
+		<result property="batchNo" jdbcType="VARCHAR" column="f_batch_no"/>
+		<result property="quality" jdbcType="DECIMAL" column="f_quality"/>
+		<result property="trayRfid" jdbcType="VARCHAR" column="f_tray_rfid"/>
+		<result property="localId" jdbcType="INTEGER" column="f_local_id"/>
+		<result property="localCode" jdbcType="VARCHAR" column="f_local_code"/>
+		<result property="localRfid" jdbcType="VARCHAR" column="f_local_rfid"/>
+		<result property="status" jdbcType="INTEGER" column="f_status"/>
+		<result property="createdDate" jdbcType="TIMESTAMP" column="f_created_date"/>
+		<result property="createdPersonId" jdbcType="INTEGER" column="f_created_person_id"/>
+		<result property="createdPerson" jdbcType="VARCHAR" column="f_created_person"/>
+		<result property="updatedDate" jdbcType="TIMESTAMP" column="f_updated_date"/>
+		<result property="updatedPersonId" jdbcType="INTEGER" column="f_updated_person_id"/>
+		<result property="updatedPerson" jdbcType="VARCHAR" column="f_updated_person"/>
+		<result property="soleCode" jdbcType="VARCHAR" column="f_sole_code"/>
+		<result property="trayCode" jdbcType="VARCHAR" column="f_tray_code"/>
+		<result property="produceDate" jdbcType="TIMESTAMP" column="f_produce_date"/>
+		<result property="outDate" jdbcType="TIMESTAMP" column="f_out_date"/>
+		<result property="cigtype" jdbcType="INTEGER" column="f_cigtype"/>
+		<result property="subverId" jdbcType="INTEGER" column="f_subver_id"/>
+		<result property="subverName" jdbcType="VARCHAR" column="f_subver_name"/>
+		<result property="materName" jdbcType="VARCHAR" column="materName"/>
+		<result property="descript" jdbcType="VARCHAR" column="descript"/>
+		<result property="materVersion" jdbcType="VARCHAR" column="f_mater_version"/>
+		<result property="areaBlock" jdbcType="INTEGER" column="f_area_block"/>
+		<result property="areaRow" jdbcType="INTEGER" column="f_area_row"/>
+		<result property="areaNum" jdbcType="INTEGER" column="f_area_num"/>
+		<result property="upDown" jdbcType="INTEGER" column="f_up_down"/>
+		<result property="localStatus" jdbcType="INTEGER" column="localStatus"/>
+	</resultMap>
+
+	<!-- 查询列 -->
+	<sql id="BaseColumnList">
+		f_id,f_detail_id,f_mater_code,f_batch_no,f_quality,f_tray_rfid,f_local_id,f_local_code,f_local_rfid,f_status,f_created_date,f_created_person_id,f_created_person,f_updated_date,f_updated_person_id,f_updated_person,f_sole_code,f_tray_code,f_produce_date,f_out_date,f_cigtype,f_subver_id,f_subver_name
+	</sql>
+
+	<!--创建记录 -->
+	<insert id="create" parameterType="com.ms.warehouse.inventory.entity.InventorytraylocalmapEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_ware_inventorytraylocalmap
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="detailId!=null">f_detail_id,</if>
+			<if test="materCode!=null">f_mater_code,</if>
+			<if test="batchNo!=null">f_batch_no,</if>
+			<if test="quality!=null">f_quality,</if>
+			<if test="trayRfid!=null">f_tray_rfid,</if>
+			<if test="localId!=null">f_local_id,</if>
+			<if test="localCode!=null">f_local_code,</if>
+			<if test="localRfid!=null">f_local_rfid,</if>
+			<if test="status!=null">f_status,</if>
+			<if test="createdDate!=null">f_created_date,</if>
+			<if test="createdPersonId!=null">f_created_person_id,</if>
+			<if test="createdPerson!=null">f_created_person,</if>
+			<if test="updatedDate!=null">f_updated_date,</if>
+			<if test="updatedPersonId!=null">f_updated_person_id,</if>
+			<if test="updatedPerson!=null">f_updated_person,</if>
+			<if test="soleCode!=null">f_sole_code,</if>
+			<if test="trayCode!=null">f_tray_code,</if>
+			<if test="produceDate!=null">f_produce_date,</if>
+			<if test="cigtype!=null">f_cigtype,</if>
+			<if test="subverId!=null">f_subver_id,</if>
+			<if test="subverName!=null">f_subver_name,</if>
+			<if test="outDate!=null">f_out_date</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			<if test="detailId!=null">#{detailId,jdbcType=INTEGER},</if>
+			<if test="materCode!=null">#{materCode,jdbcType=VARCHAR},</if>
+			<if test="batchNo!=null">#{batchNo,jdbcType=VARCHAR},</if>
+			<if test="quality!=null">#{quality,jdbcType=DECIMAL},</if>
+			<if test="trayRfid!=null">#{trayRfid,jdbcType=VARCHAR},</if>
+			<if test="localId!=null">#{localId,jdbcType=INTEGER},</if>
+			<if test="localCode!=null">#{localCode,jdbcType=VARCHAR},</if>
+			<if test="localRfid!=null">#{localRfid,jdbcType=VARCHAR},</if>
+			<if test="status!=null">#{status,jdbcType=INTEGER},</if>
+			<if test="createdDate!=null">#{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">#{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">#{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">#{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">#{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">#{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="soleCode!=null">#{soleCode,jdbcType=VARCHAR},</if>
+			<if test="trayCode!=null">#{trayCode,jdbcType=VARCHAR},</if>
+			<if test="produceDate!=null">#{produceDate,jdbcType=TIMESTAMP},</if>
+			<if test="cigtype!=null">#{cigtype,jdbcType=INTEGER},</if>
+			<if test="subverId!=null">#{subverId,jdbcType=INTEGER},</if>
+			<if test="subverName!=null">#{subverName,jdbcType=VARCHAR},</if>
+			<if test="outDate!=null">#{outDate,jdbcType=TIMESTAMP}</if>
+		</trim>
+	</insert>
+
+	<!--批量创建记录 -->
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		<foreach collection="list" item="item" index="index" separator=";">
+			INSERT INTO t_ware_inventorytraylocalmap
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="item.detailId!=null">f_detail_id,</if>
+				<if test="item.materCode!=null">f_mater_code,</if>
+				<if test="item.batchNo!=null">f_batch_no,</if>
+				<if test="item.quality!=null">f_quality,</if>
+				<if test="item.trayRfid!=null">f_tray_rfid,</if>
+				<if test="item.localId!=null">f_local_id,</if>
+				<if test="item.localCode!=null">f_local_code,</if>
+				<if test="item.localRfid!=null">f_local_rfid,</if>
+				<if test="item.status!=null">f_status,</if>
+				<if test="item.createdDate!=null">f_created_date,</if>
+				<if test="item.createdPersonId!=null">f_created_person_id,</if>
+				<if test="item.createdPerson!=null">f_created_person,</if>
+				<if test="item.updatedDate!=null">f_updated_date,</if>
+				<if test="item.updatedPersonId!=null">f_updated_person_id,</if>
+				<if test="item.updatedPerson!=null">f_updated_person,</if>
+				<if test="item.soleCode!=null">f_sole_code,</if>
+				<if test="item.trayCode!=null">f_tray_code,</if>
+				<if test="item.produceDate!=null">f_produce_date,</if>
+				<if test="item.cigtype!=null">f_cigtype,</if>
+				<if test="item.subverId!=null">f_subver_id,</if>
+				<if test="item.subverName!=null">f_subver_name,</if>
+				<if test="item.outDate!=null">f_out_date</if>
+			</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+				<if test="item.detailId!=null">#{item.detailId,jdbcType=INTEGER},</if>
+				<if test="item.materCode!=null">#{item.materCode,jdbcType=VARCHAR},</if>
+				<if test="item.batchNo!=null">#{item.batchNo,jdbcType=VARCHAR},</if>
+				<if test="item.quality!=null">#{item.quality,jdbcType=DECIMAL},</if>
+				<if test="item.trayRfid!=null">#{item.trayRfid,jdbcType=VARCHAR},</if>
+				<if test="item.localId!=null">#{item.localId,jdbcType=INTEGER},</if>
+				<if test="item.localCode!=null">#{item.localCode,jdbcType=VARCHAR},</if>
+				<if test="item.localRfid!=null">#{item.localRfid,jdbcType=VARCHAR},</if>
+				<if test="item.status!=null">#{item.status,jdbcType=INTEGER},</if>
+				<if test="item.createdDate!=null">#{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPersonId!=null">#{item.createdPersonId,jdbcType=INTEGER},</if>
+				<if test="item.createdPerson!=null">#{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">#{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPersonId!=null">#{item.updatedPersonId,jdbcType=INTEGER},</if>
+				<if test="item.updatedPerson!=null">#{item.updatedPerson,jdbcType=VARCHAR},</if>
+				<if test="item.soleCode!=null">#{item.soleCode,jdbcType=VARCHAR},</if>
+				<if test="item.trayCode!=null">#{item.trayCode,jdbcType=VARCHAR},</if>
+				<if test="item.produceDate!=null">#{item.produceDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.cigtype!=null">#{item.cigtype,jdbcType=INTEGER},</if>
+				<if test="item.subverId!=null">#{item.subverId,jdbcType=INTEGER},</if>
+				<if test="item.subverName!=null">#{item.subverName,jdbcType=VARCHAR},</if>
+				<if test="item.outDate!=null">#{item.outDate,jdbcType=TIMESTAMP}</if>
+			</trim>
+		</foreach>
+	</insert>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.ms.warehouse.inventory.entity.InventorytraylocalmapEntity">
+		UPDATE t_ware_inventorytraylocalmap
+		<set>
+			<if test="detailId!=null">f_detail_id = #{detailId,jdbcType=INTEGER},</if>
+			<if test="materCode!=null">f_mater_code = #{materCode,jdbcType=VARCHAR},</if>
+			<if test="batchNo!=null">f_batch_no = #{batchNo,jdbcType=VARCHAR},</if>
+			<if test="quality!=null">f_quality = #{quality,jdbcType=DECIMAL},</if>
+			<if test="trayRfid!=null">f_tray_rfid = #{trayRfid,jdbcType=VARCHAR},</if>
+			<if test="localId!=null">f_local_id = #{localId,jdbcType=INTEGER},</if>
+			<if test="localCode!=null">f_local_code = #{localCode,jdbcType=VARCHAR},</if>
+			<if test="localRfid!=null">f_local_rfid = #{localRfid,jdbcType=VARCHAR},</if>
+			<if test="status!=null">f_status = #{status,jdbcType=INTEGER},</if>
+			<if test="createdDate!=null">f_created_date = #{createdDate,jdbcType=TIMESTAMP},</if>
+			<if test="createdPersonId!=null">f_created_person_id = #{createdPersonId,jdbcType=INTEGER},</if>
+			<if test="createdPerson!=null">f_created_person = #{createdPerson,jdbcType=VARCHAR},</if>
+			<if test="updatedDate!=null">f_updated_date = #{updatedDate,jdbcType=TIMESTAMP},</if>
+			<if test="updatedPersonId!=null">f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER},</if>
+			<if test="updatedPerson!=null">f_updated_person = #{updatedPerson,jdbcType=VARCHAR},</if>
+			<if test="soleCode!=null">f_sole_code = #{soleCode,jdbcType=VARCHAR},</if>
+			<if test="trayCode!=null">f_tray_code = #{trayCode,jdbcType=VARCHAR},</if>
+			<if test="produceDate!=null">f_produce_date = #{produceDate,jdbcType=TIMESTAMP},</if>
+			<if test="cigtype!=null">f_cigtype = #{cigtype,jdbcType=INTEGER},</if>
+			<if test="subverId!=null">f_subver_id = #{subverId,jdbcType=INTEGER},</if>
+			<if test="subverName!=null">f_subver_name = #{subverName,jdbcType=VARCHAR},</if>
+			<if test="outDate!=null">f_out_date = #{outDate,jdbcType=TIMESTAMP}</if>
+		</set>
+		<where>
+			f_id  = #{id}
+		</where>
+	</update>
+
+	<!--批量更新记录 -->
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_ware_inventorytraylocalmap
+			<set>
+				<if test="item.detailId!=null">f_detail_id = #{item.detailId,jdbcType=INTEGER},</if>
+				<if test="item.materCode!=null">f_mater_code = #{item.materCode,jdbcType=VARCHAR},</if>
+				<if test="item.batchNo!=null">f_batch_no = #{item.batchNo,jdbcType=VARCHAR},</if>
+				<if test="item.quality!=null">f_quality = #{item.quality,jdbcType=DECIMAL},</if>
+				<if test="item.trayRfid!=null">f_tray_rfid = #{item.trayRfid,jdbcType=VARCHAR},</if>
+				<if test="item.localId!=null">f_local_id = #{item.localId,jdbcType=INTEGER},</if>
+				<if test="item.localCode!=null">f_local_code = #{item.localCode,jdbcType=VARCHAR},</if>
+				<if test="item.localRfid!=null">f_local_rfid = #{item.localRfid,jdbcType=VARCHAR},</if>
+				<if test="item.status!=null">f_status = #{item.status,jdbcType=INTEGER},</if>
+				<if test="item.createdDate!=null">f_created_date = #{item.createdDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.createdPersonId!=null">f_created_person_id = #{item.createdPersonId,jdbcType=INTEGER},</if>
+				<if test="item.createdPerson!=null">f_created_person = #{item.createdPerson,jdbcType=VARCHAR},</if>
+				<if test="item.updatedDate!=null">f_updated_date = #{item.updatedDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.updatedPersonId!=null">f_updated_person_id = #{item.updatedPersonId,jdbcType=INTEGER},</if>
+				<if test="item.updatedPerson!=null">f_updated_person = #{item.updatedPerson,jdbcType=VARCHAR},</if>
+				<if test="item.soleCode!=null">f_sole_code = #{item.soleCode,jdbcType=VARCHAR},</if>
+				<if test="item.trayCode!=null">f_tray_code = #{item.trayCode,jdbcType=VARCHAR},</if>
+				<if test="item.produceDate!=null">f_produce_date = #{item.produceDate,jdbcType=TIMESTAMP},</if>
+				<if test="item.cigtype!=null">f_cigtype = #{item.cigtype,jdbcType=INTEGER},</if>
+				<if test="item.subverId!=null">f_subver_id = #{item.subverId,jdbcType=INTEGER},</if>
+			    <if test="item.subverName!=null">f_subver_name = #{item.subverName,jdbcType=VARCHAR},</if>
+				<if test="item.outDate!=null">f_out_date = #{item.outDate,jdbcType=TIMESTAMP}</if>
+			</set>
+			<where>
+				f_id  = #{item.id}
+			</where>
+		</foreach>
+	</update>
+
+
+	<!-- 按ID查询记录 -->
+	<select id="queryById" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_ware_inventorytraylocalmap
+		WHERE f_id  = #{id}
+	</select>
+	<!-- 按map查询记录 -->
+	<select id="queryByMapParam" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		FROM t_ware_inventorytraylocalmap
+		<where>
+		         f_status =0
+		     <if test="trayRfid !=null and ''!=trayRfid">
+		         and f_tray_rfid =#{trayRfid,jdbcType=VARCHAR}
+		     </if>
+		</where>
+	</select>
+	<!-- 按Id删除 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM t_ware_inventorytraylocalmap WHERE f_id  = #{id}
+	</delete>
+
+	<!-- 按Id批量删除 -->
+	<delete id="batchDeleteById" parameterType="Long[]">
+		DELETE FROM t_ware_inventorytraylocalmap WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</delete>
+
+
+	<sql id="where">
+		<where>
+			1=1
+			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
+			<if test="detailId!=null">AND t.f_detail_id = #{detailId,jdbcType=INTEGER}</if>
+			<if test="materCode!=null and materCode!=''">AND t.f_mater_code = #{materCode,jdbcType=VARCHAR}</if>
+			<if test="batchNo!=null and batchNo!=''">AND t.f_batch_no = #{batchNo,jdbcType=VARCHAR}</if>
+			<if test="quality!=null">AND t.f_quality = #{quality,jdbcType=DECIMAL}</if>
+			<if test="trayRfid!=null and trayRfid!=''">AND t.f_tray_rfid = #{trayRfid,jdbcType=VARCHAR}</if>
+			<if test="localId!=null">AND t.f_local_id = #{localId,jdbcType=INTEGER}</if>
+			<if test="localCode!=null and localCode!=''">AND t.f_local_code = #{localCode,jdbcType=VARCHAR}</if>
+			<if test="localRfid!=null and localRfid!=''">AND t.f_local_rfid = #{localRfid,jdbcType=VARCHAR}</if>
+			<if test="status!=null">AND t.f_status = #{status,jdbcType=INTEGER}</if>
+			<if test="createdDate!=null">AND t.f_created_date = #{createdDate,jdbcType=TIMESTAMP}</if>
+			<if test="createdPersonId!=null">AND t.f_created_person_id = #{createdPersonId,jdbcType=INTEGER}</if>
+			<if test="createdPerson!=null and createdPerson!=''">AND t.f_created_person = #{createdPerson,jdbcType=VARCHAR}</if>
+			<if test="updatedDate!=null">AND t.f_updated_date = #{updatedDate,jdbcType=TIMESTAMP}</if>
+			<if test="updatedPersonId!=null">AND t.f_updated_person_id = #{updatedPersonId,jdbcType=INTEGER}</if>
+			<if test="updatedPerson!=null and updatedPerson!=''">AND t.f_updated_person = #{updatedPerson,jdbcType=VARCHAR}</if>
+			<if test="soleCode!=null and soleCode!=''">AND t.f_sole_code = #{soleCode,jdbcType=VARCHAR}</if>
+			<if test="trayCode!=null and trayCode!=''">AND t.f_tray_code = #{trayCode,jdbcType=VARCHAR}</if>
+			<if test="produceDate!=null">AND t.f_produce_date = #{produceDate,jdbcType=TIMESTAMP}</if>
+			<if test="cigtype!=null">AND t.f_cigtype = #{cigtype,jdbcType=INTEGER}</if>
+			<if test="subverId!=null">AND t.f_subver_id = #{subverId,jdbcType=INTEGER}</if>
+			<if test="subverName!=null and subverName!=''">AND t.f_subver_name = #{subverName,jdbcType=VARCHAR}</if>
+			<if test="outDate!=null">AND t.f_out_date = #{outDate,jdbcType=TIMESTAMP}</if>
+		</where>
+	</sql>
+
+	<sql id="queryFrom">
+		FROM t_ware_inventorytraylocalmap
+	</sql>
+	<!-- 查询Where语句 -->
+	<sql id="whereForLike">
+		<where>
+			1=1
+			<if test="whereCondition!=null">
+				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
+				<if test="whereCondition.detailId!=null">AND t.f_detail_id = #{whereCondition.detailId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.materCode!=null and whereCondition.materCode!=''">AND t.f_mater_code like #{whereCondition.materCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.batchNo!=null and whereCondition.batchNo!=''">AND t.f_batch_no like #{whereCondition.batchNoByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.quality!=null">AND t.f_quality = #{whereCondition.quality,jdbcType=DECIMAL}</if>
+				<if test="whereCondition.trayRfid!=null and whereCondition.trayRfid!=''">AND t.f_tray_rfid like #{whereCondition.trayRfidByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.localId!=null">AND t.f_local_id = #{whereCondition.localId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.localCode!=null and whereCondition.localCode!=''">AND t.f_local_code like #{whereCondition.localCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.localRfid!=null and whereCondition.localRfid!=''">AND t.f_local_rfid like #{whereCondition.localRfidByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.status!=null">AND t.f_status = #{whereCondition.status,jdbcType=INTEGER}</if>
+				<if test="whereCondition.createdDate!=null">AND t.f_created_date = #{whereCondition.createdDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.createdPersonId!=null">AND t.f_created_person_id = #{whereCondition.createdPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.createdPerson!=null and whereCondition.createdPerson!=''">AND t.f_created_person like #{whereCondition.createdPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.updatedDate!=null">AND t.f_updated_date = #{whereCondition.updatedDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.updatedPersonId!=null">AND t.f_updated_person_id = #{whereCondition.updatedPersonId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.updatedPerson!=null and whereCondition.updatedPerson!=''">AND t.f_updated_person like #{whereCondition.updatedPersonByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.soleCode!=null and whereCondition.soleCode!=''">AND t.f_sole_code like #{whereCondition.soleCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.trayCode!=null and whereCondition.trayCode!=''">AND t.f_tray_code like #{whereCondition.trayCodeByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.produceDate!=null">AND t.f_produce_date = #{whereCondition.produceDate,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.cigtype!=null">AND t.f_cigtype = #{whereCondition.cigtype,jdbcType=INTEGER}</if>
+				<if test="whereCondition.subverId!=null">AND t.f_subver_id = #{whereCondition.subverId,jdbcType=INTEGER}</if>
+				<if test="whereCondition.subverName!=null and whereCondition.subverName!=''">AND t.f_subver_name like #{whereCondition.subverNameByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.outDate!=null">AND t.f_out_date = #{whereCondition.outDate,jdbcType=TIMESTAMP}</if>
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				AND (
+				t.f_mater_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_batch_no like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_tray_rfid like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_local_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_local_rfid like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_created_person like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_updated_person like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_sole_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_tray_code like #{keyWordByLike,jdbcType=VARCHAR}  OR
+				t.f_subver_name like #{keyWordByLike,jdbcType=VARCHAR}
+				)
+			</if>
+			<if test="startTime!=null and startTime!=''">AND t.f_created_date &gt;= #{startTime}</if>
+			<if test="endTime!=null and endTime!=''">AND t.f_created_date &lt;= #{endTime}</if>
+		</where>
+	</sql>
+
+	<!-- 按对象查询 -->
+	<select id="queryByEntity" parameterType="com.ms.warehouse.inventory.entity.InventorytraylocalmapEntity" resultMap="BaseResultMap">
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
+		<include refid="where" />
+		 ORDER BY date_format(f_created_date,'%Y-%m-%d'),f_local_code
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
+			resultMap="BaseResultMap">
+		SELECT
+		t1.f_mater_name AS  materName,
+		t.*
+		FROM t_ware_inventorytraylocalmap t
+		LEFT JOIN t_base_materialinfo t1 ON t.f_mater_code = t1.f_mater_code
+		<include refid="whereForLike" />
+		<choose>
+			<when test="orderField==null">
+				ORDER BY f_id DESC
+			</when>
+			<otherwise>
+				ORDER BY ${orderField}
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 查询记录数 -->
+	<select id="queryCount" resultType="int"
+			parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
+		SELECT COUNT(1)
+		<include refid="queryFrom" /> t
+		<include refid="whereForLike" />
+	</select>
+
+	<!--根据物料Id 货位绑定货位 1-->
+	<select id="getInventorytraylocalmapEntityByMaterId" parameterType="string" resultMap="BaseResultMap">
+		SELECT
+			t1.*,
+			t2.f_mater_name AS materName
+		FROM
+			t_ware_inventorytraylocalmap t1
+		LEFT JOIN t_base_materialinfo t2 ON t1.f_mater_code = t2.f_mater_code
+		WHERE
+			t1.f_mater_code = #{materCode,jdbcType=INTEGER}
+			AND t1.f_status = 0
+		ORDER BY t1.f_produce_date ASC
+	</select>
+	<!--根据 货位编号还原库存货位状态 1-->
+	<update id="updatebylocalcode" parameterType="string">
+		UPDATE t_ware_inventorytraylocalmap SET f_status = 1 WHERE f_local_code  = #{localCode}
+	</update>
+	<!--1-->
+	<update id="updatebyoldlocalcode" parameterType="string">
+		UPDATE t_ware_inventorytraylocalmap SET f_status = 0 WHERE f_local_code  = #{localCode}
+	</update>
+
+	<!--根据货位  批量还原状态 1-->
+	<update id="batchUpdatebylocalCode" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE t_ware_inventorytraylocalmap
+			<set>
+				f_status = 0
+			</set>
+			<where>
+				f_local_code  = #{item.localCode}
+			</where>
+		</foreach>
+	</update>
+	<!-- 按批次号查询记录 -->
+	<select id="queryByBatchNo" parameterType="String" resultMap="BaseResultMap">
+		SELECT t.*,
+          (SELECT t2.f_descript FROM t_ware_inventorytraylocalmap as t1 
+          LEFT JOIN t_base_locationinfo as t2 on t1.f_local_code=t2.f_local_code
+          WHERE t1.f_local_code=t.f_local_code LIMIT 1) as descript
+		FROM t_ware_inventorytraylocalmap  t
+		WHERE f_batch_no  = #{batchNo}
+	</select>
+
+	<!--根据唯一码查询对象-->
+	<select id="getInventorytraylocalmapbysoleCode" parameterType="string" resultMap="BaseResultMap">
+		SELECT * FROM t_ware_inventorytraylocalmap WHERE f_sole_code = #{soleCode}
+	</select>
+	<!--根据唯一码 锁定货位-->
+	<update id="updatebysoleCode" parameterType="string">
+		UPDATE t_ware_inventorytraylocalmap SET f_status = 1 WHERE f_sole_code = #{soleCode}
+	</update>
+	<!--根据唯一码 还原货位状态-->
+	<update id="updatebyoldsoleCode" parameterType="string">
+		UPDATE t_ware_inventorytraylocalmap SET f_status = 0 WHERE f_sole_code = #{soleCode}
+	</update>
+	<!--根据库存唯一码 是否货位-->
+	<update id="updateStatusbysoleCode" parameterType="string">
+		UPDATE t_ware_inventorytraylocalmap SET f_status = 2 WHERE f_sole_code = #{soleCode}
+	</update>
+	
+		<!--根据物料编码查询总库存量-->
+	<select id="gettotalinventorybymatercode"  resultType="int">
+		select ifnull(sum(a.f_quality),0) as totalinvent from t_ware_inventorytraylocalmap a where a.f_mater_code=#{materCode} and a.f_subver_id=#{subverId} and a.f_status=0 
+	</select>
+	
+		<!--根据托盘rfid查询托盘标签-->
+	<select id="getTrayrfidLabel"  resultMap="BaseResultMap" parameterType="string">
+		SELECT
+			invl.*,
+			inv.f_mater_name as materName,
+			inv.f_mater_version,
+			(SELECT t2.f_descript FROM t_ware_inventorytraylocalmap as t1 
+			          LEFT JOIN t_base_locationinfo as t2 on t1.f_local_code=t2.f_local_code
+			          WHERE t1.f_local_code=invl.f_local_code LIMIT 1) as descript
+			FROM
+			t_ware_inventorytraylocalmap AS invl
+			LEFT JOIN t_ware_inventorydetail AS invd ON invl.f_detail_id = invd.f_id
+			LEFT JOIN t_ware_inventorymain AS inv ON invd.f_main_id = inv.f_id
+			WHERE
+			(invl.f_status = 0 or invl.f_status = 1)
+			and invl.f_tray_rfid=#{trayRfid}
+	</select>
+	<select id="getlocalrfidLabel"  resultMap="BaseResultMap" parameterType="string">
+		SELECT
+			invl.*,
+			inv.f_mater_name as materName,
+			inv.f_mater_version,
+			li.f_area_block,
+            li.f_area_num,
+			li.f_area_row,
+			li.f_status as localStatus,
+			li.f_up_down,
+			li.f_descript as descript
+			FROM
+			t_ware_inventorytraylocalmap AS invl
+			LEFT JOIN t_ware_inventorydetail AS invd ON invl.f_detail_id = invd.f_id
+			LEFT JOIN t_ware_inventorymain AS inv ON invd.f_main_id = inv.f_id
+            LEFT JOIN t_base_locationinfo AS li ON li.f_local_code=invl.f_local_code
+ 			WHERE
+			(invl.f_status = 0 or invl.f_status = 1)
+			and invl.f_local_rfid=#{localRfid}
+	</select>
+	<!--根据货位id 更新库存货位绑定表 中 货位FRID-->
+	<update id="updateInventorytraylocalmapBylocalrfid" >
+		UPDATE t_ware_inventorytraylocalmap SET f_local_rfid = #{1} WHERE f_local_rfid = #{0}  AND (f_status=0 OR f_status=1)
+	</update>
+</mapper>
+
