@@ -22,17 +22,6 @@ export default [{
                     require(['./views/homepage.vue'], resolve)
                 }
             },
-            // {
-            //     path: '/',
-            //     name: 'user',
-            //     meta: {
-            //         father: '用户管理',
-            //         name: '用户管理',
-            //     },
-            //     component: function(resolve) {
-            //         require(['./views/user.vue'], resolve)
-            //     }
-            // },
             {
                 path: '/user',
                 name: 'user',
@@ -55,18 +44,6 @@ export default [{
                     require(['./views/userRole.vue'], resolve)
                 }
             },
-
-            // {
-            //     path: '/',
-            //     name: 'basic',
-            //     meta: {
-            //         father: '基础信息',
-            //         name: '基础信息',
-            //     },
-            //     component: function(resolve) {
-            //         require(['./views/basic/floorinfo.vue'], resolve)
-            //     }
-            // },
             {
                 path: '/subversionMain',
                 name: 'subversionMain',
