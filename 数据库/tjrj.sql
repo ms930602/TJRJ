@@ -149,3 +149,41 @@ alter table t_pre_sell_ms add constraint FK_Reference_3 foreign key (f_item_id)
 alter table t_sell_ms add constraint FK_Reference_5 foreign key (f_item_id)
       references t_item_ms (f_id) on delete restrict on update restrict;
 
+
+DROP TABLE IF EXISTS `t_sys_dictionary`;
+
+CREATE TABLE `t_sys_dictionary` (
+  `f_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `f_cla_code` VARCHAR(45) NOT NULL COMMENT '分类编码',
+  `f_cla_name` VARCHAR(45) NOT NULL COMMENT '分类名称',
+  `f_dic_code` VARCHAR(45) NOT NULL COMMENT '字典编码',
+  `f_dic_name` VARCHAR(45) NOT NULL COMMENT '字典名称',
+  `f_order` INT(11) DEFAULT NULL COMMENT '排序',
+  `f_is_default` TINYINT(1) DEFAULT '0' COMMENT '是否默认 1：是  0 ：否',
+  `f_created_date` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `f_created_person_id` INT(11) DEFAULT NULL COMMENT '创建人id',
+  `f_created_person` VARCHAR(45) DEFAULT NULL COMMENT '创建人',
+  `f_updated_date` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `f_updated_person_id` INT(11) DEFAULT NULL COMMENT '更新人id',
+  `f_updated_person` VARCHAR(45) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`f_id`),
+  KEY `f_cla_code` (`f_cla_code`)
+) ENGINE=INNODB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
+
+
+DROP TABLE IF EXISTS `t_sys_classificate`;
+
+CREATE TABLE `t_sys_classificate` (
+  `f_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `f_cla_code` VARCHAR(45) NOT NULL COMMENT '分类编码',
+  `f_cla_name` VARCHAR(45) NOT NULL COMMENT '分类名称',
+  `f_order` INT(11) DEFAULT NULL COMMENT '排序',
+  `f_remark` VARCHAR(150) DEFAULT NULL COMMENT '备注',
+  `f_created_date` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `f_created_person_id` INT(11) DEFAULT NULL COMMENT '创建人id',
+  `f_created_person` VARCHAR(45) DEFAULT NULL COMMENT '创建人',
+  `f_updated_date` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `f_updated_person_id` INT(11) DEFAULT NULL COMMENT '更新人id',
+  `f_updated_person` VARCHAR(45) DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`f_id`)
+) ENGINE=INNODB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='数据分类表';

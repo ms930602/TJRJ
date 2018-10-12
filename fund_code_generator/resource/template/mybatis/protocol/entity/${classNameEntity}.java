@@ -6,8 +6,8 @@
 package ${basepackage}.entity${modepackage};
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jiuzhou.warehouse.common.entity.BaseEntity;
-import com.jiuzhou.warehouse.common.vo.TableName;
+import com.ms.warehouse.common.entity.BaseEntity;
+import com.ms.warehouse.common.vo.TableName;
 
 <#include "/include/java_class.include">
 

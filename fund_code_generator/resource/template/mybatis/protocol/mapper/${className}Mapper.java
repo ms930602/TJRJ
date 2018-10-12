@@ -5,7 +5,7 @@
 <#assign classNameLower = className?uncap_first>   
 package ${basepackage}.mapper${modepackage};
 
-import com.jiuzhou.warehouse.common.mapper.IBaseMapper;
+import com.ms.warehouse.common.mapper.IBaseMapper;
 
 import ${basepackage}.entity${modepackage}.${entityName};
 

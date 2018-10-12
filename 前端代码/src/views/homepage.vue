@@ -84,7 +84,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <div style="float:left">
-          <h5>卷烟入库排行榜</h5>
+          <h5>卷排行榜</h5>
           <p class="ct-title-text">统计时间段内卷烟规格入库量排名（前十名）</p>
         </div>
         <selectInput :value.sync="statusA" @selectChange="searchTableA" style="float:right;width:100px" >
@@ -114,7 +114,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <div style="float:left">
-          <h5>卷烟出库排行榜</h5>
+          <h5>排行榜</h5>
           <p class="ct-title-text">统计时间段内卷烟规格出库量排名（前十名）</p>
         </div>
         <selectInput :value.sync="statusB" @selectChange="searchTableB" style="float:right;width:100px" >
@@ -222,13 +222,6 @@ export default {
     };
   },
   mounted() {
-    this.initCA();
-    this.initBishu();
-    this.initWarning();
-    this.searchTableA(7);
-    this.searchTableB(7);
-    this.loadData();
-    this.searchWarning(7)
   },
   methods: {
     searchWarning(day){

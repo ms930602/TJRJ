@@ -143,7 +143,7 @@ public class DepartmentService extends BaseService {
 	 * @return
 	 * @throws CenterException
 	 */
-	public ListRespVO findFullList(Map reqMap) throws CenterException {
+	public ListRespVO findFullList(Map<String,String> reqMap) throws CenterException {
 		ListRespVO resp = new ListRespVO();
 		String enabled = reqMap.get("enabled") + "";
 		String depName = reqMap.get("depName").toString();

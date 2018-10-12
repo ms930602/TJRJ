@@ -6,8 +6,8 @@ package ${basepackage}.bo${modepackage};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.jiuzhou.warehouse.common.bo.AbstractBaseBO;
-import com.jiuzhou.warehouse.common.mapper.IBaseMapper;
+import com.ms.warehouse.common.bo.AbstractBaseBO;
+import com.ms.warehouse.common.mapper.IBaseMapper;
 
 import ${basepackage}.entity${modepackage}.${table.classNameEntity};
 import ${basepackage}.mapper${modepackage}.${table.className}Mapper;

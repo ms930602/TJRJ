@@ -146,7 +146,6 @@ export default {
 			name: 'classificate/queryClassificate', 
 			param: {keyword:query}, 
 			}).then((d) => {
-				debugger;
 				if(d.state === 0){
 					var aaData = d.aaData
 					aaData.forEach(function(el) {

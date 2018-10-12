@@ -5,7 +5,7 @@
 	<entry key="code.author">Ms</entry>
 
 	<!-- 基础包路径 (一般不需要改，自定义的路径配在下面模块路径中) -->
-	<entry key="basepackage">com.jiuzhou.warehouse.manage</entry>
+	<entry key="basepackage">com.ms.warehouse.manage</entry>
 
 	<!-- 模块路径,不填默认在包路径下(前面要加.) -->
 	<entry key="modepackage"></entry>
@@ -36,10 +36,10 @@
 	<entry key="java_typemapping.java.sql.Clob">java.lang.String</entry>
 
 	<!-- Mysql -->
-	<entry key="jdbc.url">jdbc:mysql://10.2.15.69:3306/center_warehouse?useUnicode=true&amp;characterEncoding=UTF-8</entry>
+	<entry key="jdbc.url">jdbc:mysql://120.79.139.213:3306/center_warehouse?useUnicode=true&amp;characterEncoding=UTF-8</entry>
 	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
-	<entry key="jdbc.username">jiuzhou</entry>
-	<entry key="jdbc.password">jiuzhou</entry>
+	<entry key="jdbc.username">root</entry>
+	<entry key="jdbc.password">Ms930602!@#</entry>
 
 
 	<!-- Oracle -->

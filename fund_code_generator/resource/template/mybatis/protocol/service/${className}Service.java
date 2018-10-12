@@ -3,12 +3,12 @@ package ${basepackage}.service${modepackage};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jiuzhou.warehouse.common.exception.CenterException;
-import com.jiuzhou.warehouse.common.service.BaseService;
-import com.jiuzhou.warehouse.common.vo.BaseRespVO;
-import com.jiuzhou.warehouse.common.vo.Param;
-import com.jiuzhou.warehouse.common.vo.ListVo.ListReqVO;
-import com.jiuzhou.warehouse.common.vo.ListVo.ListRespVO;
+import com.ms.warehouse.common.exception.CenterException;
+import com.ms.warehouse.common.service.BaseService;
+import com.ms.warehouse.common.vo.BaseRespVO;
+import com.ms.warehouse.common.vo.Param;
+import com.ms.warehouse.common.vo.ListVo.ListReqVO;
+import com.ms.warehouse.common.vo.ListVo.ListRespVO;
 
 import ${basepackage}.bo${modepackage}.${table.className}BO;
 import ${basepackage}.entity${modepackage}.${table.classNameEntity};

@@ -279,7 +279,7 @@ public class Column implements java.io.Serializable, Cloneable {
 	// } else if (javaType.equals("Boolean")) {
 	// result = defaultValue.equals("0")?"false":"true";
 	// } else if (javaType.equals("java.util.Date") && defaultValue.equalsIgnoreCase("sysdate")) {
-	// result = "com.jiuzhou.center.common.utils.DateUtils.getSystemDate()";
+	// result = "com.ms.center.common.utils.DateUtils.getSystemDate()";
 	// } else if (javaType.equals("java.util.Date")) {
 	// result = "null";
 	// } else {
