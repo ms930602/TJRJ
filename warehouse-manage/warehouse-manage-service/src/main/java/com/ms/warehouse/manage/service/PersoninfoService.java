@@ -1,5 +1,6 @@
 package com.ms.warehouse.manage.service;
 
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -8,6 +9,7 @@ import javax.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ms.warehouse.Persion;
 import com.ms.warehouse.common.exception.CenterException;
 import com.ms.warehouse.common.service.BaseService;
 import com.ms.warehouse.common.vo.BaseRespVO;
@@ -25,7 +27,8 @@ import com.ms.warehouse.manage.entity.PersoninfoEntity;
  * @since 1.0
  */
 @Service
-public class PersoninfoService extends BaseService {
+@com.alibaba.dubbo.config.annotation.Service(version="1.0.0")
+public class PersoninfoService extends BaseService implements Persion{
 
 	@Autowired
 	private PersoninfoBO personinfoBo;
@@ -121,5 +124,8 @@ public class PersoninfoService extends BaseService {
 			return new BaseRespVO(2, "没有要删除的记录！");
 		}
 	}
-
+	@Override
+	public PersoninfoEntity queryByMapParams(Map<String, Object> params) {
+		return personinfoBo.queryByMapParams(params);
+	}
 }

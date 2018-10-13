@@ -1,7 +1,7 @@
 代码生成步骤：
 
 (1) 修改配置文件resource/generator.xml
-1.修改生成代码的包路basepackage，如用户服务是com.jiuzhou.center.user
+1.修改生成代码的包路basepackage，如用户服务是com.ms.center.user
 2.修改生成文件的输出路径outRoot，不修改默认为在当前路径的generator-output目录
 3.修改需要移除的表名前缀tableRemovePrefixes，如用户表名为：t_center_user 移除 t_ 后实体命名变为 CenterUser
 4.修改Oracle数据的schema的值jdbc.schema

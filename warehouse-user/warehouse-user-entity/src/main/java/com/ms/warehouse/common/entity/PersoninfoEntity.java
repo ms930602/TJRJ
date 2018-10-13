@@ -1,5 +1,5 @@
 
-package com.ms.warehouse.manage.entity;
+package com.ms.warehouse.common.entity;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -15,7 +15,7 @@ import com.ms.warehouse.common.vo.TableName;
  */
 @TableName("t_base_personinfo")
 public class PersoninfoEntity extends BaseEntity {
-
+	
 	/** serialVersionUID */
     private static final long serialVersionUID = 1L;
 	

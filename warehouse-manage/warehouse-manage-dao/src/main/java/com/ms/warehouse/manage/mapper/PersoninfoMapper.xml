@@ -170,7 +170,10 @@
 		         and f_department = #{department,jdbcType=VARCHAR}
 		    </if>
 		    <if test="loginName !=null and ''!=loginName">
-		         and f_login_name = #{loginName,jdbcType=VARCHAR}
+		         and f_jobno = #{loginName,jdbcType=VARCHAR}
+		    </if>
+		    <if test="PloginName !=null and ''!=PloginName">
+		         and f_login_name =#{PloginName}
 		    </if>
 		</where>	
 	</select>

@@ -10,7 +10,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Service;
 
-import com.ms.warehouse.common.service.BaseService;
 import com.ms.warehouse.common.utils.DateUtilSafe;
 import com.ms.warehouse.common.vo.Param;
 import com.ms.warehouse.user.mapper.UserExtendMapper;

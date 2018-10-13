@@ -17,7 +17,7 @@
 	<entry key="gg.isOverride">true</entry>
 
 	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,先匹配到的先替换,示例值: t_,v_ -->
-	<entry key="tableRemovePrefixes">t_base,t_mater,t_sys,t_dev,t_ware</entry>
+	<entry key="tableRemovePrefixes">t_,t_base,t_mater,t_sys,t_dev,t_ware</entry>
 
 	<!-- 只处理表名前缀,使用逗号进行分隔多个前缀 -->
 	<entry key="filterTablePrefixes"></entry>

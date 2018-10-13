@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.ms.warehouse.common.bo.DictionariesBO;
 import com.ms.warehouse.common.entity.DictionariesEntity;
-import com.ms.warehouse.common.service.BaseService;
 import com.ms.warehouse.common.vo.BaseRespVO;
 import com.ms.warehouse.common.vo.Param;
 import com.ms.warehouse.common.vo.ListVo.ListReqVO;

@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.ms.warehouse.common.utils.StringUtils;
 import com.ms.warehouse.permission.api.IPermissionSService;
 import com.ms.warehouse.permission.entity.MenuItem;
 import com.ms.warehouse.permission.entity.PermissonInfo;
 import com.ms.warehouse.permission.entity.TsysButtonEntity;
 import com.ms.warehouse.pre.api.ISessionHandler;
+import com.ms.warehouse.common.utils.StringUtils;
 import com.ms.warehouse.user.api.IUserRouteService;
 import com.ms.warehouse.user.vo.AuthCheckVo;
 import com.ms.warehouse.user.vo.LoginRespVo;

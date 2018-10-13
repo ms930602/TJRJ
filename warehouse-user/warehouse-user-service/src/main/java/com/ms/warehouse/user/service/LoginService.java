@@ -19,19 +19,19 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Service;
 
+import com.ms.warehouse.Persion;
 import com.ms.warehouse.common.bo.DictionariesBO;
 import com.ms.warehouse.common.entity.DictionariesEntity;
 import com.ms.warehouse.common.entity.SessionUser;
-import com.ms.warehouse.common.service.BaseService;
-import com.ms.warehouse.common.service.CountLoginsService;
-import com.ms.warehouse.common.utils.ConfProperties;
-import com.ms.warehouse.common.utils.StringUtils;
-import com.ms.warehouse.manage.bo.PersoninfoBO;
 import com.ms.warehouse.manage.entity.PersoninfoEntity;
 import com.ms.warehouse.permission.api.IPermissionSService;
 import com.ms.warehouse.permission.entity.MenuItem;
 import com.ms.warehouse.permission.entity.PermissonInfo;
 import com.ms.warehouse.permission.entity.TsysButtonEntity;
+import com.ms.warehouse.common.service.BaseService;
+import com.ms.warehouse.common.service.CountLoginsService;
+import com.ms.warehouse.common.utils.ConfProperties;
+import com.ms.warehouse.common.utils.StringUtils;
 import com.ms.warehouse.user.api.ILoginService;
 import com.ms.warehouse.user.bo.UserBO;
 import com.ms.warehouse.user.entity.UserEntity;
@@ -68,7 +68,7 @@ public class LoginService extends BaseService implements ILoginService {
 	 * 人员信息BO
 	 */
 	@Autowired
-	private PersoninfoBO personinfoBo;
+	private Persion personinfoService;
 	/**
 	 * 分页查询列表
 	 * 
@@ -144,11 +144,11 @@ public class LoginService extends BaseService implements ILoginService {
 				//查询员工号
 				Map<String,Object> params=new HashMap<>();//查询条件
 				params.put("loginName", loginName);//登录名
-				personinfoEntity=personinfoBo.queryByMapParams(params);//查询返回值
+				personinfoEntity=personinfoService.queryByMapParams(params);//查询返回值
 				//那员工信息的登陆名+密码在尝试一次登陆，防止登陆风险
 				if (personinfoEntity!=null) {
 					//再次登陆尝试
-					userEntity.setLoginName(loginName);
+					userEntity.setLoginName(personinfoEntity.getLoginName());//从perso中拿到登陆名
 					try {
 						userEntity.setPassword(UserPwdUtil.encoderPwd(password));
 					} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
@@ -156,6 +156,8 @@ public class LoginService extends BaseService implements ILoginService {
 						return new LoginRespVo(99, "密码MD5加密时出错");
 					}
 					userEntity=userBO.queryByEntity(userEntity);//员工号登陆尝试
+				}else {
+					userEntity=null;
 				}
 			}
 		} catch (final MyBatisSystemException e) {
