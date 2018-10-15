@@ -1,189 +1,151 @@
+
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/10/11 16:47:06                          */
+/* Created on:     2018/10/15 15:58:36                          */
 /*==============================================================*/
 
 
-drop table if exists t_buy_ms;
+DROP TABLE IF EXISTS t_buy_ms;
 
-drop table if exists t_game_ms;
+DROP TABLE IF EXISTS t_opinion_ms;
 
-drop table if exists t_item_ms;
+DROP TABLE IF EXISTS t_pre_buy_ms;
 
-drop table if exists t_opinion_ms;
+DROP TABLE IF EXISTS t_pre_sell_ms;
 
-drop table if exists t_pre_buy_ms;
+DROP TABLE IF EXISTS t_sell_ms;
 
-drop table if exists t_pre_sell_ms;
+DROP TABLE IF EXISTS t_item_ms;
 
-drop table if exists t_sell_ms;
-
+DROP TABLE IF EXISTS t_game_ms;
 /*==============================================================*/
 /* Table: t_buy_ms                                              */
 /*==============================================================*/
-create table t_buy_ms
+CREATE TABLE t_buy_ms
 (
-   f_id                 int not null comment '主键',
-   f_item_id            int not null comment '物品外键',
-   f_quantity           decimal(18,2) not null comment '数量',
-   f_price              decimal(18,2) not null comment '买入价格',
-   f_buy_time           datetime not null comment '买入时间',
-   f_exist_time         datetime comment '到期日期',
-   f_remark             varchar(500) comment '备注',
-   f_createtime         datetime comment '创建时间',
-   primary key (f_id)
+   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   f_item_id            INT NOT NULL COMMENT '物品外键',
+   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '数量',
+   f_price              DECIMAL(18,2) NOT NULL COMMENT '买入价格',
+   f_buy_time           DATETIME NOT NULL COMMENT '买入时间',
+   f_exist_time         DATETIME COMMENT '到期日期',
+   f_remark             VARCHAR(500) COMMENT '备注',
+   f_createtime         DATETIME COMMENT '创建时间',
+   PRIMARY KEY (f_id)
 )
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: t_game_ms                                             */
 /*==============================================================*/
-create table t_game_ms
+CREATE TABLE t_game_ms
 (
-   f_id                 int not null comment '主键',
-   f_name               varchar(200) not null comment '名称',
-   f_type               int comment '类型',
-   f_createtime         datetime not null comment '创建时间',
-   f_column_a           int comment '扩展字段1',
-   f_column_b           int comment '扩展字段2',
-   f_column_c           varchar(200) comment '扩展字段3',
-   f_column_d           varchar(200) comment '扩展字段4',
-   primary key (f_id)
+   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   f_name               VARCHAR(200) NOT NULL COMMENT '名称',
+   f_type               CHAR(1) COMMENT '类型',
+   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
+   f_column_a           INT COMMENT '扩展字段1',
+   f_column_b           INT COMMENT '扩展字段2',
+   f_column_c           VARCHAR(200) COMMENT '扩展字段3',
+   f_column_d           VARCHAR(200) COMMENT '扩展字段4',
+   PRIMARY KEY (f_id)
 );
 
 /*==============================================================*/
 /* Table: t_item_ms                                             */
 /*==============================================================*/
-create table t_item_ms
+CREATE TABLE t_item_ms
 (
-   f_id                 int not null comment '主键',
-   f_game_id            int not null comment '游戏外键',
-   f_name               varchar(200) not null comment '名称',
-   f_type               char(1) not null comment '类型',
-   f_createtime         datetime not null comment '创建时间',
-   f_updatetime         datetime comment '修改时间',
-   f_remark             varbinary(200) comment '备注',
-   primary key (f_id)
+   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   f_game_id            INT NOT NULL COMMENT '游戏外键',
+   f_name               VARCHAR(200) NOT NULL COMMENT '名称',
+   f_type               CHAR(1) NOT NULL COMMENT '类型',
+   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
+   f_updatetime         DATETIME COMMENT '修改时间',
+   f_remark             VARBINARY(200) COMMENT '备注',
+   PRIMARY KEY (f_id)
 )
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: t_opinion_ms                                          */
 /*==============================================================*/
-create table t_opinion_ms
+CREATE TABLE t_opinion_ms
 (
-   f_id                 int not null comment '主键',
-   f_type               char(1) not null comment '类型 1-意见 2-bug',
-   f_title              varchar(256) not null comment '标题',
-   f_remark             varchar(500) comment '内容',
-   f_createtime         datetime not null comment '创建时间',
-   f_create_peo         int not null comment '创建人外键',
-   f_handle_type        char(1) not null comment '处理状态 1-已反馈 2-已处理',
-   f_re_text            varchar(256) comment '反馈内容',
-   f_re_time            datetime comment '反馈时间',
-   f_re_reward_text     varchar(256) comment '奖励内容',
-   primary key (f_id)
+   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   f_type               CHAR(1) NOT NULL COMMENT '类型 1-意见 2-bug',
+   f_title              VARCHAR(256) NOT NULL COMMENT '标题',
+   f_remark             VARCHAR(500) COMMENT '内容',
+   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
+   f_create_peo         INT NOT NULL COMMENT '创建人外键',
+   f_handle_type        CHAR(1) NOT NULL COMMENT '处理状态 1-已反馈 2-已处理',
+   f_re_text            VARCHAR(256) COMMENT '反馈内容',
+   f_re_time            DATETIME COMMENT '反馈时间',
+   f_re_reward_text     VARCHAR(256) COMMENT '奖励内容',
+   PRIMARY KEY (f_id)
 )
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: t_pre_buy_ms                                          */
 /*==============================================================*/
-create table t_pre_buy_ms
+CREATE TABLE t_pre_buy_ms
 (
-   f_id                 int not null comment '主键',
-   f_item_id            int not null comment '物品外键',
-   f_quantity           decimal(18,2) not null comment '预买数量',
-   f_price              decimal(18,2) comment '预计价格',
-   f_time               datetime not null comment '预买入时间',
-   f_remark             varchar(500) comment '备注',
-   f_createtime         datetime not null comment '创建时间',
-   primary key (f_id)
+   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   f_item_id            INT NOT NULL COMMENT '物品外键',
+   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '预买数量',
+   f_price              DECIMAL(18,2) COMMENT '预计价格',
+   f_time               DATETIME NOT NULL COMMENT '预买入时间',
+   f_remark             VARCHAR(500) COMMENT '备注',
+   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
+   PRIMARY KEY (f_id)
 )
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: t_pre_sell_ms                                         */
 /*==============================================================*/
-create table t_pre_sell_ms
+CREATE TABLE t_pre_sell_ms
 (
-   f_id                 int not null comment '主键',
-   f_item_id            int not null comment '物品外键',
-   f_quantity           decimal(18,2) not null comment '预卖数量',
-   f_price              decimal(18,2) comment '预计价格',
-   f_time               datetime not null comment '预卖出时间',
-   f_remark             varchar(500) comment '备注',
-   f_createtime         datetime not null comment '创建时间',
-   primary key (f_id)
+   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   f_item_id            INT NOT NULL COMMENT '物品外键',
+   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '预卖数量',
+   f_price              DECIMAL(18,2) COMMENT '预计价格',
+   f_time               DATETIME NOT NULL COMMENT '预卖出时间',
+   f_remark             VARCHAR(500) COMMENT '备注',
+   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
+   PRIMARY KEY (f_id)
 )
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: t_sell_ms                                             */
 /*==============================================================*/
-create table t_sell_ms
+CREATE TABLE t_sell_ms
 (
-   f_id                 int not null comment '主键',
-   f_item_id            int not null comment '物品外键',
-   f_quantity           decimal(18,2) not null comment '数量',
-   f_price              decimal(18,2) not null comment '卖出价格',
-   f_sell_time          datetime not null comment '卖出时间',
-   f_remark             varchar(500) comment '备注',
-   f_createtime         datetime not null comment '创建时间',
-   primary key (f_id)
+   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   f_item_id            INT NOT NULL COMMENT '物品外键',
+   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '数量',
+   f_price              DECIMAL(18,2) NOT NULL COMMENT '卖出价格',
+   f_sell_time          DATETIME NOT NULL COMMENT '卖出时间',
+   f_remark             VARCHAR(500) COMMENT '备注',
+   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
+   PRIMARY KEY (f_id)
 )
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ENGINE=INNODB DEFAULT CHARSET=utf8;
 
-alter table t_buy_ms add constraint FK_Reference_4 foreign key (f_item_id)
-      references t_item_ms (f_id) on delete restrict on update restrict;
+ALTER TABLE t_buy_ms ADD CONSTRAINT FK_Reference_4 FOREIGN KEY (f_item_id)
+      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table t_item_ms add constraint FK_Reference_1 foreign key (f_game_id)
-      references t_game_ms (f_id) on delete restrict on update restrict;
+ALTER TABLE t_item_ms ADD CONSTRAINT FK_Reference_1 FOREIGN KEY (f_game_id)
+      REFERENCES t_game_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table t_pre_buy_ms add constraint FK_Reference_2 foreign key (f_item_id)
-      references t_item_ms (f_id) on delete restrict on update restrict;
+ALTER TABLE t_pre_buy_ms ADD CONSTRAINT FK_Reference_2 FOREIGN KEY (f_item_id)
+      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table t_pre_sell_ms add constraint FK_Reference_3 foreign key (f_item_id)
-      references t_item_ms (f_id) on delete restrict on update restrict;
+ALTER TABLE t_pre_sell_ms ADD CONSTRAINT FK_Reference_3 FOREIGN KEY (f_item_id)
+      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table t_sell_ms add constraint FK_Reference_5 foreign key (f_item_id)
-      references t_item_ms (f_id) on delete restrict on update restrict;
+ALTER TABLE t_sell_ms ADD CONSTRAINT FK_Reference_5 FOREIGN KEY (f_item_id)
+      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-
-DROP TABLE IF EXISTS `t_sys_dictionary`;
-
-CREATE TABLE `t_sys_dictionary` (
-  `f_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `f_cla_code` VARCHAR(45) NOT NULL COMMENT '分类编码',
-  `f_cla_name` VARCHAR(45) NOT NULL COMMENT '分类名称',
-  `f_dic_code` VARCHAR(45) NOT NULL COMMENT '字典编码',
-  `f_dic_name` VARCHAR(45) NOT NULL COMMENT '字典名称',
-  `f_order` INT(11) DEFAULT NULL COMMENT '排序',
-  `f_is_default` TINYINT(1) DEFAULT '0' COMMENT '是否默认 1：是  0 ：否',
-  `f_created_date` DATETIME DEFAULT NULL COMMENT '创建时间',
-  `f_created_person_id` INT(11) DEFAULT NULL COMMENT '创建人id',
-  `f_created_person` VARCHAR(45) DEFAULT NULL COMMENT '创建人',
-  `f_updated_date` DATETIME DEFAULT NULL COMMENT '更新时间',
-  `f_updated_person_id` INT(11) DEFAULT NULL COMMENT '更新人id',
-  `f_updated_person` VARCHAR(45) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`f_id`),
-  KEY `f_cla_code` (`f_cla_code`)
-) ENGINE=INNODB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
-
-
-DROP TABLE IF EXISTS `t_sys_classificate`;
-
-CREATE TABLE `t_sys_classificate` (
-  `f_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
-  `f_cla_code` VARCHAR(45) NOT NULL COMMENT '分类编码',
-  `f_cla_name` VARCHAR(45) NOT NULL COMMENT '分类名称',
-  `f_order` INT(11) DEFAULT NULL COMMENT '排序',
-  `f_remark` VARCHAR(150) DEFAULT NULL COMMENT '备注',
-  `f_created_date` DATETIME DEFAULT NULL COMMENT '创建时间',
-  `f_created_person_id` INT(11) DEFAULT NULL COMMENT '创建人id',
-  `f_created_person` VARCHAR(45) DEFAULT NULL COMMENT '创建人',
-  `f_updated_date` DATETIME DEFAULT NULL COMMENT '更新时间',
-  `f_updated_person_id` INT(11) DEFAULT NULL COMMENT '更新人id',
-  `f_updated_person` VARCHAR(45) DEFAULT NULL COMMENT '修改人',
-  PRIMARY KEY (`f_id`)
-) ENGINE=INNODB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='数据分类表';

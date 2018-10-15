@@ -1,16 +1,21 @@
 <template>
-	<el-dialog custom-class="jz-modal" :title="personInfoModalType === 'add' ? '新增版本' : '包装版本'" :visible="modal"
-     :before-close="beforeClose" :close-on-click-modal="false" :width="300">
+	<el-dialog custom-class="jz-modal" :title="modalTypeTitle === 'add' ? '新增游戏信息' : '编辑游戏信息'" :visible="modal" :before-close="beforeClose" :close-on-click-modal="false" :width="modalWidth">
             <el-form class="modal-form" v-if="modal" :model="form" ref="form" :inline="true" :rules="rules" label-width="80px">
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="状态" prop="status">
-                            <selectInput :value.sync="form.status">
+                        <el-form-item label="游戏名称" prop="name">
+                            <inputItem :value.sync="form.name"></inputItem>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
+                        <el-form-item label="类型" prop="type">
+                            <selectInput :value.sync="form.type" :clearable="false">
                                 <el-option
-                                  v-for="item in statusList"
-                                  :key="item.key"
-                                  :label="item.value"
-                                  :value="item.key">
+                                v-for="item in typeList"
+                                :key="item.key"
+                                :label="item.value"
+                                :value="item.key"
+                                >
                                 </el-option>
                             </selectInput>
                         </el-form-item>
@@ -26,7 +31,6 @@
 <script>
 import mixin from '../../../mixin/mixin.js'
 import local from '../../../local.js'
-import configs from "../../../configs.js";
 	export default {
         mixins: [mixin],
 		data() {
@@ -34,19 +38,14 @@ import configs from "../../../configs.js";
             return {
                 value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
 				form: {
-                    subverName: '',
-                    dataId:'',
-                    pacsCode: '',
-                    converCoef: '',
-                    status: '2'
+                    id:null,
+                    name: '',
+                    type: '0'
                 },
-                statusList: [],
+                typeList: [],
                 rules: {
-                    subverName: [
-                        this._ruleRequired("名称"),
-                        this._ruleExist(configs.rootAPI + "subversion/checkSubverName", "名称",this.personinfo),
-                        this._ruleLength(25)
-                    ]
+                    name: [{required: true, message: '游戏名称不能为空' }],
+                    type: [{required: true, message: '游戏类型不能为空' }]
                 },
                 thisUser: local.get('userinfo')
 			}
@@ -55,10 +54,10 @@ import configs from "../../../configs.js";
 			modal: {
 				default: false
 			},
-            personInfoModalType: {
+            modalTypeTitle: {
                 default: 'add'
             },
-            personinfo: {
+            objItem: {
                 default: function() {
                     return {}
                 }
@@ -68,12 +67,11 @@ import configs from "../../../configs.js";
            
         },
 		mounted() {
-           Object.assign(this.form, this.personinfo)
-           this._searchDic('IS_PSTATUS')
+            this._searchDic('GAME_TYPE')
             .then((function(d) {
-                this.statusList = this._dicKey(d)
+                this.typeList = this._dicKey(d)
+                Object.assign(this.form, this.objItem);
             }).bind(this))
-
 		},
 		methods: {
             claSelectChange(ob){
@@ -85,22 +83,18 @@ import configs from "../../../configs.js";
 			submit() {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        let o = {}, method = 'subversion/update';
-                        if(this.personInfoModalType === 'add') {  
-                            method = 'subversion/create' 
+                        let o = {}, method = 'gameMs/update';
+                        if(this.modalTypeTitle === 'add') {  
+                            method = 'gameMs/create' 
                             o = {
-                                subverName: this.form.subverName,
-                                status: this.form.status,
-                                createdPersonId: this.thisUser.userId,
-                                createdPerson: this.thisUser.nickName
+                                name: this.form.name,
+                                type: this.form.type
                             }
                         }else {
                             o = {
-                                subverName: this.form.subverName,
-                                status: this.form.status,
-                                id: this.form.id,
-                                updatedPersonId: this.thisUser.userId,
-                                updatedPerson: this.thisUser.nickName
+                                name: this.form.name,
+                                type: this.form.type,
+                                id: this.form.id
                             }
                         }
                         this._ajax({url: this.rootAPI + method, param: o})
@@ -108,13 +102,9 @@ import configs from "../../../configs.js";
                             if(d.state === 0) {
                                 this.$message({ type: 'success', message: '操作成功' }); 
                                 this.$emit('submit')
-                            }else if(d.state === 2){
-                                this.$message({ type: 'warning', message: '没有要修改的记录！' });
-                            }else if(d.state === 1){
-                                this.$message({ type: 'warning', message: '该登录账号已被绑定，不能重复绑定！' });
                             }
                             else{
-                                this.$message({ type: 'warning', message: '操作失败' });
+                                this.$message({ type: 'warning', message: '操作失败:'+d.msg });
                             }
                         }).bind(this))
                     }

@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-10-13 15:55:19
+ * @Date 2018-10-15 16:01:17
  * @since 1.0
  */
 @TableName("t_game_ms")
@@ -24,7 +24,7 @@ public class GameMsEntity extends BaseEntity {
 	private String name;
 	
 	/** 类型. */
-	private Long type;
+	private String type;
 	
 	/** 创建时间. */
 	private java.util.Date createtime;
@@ -76,17 +76,17 @@ public class GameMsEntity extends BaseEntity {
 	
 
     /** set 类型. */
-	public void setType(Long type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	
 	/** get 类型. */
-	public Long getType() {
+	public String getType() {
 		return this.type;
 	}
 	
 	@JsonIgnore
-	public Long getTypeByLike() {
+	public String getTypeByLike() {
 		return this.type;
 	}
 	
@@ -185,7 +185,7 @@ public class GameMsEntity extends BaseEntity {
 	 * @param columnC			扩展字段3
 	 * @param columnD			扩展字段4
 	 */
-	public GameMsEntity(String name,Long type,java.util.Date createtime,Long columnA,Long columnB,String columnC,String columnD){
+	public GameMsEntity(String name,String type,java.util.Date createtime,Long columnA,Long columnB,String columnC,String columnD){
 		this();
 		this.name = name;
 		this.type = type;

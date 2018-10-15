@@ -1,5 +1,7 @@
 package com.ms.warehouse.manage.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,7 @@ public class GameMsService extends BaseService {
 	 * @return
 	 */
 	public Object create(GameMsEntity gameMs) throws CenterException {
+		gameMs.setCreatetime(new Date());
 		gameMsBo.createForValidate(gameMs);
 		return gameMs;
 	}

@@ -2,16 +2,16 @@
 	<div class="page-person">
     <!-- 查询条件 -->
 		<searchInputItems>
-			<searchInputItem name="游戏名称">
+			<searchInputItem name="物品名称">
 				<inputItem :value.sync="searchForm.name" @enter="searchTable"></inputItem>
 			</searchInputItem>
-			<searchInputItem name="类型">
-				<selectInput :value.sync="searchForm.type" @selectChange="searchTable" :clearable="true">
+			<searchInputItem name="所属游戏">
+				<selectInput :value.sync="searchForm.gameId" @selectChange="searchTable" :clearable="true">
 					<el-option
-				      v-for="item in types"
-				      :key="item.key"
-				      :label="item.value"
-				      :value="item.key">
+				      v-for="item in gameOption"
+				      :key="item.id"
+				      :label="item.name"
+				      :value="item.id">
 				    </el-option>
 				</selectInput>
 			</searchInputItem>
@@ -30,19 +30,38 @@
 		<!-- 表格 -->
 		<elemTable :dataList="dataList" :currentPage='pageNum' :pageSize="pageSize" :pageTotal="pageTotal" :loading="dataLoading" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange" @selectionChange="selectionChange">
 			<el-table-column type="selection" width="55"></el-table-column>
-		    <el-table-column prop="name" label="游戏名称">
+		    <el-table-column prop="name" label="物品名称">
 		    	<template slot-scope="scope">
 		    		<toolTip :content="scope.row.name">
 		    			<span>{{scope.row.name}}</span>
 		    		</toolTip>
 		      	</template>
 		    </el-table-column>
-		    <el-table-column prop="type" label="类型">
+		    <el-table-column prop="type" label="所属游戏">
 		    	<template slot-scope="scope">
-					{{_dicValue(scope.row.type, types)}}
+					{{_dicValue(scope.row.type, gameOption)}}
 			    </template>
 		    </el-table-column>
-			<el-table-column prop="createtime" label="创建时间">
+		    <el-table-column prop="type" label="类型">
+		    	<template slot-scope="scope">
+					{{_dicValue(scope.row.type, gameOption)}}
+			    </template>
+		    </el-table-column>
+		    <el-table-column prop="remark" label="备注">
+		    	<template slot-scope="scope">
+		    		<toolTip :content="scope.row.remark">
+		    			<span>{{scope.row.remark}}</span>
+		    		</toolTip>
+		      	</template>
+		    </el-table-column>
+			<el-table-column prop="updatetime" label="修改时间">
+		    	<template slot-scope="scope">
+		    		<toolTip :content="scope.row.updatetime">
+		    			<span>{{scope.row.updatetime}}</span>
+		    		</toolTip>
+		      	</template>
+		    </el-table-column>
+		    <el-table-column prop="createtime" label="创建时间">
 		    	<template slot-scope="scope">
 		    		<toolTip :content="scope.row.createtime">
 		    			<span>{{scope.row.createtime}}</span>
@@ -74,16 +93,18 @@
 			return {
 				searchForm: {
 					name: '',
-					type: ''
+					gameId: null
 				},
-				dataList: [],				
+				dataList: [],	
+				gameOption:[],			
 				rowOBJ: {}
 			}
 		},
         mounted() {
-            this._searchDic('GAME_TYPE')
-			.then((function(d) {
-				this.types = this._dicKey(d)
+			let method = 'gameMs/list';
+            this._ajax({url: this.rootAPI + method })
+            .then((function(d) {
+				this.gameOption = d.aaData;
 			    this.searchTable();
 			}).bind(this))
 		},
@@ -98,12 +119,12 @@
 					pageNum: this.pageNum, 
 					pageSize: this.pageSize
 				})
-				return this._ajax({url: this.rootAPI, name: 'gameMs/list', param: this.searchForm, loading: 'dataLoading'}).then(this.renderTable)
+				return this._ajax({url: this.rootAPI, name: 'itemMs/list', param: this.searchForm, loading: 'dataLoading'}).then(this.renderTable)
 			},
 			reset() {
 				Object.assign(this.searchForm, {
 					name: '',
-					type: ''
+					gameId: null
 				})
 				this.handleCurrentChange(1)
 			},			
@@ -129,7 +150,7 @@
 			delSubmit(o) {
 				this._comfirm('确定删除？')
         		.then((function() {        			
-        			return this._ajax({url: this.rootAPI + 'gameMs/delete', param: o, arr:true})
+        			return this._ajax({url: this.rootAPI + 'itemMs/delete', param: o, arr:true})
         		}).bind(this))
         		.then((function(d) {
 					if(d.state === 0)

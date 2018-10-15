@@ -7,7 +7,7 @@
 	<resultMap id="BaseResultMap" type="com.ms.warehouse.manage.entity.GameMsEntity">
 		<result property="id" jdbcType="INTEGER" column="f_id"/>
 		<result property="name" jdbcType="VARCHAR" column="f_name"/>
-		<result property="type" jdbcType="INTEGER" column="f_type"/>
+		<result property="type" jdbcType="VARCHAR" column="f_type"/>
 		<result property="createtime" jdbcType="TIMESTAMP" column="f_createtime"/>
 		<result property="columnA" jdbcType="INTEGER" column="f_column_a"/>
 		<result property="columnB" jdbcType="INTEGER" column="f_column_b"/>
@@ -24,7 +24,6 @@
 	<insert id="create" parameterType="com.ms.warehouse.manage.entity.GameMsEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO t_game_ms
 		<trim prefix="(" suffix=")" suffixOverrides="," >
-			<if test="id!=null">f_id,</if>
 			<if test="name!=null">f_name,</if>
 			<if test="type!=null">f_type,</if>
 			<if test="createtime!=null">f_createtime,</if>
@@ -34,9 +33,8 @@
 			<if test="columnD!=null">f_column_d</if>
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
-			<if test="id!=null">#{id,jdbcType=INTEGER},</if>
 			<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
-			<if test="type!=null">#{type,jdbcType=INTEGER},</if>
+			<if test="type!=null">#{type,jdbcType=VARCHAR},</if>
 			<if test="createtime!=null">#{createtime,jdbcType=TIMESTAMP},</if>
 			<if test="columnA!=null">#{columnA,jdbcType=INTEGER},</if>
 			<if test="columnB!=null">#{columnB,jdbcType=INTEGER},</if>
@@ -50,7 +48,6 @@
 		<foreach collection="list" item="item" index="index" separator=";">
 			INSERT INTO t_game_ms
 			<trim prefix="(" suffix=")" suffixOverrides=",">
-					<if test="item.id!=null">f_id,</if>
 					<if test="item.name!=null">f_name,</if>
 					<if test="item.type!=null">f_type,</if>
 					<if test="item.createtime!=null">f_createtime,</if>
@@ -60,9 +57,8 @@
 					<if test="item.columnD!=null">f_column_d</if>
 			</trim>
 			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
-					<if test="item.id!=null">#{item.id,jdbcType=INTEGER},</if>
 					<if test="item.name!=null">#{item.name,jdbcType=VARCHAR},</if>
-					<if test="item.type!=null">#{item.type,jdbcType=INTEGER},</if>
+					<if test="item.type!=null">#{item.type,jdbcType=VARCHAR},</if>
 					<if test="item.createtime!=null">#{item.createtime,jdbcType=TIMESTAMP},</if>
 					<if test="item.columnA!=null">#{item.columnA,jdbcType=INTEGER},</if>
 					<if test="item.columnB!=null">#{item.columnB,jdbcType=INTEGER},</if>
@@ -77,7 +73,7 @@
 		UPDATE t_game_ms 
 		<set>
 			<if test="name!=null">f_name = #{name,jdbcType=VARCHAR},</if>
-			<if test="type!=null">f_type = #{type,jdbcType=INTEGER},</if>
+			<if test="type!=null">f_type = #{type,jdbcType=VARCHAR},</if>
 			<if test="createtime!=null">f_createtime = #{createtime,jdbcType=TIMESTAMP},</if>
 			<if test="columnA!=null">f_column_a = #{columnA,jdbcType=INTEGER},</if>
 			<if test="columnB!=null">f_column_b = #{columnB,jdbcType=INTEGER},</if>
@@ -95,7 +91,7 @@
 			UPDATE t_game_ms 
 			<set>
 				<if test="item.name!=null">f_name = #{item.name,jdbcType=VARCHAR},</if>
-				<if test="item.type!=null">f_type = #{item.type,jdbcType=INTEGER},</if>
+				<if test="item.type!=null">f_type = #{item.type,jdbcType=VARCHAR},</if>
 				<if test="item.createtime!=null">f_createtime = #{item.createtime,jdbcType=TIMESTAMP},</if>
 				<if test="item.columnA!=null">f_column_a = #{item.columnA,jdbcType=INTEGER},</if>
 				<if test="item.columnB!=null">f_column_b = #{item.columnB,jdbcType=INTEGER},</if>
@@ -136,7 +132,7 @@
 			1=1
 			<if test="id!=null">AND t.f_id = #{id,jdbcType=INTEGER}</if>
 			<if test="name!=null and name!=''">AND t.f_name = #{name,jdbcType=VARCHAR}</if>
-			<if test="type!=null">AND t.f_type = #{type,jdbcType=INTEGER}</if>
+			<if test="type!=null and type!=''">AND t.f_type = #{type,jdbcType=VARCHAR}</if>
 			<if test="createtime!=null">AND t.f_createtime = #{createtime,jdbcType=TIMESTAMP}</if>
 			<if test="columnA!=null">AND t.f_column_a = #{columnA,jdbcType=INTEGER}</if>
 			<if test="columnB!=null">AND t.f_column_b = #{columnB,jdbcType=INTEGER}</if>
@@ -155,7 +151,7 @@
 			<if test="whereCondition!=null">
 				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
 				<if test="whereCondition.name!=null and whereCondition.name!=''">AND t.f_name like #{whereCondition.nameByLike,jdbcType=VARCHAR}</if>
-				<if test="whereCondition.type!=null">AND t.f_type = #{whereCondition.type,jdbcType=INTEGER}</if>
+				<if test="whereCondition.type!=null and whereCondition.type!=''">AND t.f_type = #{whereCondition.type,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.createtime!=null">AND t.f_createtime = #{whereCondition.createtime,jdbcType=TIMESTAMP}</if>
 				<if test="whereCondition.columnA!=null">AND t.f_column_a = #{whereCondition.columnA,jdbcType=INTEGER}</if>
 				<if test="whereCondition.columnB!=null">AND t.f_column_b = #{whereCondition.columnB,jdbcType=INTEGER}</if>

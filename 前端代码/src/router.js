@@ -98,27 +98,17 @@ export default [{
                 }
             },
             {
-                path: '/',
-                name: 'equipment',
+                path: '/item',
+                name: 'item',
                 meta: {
-                    father: '设备管理',
-                    name: '设备管理',
+                    father: '基本数据管理',
+                    name: '物品管理',
                 },
                 component: function(resolve) {
-                    require(['./views/equipment/devicerun.vue'], resolve)
-                }
-            },
-            {
-                path: '/devicerun',
-                name: 'devicerun',
-                meta: {
-                    father: '设备管理',
-                    name: '设备运行管理',
-                },
-                component: function(resolve) {
-                    require(['./views/equipment/devicerun.vue'], resolve)
+                    require(['./views/dataResource/item.vue'], resolve)
                 }
             }, 
+
             {
                 path: '/',
                 name: 'statisticalAnalysis',
