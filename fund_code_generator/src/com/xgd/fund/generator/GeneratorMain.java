@@ -22,13 +22,13 @@ public class GeneratorMain {
 		// 删除生成器的输出目录
 		g.deleteOutRootDir();
 		// 通过数据库表生成文件,template为模板的根目录
-		// g.generateByTable(new String[] { "t_bill_type_conf", "t_bill_info" }, "resource/template/mybatis");
-		// g.generateByTable(new String[] { "t_account_info", "t_account_list", "t_acoount_daily_balance" },
+		// g.generateByTable(new String[] { "t_vx_bill_type_conf", "t_vx_bill_info" }, "resource/template/mybatis");
+		// g.generateByTable(new String[] { "t_vx_account_vx_info", "t_vx_account_vx_list", "t_vx_acoount_vx_daily_balance" },
 		// "resource/template/mybatis");
 		// g.generateByTable(args, "resource/template/mybatis");
-		g.generateByTable(new String[] {  "t_buy_ms","t_game_ms","t_item_ms","t_opinion_ms","t_pre_buy_ms","t_pre_sell_ms","t_sell_ms" }, "resource/template/mybatis");
+		g.generateByTable(new String[] {  "t_vx_activities","t_vx_buy_info","t_vx_merchant","t_vx_promoters" }, "resource/template/mybatis");
 		
-//		g.generateByTable(new String[] { "t_sto_stockdetail" }, "resource/template/mybatis");
+//		g.generateByTable(new String[] { "t_vx_sto_stockdetail" }, "resource/template/mybatis");
 
 		// 自动搜索数据库中的所有表并生成文件,template为模板的根目录
 		 //g.generateByAllTable("resource/template/mybatis");
