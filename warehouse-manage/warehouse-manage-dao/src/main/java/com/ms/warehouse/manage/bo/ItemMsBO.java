@@ -1,6 +1,10 @@
 
 package com.ms.warehouse.manage.bo;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,4 +31,11 @@ public class ItemMsBO extends AbstractBaseBO<ItemMsEntity> {
     protected IBaseMapper<ItemMsEntity> getMapper() {
 	    return itemMsMapper;
     }
+
+	public List<ItemMsEntity> checkItemName(String ItemName, Integer gameId) {
+		Map<String, Object> queryMap = new HashMap<String, Object>();
+		queryMap.put("ItemName", ItemName);
+		queryMap.put("GameId", gameId);
+		return itemMsMapper.checkItemName(queryMap);
+	}
 }

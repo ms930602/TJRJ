@@ -9,9 +9,9 @@
 				<selectInput :value.sync="searchForm.gameId" @selectChange="searchTable" :clearable="true">
 					<el-option
 				      v-for="item in gameOption"
-				      :key="item.id"
-				      :label="item.name"
-				      :value="item.id">
+				      :key="item.key"
+				      :label="item.value"
+				      :value="item.key">
 				    </el-option>
 				</selectInput>
 			</searchInputItem>
@@ -39,12 +39,13 @@
 		    </el-table-column>
 		    <el-table-column prop="type" label="所属游戏">
 		    	<template slot-scope="scope">
-					{{_dicValue(scope.row.type, gameOption)}}
+					{{_dicValue(scope.row.gameId, gameOption)}}
 			    </template>
 		    </el-table-column>
 		    <el-table-column prop="type" label="类型">
 		    	<template slot-scope="scope">
-					{{_dicValue(scope.row.type, gameOption)}}
+					<span v-if="scope.row.type == 0">永久</span>
+					<span v-if="scope.row.type == 1">期限</span>
 			    </template>
 		    </el-table-column>
 		    <el-table-column prop="remark" label="备注">
@@ -78,17 +79,17 @@
 		    	</template>
 		    </el-table-column>
 		</elemTable>
-		<gameModel v-if="modalShow" :modal="modalShow" :modalTypeTitle="modalType" @close="modalClose" :objItem="modalObj" @submit="modalSubmit"></gameModel>
+		<itemModel v-if="modalShow" :modal="modalShow" :modalTypeTitle="modalType" @close="modalClose" :objItem="modalObj" @submit="modalSubmit"></itemModel>
     </div>
 </template>
 
 <script>
     import mixin from '../../mixin/mixin.js'
-	import gameModel from '.././component/modal/gameModel.vue'
+	import itemModel from '.././component/modal/itemModel.vue'
 	import local from '../../local.js'
 	export default {
 		mixins: [mixin],
-		components: {gameModel},
+		components: {itemModel},
 		data() {
 			return {
 				searchForm: {
@@ -101,11 +102,16 @@
 			}
 		},
         mounted() {
+        	var _this = this;
 			let method = 'gameMs/list';
             this._ajax({url: this.rootAPI + method })
             .then((function(d) {
-				this.gameOption = d.aaData;
-			    this.searchTable();
+            	if(d.aaData && d.aaData.length > 0){
+					d.aaData.forEach(temp=>{
+						_this.gameOption.push({key:temp.id,value:temp.name})
+					});
+            	}
+				this.searchTable();
 			}).bind(this))
 		},
 		methods: {

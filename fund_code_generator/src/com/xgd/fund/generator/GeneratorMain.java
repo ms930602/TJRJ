@@ -26,7 +26,7 @@ public class GeneratorMain {
 		// g.generateByTable(new String[] { "t_account_info", "t_account_list", "t_acoount_daily_balance" },
 		// "resource/template/mybatis");
 		// g.generateByTable(args, "resource/template/mybatis");
-		g.generateByTable(new String[] {  "t_buy_ms","t_game_ms","t_item_ms","t_opinion_ms","t_pre_buy_ms","t_pre_sell_ms","t_sell_ms" }, "resource/template/mybatis");
+		g.generateByTable(new String[] {  "t_game_ms" }, "resource/template/mybatis");
 		
 //		g.generateByTable(new String[] { "t_sto_stockdetail" }, "resource/template/mybatis");
 

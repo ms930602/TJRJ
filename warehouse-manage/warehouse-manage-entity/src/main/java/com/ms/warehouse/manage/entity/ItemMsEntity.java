@@ -36,7 +36,7 @@ public class ItemMsEntity extends BaseEntity {
 	private java.util.Date updatetime;
 	
 	/** 备注. */
-	private byte[] remark;
+	private String remark;
 	
 	
 
@@ -134,24 +134,16 @@ public class ItemMsEntity extends BaseEntity {
 	public java.util.Date getUpdatetimeByLike() {
 		return this.updatetime;
 	}
-	
 
-    /** set 备注. */
-	public void setRemark(byte[] remark) {
+    public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
-	/** get 备注. */
-	public byte[] getRemark() {
-		return this.remark;
-	}
-	
-	@JsonIgnore
-	public byte[] getRemarkByLike() {
-		return this.remark;
-	}
-	
-    /** constructor */
+
+	/** constructor */
 	public ItemMsEntity() {
 		super();
 	}
@@ -165,7 +157,7 @@ public class ItemMsEntity extends BaseEntity {
 	 * @param updatetime			修改时间
 	 * @param remark			备注
 	 */
-	public ItemMsEntity(Long gameId,String name,String type,java.util.Date createtime,java.util.Date updatetime,byte[] remark){
+	public ItemMsEntity(Long gameId,String name,String type,java.util.Date createtime,java.util.Date updatetime,String remark){
 		this();
 		this.gameId = gameId;
 		this.name = name;

@@ -1,63 +1,30 @@
 <template>
-	<el-dialog custom-class="jz-modal" :title="personInfoModalType === 'add' ? '新增人员信息' : '人员信息编辑'" :visible="modal" :before-close="beforeClose" :close-on-click-modal="false" :width="modalWidth">
+	<el-dialog custom-class="jz-modal" :title="modalTypeTitle === 'add' ? '新增物品信息' : '编辑物品信息'" :visible="modal" :before-close="beforeClose" :close-on-click-modal="false" :width="modalWidth">
             <el-form class="modal-form" v-if="modal" :model="form" ref="form" :inline="true" :rules="rules" label-width="80px">
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="登录用户" prop="loginName">
-                            <selectInput :value.sync="form.loginName" filterable :clearable="true">
+                        <el-form-item label="所属游戏" prop="gameId">
+                            <selectInput :value.sync="form.gameId" filterable :clearable="true">
                                 <el-option
-                                v-for="item in loginUserList"
-                                :key="item.id"
-                                :label="item.loginName"
-                                :value="item.loginName"
-                                >
+                                  v-for="item in gameOption"
+                                  :key="item.id"
+                                  :label="item.name"
+                                  :value="item.id">
                                 </el-option>
                             </selectInput>
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="姓名" prop="personName">
-                            <inputItem :value.sync="form.personName"></inputItem>
+                        <el-form-item label="物品名称" prop="name">
+                            <inputItem :value.sync="form.name"></inputItem>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="部门" prop="department">
-                            <selectInput :value.sync="form.department" filterable :clearable="true">
-                                <el-option
-                                v-for="item in departmentList"
-                                :key="item.id"
-                                :label="item.depName"
-                                :value="item.depName"
-                                >
-                                </el-option>
-                            </selectInput>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="工号" prop="jobno">
-                            <inputItem :value.sync="form.jobno"></inputItem>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="性别" prop="sex">
-                            <el-radio v-model="form.sex" label="1">男</el-radio>
-                            <el-radio v-model="form.sex" label="0">女</el-radio>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="邮箱" prop="email">
-                            <inputItem :value.sync="form.email"></inputItem>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
-                        <el-form-item label="是否可用" prop="enabled">
-                            <switchItem :value.sync="form.enabled" :activeValue="1" :inactiveValue="0"></switchItem>
+                        <el-form-item label="是否期限" prop="type">
+                            <el-radio v-model="form.type" label="0">永久</el-radio>
+                            <el-radio v-model="form.type" label="1">期限</el-radio>
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
@@ -76,33 +43,28 @@
 <script>
 import mixin from '../../../mixin/mixin.js'
 import local from '../../../local.js'
+import configs from "../../../configs.js";
 	export default {
         mixins: [mixin],
 		data() {
             var vm = this
             return {
-                value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
 				form: {
-                    loginName: '',
-                    personName: '',
-                    department: '',
-                    sex: '1',
-                    jobno: '',
-                    email: '',
-                    enabled: 1,
+                    gameId: 1,
+                    name: '',
+                    type: '0',
                     remark: ''
                 },
-                dictionaryList: [],
+                gameOption: [],
                 rules: {
-                    loginName: [{required: true, message: '登录用户不能为空' }],
-                    personName: [{required: true, message: '姓名不能为空' }, this._ruleLength(16)],
-                    // department: [{required: true, message: '部门不能为空' }],
-                    jobno: [{required: true, message: '工号不能为空' }, this._ruleLength(16)],
-                  //  email: [{required: false},this._ruleEmail()],
-                    remark: [{required: false}, this._ruleLength(100)]
+                    gameId: [{required: true, message: '所属游戏不能为空' }],
+
+                    name: [
+                {required: true, message: '物品名称不能为空' }, 
+                this._ruleExistByParam(configs.rootAPI + "itemMs/checkItemName",{gameId:1}, "该物品",this.objItem),
+                this._ruleLength(100)
+                        ]
                 },
-                loginUserList: [],
-                departmentList: [],
                 thisUser: local.get('userinfo')
 			}
 		},
@@ -110,10 +72,10 @@ import local from '../../../local.js'
 			modal: {
 				default: false
 			},
-            personInfoModalType: {
+            modalTypeTitle: {
                 default: 'add'
             },
-            personinfo: {
+            objItem: {
                 default: function() {
                     return {}
                 }
@@ -123,20 +85,15 @@ import local from '../../../local.js'
            
         },
 		mounted() {
-            Object.assign(this.form, this.personinfo)    
-            let method = 'user/list';
-            this._ajax({url: this.userAPI + method, param: {'extend':'true'}})
+            Object.assign(this.form, this.objItem)    
+            let method = 'gameMs/list';
+            this._ajax({url: this.rootAPI + method })
             .then((function(d) {
-				this.loginUserList = d.aaData;
-                console.log(d.aaData)
-			}).bind(this))
-
-            let method2 = 'department/list';
-            this._ajax({url: this.rootAPI + method2, param: {'enabled':1}})
-            .then((function(d) {
-				this.departmentList = d.aaData;
-                console.log(d.aaData)
-			}).bind(this))
+                this.gameOption = d.aaData;
+                if(d.aaData && d.aaData.length > 0){
+                    this.form.gameId = d.aaData[0].id;
+                }
+            }).bind(this))
 		},
 		methods: {
             claSelectChange(ob){
@@ -148,34 +105,22 @@ import local from '../../../local.js'
 			submit() {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        let o = {}, method = 'personinfo/update';
-                        if(this.personInfoModalType === 'add') {  
-                            method = 'personinfo/create' 
+                        let o = {}, method = 'itemMs/update';
+                        if(this.modalTypeTitle === 'add') {  
+                            method = 'itemMs/create' 
                             o = {
-                                loginName: this.form.loginName,
-                                personName: this.form.personName,
-                                department: this.form.department,
-                                sex: this.form.sex,
-                                jobno: this.form.jobno,
-                                email: this.form.email,
-                                enabled: this.form.enabled,
-                                remark: this.form.remark,
-                                createdPersonId: this.form.userId,
-                                createdPerson: this.form.nickName
+                                name: this.form.name,
+                                gameId: this.form.gameId,
+                                type: this.form.type,
+                                remark:this.form.remark
                             }
                         }else {
                             o = {
-                                loginName: this.form.loginName,
-                                personName: this.form.personName,
-                                department: this.form.department,
-                                sex: this.form.sex,
-                                jobno: this.form.jobno,
-                                email: this.form.email,
-                                enabled: this.form.enabled,
-                                remark: this.form.remark,
+                                name: this.form.name,
+                                gameId: this.form.gameId,
+                                type: this.form.type,
                                 id: this.form.id,
-                                updatedPersonId: this.form.userId,
-                                updatedPerson: this.form.nickName
+                                remark:this.form.remark
                             }
                         }
                         this._ajax({url: this.rootAPI + method, param: o})
@@ -183,10 +128,6 @@ import local from '../../../local.js'
                             if(d.state === 0) {
                                 this.$message({ type: 'success', message: '操作成功' }); 
                                 this.$emit('submit')
-                            }else if(d.state === 2){
-                                this.$message({ type: 'warning', message: '没有要修改的记录！' });
-                            }else if(d.state === 1){
-                                this.$message({ type: 'warning', message: '该登录账号已被绑定，不能重复绑定！' });
                             }
                             else{
                                 this.$message({ type: 'warning', message: '操作失败:'+d.msg });

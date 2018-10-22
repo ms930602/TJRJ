@@ -94,6 +94,46 @@ export default {
                 trigger: 'blur'
             }
         },
+       _ruleExistByParam(api,param, name, content) { //content  为传入对象，表示编辑情况下的数据对象
+            return {
+                validator: (function(rule, value, callback) {
+                    let obj = {}
+                    obj[rule.field] = value
+                    Object.assign(obj, param)
+                    if (content!=undefined) {
+                        if (content[rule.field] === value) { //判断该字段是否更改过，未更改则不验证，更改则验证
+                            console.log(name, '值没变不做验证');
+                            callback();
+                        } else {
+                            this._ajax({
+                                    url: api,
+                                    param: obj
+                                })
+                                .then(function(d) {
+                                    if (d.state === 0 && d.aaData && d.aaData.length > 0) {
+                                        callback(new Error(name + '已存在'))
+                                    } else {
+                                        callback();
+                                    }
+                                })
+                        }
+                    }else{
+                        this._ajax({
+                                    url: api,
+                                    param: obj
+                                })
+                                .then(function(d) {
+                                    if (d.state === 0 && d.aaData && d.aaData.length > 0) {
+                                        callback(new Error(name + '已存在'))
+                                    } else {
+                                        callback();
+                                    }
+                                })
+                    }
+                }.bind(this)),
+                trigger: 'blur'
+            }
+        },
        _ruleExist(api, name, content) { //content  为传入对象，表示编辑情况下的数据对象
             return {
                 validator: (function(rule, value, callback) {

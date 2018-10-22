@@ -5,6 +5,9 @@ import com.ms.warehouse.common.mapper.IBaseMapper;
 
 import com.ms.warehouse.manage.entity.ItemMsEntity;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +18,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ItemMsMapper extends IBaseMapper<ItemMsEntity>{
+
+	List<ItemMsEntity> checkItemName(Map<String, Object> queryMap);
 	
 }

@@ -1,5 +1,8 @@
 package com.ms.warehouse.manage.service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +54,7 @@ public class ItemMsService extends BaseService {
 	 * @return
 	 */
 	public Object create(ItemMsEntity itemMs) throws CenterException {
+		itemMs.setCreatetime(new Date());
 		itemMsBo.createForValidate(itemMs);
 		return itemMs;
 	}
@@ -62,6 +66,7 @@ public class ItemMsService extends BaseService {
 	 * @return
 	 */
 	public BaseRespVO update(ItemMsEntity itemMs) throws CenterException {
+		itemMs.setUpdatetime(new Date());
 		int updateCount = itemMsBo.updateForValidate(itemMs);
 		if(updateCount > 0){
 			return new BaseRespVO();
@@ -84,6 +89,16 @@ public class ItemMsService extends BaseService {
 		} else {
 			return new BaseRespVO(2, "没有要删除的记录！");
 		}
+	}
+	
+	/**
+	 * 判断是否名字重复
+	 * @param areaCode
+	 * @return
+	 * @throws CenterException
+     */
+	public List<ItemMsEntity> checkItemName(@Param("name") String ItemName,@Param("gameId") Integer gameId) throws CenterException {
+		return itemMsBo.checkItemName(ItemName,gameId);
 	}
 
 }

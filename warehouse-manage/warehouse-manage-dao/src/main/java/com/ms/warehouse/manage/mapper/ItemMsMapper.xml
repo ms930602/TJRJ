@@ -11,7 +11,7 @@
 		<result property="type" jdbcType="CHAR" column="f_type"/>
 		<result property="createtime" jdbcType="TIMESTAMP" column="f_createtime"/>
 		<result property="updatetime" jdbcType="TIMESTAMP" column="f_updatetime"/>
-		<result property="remark" jdbcType="VARBINARY" column="f_remark"/>
+		<result property="remark" jdbcType="VARCHAR" column="f_remark"/>
 	</resultMap>
 	
 	<!-- 查询列 -->
@@ -38,7 +38,7 @@
 			<if test="type!=null">#{type,jdbcType=CHAR},</if>
 			<if test="createtime!=null">#{createtime,jdbcType=TIMESTAMP},</if>
 			<if test="updatetime!=null">#{updatetime,jdbcType=TIMESTAMP},</if>
-			<if test="remark!=null">#{remark,jdbcType=VARBINARY}</if>
+			<if test="remark!=null">#{remark,jdbcType=VARCHAR}</if>
 		</trim>
 	</insert>
 
@@ -62,7 +62,7 @@
 					<if test="item.type!=null">#{item.type,jdbcType=CHAR},</if>
 					<if test="item.createtime!=null">#{item.createtime,jdbcType=TIMESTAMP},</if>
 					<if test="item.updatetime!=null">#{item.updatetime,jdbcType=TIMESTAMP},</if>
-					<if test="item.remark!=null">#{item.remark,jdbcType=VARBINARY}</if>
+					<if test="item.remark!=null">#{item.remark,jdbcType=VARCHAR}</if>
 			</trim>
 		</foreach>
 	</insert>
@@ -76,7 +76,7 @@
 			<if test="type!=null">f_type = #{type,jdbcType=CHAR},</if>
 			<if test="createtime!=null">f_createtime = #{createtime,jdbcType=TIMESTAMP},</if>
 			<if test="updatetime!=null">f_updatetime = #{updatetime,jdbcType=TIMESTAMP},</if>
-			<if test="remark!=null">f_remark = #{remark,jdbcType=VARBINARY}</if>
+			<if test="remark!=null">f_remark = #{remark,jdbcType=VARCHAR}</if>
 		</set>
 		<where> 
 			f_id  = #{id}
@@ -93,7 +93,7 @@
 				<if test="item.type!=null">f_type = #{item.type,jdbcType=CHAR},</if>
 				<if test="item.createtime!=null">f_createtime = #{item.createtime,jdbcType=TIMESTAMP},</if>
 				<if test="item.updatetime!=null">f_updatetime = #{item.updatetime,jdbcType=TIMESTAMP},</if>
-				<if test="item.remark!=null">f_remark = #{item.remark,jdbcType=VARBINARY}</if>
+				<if test="item.remark!=null">f_remark = #{item.remark,jdbcType=VARCHAR}</if>
 			</set>
 			<where> 
 				f_id  = #{item.id}
@@ -133,7 +133,7 @@
 			<if test="type!=null">AND t.f_type = #{type,jdbcType=CHAR}</if>
 			<if test="createtime!=null">AND t.f_createtime = #{createtime,jdbcType=TIMESTAMP}</if>
 			<if test="updatetime!=null">AND t.f_updatetime = #{updatetime,jdbcType=TIMESTAMP}</if>
-			<if test="remark!=null">AND t.f_remark = #{remark,jdbcType=VARBINARY}</if>
+			<if test="remark!=null">AND t.f_remark = #{remark,jdbcType=VARCHAR}</if>
 		</where>
 	</sql>
 	
@@ -151,7 +151,7 @@
 				<if test="whereCondition.type!=null">AND t.f_type = #{whereCondition.type,jdbcType=CHAR}</if>
 				<if test="whereCondition.createtime!=null">AND t.f_createtime = #{whereCondition.createtime,jdbcType=TIMESTAMP}</if>
 				<if test="whereCondition.updatetime!=null">AND t.f_updatetime = #{whereCondition.updatetime,jdbcType=TIMESTAMP}</if>
-				<if test="whereCondition.remark!=null">AND t.f_remark = #{whereCondition.remark,jdbcType=VARBINARY}</if>
+				<if test="whereCondition.remark!=null">AND t.f_remark = #{whereCondition.remark,jdbcType=VARCHAR}</if>
 			</if>
 			<if test="keyWord!=null and keyWord!=''">
 				AND (
@@ -192,6 +192,10 @@
 		SELECT COUNT(1)  
 		<include refid="queryFrom" /> t
 		<include refid="whereForLike" />
+	</select>
+	
+	<select id="checkItemName" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		SELECT * FROM t_item_ms WHERE f_id = #{GameId,jdbcType=INTEGER} AND f_name = #{ItemName,jdbcType=VARCHAR}
 	</select>
 </mapper>
 
