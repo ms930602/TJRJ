@@ -131,6 +131,77 @@ export default [{
                     require(['./views/statisticalAnalysis/inventoryStatistics.vue'], resolve)
                 }
             },
+
+            //微信路由配置 -----start
+            {
+                path: '/merchantMain',
+                name: 'merchantMain',
+                meta: {
+                    father: '商户管理',
+                    name: '商户管理',
+                },
+                component: function(resolve) {
+                    require(['./views/vxBase/merchantMain.vue'], resolve)
+                }
+            },
+            {
+                path: '/activitiesMain',
+                name: 'activitiesMain',
+                meta: {
+                    father: '推广活动管理',
+                    name: '推广活动管理',
+                },
+                component: function(resolve) {
+                    require(['./views/vxBase/activitiesMain.vue'], resolve)
+                }
+            },{
+                path: '/activities/a',
+                name: 'activitiesA',
+                meta: {
+                    father: '推广活动管理',
+                    name: '推广活动新增',
+                    fatherpath: 'activitiesMain'
+                },
+                component: function(resolve) {
+                    require(['./views/vxBase/activitiesAU.vue'], resolve)
+                }
+            },
+
+            {
+                path: '/activities/u',
+                name: 'activitiesU',
+                meta: {
+                    father: '推广活动管理',
+                    name: '推广活动修改',
+                    fatherpath: 'activitiesMain'
+                },
+                component: function(resolve) {
+                    require(['./views/vxBase/activitiesAU.vue'], resolve)
+                }
+            },
+            {
+                path: '/promotersMain',
+                name: 'promotersMain',
+                meta: {
+                    father: '推广人信息',
+                    name: '推广人信息',
+                },
+                component: function(resolve) {
+                    require(['./views/vxBase/promotersMain.vue'], resolve)
+                }
+            },
+            {
+                path: '/buyInfoMain',
+                name: 'buyInfoMain',
+                meta: {
+                    father: '购买人信息',
+                    name: '购买人信息',
+                },
+                component: function(resolve) {
+                    require(['./views/vxBase/buyInfoMain.vue'], resolve)
+                }
+            },
+            //微信路由配置 -----end
         ]
     }
 ]

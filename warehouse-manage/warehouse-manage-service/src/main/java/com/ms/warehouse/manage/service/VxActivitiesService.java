@@ -85,5 +85,7 @@ public class VxActivitiesService extends BaseService {
 			return new BaseRespVO(2, "没有要删除的记录！");
 		}
 	}
+	
+	
 
 }

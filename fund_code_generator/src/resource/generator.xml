@@ -36,7 +36,7 @@
 	<entry key="java_typemapping.java.sql.Clob">java.lang.String</entry>
 
 	<!-- Mysql -->
-	<entry key="jdbc.url">jdbc:mysql://120.79.139.213:3306/center_warehouse?useUnicode=true&amp;characterEncoding=UTF-8</entry>
+	<entry key="jdbc.url">jdbc:mysql://120.79.139.213:3306/vx_database?useUnicode=true&amp;characterEncoding=UTF-8</entry>
 	<entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
 	<entry key="jdbc.username">root</entry>
 	<entry key="jdbc.password">Ms930602!@#</entry>
