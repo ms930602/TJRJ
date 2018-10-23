@@ -10,7 +10,6 @@ import java.lang.management.ManagementFactory;
 import java.util.StringTokenizer;
 
 import com.ms.warehouse.common.utils.StringUtils;
-import com.sun.management.OperatingSystemMXBean;
 
 @SuppressWarnings("restriction")
 public class RuntimeTest {
@@ -34,28 +33,28 @@ public class RuntimeTest {
 	private static String linuxVersion = null;
 
 	public static void main(String[] args) {
-		OperatingSystemMXBean osmb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-
-		long totalMemory = osmb.getTotalPhysicalMemorySize();
-		long userMemory = osmb.getFreePhysicalMemorySize();
-		System.out.println("物理内存总计：" + totalMemory / 1024 / 1024 + "MB");
-		System.out.println("可用内存：" + userMemory / 1024 / 1024 + "MB");
-		System.out.println("内存使用率：" + userMemory * 100 / totalMemory + "%");
-
-		System.out.println("物理CPU总计：" + osmb.getProcessCpuTime());
-		System.out.println("CPU使用率" + getCpuRatio() + "%");
-
-		File[] roots = File.listRoots();
-
-		for (File file : roots) {
-			System.out.println(file.getPath() + "信息如下:");
-			System.out.println("空闲未使用 = " + file.getFreeSpace() / 1024 / 1024 / 1024 + "G");// 空闲空间
-			System.out.println("已经使用 = " + file.getUsableSpace() / 1024 / 1024 / 1024 + "G");// 可用空间
-			System.out.println("总容量 = " + file.getTotalSpace() / 1024 / 1024 / 1024 + "G");// 总空间
-			System.out.println();
-		}
-
-		System.out.println();
+//		OperatingSystemMXBean osmb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+//
+//		long totalMemory = osmb.getTotalPhysicalMemorySize();
+//		long userMemory = osmb.getFreePhysicalMemorySize();
+//		System.out.println("物理内存总计：" + totalMemory / 1024 / 1024 + "MB");
+//		System.out.println("可用内存：" + userMemory / 1024 / 1024 + "MB");
+//		System.out.println("内存使用率：" + userMemory * 100 / totalMemory + "%");
+//
+//		System.out.println("物理CPU总计：" + osmb.getProcessCpuTime());
+//		System.out.println("CPU使用率" + getCpuRatio() + "%");
+//
+//		File[] roots = File.listRoots();
+//
+//		for (File file : roots) {
+//			System.out.println(file.getPath() + "信息如下:");
+//			System.out.println("空闲未使用 = " + file.getFreeSpace() / 1024 / 1024 / 1024 + "G");// 空闲空间
+//			System.out.println("已经使用 = " + file.getUsableSpace() / 1024 / 1024 / 1024 + "G");// 可用空间
+//			System.out.println("总容量 = " + file.getTotalSpace() / 1024 / 1024 / 1024 + "G");// 总空间
+//			System.out.println();
+//		}
+//
+//		System.out.println();
 
 	}
 
