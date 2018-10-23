@@ -42,7 +42,7 @@
             <el-form-item label="背景音乐"  prop='mp3'>
               <el-upload
                 class="upload-demo"
-                action="http://localhost:8080/warehouse-pre-interface//api/user/fileUpload/upload"
+                action="warehouse-pre-interface//api/user/fileUpload/upload"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
