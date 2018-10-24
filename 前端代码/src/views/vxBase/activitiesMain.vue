@@ -20,7 +20,7 @@
 		<!-- 表格 -->
 		<elemTable :dataList="dataList" :currentPage='pageNum' :pageSize="pageSize" :pageTotal="pageTotal" :loading="dataLoading" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange" @selectionChange="selectionChange">
 			<el-table-column type="selection" width="55"></el-table-column>
-		    <el-table-column prop="title" label="标题">
+		    <el-table-column prop="title" label="标题" width="400">
 		    	<template slot-scope="scope">
 		    		<toolTip :content="scope.row.title">
 		    			<span>{{scope.row.title}}</span>

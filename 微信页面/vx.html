@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xxx</title>
+	<style type="text/css">
+		.ms_img{
+			width:100%;
+		}
+		.pay_div{
+			width: 100%;
+			height: 70px;
+			background-color: #282c31;
+			margin-top: -10px;
+			color: #FFF;
+			line-height: 75px;
+			font-size: 25pt;
+		}
+		.l_s_a{
+			float: right;
+		}
+		.people_div{
+			width: 100%;
+			height: 250px;
+			background-image: url('./people.jpg');
+			background-repeat:no-repeat; 
+			background-size:100% 100%;
+			-moz-background-size:100% 100%;
+		}
+		.HA_div{
+		    width: 100%;
+		    height: 90px;
+		    background-color: #ff0032;
+		    color: #FFF;
+		    font-size: 40px;
+		    text-align: center;
+		    line-height: 90px;
+		    font-weight: 600;
+		}
+		.HA_text_div{
+
+		}
+	</style>
+</head>
+<body>
+<img src="./a.JPG" class="ms_img">
+<div class="pay_div">
+	<span>&nbsp;&nbsp;已购买<strng id="mID">32</strng>人</span>
+	<span class="l_s_a"><strng id="lID">872</strng>浏览&nbsp;&nbsp;</span>
+</div>
+<div class="people_div " >
+	
+</div>
+<hr/>
+<div class="HA_div">
+	<span>距&nbsp;离&nbsp;活&nbsp;动&nbsp;结&nbsp;束&nbsp;还&nbsp;有</span>
+</div>
+<div class="HA_text_div">
+	<span>06</span>天
+	<span>23</span>时
+	<span>42</span>分
+	<span>21</span>秒
+</div>
+<img src="./b.JPG" class="ms_img">
+<img src="./c.JPG" class="ms_img">
+<img src="./d.JPG" class="ms_img">
+
+<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script typet="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript">
+	var colorList = [
+		'#928f21','#cac62c','#fdf835'
+	]
+	$(function(){
+		runA();
+
+		$('.countdown').downCount({
+		        date: '12/27/2015 00:00:00',
+		        offset: +10
+		    }, function (){
+		    alert('倒计时结束!');
+		});
+	});
+
+	var flagIndex = 0;
+	function runA(){
+		var textA = document.getElementById("mID");
+		var textB = document.getElementById("lID");
+		textA.style.color = colorList[flagIndex];
+		textB.style.color = colorList[flagIndex];
+		flagIndex ++ ;
+		if(flagIndex == 3)flagIndex = 0;
+		setTimeout("runA()",600);
+	}
+</script>
+</body>
+</html>
