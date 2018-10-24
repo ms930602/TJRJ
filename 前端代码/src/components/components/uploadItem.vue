@@ -5,13 +5,14 @@
       :on-success="uploadSuccess"
       :data="uploadData"
       :limit="limit"
+      class="avatar-uploader"
       :multiple='multiple'
       :on-remove="onRemove"
-      :list-type="listType"
+      :accept="accept"
       :before-upload="beforeUpload">
       <elBtn text="点击上传" type="primary" v-if="buttonType === 'button'"></elBtn>
       <i class="el-icon-plus" v-if="buttonType === 'icon'"></i>
-      <!-- <div slot="tip" class="el-upload__tip">{{uploadTip}}</div> -->
+      <div slot="tip" class="el-upload__tip">{{uploadTip}}</div>
     </el-upload>
 </template>
 <script>
@@ -43,8 +44,8 @@ import elBtn from './elBtn.vue'
 			uploadTip:{
 				default:'只能上传jpg/png文件，且不超过500kb'
 			},
-			listType:{
-				default:'picture'
+			accept:{
+				default:'image/*'
 			},
 			multiple:{
 				type:Boolean,
@@ -66,16 +67,12 @@ import elBtn from './elBtn.vue'
 		          this.$nextTick(() => {
 		            var fileType = file.type
 		            //图片限制4M，其他附件限制50M
-					let limitType = 4
-					if(fileType.indexOf('android')===-1){
-						this.$message.error('只能上传apk格式文件');
-						return;
-					}
+					let limitType = 10
 					if(typeof fileType === 'string' && fileType.indexOf("image") === -1) {
-						this.uploadURL = configs.uploadFileURL + '/upload?token=' + local.get('token')
+						this.uploadURL = configs.uploadFileURL + '/file/upload?savePath=vx&token=' + local.get('token')
 						limitType = 50
 					}else if(typeof fileType === 'string') {
-						this.uploadURL = configs.uploadFileURL + '/imgUpload?token=' + local.get('token')
+						this.uploadURL = configs.uploadFileURL + '/file/imgUpload?savePath=vx&token=' + local.get('token')
 					}
 			        const isLt = file.size / 1024 / 1024 < limitType;
 			        if (!isLt) {

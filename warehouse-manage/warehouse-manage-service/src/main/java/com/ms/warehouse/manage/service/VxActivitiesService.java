@@ -1,5 +1,7 @@
 package com.ms.warehouse.manage.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +11,11 @@ import com.ms.warehouse.common.vo.BaseRespVO;
 import com.ms.warehouse.common.vo.Param;
 import com.ms.warehouse.common.vo.ListVo.ListReqVO;
 import com.ms.warehouse.common.vo.ListVo.ListRespVO;
-
+import com.ms.warehouse.inventory.bo.BaseUploadfilerecodeBO;
+import com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity;
 import com.ms.warehouse.manage.bo.VxActivitiesBO;
 import com.ms.warehouse.manage.entity.VxActivitiesEntity;
+import com.ms.warehouse.manage.entity.VxActivitiesFormEntity;
 
 /**
  *  业务处理
@@ -23,6 +27,9 @@ public class VxActivitiesService extends BaseService {
 
 	@Autowired
 	private VxActivitiesBO vxActivitiesBo;
+	
+	@Autowired
+	private BaseUploadfilerecodeBO baseUploadfilerecodeBO;
 
 	/**
 	 * 分页查询列表
@@ -41,7 +48,27 @@ public class VxActivitiesService extends BaseService {
 	 * @return
 	 */
 	public Object queryById(@Param("id") Long id) throws CenterException {
-		return vxActivitiesBo.queryById(id);
+		VxActivitiesEntity entity = vxActivitiesBo.queryById(id);
+		VxActivitiesFormEntity formEntity = new VxActivitiesFormEntity();
+		
+		Long mp3Id = entity.getMp3Id();
+		BaseUploadfilerecodeEntity mp3Obj = null;
+		if(mp3Id != null)mp3Obj = baseUploadfilerecodeBO.queryById(mp3Id);
+		
+		Long topImg = entity.getTopImg();
+		BaseUploadfilerecodeEntity topImageObj = null;
+		if(topImg != null)topImageObj = baseUploadfilerecodeBO.queryById(topImg);
+		
+		String detailImg = entity.getDetailImg();
+		List<BaseUploadfilerecodeEntity> detailImgs = null;
+		if(detailImg != null)detailImgs = baseUploadfilerecodeBO.queryByIds(detailImg);
+		
+		formEntity.copy(entity);
+		formEntity.setMusicObj(mp3Obj);
+		formEntity.setTopImgObj(topImageObj);
+		formEntity.setDetailImgObj(detailImgs);
+		
+		return formEntity;
 	}
 
 	/**

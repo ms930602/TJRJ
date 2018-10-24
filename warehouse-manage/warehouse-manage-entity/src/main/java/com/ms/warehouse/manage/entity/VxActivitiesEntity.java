@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-10-21 19:40:49
+ * @Date 2018-10-24 10:35:40
  * @since 1.0
  */
 @TableName("t_vx_activities")
@@ -29,14 +29,14 @@ public class VxActivitiesEntity extends BaseEntity {
 	/** 价格. */
 	private java.math.BigDecimal price;
 	
-	/** 门户图片. */
-	private String topImg;
+	/** 门户图片 文件表ID. */
+	private Long topImg;
 	
 	/** 活动时间. */
 	private java.util.Date startTime;
 	
-	/** 活动音乐. */
-	private String mp3;
+	/** 活动音乐 文件表ID. */
+	private Long mp3Id;
 	
 	/** 活动人数. */
 	private Long peopleNum;
@@ -47,11 +47,14 @@ public class VxActivitiesEntity extends BaseEntity {
 	/** 浏览数. */
 	private Long selectNum;
 	
-	/** 详情图片. */
+	/** 详情图片 门户图片 文件表ID 以逗号隔开. */
 	private String detailImg;
 	
 	/** 客户电话. */
 	private String phone;
+	
+	/** 1 作废 0 启用. */
+	private String status;
 	
 	
 
@@ -119,19 +122,19 @@ public class VxActivitiesEntity extends BaseEntity {
 	}
 	
 
-    /** set 门户图片. */
-	public void setTopImg(String topImg) {
+    /** set 门户图片 文件表ID. */
+	public void setTopImg(Long topImg) {
 		this.topImg = topImg;
 	}
 	
-	/** get 门户图片. */
-	public String getTopImg() {
+	/** get 门户图片 文件表ID. */
+	public Long getTopImg() {
 		return this.topImg;
 	}
 	
 	@JsonIgnore
-	public String getTopImgByLike() {
-		return "%"+this.topImg+"%";
+	public Long getTopImgByLike() {
+		return this.topImg;
 	}
 	
 
@@ -151,19 +154,19 @@ public class VxActivitiesEntity extends BaseEntity {
 	}
 	
 
-    /** set 活动音乐. */
-	public void setMp3(String mp3) {
-		this.mp3 = mp3;
+    /** set 活动音乐 文件表ID. */
+	public void setMp3Id(Long mp3Id) {
+		this.mp3Id = mp3Id;
 	}
 	
-	/** get 活动音乐. */
-	public String getMp3() {
-		return this.mp3;
+	/** get 活动音乐 文件表ID. */
+	public Long getMp3Id() {
+		return this.mp3Id;
 	}
 	
 	@JsonIgnore
-	public String getMp3ByLike() {
-		return "%"+this.mp3+"%";
+	public Long getMp3IdByLike() {
+		return this.mp3Id;
 	}
 	
 
@@ -215,19 +218,19 @@ public class VxActivitiesEntity extends BaseEntity {
 	}
 	
 
-    /** set 详情图片. */
+    /** set 详情图片 门户图片 文件表ID 以逗号隔开. */
 	public void setDetailImg(String detailImg) {
 		this.detailImg = detailImg;
 	}
 	
-	/** get 详情图片. */
+	/** get 详情图片 门户图片 文件表ID 以逗号隔开. */
 	public String getDetailImg() {
 		return this.detailImg;
 	}
 	
 	@JsonIgnore
 	public String getDetailImgByLike() {
-		return this.detailImg;
+		return "%"+this.detailImg+"%";
 	}
 	
 
@@ -246,6 +249,22 @@ public class VxActivitiesEntity extends BaseEntity {
 		return "%"+this.phone+"%";
 	}
 	
+
+    /** set 1 作废 0 启用. */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	/** get 1 作废 0 启用. */
+	public String getStatus() {
+		return this.status;
+	}
+	
+	@JsonIgnore
+	public String getStatusByLike() {
+		return this.status;
+	}
+	
     /** constructor */
 	public VxActivitiesEntity() {
 		super();
@@ -256,28 +275,30 @@ public class VxActivitiesEntity extends BaseEntity {
 	 * @param merchantId			商户外键
 	 * @param title			标题
 	 * @param price			价格
-	 * @param topImg			门户图片
+	 * @param topImg			门户图片 文件表ID
 	 * @param startTime			活动时间
-	 * @param mp3			活动音乐
+	 * @param mp3Id			活动音乐 文件表ID
 	 * @param peopleNum			活动人数
 	 * @param payNum			购买人数
 	 * @param selectNum			浏览数
-	 * @param detailImg			详情图片
+	 * @param detailImg			详情图片 门户图片 文件表ID 以逗号隔开
 	 * @param phone			客户电话
+	 * @param status			1 作废 0 启用
 	 */
-	public VxActivitiesEntity(Long merchantId,String title,java.math.BigDecimal price,String topImg,java.util.Date startTime,String mp3,Long peopleNum,Long payNum,Long selectNum,String detailImg,String phone){
+	public VxActivitiesEntity(Long merchantId,String title,java.math.BigDecimal price,Long topImg,java.util.Date startTime,Long mp3Id,Long peopleNum,Long payNum,Long selectNum,String detailImg,String phone,String status){
 		this();
 		this.merchantId = merchantId;
 		this.title = title;
 		this.price = price;
 		this.topImg = topImg;
 		this.startTime = startTime;
-		this.mp3 = mp3;
+		this.mp3Id = mp3Id;
 		this.peopleNum = peopleNum;
 		this.payNum = payNum;
 		this.selectNum = selectNum;
 		this.detailImg = detailImg;
 		this.phone = phone;
+		this.status = status;
 	}
 	
 	@Override
@@ -289,12 +310,13 @@ public class VxActivitiesEntity extends BaseEntity {
 			.append("Price=").append(getPrice()).append(", ")
 			.append("TopImg=").append(getTopImg()).append(", ")
 			.append("StartTime=").append(getStartTime()).append(", ")
-			.append("Mp3=").append(getMp3()).append(", ")
+			.append("Mp3Id=").append(getMp3Id()).append(", ")
 			.append("PeopleNum=").append(getPeopleNum()).append(", ")
 			.append("PayNum=").append(getPayNum()).append(", ")
 			.append("SelectNum=").append(getSelectNum()).append(", ")
 			.append("DetailImg=").append(getDetailImg()).append(", ")
-			.append("Phone=").append(getPhone())
+			.append("Phone=").append(getPhone()).append(", ")
+			.append("Status=").append(getStatus())
 		.append("]").toString();
 	}
 	

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.ms.warehouse.manage.mapper.BaseUploadfilerecodeMapper">
+<mapper namespace="com.ms.warehouse.inventory.mapper.BaseUploadfilerecodeMapper">
 
 	<!-- 结果Map -->
-	<resultMap id="BaseResultMap" type="com.ms.warehouse.manage.entity.BaseUploadfilerecodeEntity">
+	<resultMap id="BaseResultMap" type="com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity">
 		<result property="id" jdbcType="INTEGER" column="f_id"/>
 		<result property="sourceObjectType" jdbcType="VARCHAR" column="f_source_object_type"/>
 		<result property="fileType" jdbcType="VARCHAR" column="f_file_type"/>
@@ -22,7 +22,7 @@
 	</sql>
 			
 	<!--创建记录 -->
-	<insert id="create" parameterType="com.ms.warehouse.manage.entity.BaseUploadfilerecodeEntity" useGeneratedKeys="true" keyProperty="id">
+	<insert id="create" parameterType="com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO t_base_uploadfilerecode
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="sourceObjectType!=null">f_source_object_type,</if>
@@ -74,7 +74,7 @@
 	</insert>
 	
 	<!-- 更新记录 -->
-	<update id="update" parameterType="com.ms.warehouse.manage.entity.BaseUploadfilerecodeEntity">
+	<update id="update" parameterType="com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity">
 		UPDATE t_base_uploadfilerecode 
 		<set>
 			<if test="sourceObjectType!=null">f_source_object_type = #{sourceObjectType,jdbcType=VARCHAR},</if>
@@ -180,7 +180,7 @@
 	</sql>
 	
 	<!-- 按对象查询 -->
-	<select id="queryByEntity" parameterType="com.ms.warehouse.manage.entity.BaseUploadfilerecodeEntity" resultMap="BaseResultMap">
+	<select id="queryByEntity" parameterType="com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity" resultMap="BaseResultMap">
 		SELECT <include refid="BaseColumnList" />
 		<include refid="queryFrom" /> t
 		<include refid="where" />
@@ -202,7 +202,14 @@
 			</otherwise>
 		</choose>
 	</select>
-
+	
+	<select id="queryByIds" resultMap="BaseResultMap" parameterType="Long[]">
+		SELECT * FROM t_base_uploadfilerecode WHERE f_id in (
+		<foreach collection="array" item="item" separator=",">
+			#{item}
+		</foreach>
+		)
+	</select>
 
 	<!-- 查询记录数 -->
 	<select id="queryCount" resultType="int"

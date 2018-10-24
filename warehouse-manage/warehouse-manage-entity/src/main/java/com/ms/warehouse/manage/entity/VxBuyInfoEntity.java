@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-10-21 19:40:52
+ * @Date 2018-10-24 15:29:54
  * @since 1.0
  */
 @TableName("t_vx_buy_info")
@@ -43,6 +43,12 @@ public class VxBuyInfoEntity extends BaseEntity {
 	
 	/** 分享返现金额. */
 	private java.math.BigDecimal shareMoney;
+	
+	/** 微信号. */
+	private String vxNum;
+	
+	/** 0 商家推广 1 推广员推广. */
+	private String status;
 	
 	
 
@@ -189,6 +195,38 @@ public class VxBuyInfoEntity extends BaseEntity {
 		return this.shareMoney;
 	}
 	
+
+    /** set 微信号. */
+	public void setVxNum(String vxNum) {
+		this.vxNum = vxNum;
+	}
+	
+	/** get 微信号. */
+	public String getVxNum() {
+		return this.vxNum;
+	}
+	
+	@JsonIgnore
+	public String getVxNumByLike() {
+		return "%"+this.vxNum+"%";
+	}
+	
+
+    /** set 0 商家推广 1 推广员推广. */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	/** get 0 商家推广 1 推广员推广. */
+	public String getStatus() {
+		return this.status;
+	}
+	
+	@JsonIgnore
+	public String getStatusByLike() {
+		return this.status;
+	}
+	
     /** constructor */
 	public VxBuyInfoEntity() {
 		super();
@@ -204,8 +242,10 @@ public class VxBuyInfoEntity extends BaseEntity {
 	 * @param reMoney			返现推广员金额
 	 * @param shareStatus			是否分享 1分享 0 未分享
 	 * @param shareMoney			分享返现金额
+	 * @param vxNum			微信号
+	 * @param status			0 商家推广 1 推广员推广
 	 */
-	public VxBuyInfoEntity(String name,String phone,java.math.BigDecimal money,java.util.Date buyTime,Long promotersId,java.math.BigDecimal reMoney,String shareStatus,java.math.BigDecimal shareMoney){
+	public VxBuyInfoEntity(String name,String phone,java.math.BigDecimal money,java.util.Date buyTime,Long promotersId,java.math.BigDecimal reMoney,String shareStatus,java.math.BigDecimal shareMoney,String vxNum,String status){
 		this();
 		this.name = name;
 		this.phone = phone;
@@ -215,6 +255,8 @@ public class VxBuyInfoEntity extends BaseEntity {
 		this.reMoney = reMoney;
 		this.shareStatus = shareStatus;
 		this.shareMoney = shareMoney;
+		this.vxNum = vxNum;
+		this.status = status;
 	}
 	
 	@Override
@@ -228,7 +270,9 @@ public class VxBuyInfoEntity extends BaseEntity {
 			.append("PromotersId=").append(getPromotersId()).append(", ")
 			.append("ReMoney=").append(getReMoney()).append(", ")
 			.append("ShareStatus=").append(getShareStatus()).append(", ")
-			.append("ShareMoney=").append(getShareMoney())
+			.append("ShareMoney=").append(getShareMoney()).append(", ")
+			.append("VxNum=").append(getVxNum()).append(", ")
+			.append("Status=").append(getStatus())
 		.append("]").toString();
 	}
 	

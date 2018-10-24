@@ -1,10 +1,11 @@
 
-package com.ms.warehouse.manage.mapper;
+package com.ms.warehouse.inventory.mapper;
 
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.ms.warehouse.common.mapper.IBaseMapper;
-import com.ms.warehouse.manage.entity.BaseUploadfilerecodeEntity;
+import com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity;
 
 /**
  * 上传文件 Mapper
@@ -14,5 +15,7 @@ import com.ms.warehouse.manage.entity.BaseUploadfilerecodeEntity;
  */
 @Repository
 public interface BaseUploadfilerecodeMapper extends IBaseMapper<BaseUploadfilerecodeEntity>{
+
+	List<BaseUploadfilerecodeEntity> queryByIds(Long[] ids);
 	
 }

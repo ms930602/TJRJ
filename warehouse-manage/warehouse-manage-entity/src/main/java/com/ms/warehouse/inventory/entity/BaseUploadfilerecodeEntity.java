@@ -1,5 +1,5 @@
 
-package com.ms.warehouse.manage.entity;
+package com.ms.warehouse.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ms.warehouse.common.entity.BaseEntity;
