@@ -582,7 +582,7 @@ export default {
                       payNum:this.form.payNum,
                       selectNum:this.form.selectNum,
                       detailImg:detailImageIds,
-                      vxText:this.vxText,
+                      vxText:this.form.vxText,
                       phone:this.form.phone
                   }
               }else {
@@ -598,7 +598,7 @@ export default {
                       payNum:this.form.payNum,
                       selectNum:this.form.selectNum,
                       detailImg:detailImageIds,
-                      vxText:this.vxText,
+                      vxText:this.form.vxText,
                       phone:this.form.phone
                   }
               }

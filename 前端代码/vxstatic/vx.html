@@ -162,16 +162,22 @@
 	<span>距&nbsp;离&nbsp;活&nbsp;动&nbsp;结&nbsp;束&nbsp;还&nbsp;有</span>
 </div>
 <div class="HA_text_div countdown">
-	<ul class="countdown">
-        <li> <span class="days">00</span></li>
-        <li class="seperator">&nbsp;&nbsp;天&nbsp;&nbsp;</li>
-        <li> <span class="hours">00</span></li>
-        <li class="seperator">&nbsp;&nbsp;时&nbsp;&nbsp;</li>
-        <li> <span class="minutes">00</span></li>
-        <li class="seperator">&nbsp;&nbsp;分&nbsp;&nbsp;</li>
-        <li> <span class="seconds">00</span>></li>
-        <li class="seperator">&nbsp;&nbsp;秒&nbsp;&nbsp;</li>
-    </ul>
+    <div class="timeWp">
+
+		<div class="countDown">
+		<ul class="countdown">
+		<li class="seperator"></li>
+		       <li><span class="days">6</span>天</li>
+		       <li class="seperator"></li>
+		       <li><span class="hours">20</span>时</li>
+		       <li class="seperator"></li>
+		       <li><span class="minutes">23</span>分</li>
+		       <li class="seperator"></li>
+		       <li><span class="seconds">00</span>秒</li>
+		 </ul>
+		</div>
+	</div>
+
     <div id="jqmeter-container" style="width:80%;margin:0 auto"></div>
     <br/>
 	<div class="thr_span"  >
@@ -203,7 +209,7 @@
 <hr/>
 <hr/>
 <div style="text-align: center;width: 100%;height:50px;font-size: 30px;">
-	<p>南充市顺庆区石油东路公交站旁</p>
+	<p id="vxText"></p>
 </div>
 <audio autoplay="autoplay" controls="controls"loop="loop" preload="auto"
        id="mp3Audio">
@@ -230,8 +236,8 @@
 	var colorList = [
 		'#928f21','#cac62c','#fdf835'
 	]
-	var ROOT_SERVER = "http://localhost:8080/warehouse-pre-interface//api/ware/";
-	var FILE_ROOT   = "http://localhost:8080/warehouse-pre-interface/servlet/getfile?path=";
+	var ROOT_SERVER = "http://msserver.nat300.top/warehouse-pre-interface//api/ware/";
+	var FILE_ROOT   = "http://msserver.nat300.top/warehouse-pre-interface/servlet/getfile?path=";
 	var aid = getParam("aid");
 	function getParam(name) {
 	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -259,18 +265,19 @@
 
 	function setMessageInfo(obj){
 		document.title=obj.activitiName;
-		$("#mp3Audio").attr("src", FILE_ROOT + obj.mp3Path);
+		
+		$("#vxText").html(obj.vxText);
+		// $("#mp3Audio").attr("src", FILE_ROOT + obj.mp3Path);
 		$("#topImg").attr("src", FILE_ROOT + obj.topImg);
 		$("#buyPeopleNumA").html( obj.buyPeopleNum );
 		$("#buyPeopleNumB").html( obj.buyPeopleNum );
-		
+		$("#sss").html( '执行完毕333' );
 		$("#showPeopleNum").html( obj.showPeopleNum );
 		$("#peopleBan").html( obj.peopleBan );
 		
 		var goalVal = obj.peopleBan + '';
 		var raiVal = obj.buyPeopleNum + '';
 		var jd = parseInt(raiVal / goalVal * 100);
-
 		$("#jdID").html( jd );
 		$('#jqmeter-container').jQMeter({
 		    goal:goalVal,//总长度
@@ -281,13 +288,7 @@
 			barColor:'#ff0032'
 		});
 
-		$('.countdown').downCount({
-		        date: obj.endTime,
-		        offset: +8
-		    }, function (){
-		    alert('倒计时结束!');
-		});
-
+		MyDownCount(obj.endTime);
 		var html = '';
 		// ... 处理list
 		// <tr>
@@ -303,8 +304,10 @@
 			detailHTML = detailHTML + '<img src="'+FILE_ROOT+temp+'" class="ms_img">'
 		})
 		$("#detailImg").html(detailHTML);
+		
 	}
 
+	
 	var flagIndex = 0;
 	function runA(){
 		var textA = document.getElementById("buyPeopleNumA");
@@ -376,6 +379,135 @@ function tableScroll(tableid, hei, speed, len) {
         })
     }
 
+}
+
+function MyDownCount(endTime) {
+	var obj;
+	$('.countDown ul:first-child').show().siblings('ul').hide()
+	//根据结束时间获取到结束的  年，月，日，时，分，秒
+	var end_year=endTime.substr(0,4);//年
+
+	var index1=endTime.indexOf("-"); 
+	var index2=endTime.lastIndexOf("-"); 
+	var cha=parseInt(index2)-(parseInt(index1)+1); 
+	var end_month=endTime.substr((parseInt(index1)+1),cha);
+
+	var kg=endTime.indexOf(" "); 
+	cha=parseInt(kg)-parseInt(index2); 
+	var end_day=endTime.substr(parseInt(index2)+1,cha);
+
+	var mh=endTime.indexOf(":"); 
+	cha=parseInt(mh)-(parseInt(kg)+1); 
+	var end_hour=endTime.substr(parseInt(kg)+1,cha);
+
+	var mh2=endTime.lastIndexOf(":"); 
+	cha=parseInt(mh2)-(parseInt(mh)+1); 
+	var end_minute=endTime.substr(parseInt(mh)+1,cha);
+
+	var mh2=endTime.lastIndexOf(":"); 
+	var end_second=endTime.substr(parseInt(mh2)+1);
+
+
+	//获取当前年月日时分秒
+	var myTime = new Date();
+	var now_year = myTime.getFullYear();
+	var now_month = myTime.getMonth() + 1;
+	var now_day = myTime.getDate();
+	var now_hour = myTime.getHours();
+	var now_minute = myTime.getMinutes();
+	var now_second = myTime.getSeconds();
+	//console.log(now_hour)
+	var now = Date.UTC(now_year, now_month, now_day ,now_hour ,now_minute ,now_second);
+	var year = end_year,month = end_month,day=end_day,hour=end_hour,minute=end_minute,second=end_second;
+
+
+	var end = Date.UTC(year, month, day ,hour ,minute ,second);
+	var left = end - now;//时间差
+
+	if (left<=0) {
+		$('span.days').html('0');
+		$('span.hours').html('00');
+		$('span.minutes').html('00');
+		$('span.seconds').html('00');
+	} else{
+		var leftDay,leftHour,leftMin,leftSec;
+		leftSec = left/1000%60;
+		leftMin = (Math.floor(left/1000/60))%60;
+		leftHour_ = (left - leftSec*1000 - leftMin*60*1000)/1000/60/60;
+		leftHour = leftHour_%24;
+		leftDay = Math.floor(parseFloat(leftHour_)/24);
+
+		$('span.days').html(leftDay);
+		$('span.hours').html(leftHour);
+		$('span.minutes').html(leftMin);
+		$('span.seconds').html(leftSec);
+		obj = setInterval(function(){
+			var se = parseFloat($('span.seconds').html());
+			var min = parseFloat($('span.minutes').html());
+			var ho = parseFloat($('span.hours').html());
+			var da = parseFloat($('span.days').html());
+			if (ho==0) {
+				ho='00';
+			}
+			var se_,min_,ho_;
+			se--;
+			hour();
+			minute();
+			day();
+			if (se<10&&se>=0) {
+				se = '0'+parseFloat(se);
+			}
+			if (se<0) {
+					se=59;
+					if (min==0&&ho==0) {
+						$('.countDown ul:first-child').show().siblings('ul').hide()
+					} else{
+					min--;
+					if (min<10&&min>=0) {
+						min = '0'+min;
+					}
+					if (min<0) {
+						min=59;
+						ho--;
+					}
+				}
+			}
+			function minute(){
+				if (min<10&&min>=0) {
+				min = '0'+min;
+				}
+			}
+
+			function hour(){
+				if (ho<10&&ho>=0) {
+				ho = '0'+parseFloat(ho);
+				}
+			}
+
+			function day(){
+				if (se<0&&min==0&&ho==0) {
+					da--;
+					ho=23;
+					min=59;
+					se=59;
+				}
+			}
+			$('span.seconds').html(se);
+			$('span.minutes').html(min);
+			$('span.hours').html(ho);
+			$('span.days').html(da);
+		},1000);
+
+		var obj2 = setInterval(function(){
+			var se_ = parseFloat($('span.seconds').html());
+			var min_ = parseFloat($('span.minutes').html());
+			var ho_ = parseFloat($('span.hours').html());
+			var da_ = parseFloat($('span.days').html());
+			if (se_==0&&min_==0&&ho_==0&&da_==0) {
+				clearInterval(obj);
+			}
+		})
+	}
 }
 </script>
 </body>

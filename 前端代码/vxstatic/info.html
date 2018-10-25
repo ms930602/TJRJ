@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	var appid = "wxb851c9b94c481bda";
+	var secret = "459f65a86d7a4d1abd5b1d673be7f593"; 
+
+	var oauth2Url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=";
+	oauth2Url += appid + "&redirect_uri=";
+	oauth2Url += encodeURIComponent("http://mscenter.nat300.top/vxstatic/vx.html?"+GetRequest()) + "&response_type=code";
+	oauth2Url += "&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+    window.location.href = oauth2Url;
+    function GetRequest() {
+   
+	  var url = location.search; //获取url中"?"符后的字串
+	  var str = '';
+	   if (url.indexOf("?") != -1) {
+	      str = url.substr(1);
+	   }
+	   return str;
+	}
+</script>
+</body>
+</html>

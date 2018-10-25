@@ -68,6 +68,7 @@ public class VxActivitiesFormEntity extends VxActivitiesEntity {
 		this.setPhone( temp.getPhone() );
 		/** 1 作废 0 启用. */
 		this.setStatus( temp.getStatus( ));
+		this.setVxText( temp.getVxText() );
 	}
 	
 }

@@ -57,6 +57,16 @@ public class VxFormEntity extends BaseEntity {
 	
 	private String mp3Name;
 	
+	private String vxText;
+	
+	public String getVxText() {
+		return vxText;
+	}
+
+	public void setVxText(String vxText) {
+		this.vxText = vxText;
+	}
+
 	public VxFormEntity() {
 	}
 	
@@ -67,6 +77,7 @@ public class VxFormEntity extends BaseEntity {
 		this.setPeopleBan(formEntity.getPeopleNum());
 		this.setShowPeopleNum(formEntity.getSelectNum());
 		this.setPrice(formEntity.getPrice());
+		this.setVxText(formEntity.getVxText());
 		BaseUploadfilerecodeEntity musicObj = formEntity.getMusicObj();
 		if(musicObj!=null){
 			this.setMp3Path(musicObj.getFilePath());
