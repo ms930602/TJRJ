@@ -17,9 +17,19 @@
 				</el-button-group>				
 			</template>
 		</optionItems>
+		<span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：活动的宣传地址请点击行头的 ">" 符号查看</span>
 		<!-- 表格 -->
 		<elemTable :dataList="dataList" :currentPage='pageNum' :pageSize="pageSize" :pageTotal="pageTotal" :loading="dataLoading" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange" @selectionChange="selectionChange">
 			<el-table-column type="selection" width="55"></el-table-column>
+			 <el-table-column type="expand">
+		      <template slot-scope="props">
+		        <el-form label-position="left" inline class="demo-table-expand">
+		          <el-form-item label="宣传地址:">
+		            <span>{{props.row.url}}</span>
+		          </el-form-item>
+		        </el-form>
+		      </template>
+		    </el-table-column>
 		    <el-table-column prop="title" label="标题" width="400">
 		    	<template slot-scope="scope">
 		    		<toolTip :content="scope.row.title">

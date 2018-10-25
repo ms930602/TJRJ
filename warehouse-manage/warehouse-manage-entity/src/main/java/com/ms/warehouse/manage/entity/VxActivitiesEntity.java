@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-10-24 10:35:40
+ * @Date 2018-10-25 17:25:40
  * @since 1.0
  */
 @TableName("t_vx_activities")
@@ -55,6 +55,12 @@ public class VxActivitiesEntity extends BaseEntity {
 	
 	/** 1 作废 0 启用. */
 	private String status;
+	
+	/** . */
+	private String url;
+	
+	/** 微信页脚信息. */
+	private String vxText;
 	
 	
 
@@ -265,6 +271,38 @@ public class VxActivitiesEntity extends BaseEntity {
 		return this.status;
 	}
 	
+
+    /** set . */
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	/** get . */
+	public String getUrl() {
+		return this.url;
+	}
+	
+	@JsonIgnore
+	public String getUrlByLike() {
+		return "%"+this.url+"%";
+	}
+	
+
+    /** set 微信页脚信息. */
+	public void setVxText(String vxText) {
+		this.vxText = vxText;
+	}
+	
+	/** get 微信页脚信息. */
+	public String getVxText() {
+		return this.vxText;
+	}
+	
+	@JsonIgnore
+	public String getVxTextByLike() {
+		return "%"+this.vxText+"%";
+	}
+	
     /** constructor */
 	public VxActivitiesEntity() {
 		super();
@@ -284,8 +322,10 @@ public class VxActivitiesEntity extends BaseEntity {
 	 * @param detailImg			详情图片 门户图片 文件表ID 以逗号隔开
 	 * @param phone			客户电话
 	 * @param status			1 作废 0 启用
+	 * @param url			
+	 * @param vxText			微信页脚信息
 	 */
-	public VxActivitiesEntity(Long merchantId,String title,java.math.BigDecimal price,Long topImg,java.util.Date startTime,Long mp3Id,Long peopleNum,Long payNum,Long selectNum,String detailImg,String phone,String status){
+	public VxActivitiesEntity(Long merchantId,String title,java.math.BigDecimal price,Long topImg,java.util.Date startTime,Long mp3Id,Long peopleNum,Long payNum,Long selectNum,String detailImg,String phone,String status,String url,String vxText){
 		this();
 		this.merchantId = merchantId;
 		this.title = title;
@@ -299,6 +339,8 @@ public class VxActivitiesEntity extends BaseEntity {
 		this.detailImg = detailImg;
 		this.phone = phone;
 		this.status = status;
+		this.url = url;
+		this.vxText = vxText;
 	}
 	
 	@Override
@@ -316,7 +358,9 @@ public class VxActivitiesEntity extends BaseEntity {
 			.append("SelectNum=").append(getSelectNum()).append(", ")
 			.append("DetailImg=").append(getDetailImg()).append(", ")
 			.append("Phone=").append(getPhone()).append(", ")
-			.append("Status=").append(getStatus())
+			.append("Status=").append(getStatus()).append(", ")
+			.append("Url=").append(getUrl()).append(", ")
+			.append("VxText=").append(getVxText())
 		.append("]").toString();
 	}
 	

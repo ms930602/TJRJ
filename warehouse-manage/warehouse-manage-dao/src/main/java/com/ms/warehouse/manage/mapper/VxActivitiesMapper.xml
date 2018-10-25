@@ -18,11 +18,13 @@
 		<result property="detailImg" jdbcType="VARCHAR" column="f_detail_img"/>
 		<result property="phone" jdbcType="VARCHAR" column="f_phone"/>
 		<result property="status" jdbcType="CHAR" column="f_status"/>
+		<result property="url" jdbcType="VARCHAR" column="f_url"/>
+		<result property="vxText" jdbcType="VARCHAR" column="f_vx_text"/>
 	</resultMap>
 	
 	<!-- 查询列 -->
 	<sql id="BaseColumnList">
-		f_id,f_merchant_id,f_title,f_price,f_top_img,f_start_time,f_mp3_id,f_people_num,f_pay_num,f_select_num,f_detail_img,f_phone,f_status
+		f_id,f_merchant_id,f_title,f_price,f_top_img,f_start_time,f_mp3_id,f_people_num,f_pay_num,f_select_num,f_detail_img,f_phone,f_status,f_url,f_vx_text
 	</sql>
 			
 	<!--创建记录 -->
@@ -40,7 +42,9 @@
 			<if test="selectNum!=null">f_select_num,</if>
 			<if test="detailImg!=null">f_detail_img,</if>
 			<if test="phone!=null">f_phone,</if>
-			<if test="status!=null">f_status</if>
+			<if test="status!=null">f_status,</if>
+			<if test="url!=null">f_url,</if>
+			<if test="vxText!=null">f_vx_text</if>
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
 			<if test="merchantId!=null">#{merchantId,jdbcType=INTEGER},</if>
@@ -54,7 +58,9 @@
 			<if test="selectNum!=null">#{selectNum,jdbcType=INTEGER},</if>
 			<if test="detailImg!=null">#{detailImg,jdbcType=VARCHAR},</if>
 			<if test="phone!=null">#{phone,jdbcType=VARCHAR},</if>
-			<if test="status!=null">#{status,jdbcType=CHAR}</if>
+			<if test="status!=null">#{status,jdbcType=CHAR},</if>
+			<if test="url!=null">#{url,jdbcType=VARCHAR},</if>
+			<if test="vxText!=null">#{vxText,jdbcType=VARCHAR}</if>
 		</trim>
 	</insert>
 
@@ -74,7 +80,9 @@
 					<if test="item.selectNum!=null">f_select_num,</if>
 					<if test="item.detailImg!=null">f_detail_img,</if>
 					<if test="item.phone!=null">f_phone,</if>
-					<if test="item.status!=null">f_status</if>
+					<if test="item.status!=null">f_status,</if>
+					<if test="item.url!=null">f_url,</if>
+					<if test="item.vxText!=null">f_vx_text</if>
 			</trim>
 			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
 					<if test="item.merchantId!=null">#{item.merchantId,jdbcType=INTEGER},</if>
@@ -88,7 +96,9 @@
 					<if test="item.selectNum!=null">#{item.selectNum,jdbcType=INTEGER},</if>
 					<if test="item.detailImg!=null">#{item.detailImg,jdbcType=VARCHAR},</if>
 					<if test="item.phone!=null">#{item.phone,jdbcType=VARCHAR},</if>
-					<if test="item.status!=null">#{item.status,jdbcType=CHAR}</if>
+					<if test="item.status!=null">#{item.status,jdbcType=CHAR},</if>
+					<if test="item.url!=null">#{item.url,jdbcType=VARCHAR},</if>
+					<if test="item.vxText!=null">#{item.vxText,jdbcType=VARCHAR}</if>
 			</trim>
 		</foreach>
 	</insert>
@@ -108,7 +118,9 @@
 			<if test="selectNum!=null">f_select_num = #{selectNum,jdbcType=INTEGER},</if>
 			<if test="detailImg!=null">f_detail_img = #{detailImg,jdbcType=VARCHAR},</if>
 			<if test="phone!=null">f_phone = #{phone,jdbcType=VARCHAR},</if>
-			<if test="status!=null">f_status = #{status,jdbcType=CHAR}</if>
+			<if test="status!=null">f_status = #{status,jdbcType=CHAR},</if>
+			<if test="url!=null">f_url = #{url,jdbcType=VARCHAR},</if>
+			<if test="vxText!=null">f_vx_text = #{vxText,jdbcType=VARCHAR}</if>
 		</set>
 		<where> 
 			f_id  = #{id}
@@ -131,7 +143,9 @@
 				<if test="item.selectNum!=null">f_select_num = #{item.selectNum,jdbcType=INTEGER},</if>
 				<if test="item.detailImg!=null">f_detail_img = #{item.detailImg,jdbcType=VARCHAR},</if>
 				<if test="item.phone!=null">f_phone = #{item.phone,jdbcType=VARCHAR},</if>
-				<if test="item.status!=null">f_status = #{item.status,jdbcType=CHAR}</if>
+				<if test="item.status!=null">f_status = #{item.status,jdbcType=CHAR},</if>
+				<if test="item.url!=null">f_url = #{item.url,jdbcType=VARCHAR},</if>
+				<if test="item.vxText!=null">f_vx_text = #{item.vxText,jdbcType=VARCHAR}</if>
 			</set>
 			<where> 
 				f_id  = #{item.id}
@@ -178,6 +192,8 @@
 			<if test="detailImg!=null and detailImg!=''">AND t.f_detail_img = #{detailImg,jdbcType=VARCHAR}</if>
 			<if test="phone!=null and phone!=''">AND t.f_phone = #{phone,jdbcType=VARCHAR}</if>
 			<if test="status!=null">AND t.f_status = #{status,jdbcType=CHAR}</if>
+			<if test="url!=null and url!=''">AND t.f_url = #{url,jdbcType=VARCHAR}</if>
+			<if test="vxText!=null and vxText!=''">AND t.f_vx_text = #{vxText,jdbcType=VARCHAR}</if>
 		</where>
 	</sql>
 	
@@ -202,12 +218,16 @@
 				<if test="whereCondition.detailImg!=null and whereCondition.detailImg!=''">AND t.f_detail_img like #{whereCondition.detailImgByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.phone!=null and whereCondition.phone!=''">AND t.f_phone like #{whereCondition.phoneByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.status!=null">AND t.f_status = #{whereCondition.status,jdbcType=CHAR}</if>
+				<if test="whereCondition.url!=null and whereCondition.url!=''">AND t.f_url like #{whereCondition.urlByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.vxText!=null and whereCondition.vxText!=''">AND t.f_vx_text like #{whereCondition.vxTextByLike,jdbcType=VARCHAR}</if>
 			</if>
 			<if test="keyWord!=null and keyWord!=''">
 				AND (
 						t.f_title like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_detail_img like #{keyWordByLike,jdbcType=VARCHAR}  OR 
-						t.f_phone like #{keyWordByLike,jdbcType=VARCHAR} 
+						t.f_phone like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_url like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_vx_text like #{keyWordByLike,jdbcType=VARCHAR} 
 					)
 			</if>
 		</where>

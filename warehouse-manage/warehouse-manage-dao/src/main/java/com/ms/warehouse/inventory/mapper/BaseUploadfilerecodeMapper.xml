@@ -209,6 +209,7 @@
 			#{item}
 		</foreach>
 		)
+		ORDER BY f_source_object_id
 	</select>
 
 	<!-- 查询记录数 -->

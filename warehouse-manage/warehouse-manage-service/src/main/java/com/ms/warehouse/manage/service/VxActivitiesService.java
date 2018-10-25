@@ -17,6 +17,8 @@ import com.ms.warehouse.manage.bo.VxActivitiesBO;
 import com.ms.warehouse.manage.entity.VxActivitiesEntity;
 import com.ms.warehouse.manage.entity.VxActivitiesFormEntity;
 
+import cn.hutool.setting.dialect.Props;
+
 /**
  *  业务处理
  * @author Ms
@@ -49,6 +51,7 @@ public class VxActivitiesService extends BaseService {
 	 */
 	public Object queryById(@Param("id") Long id) throws CenterException {
 		VxActivitiesEntity entity = vxActivitiesBo.queryById(id);
+		if(entity == null) return null;
 		VxActivitiesFormEntity formEntity = new VxActivitiesFormEntity();
 		
 		Long mp3Id = entity.getMp3Id();
@@ -78,7 +81,14 @@ public class VxActivitiesService extends BaseService {
 	 * @return
 	 */
 	public Object create(VxActivitiesEntity vxActivities) throws CenterException {
+		Props PathProps = new Props("pathConf.properties");
+		String urlPath =PathProps.getProperty("file.vx.url.path");
 		vxActivitiesBo.createForValidate(vxActivities);
+		String url = urlPath + "aid=" + vxActivities.getId();
+		VxActivitiesEntity up = new VxActivitiesFormEntity();
+		up.setId(vxActivities.getId());
+		up.setUrl(url);
+		vxActivitiesBo.update(up);
 		return vxActivities;
 	}
 

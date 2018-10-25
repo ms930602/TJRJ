@@ -190,6 +190,7 @@ public class BaseUploadfilerecodeService extends BaseService {
 		baseUploadfilerecode.setFileName(vo.getFile_FILENAME());
 		baseUploadfilerecode.setFilePath(resutMap.get("path"));
 		baseUploadfilerecode.setFileSize(fileSize);
+		baseUploadfilerecode.setSourceObjectId(vo.getSort());
 		try {
 			this.create(baseUploadfilerecode);
 			resutMap.put("loadId", baseUploadfilerecode.getId().toString());

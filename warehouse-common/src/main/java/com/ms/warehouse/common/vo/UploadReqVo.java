@@ -6,6 +6,15 @@ public class UploadReqVo extends BaseReqVO {
 	private String file_FILENAME;
 	private byte[] file;
 	private String savePath;
+	private Long sort;
+
+	public Long getSort() {
+		return sort;
+	}
+
+	public void setSort(Long sort) {
+		this.sort = sort;
+	}
 
 	public String getFile_FILENAME() {
 		return file_FILENAME;

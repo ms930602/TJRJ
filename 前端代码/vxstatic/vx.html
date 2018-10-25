@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>xxx</title>
+	<title>活动</title>
 	<style type="text/css">
+		body{position: relative;}
 		.ms_img{
 			width:100%;
 		}
@@ -20,7 +21,7 @@
 		}
 		.people_div{
 			width: 100%;
-			height: 250px;
+			height: 300px;
 			background-image: url('./people.jpg');
 			background-repeat:no-repeat; 
 			background-size:100% 100%;
@@ -85,22 +86,76 @@
 		  overflow: hidden;
 		}
 		.po_icon{
-			display: inline-block;
 			width: 80px;
 			height: 80px;
+			border-radius: 50%;
 			background-image: url("./account.png")
-			background-position:center center;
+			margin-top: 10px;
+			margin-left: 40px;
 		}
+		#music_div{
+			width: 100%;
+			height: 70px;
+			background-color: #282c31;
+			position: fixed; 
+			top: 0;
+			opacity:0.75;
+			text-align: right;
+		}
+		#music_div input{
+			margin-top: 6px;
+			margin-right: 60px;
+		}
+		@-webkit-keyframes rotation {
+    		from {-webkit-transform: rotate(0deg);
+		}to {
+		    -webkit-transform: rotate(360deg);
+		}}
+
+		.Rotation {
+		    -webkit-transform: rotate(360deg);
+		    animation: rotation 8s linear infinite;
+		    -moz-animation: rotation 8s linear infinite;
+		    -webkit-animation: rotation 8s linear infinite;
+		    -o-animation: rotation 8s linear infinite;
+		}
+		 audio{
+             display: none;
+         }
 	</style>
 </head>
 <body>
-<img src="./a.JPG" class="ms_img">
+<div id="music_div">
+	<input type="image" name="" src="./music.png" class="Rotation" style="width:60px;height:60px;" onclick="musicAction()">
+</div>
+<img src="" id="topImg" class="ms_img">
 <div class="pay_div">
-	<span>&nbsp;&nbsp;已购买<strng id="mID">32</strng>人</span>
-	<span class="l_s_a"><strng id="lID">872</strng>浏览&nbsp;&nbsp;</span>
+	<span>&nbsp;&nbsp;已购买&nbsp;&nbsp;<span id="buyPeopleNumA"></span>&nbsp;&nbsp;人</span>
+	<span class="l_s_a"><span id="showPeopleNum"></span>&nbsp;&nbsp;浏览&nbsp;&nbsp;</span>
 </div>
 <div class="people_div" >
-	
+<br/>
+	<img src="./people/2baff47e894eb7d84587a5eda93e33e3.jpeg"  class="po_icon">
+	<img src="./people/3d262af661401e9471b026febcbe71d0.jpeg"  class="po_icon">
+	<img src="./people/aa.jpg"  class="po_icon">
+	<img src="./people/baike.jpg"  class="po_icon">
+	<img src="./people/cds.jpg"  class="po_icon">
+	<img src="./people/ckik.jpg"  class="po_icon">
+	<img src="./people/liyunqi.jpg"  class="po_icon">
+	<img src="./people/tiamnm.jpg"  class="po_icon">
+	<img src="./people/1d8f42e6233b300465f043233ff95834.jpg"  class="po_icon">
+	<img src="./people/8a9582d96219f3899e74bf9aa0b876e5.jpg"  class="po_icon">
+	<img src="./people/285b22a86c0564b6135cda6924d6bfe7.jpeg"  class="po_icon">
+	<img src="./people/585ac8572df4fce677b968f7fabe3734.jpg"  class="po_icon">
+	<img src="./people/5774ee05b6b3eeea7cab2d889c8f5d57.jpeg"  class="po_icon">
+	<img src="./people/9018d59856135c93b5d08078247e5ea8.jpg"  class="po_icon">
+	<img src="./people/a2b1630e12e2c094c88a3f307bbd2e4c.jpg"  class="po_icon">
+	<img src="./people/c20543c765e54cf0c9d111f0b4af292f.jpg"  class="po_icon">
+	<img src="./people/5a1df577057c45e0d7cc1d9d53be5176.jpg"  class="po_icon">
+	<img src="./people/82e11835bdd6aa888fcb06b6612e866a.jpg"  class="po_icon">
+	<img src="./people/710c6e9c81a6dc0eed8f08e501bb20f6.jpeg"  class="po_icon">
+	<img src="./people/e28b902b865f20be88152df902749a66.jpeg"  class="po_icon">
+	<img src="./people/youyiku.png"  class="po_icon">
 </div>
 <hr/>
 <div class="HA_div">
@@ -120,12 +175,11 @@
     <div id="jqmeter-container" style="width:80%;margin:0 auto"></div>
     <br/>
 	<div class="thr_span"  >
-		<span>活动限额1000人</span>
-		<span>已购买32人</span>
-		<span>进度32%</span>
+		<span>活动限额<span id="peopleBan" ></span>人</span>
+		<span>已购买<span id="buyPeopleNumB"></span>人</span>
+		<span>进度<span id="jdID"></span>%</span>
 	</div>
-</div>sss
-	<i class="po_icon"></i>ss
+</div>
 <div class="tui_div">
 	<div class="HA_div">
 		<span>推&nbsp;广&nbsp;排&nbsp;行&nbsp;榜 <span style="font-size: 30px">TOP20</span></span>
@@ -141,154 +195,120 @@
 	                <th style="width:20%">&nbsp;</th>
 	            </tr>
 	        </thead>
-	        <tbody>
-	            <tr>
-	            	<td>1.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11<img src="./account.png"></td>
-	            </tr>
-	            <tr>
-	                <td>2.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>3.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>4.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>5.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>6.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>7.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>8.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>9.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>10.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>11.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>12.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>13.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>14.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-	            <tr>
-	                <td>15.</td>
-	                <td><img src="./aa.jpg"  class="round_icon"></td>
-	                <td>&nbsp;我和春天有个</td>
-	                <td>--</td>
-	                <td class="po_a">推广:11</td>
-	            </tr>
-			    </tbody>
-		    </table>
+	        <tbody id="pListTbody"></tbody>
+		</table>
 	</div>
 </div>
-<img src="./b.JPG" class="ms_img">
-<img src="./c.JPG" class="ms_img">
-<img src="./d.JPG" class="ms_img">
+<div id="detailImg"></div>
 <hr/>
 <hr/>
 <div style="text-align: center;width: 100%;height:50px;font-size: 30px;">
 	<p>南充市顺庆区石油东路公交站旁</p>
 </div>
+<audio autoplay="autoplay" controls="controls"loop="loop" preload="auto"
+       id="mp3Audio">
+</audio>
 <script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script typet="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.downCount/1.0.0/jquery.downCount.min.js"></script>
 <script typet="text/javascript" src="./jqmeter.min.js"></script>
 <script type="text/javascript">
+	$(function(){
+		runA();
+		loadActivit();
+	});
+	var musicPlay = true;
+	function musicAction(){
+		var audio = $("#mp3Audio")[0];
+		if(musicPlay){
+			audio.pause();  
+		}else{
+			audio.play();
+		}
+		musicPlay = !musicPlay;
+	}
+
 	var colorList = [
 		'#928f21','#cac62c','#fdf835'
 	]
-	$(function(){
-		runA();
-		// $('#jqmeter-container').jQMeter();
+	var ROOT_SERVER = "http://localhost:8080/warehouse-pre-interface//api/ware/";
+	var FILE_ROOT   = "http://localhost:8080/warehouse-pre-interface/servlet/getfile?path=";
+	var aid = getParam("aid");
+	function getParam(name) {
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	    var r = window.location.search.substr(1).match(reg);
+	    if (r != null) return unescape(r[2]); return null;
+	}
+
+	function loadActivit(){
+		var url = ROOT_SERVER+"infoTo/getVxInfo?id="+aid;
+		$.get(url).then(function(req){
+			if(req.success){
+				if(req.aaData == null){
+					alert("该活动已关闭！")
+					return;
+				}else{
+					setMessageInfo(req.aaData);
+				}
+			}else{
+				alert("无信息！")
+			}
+		},function(req){
+			alert("无信息!！")
+		})
+	}
+
+	function setMessageInfo(obj){
+		document.title=obj.activitiName;
+		$("#mp3Audio").attr("src", FILE_ROOT + obj.mp3Path);
+		$("#topImg").attr("src", FILE_ROOT + obj.topImg);
+		$("#buyPeopleNumA").html( obj.buyPeopleNum );
+		$("#buyPeopleNumB").html( obj.buyPeopleNum );
+		
+		$("#showPeopleNum").html( obj.showPeopleNum );
+		$("#peopleBan").html( obj.peopleBan );
+		
+		var goalVal = obj.peopleBan + '';
+		var raiVal = obj.buyPeopleNum + '';
+		var jd = parseInt(raiVal / goalVal * 100);
+
+		$("#jdID").html( jd );
 		$('#jqmeter-container').jQMeter({
-		    goal:'100',//总长度
-		    raised:'32',//当前长度
+		    goal:goalVal,//总长度
+		    raised:raiVal,//当前长度
 		    orientation:'vertical',
 		    width:'100%',
 		    height:'50px',
 			barColor:'#ff0032'
 		});
+
 		$('.countdown').downCount({
-		        date: '10/26/2018 00:00:00',
+		        date: obj.endTime,
 		        offset: +8
 		    }, function (){
 		    alert('倒计时结束!');
 		});
-	});
+
+		var html = '';
+		// ... 处理list
+		// <tr>
+        // 	   <td>1.</td>
+        //     <td><img src="./aa.jpg"  class="round_icon"></td>
+        //     <td>&nbsp;我和春天有个</td>
+        //     <td>--</td>
+        //     <td class="po_a">推广:11<img src="./account.png"></td>
+        // </tr>
+		$("#pListTbody").html(html);
+		var detailHTML = '';
+		obj.detailImg.forEach(temp=>{
+			detailHTML = detailHTML + '<img src="'+FILE_ROOT+temp+'" class="ms_img">'
+		})
+		$("#detailImg").html(detailHTML);
+	}
 
 	var flagIndex = 0;
 	function runA(){
-		var textA = document.getElementById("mID");
-		var textB = document.getElementById("lID");
+		var textA = document.getElementById("buyPeopleNumA");
+		var textB = document.getElementById("showPeopleNum");
 		textA.style.color = colorList[flagIndex];
 		textB.style.color = colorList[flagIndex];
 		flagIndex ++ ;
