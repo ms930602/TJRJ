@@ -1,10 +1,12 @@
 package com.ms.warehouse.pre.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ms.warehouse.IManageRouteService;
 import com.ms.warehouse.pre.utils.WXAuthUtil;
 
 import java.io.IOException;
@@ -22,17 +24,23 @@ import org.slf4j.LoggerFactory;
 public class VxController{
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@Autowired
+	private IManageRouteService manageService;
+	
 	@RequestMapping(value = "wxLogin")
 	public String wxLogin(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
 		String backUrl="http://msserver.nat300.top/warehouse-pre-interface/vx/info/callBack";
 		// 第一步：用户同意授权，获取code
+		String aid = request.getParameter("gbk");
 		StringBuilder url = new StringBuilder("https://open.weixin.qq.com/connect/oauth2/authorize?appid=");
 		url.append(WXAuthUtil.APPID);
 		url.append("&redirect_uri=");
 		url.append(URLEncoder.encode(backUrl,"GBK"));
 		url.append("&response_type=code");
 		url.append("&scope=snsapi_userinfo");
-		url.append("&state=STATE#wechat_redirect");
+		url.append("&state=");
+		url.append(aid);
+		url.append("#wechat_redirect");
 		logger.info("forward重定向地址{" + url.toString() + "}");
 		return "redirect:"+url.toString();
 	}
@@ -41,6 +49,7 @@ public class VxController{
 	public String callBack(ModelMap modelMap,HttpServletRequest req, HttpServletResponse resp) throws ClientProtocolException, IOException {
 		//start 获取微信用户基本信息
 		String code =req.getParameter("code");
+		String state =req.getParameter("state");
 		//第二步：通过code换取网页授权access_token
 		StringBuilder url = new StringBuilder("https://api.weixin.qq.com/sns/oauth2/access_token?appid=");
 		url.append(WXAuthUtil.APPID);
@@ -71,7 +80,7 @@ public class VxController{
 		if(!"0".equals(chickuserInfo.getString("errcode"))){
 			// 第三步：刷新access_token（如果需要）-----暂时没有使用
 			String refreshTokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+openid+"&grant_type=refresh_token&refresh_token="+refresh_token;
-			JSONObject refreshInfo = WXAuthUtil.doGetJson(chickUrl);
+			JSONObject refreshInfo = WXAuthUtil.doGetJson(refreshTokenUrl);
 			/*
 			 * { "access_token":"ACCESS_TOKEN",
 			 * "expires_in":7200,
@@ -89,8 +98,8 @@ public class VxController{
 				+ "&lang=zh_CN";
 		JSONObject userInfo = WXAuthUtil.doGetJson(infoUrl);
 		System.out.println("JSON-----"+userInfo.toString());
-		System.out.println("名字-----"+userInfo.getString("nickname"));
-		System.out.println("头像-----"+userInfo.getString("headimgurl"));
+		userInfo.put("activitiId", state);
+		manageService.savePromoters( userInfo );
 		//end 获取微信用户基本信息
 		return "redirect:"+url.toString();
 	}

@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-10-21 19:40:58
+ * @Date 2018-10-26 09:51:49
  * @since 1.0
  */
 @TableName("t_vx_promoters")
@@ -46,6 +46,24 @@ public class VxPromotersEntity extends BaseEntity {
 	
 	/** 创建时间. */
 	private java.util.Date createtime;
+	
+	/** 头像. */
+	private String headimgurl;
+	
+	/** 年龄. */
+	private String sex;
+	
+	/** 省份. */
+	private String province;
+	
+	/** 城市. */
+	private String city;
+	
+	/** 国家. */
+	private String country;
+	
+	/** . */
+	private String unionid;
 	
 	
 
@@ -208,6 +226,102 @@ public class VxPromotersEntity extends BaseEntity {
 		return this.createtime;
 	}
 	
+
+    /** set 头像. */
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl;
+	}
+	
+	/** get 头像. */
+	public String getHeadimgurl() {
+		return this.headimgurl;
+	}
+	
+	@JsonIgnore
+	public String getHeadimgurlByLike() {
+		return "%"+this.headimgurl+"%";
+	}
+	
+
+    /** set 年龄. */
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+	/** get 年龄. */
+	public String getSex() {
+		return this.sex;
+	}
+	
+	@JsonIgnore
+	public String getSexByLike() {
+		return "%"+this.sex+"%";
+	}
+	
+
+    /** set 省份. */
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	
+	/** get 省份. */
+	public String getProvince() {
+		return this.province;
+	}
+	
+	@JsonIgnore
+	public String getProvinceByLike() {
+		return "%"+this.province+"%";
+	}
+	
+
+    /** set 城市. */
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	/** get 城市. */
+	public String getCity() {
+		return this.city;
+	}
+	
+	@JsonIgnore
+	public String getCityByLike() {
+		return "%"+this.city+"%";
+	}
+	
+
+    /** set 国家. */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+	/** get 国家. */
+	public String getCountry() {
+		return this.country;
+	}
+	
+	@JsonIgnore
+	public String getCountryByLike() {
+		return "%"+this.country+"%";
+	}
+	
+
+    /** set . */
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
+	}
+	
+	/** get . */
+	public String getUnionid() {
+		return this.unionid;
+	}
+	
+	@JsonIgnore
+	public String getUnionidByLike() {
+		return "%"+this.unionid+"%";
+	}
+	
     /** constructor */
 	public VxPromotersEntity() {
 		super();
@@ -224,8 +338,14 @@ public class VxPromotersEntity extends BaseEntity {
 	 * @param activites			活动外键
 	 * @param openId			授权号
 	 * @param createtime			创建时间
+	 * @param headimgurl			头像
+	 * @param sex			年龄
+	 * @param province			省份
+	 * @param city			城市
+	 * @param country			国家
+	 * @param unionid			
 	 */
-	public VxPromotersEntity(String vxNum,String phone,String name,String nickname,Long extNum,java.math.BigDecimal sumMoney,Long activites,String openId,java.util.Date createtime){
+	public VxPromotersEntity(String vxNum,String phone,String name,String nickname,Long extNum,java.math.BigDecimal sumMoney,Long activites,String openId,java.util.Date createtime,String headimgurl,String sex,String province,String city,String country,String unionid){
 		this();
 		this.vxNum = vxNum;
 		this.phone = phone;
@@ -236,6 +356,12 @@ public class VxPromotersEntity extends BaseEntity {
 		this.activites = activites;
 		this.openId = openId;
 		this.createtime = createtime;
+		this.headimgurl = headimgurl;
+		this.sex = sex;
+		this.province = province;
+		this.city = city;
+		this.country = country;
+		this.unionid = unionid;
 	}
 	
 	@Override
@@ -250,7 +376,13 @@ public class VxPromotersEntity extends BaseEntity {
 			.append("SumMoney=").append(getSumMoney()).append(", ")
 			.append("Activites=").append(getActivites()).append(", ")
 			.append("OpenId=").append(getOpenId()).append(", ")
-			.append("Createtime=").append(getCreatetime())
+			.append("Createtime=").append(getCreatetime()).append(", ")
+			.append("Headimgurl=").append(getHeadimgurl()).append(", ")
+			.append("Sex=").append(getSex()).append(", ")
+			.append("Province=").append(getProvince()).append(", ")
+			.append("City=").append(getCity()).append(", ")
+			.append("Country=").append(getCountry()).append(", ")
+			.append("Unionid=").append(getUnionid())
 		.append("]").toString();
 	}
 	

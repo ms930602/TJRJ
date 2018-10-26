@@ -15,11 +15,17 @@
 		<result property="activites" jdbcType="INTEGER" column="f_activites"/>
 		<result property="openId" jdbcType="VARCHAR" column="f_open_id"/>
 		<result property="createtime" jdbcType="TIMESTAMP" column="f_createtime"/>
+		<result property="headimgurl" jdbcType="VARCHAR" column="f_headimgurl"/>
+		<result property="sex" jdbcType="VARCHAR" column="f_sex"/>
+		<result property="province" jdbcType="VARCHAR" column="f_province"/>
+		<result property="city" jdbcType="VARCHAR" column="f_city"/>
+		<result property="country" jdbcType="VARCHAR" column="f_country"/>
+		<result property="unionid" jdbcType="VARCHAR" column="f_unionid"/>
 	</resultMap>
 	
 	<!-- 查询列 -->
 	<sql id="BaseColumnList">
-		f_id,f_vx_num,f_phone,f_name,f_nickname,f_ext_num,f_sum_money,f_activites,f_open_id,f_createtime
+		f_id,f_vx_num,f_phone,f_name,f_nickname,f_ext_num,f_sum_money,f_activites,f_open_id,f_createtime,f_headimgurl,f_sex,f_province,f_city,f_country,f_unionid
 	</sql>
 			
 	<!--创建记录 -->
@@ -34,7 +40,13 @@
 			<if test="sumMoney!=null">f_sum_money,</if>
 			<if test="activites!=null">f_activites,</if>
 			<if test="openId!=null">f_open_id,</if>
-			<if test="createtime!=null">f_createtime</if>
+			<if test="createtime!=null">f_createtime,</if>
+			<if test="headimgurl!=null">f_headimgurl,</if>
+			<if test="sex!=null">f_sex,</if>
+			<if test="province!=null">f_province,</if>
+			<if test="city!=null">f_city,</if>
+			<if test="country!=null">f_country,</if>
+			<if test="unionid!=null">f_unionid</if>
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
 			<if test="vxNum!=null">#{vxNum,jdbcType=VARCHAR},</if>
@@ -45,7 +57,13 @@
 			<if test="sumMoney!=null">#{sumMoney,jdbcType=DECIMAL},</if>
 			<if test="activites!=null">#{activites,jdbcType=INTEGER},</if>
 			<if test="openId!=null">#{openId,jdbcType=VARCHAR},</if>
-			<if test="createtime!=null">#{createtime,jdbcType=TIMESTAMP}</if>
+			<if test="createtime!=null">#{createtime,jdbcType=TIMESTAMP},</if>
+			<if test="headimgurl!=null">#{headimgurl,jdbcType=VARCHAR},</if>
+			<if test="sex!=null">#{sex,jdbcType=VARCHAR},</if>
+			<if test="province!=null">#{province,jdbcType=VARCHAR},</if>
+			<if test="city!=null">#{city,jdbcType=VARCHAR},</if>
+			<if test="country!=null">#{country,jdbcType=VARCHAR},</if>
+			<if test="unionid!=null">#{unionid,jdbcType=VARCHAR}</if>
 		</trim>
 	</insert>
 
@@ -62,7 +80,13 @@
 					<if test="item.sumMoney!=null">f_sum_money,</if>
 					<if test="item.activites!=null">f_activites,</if>
 					<if test="item.openId!=null">f_open_id,</if>
-					<if test="item.createtime!=null">f_createtime</if>
+					<if test="item.createtime!=null">f_createtime,</if>
+					<if test="item.headimgurl!=null">f_headimgurl,</if>
+					<if test="item.sex!=null">f_sex,</if>
+					<if test="item.province!=null">f_province,</if>
+					<if test="item.city!=null">f_city,</if>
+					<if test="item.country!=null">f_country,</if>
+					<if test="item.unionid!=null">f_unionid</if>
 			</trim>
 			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
 					<if test="item.vxNum!=null">#{item.vxNum,jdbcType=VARCHAR},</if>
@@ -73,7 +97,13 @@
 					<if test="item.sumMoney!=null">#{item.sumMoney,jdbcType=DECIMAL},</if>
 					<if test="item.activites!=null">#{item.activites,jdbcType=INTEGER},</if>
 					<if test="item.openId!=null">#{item.openId,jdbcType=VARCHAR},</if>
-					<if test="item.createtime!=null">#{item.createtime,jdbcType=TIMESTAMP}</if>
+					<if test="item.createtime!=null">#{item.createtime,jdbcType=TIMESTAMP},</if>
+					<if test="item.headimgurl!=null">#{item.headimgurl,jdbcType=VARCHAR},</if>
+					<if test="item.sex!=null">#{item.sex,jdbcType=VARCHAR},</if>
+					<if test="item.province!=null">#{item.province,jdbcType=VARCHAR},</if>
+					<if test="item.city!=null">#{item.city,jdbcType=VARCHAR},</if>
+					<if test="item.country!=null">#{item.country,jdbcType=VARCHAR},</if>
+					<if test="item.unionid!=null">#{item.unionid,jdbcType=VARCHAR}</if>
 			</trim>
 		</foreach>
 	</insert>
@@ -90,7 +120,13 @@
 			<if test="sumMoney!=null">f_sum_money = #{sumMoney,jdbcType=DECIMAL},</if>
 			<if test="activites!=null">f_activites = #{activites,jdbcType=INTEGER},</if>
 			<if test="openId!=null">f_open_id = #{openId,jdbcType=VARCHAR},</if>
-			<if test="createtime!=null">f_createtime = #{createtime,jdbcType=TIMESTAMP}</if>
+			<if test="createtime!=null">f_createtime = #{createtime,jdbcType=TIMESTAMP},</if>
+			<if test="headimgurl!=null">f_headimgurl = #{headimgurl,jdbcType=VARCHAR},</if>
+			<if test="sex!=null">f_sex = #{sex,jdbcType=VARCHAR},</if>
+			<if test="province!=null">f_province = #{province,jdbcType=VARCHAR},</if>
+			<if test="city!=null">f_city = #{city,jdbcType=VARCHAR},</if>
+			<if test="country!=null">f_country = #{country,jdbcType=VARCHAR},</if>
+			<if test="unionid!=null">f_unionid = #{unionid,jdbcType=VARCHAR}</if>
 		</set>
 		<where> 
 			f_id  = #{id}
@@ -110,7 +146,13 @@
 				<if test="item.sumMoney!=null">f_sum_money = #{item.sumMoney,jdbcType=DECIMAL},</if>
 				<if test="item.activites!=null">f_activites = #{item.activites,jdbcType=INTEGER},</if>
 				<if test="item.openId!=null">f_open_id = #{item.openId,jdbcType=VARCHAR},</if>
-				<if test="item.createtime!=null">f_createtime = #{item.createtime,jdbcType=TIMESTAMP}</if>
+				<if test="item.createtime!=null">f_createtime = #{item.createtime,jdbcType=TIMESTAMP},</if>
+				<if test="item.headimgurl!=null">f_headimgurl = #{item.headimgurl,jdbcType=VARCHAR},</if>
+				<if test="item.sex!=null">f_sex = #{item.sex,jdbcType=VARCHAR},</if>
+				<if test="item.province!=null">f_province = #{item.province,jdbcType=VARCHAR},</if>
+				<if test="item.city!=null">f_city = #{item.city,jdbcType=VARCHAR},</if>
+				<if test="item.country!=null">f_country = #{item.country,jdbcType=VARCHAR},</if>
+				<if test="item.unionid!=null">f_unionid = #{item.unionid,jdbcType=VARCHAR}</if>
 			</set>
 			<where> 
 				f_id  = #{item.id}
@@ -154,6 +196,12 @@
 			<if test="activites!=null">AND t.f_activites = #{activites,jdbcType=INTEGER}</if>
 			<if test="openId!=null and openId!=''">AND t.f_open_id = #{openId,jdbcType=VARCHAR}</if>
 			<if test="createtime!=null">AND t.f_createtime = #{createtime,jdbcType=TIMESTAMP}</if>
+			<if test="headimgurl!=null and headimgurl!=''">AND t.f_headimgurl = #{headimgurl,jdbcType=VARCHAR}</if>
+			<if test="sex!=null and sex!=''">AND t.f_sex = #{sex,jdbcType=VARCHAR}</if>
+			<if test="province!=null and province!=''">AND t.f_province = #{province,jdbcType=VARCHAR}</if>
+			<if test="city!=null and city!=''">AND t.f_city = #{city,jdbcType=VARCHAR}</if>
+			<if test="country!=null and country!=''">AND t.f_country = #{country,jdbcType=VARCHAR}</if>
+			<if test="unionid!=null and unionid!=''">AND t.f_unionid = #{unionid,jdbcType=VARCHAR}</if>
 		</where>
 	</sql>
 	
@@ -175,6 +223,12 @@
 				<if test="whereCondition.activites!=null">AND t.f_activites = #{whereCondition.activites,jdbcType=INTEGER}</if>
 				<if test="whereCondition.openId!=null and whereCondition.openId!=''">AND t.f_open_id like #{whereCondition.openIdByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.createtime!=null">AND t.f_createtime = #{whereCondition.createtime,jdbcType=TIMESTAMP}</if>
+				<if test="whereCondition.headimgurl!=null and whereCondition.headimgurl!=''">AND t.f_headimgurl like #{whereCondition.headimgurlByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.sex!=null and whereCondition.sex!=''">AND t.f_sex like #{whereCondition.sexByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.province!=null and whereCondition.province!=''">AND t.f_province like #{whereCondition.provinceByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.city!=null and whereCondition.city!=''">AND t.f_city like #{whereCondition.cityByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.country!=null and whereCondition.country!=''">AND t.f_country like #{whereCondition.countryByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.unionid!=null and whereCondition.unionid!=''">AND t.f_unionid like #{whereCondition.unionidByLike,jdbcType=VARCHAR}</if>
 			</if>
 			<if test="keyWord!=null and keyWord!=''">
 				AND (
@@ -182,7 +236,13 @@
 						t.f_phone like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_name like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_nickname like #{keyWordByLike,jdbcType=VARCHAR}  OR 
-						t.f_open_id like #{keyWordByLike,jdbcType=VARCHAR} 
+						t.f_open_id like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_headimgurl like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_sex like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_province like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_city like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_country like #{keyWordByLike,jdbcType=VARCHAR}  OR 
+						t.f_unionid like #{keyWordByLike,jdbcType=VARCHAR} 
 					)
 			</if>
 		</where>
