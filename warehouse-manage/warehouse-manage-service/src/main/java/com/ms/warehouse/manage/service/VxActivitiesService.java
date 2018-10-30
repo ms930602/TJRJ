@@ -84,7 +84,7 @@ public class VxActivitiesService extends BaseService {
 		Props PathProps = new Props("pathConf.properties");
 		String urlPath =PathProps.getProperty("file.vx.url.path");
 		vxActivitiesBo.createForValidate(vxActivities);
-		String url = urlPath + "aid=" + vxActivities.getId();
+		String url = urlPath + "gbk=" + vxActivities.getId();
 		VxActivitiesEntity up = new VxActivitiesFormEntity();
 		up.setId(vxActivities.getId());
 		up.setUrl(url);

@@ -76,7 +76,7 @@
         allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
         allow-credentials="true" />
 	</mvc:cors>
-
+	
 	<!-- 权限验证拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>

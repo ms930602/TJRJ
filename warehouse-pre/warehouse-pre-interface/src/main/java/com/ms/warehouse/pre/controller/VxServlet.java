@@ -30,7 +30,6 @@ public class VxServlet extends HttpServlet {
 		String nonce = request.getParameter("nonce");
 		String echostr = request.getParameter("echostr");
 		
-		System.out.println("token:" + request.getParameter("token"));
 		System.out.println("signature:" + signature);
 		System.out.println("timestamp:" + timestamp);
 		System.out.println("nonce:" + nonce);

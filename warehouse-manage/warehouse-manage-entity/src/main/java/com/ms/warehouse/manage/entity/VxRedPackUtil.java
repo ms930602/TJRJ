@@ -1,19 +1,17 @@
-package com.ms.warehouse.pre.utils;
+package com.ms.warehouse.manage.entity;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.security.KeyStore;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.UUID;
 
 import javax.net.ssl.SSLContext;
 
-import org.apache.bcel.generic.NEW;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -24,23 +22,19 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import com.ibm.icu.text.SimpleDateFormat;
-
 public class VxRedPackUtil {
 	
 
 	public static void main(String args[]){
 		try {
-			int iMin = 1000;
-            Random rd = new Random(8999);//构造随机数
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			String strMch_billno = sdf.format(new Date()) + (rd.nextInt() + iMin);
+			String strMch_billno = "DDWV" + sdf.format(new Date());
 			String MHCname = "商户名称";
 			String price = "100"; //价格
 			sendRedPack(strMch_billno,
-					"接收者的openid",
+					"oAQYT1MFe4kUCeB0worwLe0Pl3gg",
 					MHCname,price,"1",
-					"返现提成,祝您愉快!","提成红包","谢谢您的推广!","127.0.0.1");
+					"返现提成,祝您愉快!","提成红包","谢谢您的推广!","101.207.28.69");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,7 +60,7 @@ public class VxRedPackUtil {
 		p.put("remark",remark);
 		
 		
- 
+		System.out.println(mch_billno);
 		String sign = WXAuthUtil.createSign(p);
 		System.out.println(sign);
 		p.put("sign", sign);

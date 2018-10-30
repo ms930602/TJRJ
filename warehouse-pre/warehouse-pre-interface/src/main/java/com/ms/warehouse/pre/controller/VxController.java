@@ -5,18 +5,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.dubbo.common.utils.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import com.alibaba.fastjson.JSONObject;
-import com.ms.warehouse.IManageRouteService;
+import com.ms.warehouse.IVxService;
+import com.ms.warehouse.common.vo.BaseRespVO;
+import com.ms.warehouse.manage.entity.ParseXMLUtils;
 import com.ms.warehouse.pre.utils.WXAuthUtil;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.ClientProtocolException;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 @Controller
@@ -25,7 +37,7 @@ public class VxController{
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private IManageRouteService manageService;
+	IVxService vxService;
 	
 	@RequestMapping(value = "wxLogin")
 	public String wxLogin(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
@@ -59,8 +71,6 @@ public class VxController{
 		url.append(code);
 		url.append("&grant_type=authorization_code");
 		
-		System.err.println("url:"+url);
-		
 		JSONObject jsonObject = WXAuthUtil.doGetJson(url.toString());
 		/*{
 		 * "access_token":"ACCESS_TOKEN",
@@ -76,7 +86,6 @@ public class VxController{
 		//第五步验证access_token是否失效；展示都不需要
 		String chickUrl="https://api.weixin.qq.com/sns/auth?access_token="+access_token+"&openid="+openid;
 		JSONObject chickuserInfo = WXAuthUtil.doGetJson(chickUrl);
-		System.out.println(chickuserInfo.toString());
 		if(!"0".equals(chickuserInfo.getString("errcode"))){
 			// 第三步：刷新access_token（如果需要）-----暂时没有使用
 			String refreshTokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+openid+"&grant_type=refresh_token&refresh_token="+refresh_token;
@@ -89,7 +98,6 @@ public class VxController{
 			 * "scope":"SCOPE" 
 			 * }
 			 */
-			System.err.println("刷新access_token:"+refreshInfo.toString());
 			access_token=refreshInfo.getString("access_token");
 		}
 		// 第四步：拉取用户信息(需scope为 snsapi_userinfo)
@@ -97,11 +105,55 @@ public class VxController{
 				+ "&openid="+openid
 				+ "&lang=zh_CN";
 		JSONObject userInfo = WXAuthUtil.doGetJson(infoUrl);
-		System.out.println("JSON-----"+userInfo.toString());
 		userInfo.put("activitiId", state);
-		manageService.savePromoters( userInfo );
+		System.out.println();
+		try {
+			if( userInfo.get("openid") == null || userInfo.get("openid") == "" || "null".equals(userInfo.get("openid")))
+				return "无法获取您的信息！";
+			vxService.savePromoters( userInfo );
+		} catch (Exception e) {}
 		//end 获取微信用户基本信息
-		return "redirect:"+url.toString();
+		String myUrl = "http://mscenter.nat300.top/vxstatic/vx.html?gbk="+state+"&bbq=xd&opo=9584157&cd="+userInfo.get("openid") + "";
+		return "redirect:"+myUrl;
 	}
 	
+	@RequestMapping(value = "payabcd")
+	public void payStatus(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		System.err.println("payabcd");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String body = IOUtils.read(reader);
+		
+		if(StringUtils.isNotBlank(body)){
+			System.err.println("business receive somthing with body :"+body);
+		}
+    	SAXReader saxReader = new SAXReader();
+        Document document;
+        String openId = null;
+        String return_code = null;
+        try {
+            document = saxReader.read(new ByteArrayInputStream(body.getBytes()));
+            Map map = ParseXMLUtils.Dom2Map(document);
+            
+            return_code = map.get("return_code") + "";
+            openId = map.get("openid") + "";
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        if("SUCCESS".equals(return_code) && openId != null){
+        	System.err.println("返回数据 return_code :"+return_code + " |openId:"+openId);
+        	vxService.payAction(openId);
+        }else{
+        	System.err.println("返回数据错误");
+        }
+        
+        response.setContentType("text/xml;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+		StringBuilder builder = new StringBuilder();
+		builder.append("<xml>");
+		builder.append("<return_code><![CDATA[SUCCESS]]></return_code>");
+		builder.append("<return_msg><![CDATA[OK]]></return_msg>");
+		builder.append("</xml>");
+		out.println(builder.toString());
+		out.flush();
+	}
 }

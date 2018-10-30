@@ -7,7 +7,7 @@
 	<div>
   <el-form class="modal-form" :inline="true" :model="form" :rules="rules" ref="form" label-width="120px">
       <el-row >
-        <el-col :span="24">
+        <el-col :span="6">
           <el-form-item label="商户"  prop='merchantId'>
             <selectInput :value.sync="form.merchantId">
               <el-option
@@ -18,6 +18,28 @@
                 </el-option>
             </selectInput>
         </el-form-item>
+        </el-col>
+        <el-col :span="6">
+            <el-form-item label="客户名称" prop="khName">
+               <inputItem :value.sync="form.khName" maxlength="30"></inputItem>
+            </el-form-item>
+        </el-col>
+        <el-col :span="6">
+            <el-form-item label="客户电话" prop="phone">
+               <inputItem :value.sync="form.phone" maxlength="30"></inputItem>
+            </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row >
+        <el-col :span="6">
+            <el-form-item label="红包标题" prop="redpackTitle">
+               <inputItem :value.sync="form.redpackTitle" maxlength="200"></inputItem>
+            </el-form-item>
+        </el-col>
+        <el-col :span="6">
+            <el-form-item label="红包描述" prop="redpackContent">
+               <inputItem :value.sync="form.redpackContent" maxlength="200"></inputItem>
+            </el-form-item>
         </el-col>
       </el-row>
       <el-row>
@@ -38,14 +60,10 @@
               <dateEditorDaterange :dateValue.sync="form.startTime" :showPickerOptions="false" type="date" style="width: 200px;"></dateEditorDaterange>
               </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="12">
             <el-form-item label="价格" prop="price">
-               <inputItem :value.sync="form.price" type="number" maxlength="9"></inputItem>
-            </el-form-item>
-        </el-col>
-        <el-col :span="6">
-            <el-form-item label="客户电话" prop="phone">
-               <inputItem :value.sync="form.phone" maxlength="30"></inputItem>
+               <inputItem :value.sync="form.price" type="number" maxlength="9" style="width:180px"></inputItem>
+               <span style="color:red;">分为单位，如：100 = 1元 不能有小数</span>
             </el-form-item>
         </el-col>
 			</el-row>
@@ -228,10 +246,13 @@ export default {
         payNum: 0,
         selectNum: 0,
         phone:'',
+        khName:'',
         topImg: null,
         mp3Id: null,
         detailImg: '',
         status:0,
+        redpackTitle:'',
+        redpackContent:'',
         vxText:''
       },
       userinfo: local.get("userinfo"),
@@ -246,7 +267,10 @@ export default {
         startTime: [this._ruleRequired("开始时间")],
         peopleNum: [this._ruleRequired("限额人数"),this._ruleLength(9)],
         phone: [this._ruleRequired("客户电话")],
+        khName: [this._ruleRequired("客户名称")],
         vxText: [this._ruleRequired("微信页脚信息")],
+        redpackTitle: [this._ruleRequired("红包标题")],
+        redpackContent: [this._ruleRequired("红包描述")],
         
       }
     };
@@ -583,7 +607,10 @@ export default {
                       selectNum:this.form.selectNum,
                       detailImg:detailImageIds,
                       vxText:this.form.vxText,
-                      phone:this.form.phone
+                      redpackTitle:this.form.redpackTitle,
+                      redpackContent:this.form.redpackContent,
+                      phone:this.form.phone,
+                      khName:this.form.khName
                   }
               }else {
                   method = 'vxActivities/create' 
@@ -599,7 +626,10 @@ export default {
                       selectNum:this.form.selectNum,
                       detailImg:detailImageIds,
                       vxText:this.form.vxText,
-                      phone:this.form.phone
+                      redpackTitle:this.form.redpackTitle,
+                      redpackContent:this.form.redpackContent,
+                      phone:this.form.phone,
+                      khName:this.form.khName
                   }
               }
               this._ajax({url: this.rootAPI + method, param: o})

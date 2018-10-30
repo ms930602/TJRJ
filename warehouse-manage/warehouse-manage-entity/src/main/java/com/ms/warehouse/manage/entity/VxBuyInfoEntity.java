@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-10-24 15:29:54
+ * @Date 2018-10-28 22:45:26
  * @since 1.0
  */
 @TableName("t_vx_buy_info")
@@ -23,7 +23,7 @@ public class VxBuyInfoEntity extends BaseEntity {
 	/** 购买人姓名. */
 	private String name;
 	
-	/** 该买人手机号. */
+	/** 够买人手机号. */
 	private String phone;
 	
 	/** 支付金额. */
@@ -32,8 +32,8 @@ public class VxBuyInfoEntity extends BaseEntity {
 	/** 支付日期. */
 	private java.util.Date buyTime;
 	
-	/** 返现推广人外键. */
-	private Long promotersId;
+	/** 返现推广人OpenId. */
+	private String promotersData;
 	
 	/** 返现推广员金额. */
 	private java.math.BigDecimal reMoney;
@@ -44,11 +44,14 @@ public class VxBuyInfoEntity extends BaseEntity {
 	/** 分享返现金额. */
 	private java.math.BigDecimal shareMoney;
 	
-	/** 微信号. */
-	private String vxNum;
-	
 	/** 0 商家推广 1 推广员推广. */
 	private String status;
+	
+	/** openId. */
+	private String data;
+	
+	/** 活动外键. */
+	private Long activitiesId;
 	
 	
 
@@ -84,12 +87,12 @@ public class VxBuyInfoEntity extends BaseEntity {
 	}
 	
 
-    /** set 该买人手机号. */
+    /** set 够买人手机号. */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	
-	/** get 该买人手机号. */
+	/** get 够买人手机号. */
 	public String getPhone() {
 		return this.phone;
 	}
@@ -132,19 +135,19 @@ public class VxBuyInfoEntity extends BaseEntity {
 	}
 	
 
-    /** set 返现推广人外键. */
-	public void setPromotersId(Long promotersId) {
-		this.promotersId = promotersId;
+    /** set 返现推广人OpenId. */
+	public void setPromotersData(String promotersData) {
+		this.promotersData = promotersData;
 	}
 	
-	/** get 返现推广人外键. */
-	public Long getPromotersId() {
-		return this.promotersId;
+	/** get 返现推广人OpenId. */
+	public String getPromotersData() {
+		return this.promotersData;
 	}
 	
 	@JsonIgnore
-	public Long getPromotersIdByLike() {
-		return this.promotersId;
+	public String getPromotersDataByLike() {
+		return "%"+this.promotersData+"%";
 	}
 	
 
@@ -196,22 +199,6 @@ public class VxBuyInfoEntity extends BaseEntity {
 	}
 	
 
-    /** set 微信号. */
-	public void setVxNum(String vxNum) {
-		this.vxNum = vxNum;
-	}
-	
-	/** get 微信号. */
-	public String getVxNum() {
-		return this.vxNum;
-	}
-	
-	@JsonIgnore
-	public String getVxNumByLike() {
-		return "%"+this.vxNum+"%";
-	}
-	
-
     /** set 0 商家推广 1 推广员推广. */
 	public void setStatus(String status) {
 		this.status = status;
@@ -227,6 +214,38 @@ public class VxBuyInfoEntity extends BaseEntity {
 		return this.status;
 	}
 	
+
+    /** set openId. */
+	public void setData(String data) {
+		this.data = data;
+	}
+	
+	/** get openId. */
+	public String getData() {
+		return this.data;
+	}
+	
+	@JsonIgnore
+	public String getDataByLike() {
+		return "%"+this.data+"%";
+	}
+	
+
+    /** set 活动外键. */
+	public void setActivitiesId(Long activitiesId) {
+		this.activitiesId = activitiesId;
+	}
+	
+	/** get 活动外键. */
+	public Long getActivitiesId() {
+		return this.activitiesId;
+	}
+	
+	@JsonIgnore
+	public Long getActivitiesIdByLike() {
+		return this.activitiesId;
+	}
+	
     /** constructor */
 	public VxBuyInfoEntity() {
 		super();
@@ -235,28 +254,30 @@ public class VxBuyInfoEntity extends BaseEntity {
 	/**
 	 * constructor.<p>
 	 * @param name			购买人姓名
-	 * @param phone			该买人手机号
+	 * @param phone			够买人手机号
 	 * @param money			支付金额
 	 * @param buyTime			支付日期
-	 * @param promotersId			返现推广人外键
+	 * @param promotersData			返现推广人OpenId
 	 * @param reMoney			返现推广员金额
 	 * @param shareStatus			是否分享 1分享 0 未分享
 	 * @param shareMoney			分享返现金额
-	 * @param vxNum			微信号
 	 * @param status			0 商家推广 1 推广员推广
+	 * @param data			openId
+	 * @param activitiesId			活动外键
 	 */
-	public VxBuyInfoEntity(String name,String phone,java.math.BigDecimal money,java.util.Date buyTime,Long promotersId,java.math.BigDecimal reMoney,String shareStatus,java.math.BigDecimal shareMoney,String vxNum,String status){
+	public VxBuyInfoEntity(String name,String phone,java.math.BigDecimal money,java.util.Date buyTime,String promotersData,java.math.BigDecimal reMoney,String shareStatus,java.math.BigDecimal shareMoney,String status,String data,Long activitiesId){
 		this();
 		this.name = name;
 		this.phone = phone;
 		this.money = money;
 		this.buyTime = buyTime;
-		this.promotersId = promotersId;
+		this.promotersData = promotersData;
 		this.reMoney = reMoney;
 		this.shareStatus = shareStatus;
 		this.shareMoney = shareMoney;
-		this.vxNum = vxNum;
 		this.status = status;
+		this.data = data;
+		this.activitiesId = activitiesId;
 	}
 	
 	@Override
@@ -267,12 +288,13 @@ public class VxBuyInfoEntity extends BaseEntity {
 			.append("Phone=").append(getPhone()).append(", ")
 			.append("Money=").append(getMoney()).append(", ")
 			.append("BuyTime=").append(getBuyTime()).append(", ")
-			.append("PromotersId=").append(getPromotersId()).append(", ")
+			.append("PromotersData=").append(getPromotersData()).append(", ")
 			.append("ReMoney=").append(getReMoney()).append(", ")
 			.append("ShareStatus=").append(getShareStatus()).append(", ")
 			.append("ShareMoney=").append(getShareMoney()).append(", ")
-			.append("VxNum=").append(getVxNum()).append(", ")
-			.append("Status=").append(getStatus())
+			.append("Status=").append(getStatus()).append(", ")
+			.append("Data=").append(getData()).append(", ")
+			.append("ActivitiesId=").append(getActivitiesId())
 		.append("]").toString();
 	}
 	

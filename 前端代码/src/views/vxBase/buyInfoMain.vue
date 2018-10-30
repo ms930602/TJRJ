@@ -2,21 +2,14 @@
 	<div class="page-person">
     <!-- 查询条件 -->
 		<searchInputItems>
-			<searchInputItem name="微信号">
-				<inputItem :value.sync="searchForm.vxNum" @enter="searchTable"></inputItem>
+			<searchInputItem name="手机号">
+				<inputItem :value.sync="searchForm.phone" @enter="searchTable"></inputItem>
 			</searchInputItem>
 			&nbsp;&nbsp;&nbsp;
 			<iconBtn iconClass="el-icon-search" content="查询" @click="searchTable">查询</iconBtn>
 		</searchInputItems>
 		<!-- 表格 -->
 		<elemTable :dataList="dataList" :currentPage='pageNum' :pageSize="pageSize" :pageTotal="pageTotal" :loading="dataLoading" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange" @selectionChange="selectionChange">
-		    <el-table-column prop="vxNum" label="微信号">
-		    	<template slot-scope="scope">
-		    		<toolTip :content="scope.row.vxNum">
-		    			<span>{{scope.row.vxNum}}</span>
-		    		</toolTip>
-		      	</template>
-		    </el-table-column>
 			<el-table-column prop="phone" label="手机号码">
 		    	<template slot-scope="scope">
 		    		<toolTip :content="scope.row.phone">
@@ -45,24 +38,10 @@
 		    		</toolTip>
 		      	</template>
 		    </el-table-column>
-			<el-table-column prop="promotersVxNum" label="推广员微信">
-		    	<template slot-scope="scope">
-					<toolTip :content="scope.row.promotersVxNum">
-		    			<span>{{scope.row.promotersVxNum}}</span>
-		    		</toolTip>
-			    </template>
-		    </el-table-column>
 		    <el-table-column prop="reMoney" label="推广返金额">
 		    	<template slot-scope="scope">
 					<toolTip :content="scope.row.reMoney">
 		    			<span>{{scope.row.reMoney}}</span>
-		    		</toolTip>
-			    </template>
-		    </el-table-column>
-			<el-table-column prop="shareStatus" label="是否分享">
-		    	<template slot-scope="scope">
-					<toolTip :content="scope.row.shareStatus">
-		    			<span>{{scope.row.shareStatus}}</span>
 		    		</toolTip>
 			    </template>
 		    </el-table-column>
@@ -71,6 +50,11 @@
 					<toolTip :content="scope.row.shareMoney">
 		    			<span>{{scope.row.shareMoney}}</span>
 		    		</toolTip>
+			    </template>
+		    </el-table-column>
+			<el-table-column prop="status" label="是否支付">
+		    	<template slot-scope="scope">
+<tagItem :type="scope.row.status == 1 ? 'success' : 'danger'" :text="_dicValue(scope.row.status, activitiStatusOption)"></tagItem>
 			    </template>
 		    </el-table-column>
 		</elemTable>
@@ -84,9 +68,15 @@
 		mixins: [mixin],
 		data() {
 			return {
-				activitiStatusOption:[],
+				activitiStatusOption:[{
+					key:0,
+					value:'未支付'
+				},{
+					key:1,
+					value:'已支付'
+				}],
 				searchForm: {
-					title: ''
+					phone: ''
 				},
 				dataList: []
 			}
@@ -105,7 +95,7 @@
 			},
 			reset() {
 				Object.assign(this.searchForm, {
-					title: ''
+					phone: ''
 				})
 				this.handleCurrentChange(1)
 			},			

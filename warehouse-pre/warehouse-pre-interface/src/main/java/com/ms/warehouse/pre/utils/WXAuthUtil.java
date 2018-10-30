@@ -3,32 +3,39 @@ package com.ms.warehouse.pre.utils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.UUID;
 
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ms.warehouse.common.encrypt.MD5Util;
+import org.apache.http.NameValuePair; 
 
 public class WXAuthUtil {
-	  public static final String APPID="wxb851c9b94c481bda";
-	  public static final String APPSECRET ="459f65a86d7a4d1abd5b1d673be7f593";
-	  private static final String TOKEN = "mscenter20181025";
+	  public static final String APPID="wxc14367247581cf15";
+	  public static final String APPSECRET ="c7dd7f638d41cdaeb869f75cb646e7c8";
+	  public static final String TOKEN ="wuyang";
 	  
 	  //商户
-	  public static final String MCH_ID = "";
-	  public static final String API_KEY = "";//注：key为商户平台设置的密钥key
-	  public static final String CERT_PATH = "D:\\log.txt";//证书
+	  public static final String MCH_ID = "1484402522";
+	  public static final String API_KEY = "50998dfbb1c7ea142e68caedb9a3697b";//注：key为商户平台设置的密钥key
+	  public static final String CERT_PATH = "F:\\cert\\cert.p12";//证书
 	  
 	  
 	  public static String CreateNoncestr(){
@@ -42,6 +49,38 @@ public class WXAuthUtil {
 	    HttpResponse response = httpClient.execute(httpGet);
 	    System.err.println("========HttpResponseProxy：========"+response.getStatusLine());
 	    HttpEntity entity =response.getEntity();
+	    if(entity!=null)
+	    {
+	      //把返回的结果转换为JSON对象
+	      String result =EntityUtils.toString(entity, "UTF-8");
+	      jsonObject =JSON.parseObject(result);
+	      System.out.println("========接口返回=======" +result);
+	    }
+	    return jsonObject;
+	  }
+	  
+	  private static List<NameValuePair> createParam(Map<String, Object> param) {
+        //建立一个NameValuePair数组，用于存储欲传送的参数
+        List<NameValuePair> nvps = new ArrayList <NameValuePair>();
+        if(param != null) {
+            for(String k : param.keySet()) {
+                nvps.add(new BasicNameValuePair(k, param.get(k).toString()));
+            }
+        }
+        return nvps;
+	  }
+  
+	  public static JSONObject doPostJson(String url,Map<String, Object> param) throws ClientProtocolException, IOException {
+	    JSONObject jsonObject =null;
+	    CloseableHttpClient httpClient = HttpClients.createDefault();
+	    HttpPost httpPost = new HttpPost(url);
+	    HttpEntity paramEntity=null;
+	    paramEntity=new UrlEncodedFormEntity(createParam(param), Consts.UTF_8);
+	    httpPost.setEntity(paramEntity);
+	    HttpResponse response = httpClient.execute(httpPost);
+	    System.err.println("========HttpResponseProxy：========"+response.getStatusLine());
+	    HttpEntity entity =response.getEntity();
+	    
 	    if(entity!=null)
 	    {
 	      //把返回的结果转换为JSON对象

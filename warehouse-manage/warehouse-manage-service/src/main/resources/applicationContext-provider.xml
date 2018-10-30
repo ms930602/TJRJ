@@ -22,4 +22,5 @@
 
 	<dubbo:service interface="com.ms.warehouse.IManageRouteService" ref="manageRouteService" />
 	<dubbo:service interface="com.ms.warehouse.Persion" ref="personinfoService" />
+	<dubbo:service interface="com.ms.warehouse.IVxService" ref="vxService" />
 </beans>    

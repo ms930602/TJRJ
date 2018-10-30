@@ -69,6 +69,17 @@ public class VxActivitiesFormEntity extends VxActivitiesEntity {
 		/** 1 作废 0 启用. */
 		this.setStatus( temp.getStatus( ));
 		this.setVxText( temp.getVxText() );
+		/** 微信页脚信息. */
+		this.setVxText(temp.getVxText());
+
+		/** 客户名称. */
+		this.setKhName(temp.getKhName());
+
+		/** 红包标题. */
+		this.setRedpackTitle(temp.getRedpackTitle());
+
+		/** 红包描述. */
+		this.setRedpackContent(temp.getRedpackContent());
 	}
 	
 }

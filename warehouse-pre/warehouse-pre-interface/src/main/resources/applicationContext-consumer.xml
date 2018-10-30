@@ -25,8 +25,8 @@
 	<dubbo:reference id="rolePermissionRoteService" interface="com.ms.warehouse.permission.api.IRouteTsysModuleService" check="true"/>
 	<!-- 仓储服务 -->
 	<dubbo:reference id="wareManageRouteService" interface="com.ms.warehouse.IManageRouteService" check="false"/>
-
-
+	<!-- 微信后端接口 -->
+	<dubbo:reference id="vxService" interface="com.ms.warehouse.IVxService" check="false"/>
 	
 	
 

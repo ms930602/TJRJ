@@ -23,7 +23,7 @@ public class VxBuyInfoService extends BaseService {
 
 	@Autowired
 	private VxBuyInfoBO vxBuyInfoBo;
-
+	
 	/**
 	 * 分页查询列表
 	 * 

@@ -3,34 +3,13 @@
     <!-- 查询条件 -->
 		<searchInputItems>
 			<searchInputItem name="微信号">
-				<inputItem :value.sync="searchForm.vxNum" @enter="searchTable"></inputItem>
+				<inputItem :value.sync="searchForm.nickname" @enter="searchTable"></inputItem>
 			</searchInputItem>
 			&nbsp;&nbsp;&nbsp;
 			<iconBtn iconClass="el-icon-search" content="查询" @click="searchTable">查询</iconBtn>
 		</searchInputItems>
 		<!-- 表格 -->
 		<elemTable :dataList="dataList" :currentPage='pageNum' :pageSize="pageSize" :pageTotal="pageTotal" :loading="dataLoading" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange" @selectionChange="selectionChange">
-		    <el-table-column prop="vxNum" label="微信号">
-		    	<template slot-scope="scope">
-		    		<toolTip :content="scope.row.vxNum">
-		    			<span>{{scope.row.vxNum}}</span>
-		    		</toolTip>
-		      	</template>
-		    </el-table-column>
-			<el-table-column prop="phone" label="手机号码">
-		    	<template slot-scope="scope">
-		    		<toolTip :content="scope.row.phone">
-		    			<span>{{scope.row.phone}}</span>
-		    		</toolTip>
-		      	</template>
-		    </el-table-column>
-		    <el-table-column prop="name" label="姓名">
-		    	<template slot-scope="scope">
-					<toolTip :content="scope.row.name">
-		    			<span>{{scope.row.name}}</span>
-		    		</toolTip>
-			    </template>
-		    </el-table-column>
 		    <el-table-column prop="nickname" label="昵称">
 		    	<template slot-scope="scope">
 		    		<toolTip :content="scope.row.nickname">
@@ -44,13 +23,6 @@
 		    			<span>{{scope.row.extNum}}</span>
 		    		</toolTip>
 		      	</template>
-		    </el-table-column>
-			<el-table-column prop="sumMoney" label="返现总金额">
-		    	<template slot-scope="scope">
-					<toolTip :content="scope.row.sumMoney">
-		    			<span>{{scope.row.sumMoney}}</span>
-		    		</toolTip>
-			    </template>
 		    </el-table-column>
 		    <el-table-column prop="createtime" label="创建时间">
 		    	<template slot-scope="scope">
@@ -72,7 +44,7 @@
 			return {
 				activitiStatusOption:[],
 				searchForm: {
-					title: ''
+					nickname: ''
 				},
 				dataList: []
 			}
@@ -91,7 +63,7 @@
 			},
 			reset() {
 				Object.assign(this.searchForm, {
-					title: ''
+					nickname: ''
 				})
 				this.handleCurrentChange(1)
 			},			

@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-10-25 17:25:40
+ * @Date 2018-10-28 18:03:18
  * @since 1.0
  */
 @TableName("t_vx_activities")
@@ -61,6 +61,15 @@ public class VxActivitiesEntity extends BaseEntity {
 	
 	/** 微信页脚信息. */
 	private String vxText;
+	
+	/** 客户名称. */
+	private String khName;
+	
+	/** 红包标题. */
+	private String redpackTitle;
+	
+	/** 红包描述. */
+	private String redpackContent;
 	
 	
 
@@ -303,6 +312,54 @@ public class VxActivitiesEntity extends BaseEntity {
 		return "%"+this.vxText+"%";
 	}
 	
+
+    /** set 客户名称. */
+	public void setKhName(String khName) {
+		this.khName = khName;
+	}
+	
+	/** get 客户名称. */
+	public String getKhName() {
+		return this.khName;
+	}
+	
+	@JsonIgnore
+	public String getKhNameByLike() {
+		return "%"+this.khName+"%";
+	}
+	
+
+    /** set 红包标题. */
+	public void setRedpackTitle(String redpackTitle) {
+		this.redpackTitle = redpackTitle;
+	}
+	
+	/** get 红包标题. */
+	public String getRedpackTitle() {
+		return this.redpackTitle;
+	}
+	
+	@JsonIgnore
+	public String getRedpackTitleByLike() {
+		return "%"+this.redpackTitle+"%";
+	}
+	
+
+    /** set 红包描述. */
+	public void setRedpackContent(String redpackContent) {
+		this.redpackContent = redpackContent;
+	}
+	
+	/** get 红包描述. */
+	public String getRedpackContent() {
+		return this.redpackContent;
+	}
+	
+	@JsonIgnore
+	public String getRedpackContentByLike() {
+		return "%"+this.redpackContent+"%";
+	}
+	
     /** constructor */
 	public VxActivitiesEntity() {
 		super();
@@ -324,8 +381,11 @@ public class VxActivitiesEntity extends BaseEntity {
 	 * @param status			1 作废 0 启用
 	 * @param url			
 	 * @param vxText			微信页脚信息
+	 * @param khName			客户名称
+	 * @param redpackTitle			红包标题
+	 * @param redpackContent			红包描述
 	 */
-	public VxActivitiesEntity(Long merchantId,String title,java.math.BigDecimal price,Long topImg,java.util.Date startTime,Long mp3Id,Long peopleNum,Long payNum,Long selectNum,String detailImg,String phone,String status,String url,String vxText){
+	public VxActivitiesEntity(Long merchantId,String title,java.math.BigDecimal price,Long topImg,java.util.Date startTime,Long mp3Id,Long peopleNum,Long payNum,Long selectNum,String detailImg,String phone,String status,String url,String vxText,String khName,String redpackTitle,String redpackContent){
 		this();
 		this.merchantId = merchantId;
 		this.title = title;
@@ -341,6 +401,9 @@ public class VxActivitiesEntity extends BaseEntity {
 		this.status = status;
 		this.url = url;
 		this.vxText = vxText;
+		this.khName = khName;
+		this.redpackTitle = redpackTitle;
+		this.redpackContent = redpackContent;
 	}
 	
 	@Override
@@ -360,7 +423,10 @@ public class VxActivitiesEntity extends BaseEntity {
 			.append("Phone=").append(getPhone()).append(", ")
 			.append("Status=").append(getStatus()).append(", ")
 			.append("Url=").append(getUrl()).append(", ")
-			.append("VxText=").append(getVxText())
+			.append("VxText=").append(getVxText()).append(", ")
+			.append("KhName=").append(getKhName()).append(", ")
+			.append("RedpackTitle=").append(getRedpackTitle()).append(", ")
+			.append("RedpackContent=").append(getRedpackContent())
 		.append("]").toString();
 	}
 	

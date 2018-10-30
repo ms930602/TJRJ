@@ -43,6 +43,17 @@ public class VxFormEntity extends BaseEntity {
 	 */
 	private Long peopleBan;
 	
+	/** 客户名称. */
+	private String khName;
+	
+	private String kgPhone;
+	
+	/** 红包标题. */
+	private String redpackTitle;
+	
+	/** 红包描述. */
+	private String redpackContent;
+	
 	/**
 	 * 推广员排名
 	 */
@@ -59,6 +70,48 @@ public class VxFormEntity extends BaseEntity {
 	
 	private String vxText;
 	
+	private VxMerchantEntity merchant;
+	
+	public String getKgPhone() {
+		return kgPhone;
+	}
+
+	public void setKgPhone(String kgPhone) {
+		this.kgPhone = kgPhone;
+	}
+
+	public String getKhName() {
+		return khName;
+	}
+
+	public void setKhName(String khName) {
+		this.khName = khName;
+	}
+
+	public String getRedpackTitle() {
+		return redpackTitle;
+	}
+
+	public void setRedpackTitle(String redpackTitle) {
+		this.redpackTitle = redpackTitle;
+	}
+
+	public String getRedpackContent() {
+		return redpackContent;
+	}
+
+	public void setRedpackContent(String redpackContent) {
+		this.redpackContent = redpackContent;
+	}
+
+	public VxMerchantEntity getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(VxMerchantEntity merchant) {
+		this.merchant = merchant;
+	}
+
 	public String getVxText() {
 		return vxText;
 	}
@@ -78,6 +131,10 @@ public class VxFormEntity extends BaseEntity {
 		this.setShowPeopleNum(formEntity.getSelectNum());
 		this.setPrice(formEntity.getPrice());
 		this.setVxText(formEntity.getVxText());
+		this.setKgPhone(formEntity.getPhone());
+		this.setKhName(formEntity.getKhName());
+		this.setRedpackTitle(formEntity.getRedpackTitle());
+		this.setRedpackContent(formEntity.getRedpackContent());
 		BaseUploadfilerecodeEntity musicObj = formEntity.getMusicObj();
 		if(musicObj!=null){
 			this.setMp3Path(musicObj.getFilePath());
