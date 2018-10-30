@@ -143,7 +143,7 @@
 <body>
 	<!-- 主页面标题 -->
 	<div id="music_div">
-		<a href="#" onclick="musicAction">
+		<a href="#" id="music_A">
 			<span class="mui-icon iconfont icon-tubiaozhizuomoban Rotation" style="font-size: 35px;margin-right: 30px;margin-top: 3px;"></span>
 		</a>
 	</div>
@@ -261,13 +261,17 @@
 		</div>
 	  </form>
 	</div>
-	<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 	<script type="text/javascript" src="js/center.js"></script>
 	<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
-		var aid ;
+		var aid ,isappinstalled;
 		$(function(){
 			aid = getParam("gbk");
+			isappinstalled = getParam("isappinstalled");
+			if(isappinstalled && isappinstalled >= 0){
+				window.location.href=ROOT_VX+ "info/wxLogin?gbk="+aid;
+			}
 			mui.init();
 			
 			mui("#jinduT").progressbar({progress:0}).show();
@@ -275,6 +279,10 @@
 			mui("#akf").on("tap","#xxx",function(e){
 				showCallModel()
 			})
+			mui("#music_div").on("tap","#music_A",function(e){
+				musicAction();
+			})
+			wxInit();
 			runA();
 			loadActivit();
 		});
@@ -284,6 +292,81 @@
 		document.addEventListener('WeixinJSBridgeReady', function() {
 			audo.play();
 		}, false);
+		
+		function wxInit(){
+			var url = ROOT_VX+"info/wxJSDK";;
+			var localUrl = window.location.href.split('#')[0];
+			mui.ajax(url,{
+				data:{url:localUrl},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(req){
+					if(req.success){
+						if(req.aaData == null){
+							mui.alert("服务器异常!!","提示");
+						}else{
+							wx.config({
+								debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+								appId: req.aaData.appId,
+								timestamp: req.aaData.timestamp, // 必填，生成签名的时间戳
+								nonceStr: req.aaData.nonceStr, // 必填，生成签名的随机串
+								signature: req.aaData.signature,// 必填，签名
+								jsApiList: [
+									'hideMenuItems',
+									'onMenuShareTimeline',
+									'onMenuShareAppMessage']// 必填，需要使用的JS接口列表
+							});
+						}
+					}else{
+						mui.alert("服务器异常!!","提示");
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					mui.alert("服务器异常!!","提示");
+				}
+			});
+			
+		}
+		
+		wx.ready(function () {
+			wx.hideMenuItems({
+				menuList: ['menuItem:openWithQQBrowser',
+				'menuItem:copyUrl',
+				'menuItem:setFont','menuItem:share:qq',
+				'menuItem:share:weiboApp','menuItem:share:facebook',
+				'menuItem:share:QZone','menuItem:openWithSafari','menuItem:share:email','menuItem:share:brand',
+				'menuItem:editTag'] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+			});
+			var url = 'http://msserver.nat300.top/warehouse-pre-interface/vx/info/wxLogin?gbk=' + aid+'fx='+getParam("fx");;
+			var obj = {
+				title: '特惠活动！', // 分享标题
+				desc: '超级特惠活动，快快来抢购吧！', // 分享描述
+				link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+				// 该链接是重定向链接，因为需要获取用户code，但是该链接又无法直接写微信获取code的链接，
+				// 所以需要点击后重新加载新的页面，来实现重定向，重新打开获取code的微信链接，实现获取用户信息的功能；
+				imgUrl: 'http://cdn.spbcn.org/img/logo-image.png', // 分享图标
+				fail: function (res) {
+					alert(JSON.stringify(res));
+				}
+			};
+			// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+			wx.onMenuShareAppMessage(obj);
+		
+			// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+			wx.onMenuShareTimeline(obj);
+		
+		// 	// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+		// 	wx.onMenuShareQQ(obj);
+		// 
+		// 	// 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+		// 	wx.onMenuShareWeibo(obj);
+		// 
+		// 	// 2.5 监听“分享到QZone”按钮点击、自定义分享内容及分享接口
+		// 	wx.onMenuShareQZone(obj);
+		})
+		
+		
 	</script>
 </body>
 </html>

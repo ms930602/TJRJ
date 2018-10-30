@@ -1,4 +1,5 @@
 var ROOT_SERVER = "http://msserver.nat300.top/warehouse-pre-interface//api/ware/";
+var ROOT_VX = "http://msserver.nat300.top/warehouse-pre-interface/vx/";
 var FILE_ROOT   = "http://msserver.nat300.top/warehouse-pre-interface/servlet/getfile?path=";
 var colorList = ['#928f21','#cac62c','#fdf835']
 var phoneTo;
@@ -33,32 +34,32 @@ function payItem(){
 	var userPhone = $("#userPhone").val();
 	
 	if(!username && username == '' ){
-		alert("用户名不能为空~！");
+		mui.alert("用户名不能为空~！","提示");
 		return;
 	}
 	if(username.length > 100 ){
-		alert("用户名太长~！");
+		mui.alert("用户名太长~！","提示");
 		return;
 	}
 	
 	if(!userPhone && userPhone == ''){
-		alert("手机号不能为空~！");
+		mui.alert("手机号不能为空~！","提示");
 		return;
 	}
 	
 	if(!isPoneAvailable(userPhone)){
-		alert("手机号格式不正确~！");
+		mui.alert("手机号格式不正确~！","提示");
 		return;
 	}
 	
 	var cd = getParam("cd");
 	var fx = getParam("fx");
 	if(!cd || cd == ''){
-		alert("活动页面有误 code:12CD")
+		mui.alert("活动页面有误 code:12CD","提示");
 		return;
 	}
 	if(!aid || aid == '' || aid <= 0){
-		alert("活动页面错误！");
+		mui.alert("活动页面有误 code:12CD","提示");
 		return ;
 	}
 	$("#payBtn").attr("disabled",true);
@@ -79,21 +80,21 @@ function payItem(){
 		success:function(req){
 			if(req.success){
 				if(req.aaData == null){
-					alert(req.msg)
+					mui.alert(req.msg,"提示");
 				}else{
 					if(req.state == 0){
 						onBridgeReady(req.aaData);
 					}else{
-						alert(req.msg)
+						mui.alert(req.msg,"提示");
 					}
 				}
 			}else{
-				alert("无信息！")
+				mui.alert("活动以结束!!","提示");
 			}
 			$("#payBtn").attr("disabled",false);
 		},
 		error:function(xhr,type,errorThrown){
-			alert("服务器异常!!")
+			mui.alert("服务器异常!!","提示");
 			$("#payBtn").attr("disabled",false);
 		}
 	});
@@ -111,7 +112,8 @@ function onBridgeReady(param){
 		},
       function(res){
       if(res.err_msg == "get_brand_wcpay_request:ok" ){
-				alert("支付成功!")
+				mui.alert("支付成功!工作人员进入将与您联系!","支付提示")
+				window.location.reload();
       } 
    }); 
 }
@@ -175,7 +177,7 @@ function setMessageInfo(obj){
 	
 	$("#vxText").html(obj.vxText);
 	$("#mp3Audio").attr("src", FILE_ROOT + obj.mp3Path);
-	// $("#topImg").attr("src", FILE_ROOT + obj.topImg);
+	$("#topImg").attr("src", FILE_ROOT + obj.topImg);
 	$("#buyPeopleNumA").html( obj.buyPeopleNum );
 	kehuPhone = obj.kgPhone;
 	kehuName= obj.khName;
@@ -213,7 +215,7 @@ function setMessageInfo(obj){
 	obj.detailImg.forEach(temp=>{
 		detailHTML = detailHTML + '<img src="'+FILE_ROOT+temp+'" class="ms-bgimg">'
 	})
-	// $("#detailImg").html(detailHTML);
+	$("#detailImg").html(detailHTML);
 }
 function MyDownCount(endTime) {
 	var obj;

@@ -50,6 +50,9 @@ public class VxActivitiesService extends BaseService {
 	 * @return
 	 */
 	public Object queryById(@Param("id") Long id) throws CenterException {
+		if(id == null){
+			return null;
+		}
 		VxActivitiesEntity entity = vxActivitiesBo.queryById(id);
 		if(entity == null) return null;
 		VxActivitiesFormEntity formEntity = new VxActivitiesFormEntity();

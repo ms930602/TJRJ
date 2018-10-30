@@ -5,8 +5,10 @@ import com.ms.warehouse.common.vo.BaseRespVO;
 
 public interface IVxService {
 	
-	BaseRespVO savePromoters(JSONObject reqMap);
+	String savePromoters(JSONObject reqMap);
 
 	void payAction(String openId);
+
+	Long createVxLog(String aid, String fx);
 	
 }

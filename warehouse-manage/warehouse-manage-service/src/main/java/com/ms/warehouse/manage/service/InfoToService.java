@@ -29,6 +29,7 @@ import com.ms.warehouse.common.vo.ListVo.ListReqVO;
 import com.ms.warehouse.common.vo.ListVo.ListRespVO;
 import com.ms.warehouse.manage.bo.VxActivitiesBO;
 import com.ms.warehouse.manage.bo.VxBuyInfoBO;
+import com.ms.warehouse.manage.bo.VxLogBO;
 import com.ms.warehouse.manage.bo.VxMerchantBO;
 import com.ms.warehouse.manage.bo.VxPromotersBO;
 import com.ms.warehouse.manage.entity.ParseXMLUtils;
@@ -36,6 +37,7 @@ import com.ms.warehouse.manage.entity.VxActivitiesEntity;
 import com.ms.warehouse.manage.entity.VxActivitiesFormEntity;
 import com.ms.warehouse.manage.entity.VxBuyInfoEntity;
 import com.ms.warehouse.manage.entity.VxFormEntity;
+import com.ms.warehouse.manage.entity.VxLogEntity;
 import com.ms.warehouse.manage.entity.VxPayEntity;
 import com.ms.warehouse.manage.entity.VxPromotersEntity;
 import com.ms.warehouse.manage.entity.WXAuthUtil;
@@ -59,9 +61,16 @@ public class InfoToService  extends BaseService {
 	@Autowired
 	private VxBuyInfoBO buyInfoBO;
 	
+	@Autowired
+	private VxLogBO logBo;
+	
 	public Object getVxInfo(@Param("id") Long id) throws CenterException {
 		VxFormEntity vfe = null;
-		VxActivitiesFormEntity formEntity = (VxActivitiesFormEntity) activitiesService.queryById(id);
+		if(id == null)return null;
+		VxLogEntity queryById = logBo.queryById(id);
+		if(queryById == null) return null;
+		
+		VxActivitiesFormEntity formEntity = (VxActivitiesFormEntity) activitiesService.queryById(queryById.getAid());
 		if(formEntity == null) return null;
 		//活动基本信息
 		vfe = new VxFormEntity(formEntity);
@@ -116,6 +125,7 @@ public class InfoToService  extends BaseService {
 		buyInfoEntity.setPhone(userPhone);
 		buyInfoEntity.setStatus("0");
 		buyInfoEntity.setMoney(queryById.getPrice());
+		buyInfoEntity.setActivitiesId(queryById.getId());
 		if(fx != null && "".equals(fx.trim()))
 			buyInfoEntity.setPromotersData(fx);
 		
