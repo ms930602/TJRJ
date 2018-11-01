@@ -339,14 +339,14 @@
 		}
 		
 		wx.ready(function () {
-// 			wx.hideMenuItems({
-// 				menuList: ['menuItem:openWithQQBrowser',
-// 				'menuItem:copyUrl',
-// 				'menuItem:setFont','menuItem:share:qq',
-// 				'menuItem:share:weiboApp','menuItem:share:facebook',
-// 				'menuItem:share:QZone','menuItem:openWithSafari','menuItem:share:email','menuItem:share:brand',
-// 				'menuItem:editTag'] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
-// 			});
+			wx.hideMenuItems({
+				menuList: ['menuItem:openWithQQBrowser',
+				'menuItem:copyUrl',
+				'menuItem:setFont','menuItem:share:qq',
+				'menuItem:share:weiboApp','menuItem:share:facebook',
+				'menuItem:share:QZone','menuItem:openWithSafari','menuItem:share:email','menuItem:share:brand',
+				'menuItem:editTag'] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+			});
 			var url = 'http://msserver.nat300.top/warehouse-pre-interface/vx/info/wxLogin?gbk=' + aid+'&fx='+getParam("cd");;
 			var obj = {
 				title: '特惠活动！', // 分享标题
