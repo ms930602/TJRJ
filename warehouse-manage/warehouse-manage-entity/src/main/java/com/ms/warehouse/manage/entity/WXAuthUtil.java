@@ -1,8 +1,6 @@
 package com.ms.warehouse.manage.entity;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -14,6 +12,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.UUID;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,12 +26,16 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ms.warehouse.common.encrypt.MD5Util;
 import org.apache.http.NameValuePair; 
 
 public class WXAuthUtil {
+	private static Logger logger = LoggerFactory.getLogger(WXAuthUtil.class);
 	  public static final String APPID="wxc14367247581cf15";
 	  public static final String APPSECRET ="c7dd7f638d41cdaeb869f75cb646e7c8";
 	  public static final String TOKEN ="wuyang";
@@ -40,12 +43,33 @@ public class WXAuthUtil {
 	  //商户
 	  public static final String MCH_ID = "1484402522";
 	  public static final String API_KEY = "50998dfbb1c7ea142e68caedb9a3697b";//注：key为商户平台设置的密钥key
-	  public static final String CERT_PATH = "F:\\cert\\cert.p12";//证书
+	  //public static final String CERT_PATH = "F:\\cert\\cert.p12";//证书
 	  
 	  
 	  public static String CreateNoncestr(){
 		 return UUID.randomUUID().toString().substring(0, 20);
 	  }
+	  
+	  public static String createJSDKSign(SortedMap<Object,Object> parameters) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+			StringBuffer sb = new StringBuffer();
+			Set es = parameters.entrySet();//所有参与传参的参数按照accsii排序（升序）
+			Iterator it = es.iterator();
+			while(it.hasNext()) {
+				Map.Entry entry = (Map.Entry)it.next();
+				String k = (String)entry.getKey();
+				Object v = entry.getValue();
+				if(null != v && !"".equals(v) 
+						&& !"sign".equals(k) && !"key".equals(k)) {
+					sb.append(k + "=" + v + "&");
+				}
+			}
+			sb.delete(sb.length()-1, sb.length());
+			//设置微信商户平台上的秘钥
+			System.out.println(sb.toString());
+			String sign =DigestUtils.sha1Hex(sb.toString().getBytes());
+			System.err.println("JSSDK:"+sign);
+			return sign;
+		}
 	  
 	  public static JSONObject doGetJson(String url) throws ClientProtocolException, IOException {
 	    JSONObject jsonObject =null;
@@ -91,7 +115,7 @@ public class WXAuthUtil {
 	      //把返回的结果转换为JSON对象
 	      String result =EntityUtils.toString(entity, "UTF-8");
 	      jsonObject =JSON.parseObject(result);
-	      System.out.println("========接口返回=======" +result);
+	      logger.info("========接口doPostJson返回=======" +result);
 	    }
 	    return jsonObject;
 	  }
@@ -114,7 +138,7 @@ public class WXAuthUtil {
 				//把返回的结果转换为JSON对象
 		     String result =EntityUtils.toString(entity, "UTF-8");
 //		     jsonObject =JSON.parseObject(result);
-		     System.out.println("========接口返回=======" +result);
+		     logger.info("========接口doPostXml返回=======" +result);
 			return result;
 	  }
 	  

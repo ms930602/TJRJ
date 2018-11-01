@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ms.warehouse.IVxService;
-import com.ms.warehouse.common.vo.BaseRespVO;
 import com.ms.warehouse.manage.bo.VxActivitiesBO;
 import com.ms.warehouse.manage.bo.VxBuyInfoBO;
 import com.ms.warehouse.manage.bo.VxLogBO;
@@ -28,6 +27,7 @@ import cn.hutool.setting.dialect.Props;
 @Service("vxService")
 public class VxService implements IVxService{
 	
+	
 	@Autowired
 	private VxPromotersBO promotersBO;
 	
@@ -41,7 +41,7 @@ public class VxService implements IVxService{
 	private VxLogBO logBO;
 	
 	@Override
-	public String savePromoters(JSONObject reqMap) {
+	public VxLogEntity savePromoters(JSONObject reqMap) {
 		VxPromotersEntity entity = new VxPromotersEntity();
 		entity.setOpenId(reqMap.get("openid") + "");
 		
@@ -50,7 +50,7 @@ public class VxService implements IVxService{
 		
 		VxPromotersEntity queryByEntity = promotersBO.queryByEntity(entity);
 		if(queryByEntity!= null && queryByEntity.getId() > 0){
-			return loge.getPromotersData();
+			return loge;
 		}
 		entity.setNickname(reqMap.get("nickname") + "");
 		entity.setSex(reqMap.get("sex") + "");
@@ -76,7 +76,7 @@ public class VxService implements IVxService{
 		entity.setCreatetime(new Date());
 		
 		promotersBO.create(entity);
-		return loge.getPromotersData();
+		return loge;
 	}
 
 	//随机红包  分为单位
@@ -103,44 +103,48 @@ public class VxService implements IVxService{
 		if(queryListByEntity == null || queryListByEntity.size() == 0)
 			return;
 		VxBuyInfoEntity vxBuyInfoEntity = queryListByEntity.get(0);
-		
 		vxBuyInfoEntity.setBuyTime(new Date());
-		String promotersData = vxBuyInfoEntity.getPromotersData();
+		String promotersData = vxBuyInfoEntity.getPromotersData();//推广人代码
+		String data = vxBuyInfoEntity.getData();//购买人代码
 		VxActivitiesEntity queryById = acticitiesBO.queryById(vxBuyInfoEntity.getActivitiesId());
 		if(promotersData != null && 
 				!"".equals(promotersData.trim()) &&
 				queryById != null //判断活动 推广员是否存在
 				){
-			//判断该推广员是否购买了该活动产品
-			VxBuyInfoEntity queryPro = new VxBuyInfoEntity();
-			queryPro.setData(promotersData);
-			queryPro.setStatus("1");
-			List<VxBuyInfoEntity> payList = buyInfoBO.queryListByEntity(queryPro);
-			if(payList != null && payList.size() > 0){
-				try {
-					Props PathProps = new Props("pathConf.properties");
-					String ip =PathProps.getProperty("file.vx.pay.red.ip");
-		            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-					String strMch_billnoA = "DDWA" + sdf.format(new Date());
-					String MHCname = queryById.getRedpackTitle();
-					String priceA = getRedFanPrice(); //价格
-					
-					//购买人返现1~5块
-					VxRedPackUtil.sendRedPack(strMch_billnoA,
-							promotersData,
-							MHCname,priceA,"1",
-							queryById.getRedpackContent(),"提成红包","谢谢您的推广!",ip);
-					
-					String strMch_billnoB = "DDWB" + sdf.format(new Date());
-					//分享人返现5块
-					VxRedPackUtil.sendRedPack(strMch_billnoB,
-							promotersData,
-							MHCname,"500","1",
-							queryById.getRedpackContent(),"提成红包","谢谢您的推广!",ip);
-					vxBuyInfoEntity.setReMoney(new BigDecimal(5));
-					vxBuyInfoEntity.setShareMoney(new BigDecimal(priceA));
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(!data.equals(promotersData)){//购买人的代码和推广人的代码不一样才返现
+					//判断该推广员是否购买了该活动产品
+					VxBuyInfoEntity queryPro = new VxBuyInfoEntity();
+					queryPro.setData(promotersData);
+					queryPro.setStatus("1");
+					List<VxBuyInfoEntity> payList = buyInfoBO.queryListByEntity(queryPro);
+					if(payList != null && payList.size() > 0){
+						try {
+							Props PathProps = new Props("pathConf.properties");
+							String ip =PathProps.getProperty("file.vx.pay.red.ip");
+							String filePath =PathProps.getProperty("file.mch");
+							
+				            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+							String strMch_billnoA = "DDWA" + sdf.format(new Date());
+							String MHCname = queryById.getRedpackTitle();
+							String priceA = getRedFanPrice(); //价格
+							
+							//购买人返现1~5块
+							VxRedPackUtil.sendRedPack(strMch_billnoA,
+									data,
+									MHCname,priceA,"1",
+									queryById.getRedpackContent(),"提成红包","谢谢您的推广!",ip,filePath);
+							
+							String strMch_billnoB = "DDWB" + sdf.format(new Date());
+							//分享人返现5块
+							VxRedPackUtil.sendRedPack(strMch_billnoB,
+									promotersData,
+									MHCname,"500","1",
+									queryById.getRedpackContent(),"提成红包","谢谢您的推广!",ip,filePath);
+							vxBuyInfoEntity.setReMoney(new BigDecimal(5));
+							vxBuyInfoEntity.setShareMoney(new BigDecimal(priceA));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 				}
 			}else{
 				vxBuyInfoEntity.setShareStatus("0");
@@ -159,6 +163,7 @@ public class VxService implements IVxService{
 
 	@Override
 	public Long createVxLog(String aid, String fx) {
+		if(aid == null)return null;
 		try {
 			VxLogEntity le = new VxLogEntity();
 			le.setAid(Long.parseLong(aid));

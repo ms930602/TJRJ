@@ -46,8 +46,8 @@
 	<nav class="navbar navbar-expand-lg navbar-dark top-nav-bar justify-content-between"> 
     <div class="navbar-left flex-x-start">
       <div class="navbar-header">
-        <img src="lib/img/home_ing_logo.png">
-        <span class="h1 navbar-brand mb-0"><img style="	padding-left: 10px;	margin-top: 4px;" src="lib/img/img_word.png"></span>
+        <!-- <img src="lib/img/home_ing_logo.png"> -->
+        <!-- <span class="h1 navbar-brand mb-0"><img style="	padding-left: 10px;	margin-top: 4px;" src="lib/img/img_word.png"></span> -->
         <!-- <span class="h1 navbar-brand mb-0">{{ logoTXT}}</span> -->
       </div>
       <div class="flex-y-center nav-btn btn-waves" @click="toggNav">
@@ -174,7 +174,7 @@ export default {
       })
       return {
       	isThrName:true,
-        logoTXT: CITY + '四川中烟',
+        logoTXT: CITY + '后台管理系统',
         bottomTXT: '版权所有：' + CITY + '商务局',
         isCollapse: false,
         navActive: '',

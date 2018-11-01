@@ -126,7 +126,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 		</dependency>
-
+		<dependency>
+		<groupId>cn.hutool</groupId>
+		    <artifactId>hutool-all</artifactId>
+		    <version>4.1.4</version>
+		</dependency>
 		<!-- file upload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>

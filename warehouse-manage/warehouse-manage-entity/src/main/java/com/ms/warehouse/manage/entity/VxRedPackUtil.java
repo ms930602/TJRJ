@@ -34,7 +34,7 @@ public class VxRedPackUtil {
 			sendRedPack(strMch_billno,
 					"oAQYT1MFe4kUCeB0worwLe0Pl3gg",
 					MHCname,price,"1",
-					"返现提成,祝您愉快!","提成红包","谢谢您的推广!","101.207.28.69");
+					"返现提成,祝您愉快!","提成红包","谢谢您的推广!","175.152.210.24","F:\\cert\\cert.p12");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,8 @@ public class VxRedPackUtil {
 	public static void sendRedPack(String mch_billno,String openId,
 			String send_name,String total_fee,
 			String total_num,String wishing,
-			String act_name,String remark,String ip) throws Exception{
+			String act_name,String remark,String ip
+			,String filePath) throws Exception{
 		String non=WXAuthUtil.CreateNoncestr();
 		SortedMap<Object, Object> p = new TreeMap<Object, Object>();
 		p.put("nonce_str", non);
@@ -69,7 +70,7 @@ public class VxRedPackUtil {
 		String reuqestXml = WXAuthUtil.getRequestXml(p);
 		System.out.println(reuqestXml);
 		KeyStore keyStore = KeyStore.getInstance("PKCS12");
-		FileInputStream instream = new FileInputStream(new File(WXAuthUtil.CERT_PATH));
+		FileInputStream instream = new FileInputStream(new File(filePath));
 		try {
 			keyStore.load(instream, WXAuthUtil.MCH_ID.toCharArray());
 		} finally {

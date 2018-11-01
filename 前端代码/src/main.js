@@ -44,7 +44,7 @@ router.afterEach(transition => {
     NProgress.done();
 });
 // 标签名
-var title = '四川中烟仓储信息管理系统'
+var title = '后台管理系统'
 document.title = title
 
 // 解决前端计算精度问题

@@ -2,7 +2,6 @@ package com.ms.warehouse.manage.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +17,6 @@ import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.ms.warehouse.common.exception.CenterException;
 import com.ms.warehouse.common.service.BaseService;
 import com.ms.warehouse.common.vo.BaseRespVO;
@@ -29,7 +26,6 @@ import com.ms.warehouse.common.vo.ListVo.ListReqVO;
 import com.ms.warehouse.common.vo.ListVo.ListRespVO;
 import com.ms.warehouse.manage.bo.VxActivitiesBO;
 import com.ms.warehouse.manage.bo.VxBuyInfoBO;
-import com.ms.warehouse.manage.bo.VxLogBO;
 import com.ms.warehouse.manage.bo.VxMerchantBO;
 import com.ms.warehouse.manage.bo.VxPromotersBO;
 import com.ms.warehouse.manage.entity.ParseXMLUtils;
@@ -37,7 +33,6 @@ import com.ms.warehouse.manage.entity.VxActivitiesEntity;
 import com.ms.warehouse.manage.entity.VxActivitiesFormEntity;
 import com.ms.warehouse.manage.entity.VxBuyInfoEntity;
 import com.ms.warehouse.manage.entity.VxFormEntity;
-import com.ms.warehouse.manage.entity.VxLogEntity;
 import com.ms.warehouse.manage.entity.VxPayEntity;
 import com.ms.warehouse.manage.entity.VxPromotersEntity;
 import com.ms.warehouse.manage.entity.WXAuthUtil;
@@ -61,16 +56,10 @@ public class InfoToService  extends BaseService {
 	@Autowired
 	private VxBuyInfoBO buyInfoBO;
 	
-	@Autowired
-	private VxLogBO logBo;
-	
 	public Object getVxInfo(@Param("id") Long id) throws CenterException {
 		VxFormEntity vfe = null;
 		if(id == null)return null;
-		VxLogEntity queryById = logBo.queryById(id);
-		if(queryById == null) return null;
-		
-		VxActivitiesFormEntity formEntity = (VxActivitiesFormEntity) activitiesService.queryById(queryById.getAid());
+		VxActivitiesFormEntity formEntity = (VxActivitiesFormEntity) activitiesService.queryById(id);
 		if(formEntity == null) return null;
 		//活动基本信息
 		vfe = new VxFormEntity(formEntity);
@@ -109,7 +98,7 @@ public class InfoToService  extends BaseService {
 		String fx = parseObject.getFx();
 		
 		if(queryById == null){
-			return new BaseRespVO(99, "活动以结束!");
+			return new BaseRespVO(99, "活动已结束!");
 		}
 		
 		if(username == null || "".equals(username.trim())){
@@ -126,7 +115,7 @@ public class InfoToService  extends BaseService {
 		buyInfoEntity.setStatus("0");
 		buyInfoEntity.setMoney(queryById.getPrice());
 		buyInfoEntity.setActivitiesId(queryById.getId());
-		if(fx != null && "".equals(fx.trim()))
+		if(fx != null && !"".equals(fx.trim()) && !"null".equals(fx.trim()))
 			buyInfoEntity.setPromotersData(fx);
 		
 		int intValue = queryById.getPrice().intValue();

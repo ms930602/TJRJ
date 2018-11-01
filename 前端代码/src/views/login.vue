@@ -4,7 +4,7 @@
 		<!--新的login页面-->
 		<div class="new_login">
 			<div class="header">
-				<img class="header_left" src="../../lib/img/loginImg/logo.png" alt="" />
+				<!-- <img class="header_left" src="../../lib/img/loginImg/logo.png" alt="" /> -->
 				<!-- <img class="header_right" src="../../lib/img/loginImg/kh.png" alt="" /> -->
 			</div>
 
@@ -33,13 +33,13 @@
 				</div>
 			</div>
 		</div>
-		<ul class="biaoqian">
+		<!-- <ul class="biaoqian">
 			<li></li>
 			<li></li>
 			<li></li>
-		</ul>
+		</ul> -->
 		<div style='width: auto;height:60px;'></div>
-		<footer id='footer'>版权所有&copy;成都九洲电子信息系统股份有限公司</footer>
+		<footer id='footer'>版权所有&copy;</footer>
 	</div>
 </template>
 

@@ -62,6 +62,7 @@ function payItem(){
 		mui.alert("活动页面有误 code:12CD","提示");
 		return ;
 	}
+	$("#payBtn").html("发起支付...");
 	$("#payBtn").attr("disabled",true);
 	var url = ROOT_SERVER+"infoTo/queryPaySign";
 	var dataParam = {
@@ -71,7 +72,6 @@ function payItem(){
 		 "username":username,
 		 "userPhone":userPhone
 	}
-	
 	mui.ajax(url,{
 		data:dataParam,
 		dataType:'json',//服务器返回json格式数据
@@ -91,10 +91,12 @@ function payItem(){
 			}else{
 				mui.alert("活动以结束!!","提示");
 			}
+			$("#payBtn").html("立即支付");
 			$("#payBtn").attr("disabled",false);
 		},
 		error:function(xhr,type,errorThrown){
 			mui.alert("服务器异常!!","提示");
+			$("#payBtn").html("立即支付");
 			$("#payBtn").attr("disabled",false);
 		}
 	});
@@ -112,7 +114,7 @@ function onBridgeReady(param){
 		},
       function(res){
       if(res.err_msg == "get_brand_wcpay_request:ok" ){
-				mui.alert("支付成功!工作人员进入将与您联系!","支付提示")
+				mui.alert("支付成功!工作人员近期将与您联系!","支付提示")
 				window.location.reload();
       } 
    }); 

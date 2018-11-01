@@ -268,10 +268,19 @@
 		var aid ,isappinstalled;
 		$(function(){
 			aid = getParam("gbk");
+			var fx = getParam("gbk");
 			isappinstalled = getParam("isappinstalled");
-			if(isappinstalled && isappinstalled >= 0){
-				window.location.href=ROOT_VX+ "info/wxLogin?gbk="+aid;
+			if(!aid){
+				alert("无活动信息!");
+				return;
 			}
+			var ua = navigator.userAgent.toLowerCase();
+			var isWeixin = ua.indexOf('micromessenger') != -1;
+			if (!isWeixin) {
+				window.location.href=ROOT_VX+ "info/wxLogin?gbk="+aid+"&fx=" + (fx || '');
+				return;
+			}
+			
 			mui.init();
 			
 			mui("#jinduT").progressbar({progress:0}).show();
@@ -330,24 +339,24 @@
 		}
 		
 		wx.ready(function () {
-			wx.hideMenuItems({
-				menuList: ['menuItem:openWithQQBrowser',
-				'menuItem:copyUrl',
-				'menuItem:setFont','menuItem:share:qq',
-				'menuItem:share:weiboApp','menuItem:share:facebook',
-				'menuItem:share:QZone','menuItem:openWithSafari','menuItem:share:email','menuItem:share:brand',
-				'menuItem:editTag'] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
-			});
-			var url = 'http://msserver.nat300.top/warehouse-pre-interface/vx/info/wxLogin?gbk=' + aid+'fx='+getParam("fx");;
+// 			wx.hideMenuItems({
+// 				menuList: ['menuItem:openWithQQBrowser',
+// 				'menuItem:copyUrl',
+// 				'menuItem:setFont','menuItem:share:qq',
+// 				'menuItem:share:weiboApp','menuItem:share:facebook',
+// 				'menuItem:share:QZone','menuItem:openWithSafari','menuItem:share:email','menuItem:share:brand',
+// 				'menuItem:editTag'] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+// 			});
+			var url = 'http://msserver.nat300.top/warehouse-pre-interface/vx/info/wxLogin?gbk=' + aid+'&fx='+getParam("cd");;
 			var obj = {
 				title: '特惠活动！', // 分享标题
 				desc: '超级特惠活动，快快来抢购吧！', // 分享描述
 				link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 				// 该链接是重定向链接，因为需要获取用户code，但是该链接又无法直接写微信获取code的链接，
 				// 所以需要点击后重新加载新的页面，来实现重定向，重新打开获取code的微信链接，实现获取用户信息的功能；
-				imgUrl: 'http://cdn.spbcn.org/img/logo-image.png', // 分享图标
+				// imgUrl: 'http://cdn.spbcn.org/img/logo-image.png', // 分享图标
 				fail: function (res) {
-					alert(JSON.stringify(res));
+					alert("分享成功，购买即可返现");
 				}
 			};
 			// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口

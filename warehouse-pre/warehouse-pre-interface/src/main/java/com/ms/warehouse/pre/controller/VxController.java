@@ -13,12 +13,15 @@ import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ms.warehouse.IVxService;
+import com.ms.warehouse.common.vo.BaseRespVO;
 import com.ms.warehouse.common.vo.ValueRespVO;
 import com.ms.warehouse.manage.entity.ParseXMLUtils;
+import com.ms.warehouse.manage.entity.VxLogEntity;
 import com.ms.warehouse.manage.entity.VxSDKEntity;
+import com.ms.warehouse.manage.entity.WXAuthUtil;
 import com.ms.warehouse.pre.utils.Utils;
-import com.ms.warehouse.pre.utils.WXAuthUtil;
 
+import cn.hutool.setting.dialect.Props;
 import redis.clients.jedis.Jedis;
 
 import java.io.BufferedReader;
@@ -54,8 +57,7 @@ public class VxController{
     @Autowired
     @Qualifier("jedisConnectionFactory")
     private JedisConnectionFactory jedisConnectionFactory;
-
-	
+    
 	@RequestMapping(value = "wxJSDK")
 	public void wxJSDK(HttpServletRequest request,HttpServletResponse response) throws ClientProtocolException, IOException, NoSuchAlgorithmException{
 		String url = request.getParameter("url");
@@ -75,15 +77,21 @@ public class VxController{
          access_token = tokenJson.get("access_token")+"";
          String jsapiTicket = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+access_token+"&type=jsapi";
          JSONObject doGetJson = WXAuthUtil.doGetJson(jsapiTicket);
+         
          ticket = doGetJson.getString("ticket");
-         boolean keyExist = jedis.exists("jsapi_ticket");
-         if (keyExist) {
-        	 jedis.del("jsapi_ticket");
+         if(ticket != null){
+        	 boolean keyExist = jedis.exists("jsapi_ticket");
+             if (keyExist) {
+            	 jedis.del("jsapi_ticket");
+             }
+          
+             // NX是不存在时才set， XX是存在时才set， EX是秒，PX是毫秒
+             jedis.set("jsapi_ticket", ticket);
+             jedis.expire("jsapi_ticket",7000); 
+         }else{
+        	 Utils.writeResponesByJsonp(request, response, new BaseRespVO(99,"授权错误！"));
+        	 return;
          }
-      
-         // NX是不存在时才set， XX是存在时才set， EX是秒，PX是毫秒
-         jedis.set("jsapi_ticket", ticket);
-         jedis.expire("jsapi_ticket",7000); 
   	   }else{
   		   System.err.println("存在："+ticket);
   	   }
@@ -108,7 +116,8 @@ public class VxController{
 	
 	@RequestMapping(value = "wxLogin")
 	public String wxLogin(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
-		String backUrl="http://msserver.nat300.top/warehouse-pre-interface/vx/info/callBack";
+		Props PathProps = new Props("pathConf.properties");
+		String backUrl=PathProps.getProperty("web.backUrl");
 		// 第一步：用户同意授权，获取code
 		String aid = request.getParameter("gbk");
 		String fx = request.getParameter("fx");//返现人的openID
@@ -129,6 +138,8 @@ public class VxController{
 	
 	@RequestMapping(value = "callBack")
 	public String callBack(ModelMap modelMap,HttpServletRequest req, HttpServletResponse resp) throws ClientProtocolException, IOException {
+		Props PathProps = new Props("pathConf.properties");
+		String redirectUrl=PathProps.getProperty("web.redirect");
 		//start 获取微信用户基本信息
 		String code =req.getParameter("code");
 		String state =req.getParameter("state");
@@ -176,15 +187,16 @@ public class VxController{
 				+ "&lang=zh_CN";
 		JSONObject userInfo = WXAuthUtil.doGetJson(infoUrl);
 		userInfo.put("logId", state);
+		VxLogEntity logEntity = null;
 		String promotersData = "";
 		try {
 			if( userInfo.get("openid") == null || userInfo.get("openid") == "" || "null".equals(userInfo.get("openid")))
 				return "无法获取您的信息！";
-			promotersData = vxService.savePromoters( userInfo );
+			logEntity = vxService.savePromoters( userInfo );
 		} catch (Exception e) {}
 		//end 获取微信用户基本信息
-		if(promotersData==null) promotersData = "";
-		String myUrl = "http://mscenter.nat300.top/vxstatic/vx.html?gbk="+state+"&bbq=xd&fx="+promotersData+"&opo=9584157&cd="+userInfo.get("openid") + "";
+		if(logEntity!=null) promotersData = logEntity.getPromotersData();
+		String myUrl = redirectUrl+"?gbk="+logEntity.getAid()+"&bbq=xd&fx="+promotersData+"&opo=9584157&cd="+userInfo.get("openid") + "";
 		return "redirect:"+myUrl;
 	}
 	
