@@ -15,16 +15,4 @@
 					        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<!-- 服务消费者 -->
-	<dubbo:registry address="${dubbo.registry.address}" />
-	<!-- 用户服务 -->
-	<!-- url="dubbo://127.0.0.1:20101" -->
-<!-- 	url="dubbo://127.0.0.1:20102" -->
-	<dubbo:reference id="userRouteService" interface="com.ms.warehouse.user.api.IUserRouteService" check="true" url="dubbo://127.0.0.1:20101"/>   
-	<dubbo:reference id="loginService" interface="com.ms.warehouse.user.api.ILoginService" check="true" url="dubbo://127.0.0.1:20101"/>
-	<!-- 权限服务 -->
-	<dubbo:reference id="rolePermissionRoteService" interface="com.ms.warehouse.permission.api.IRouteTsysModuleService" check="true" url="dubbo://127.0.0.1:20102"/>
-
-	<dubbo:reference id="wareManageRouteService" interface="com.ms.warehouse.IManageRouteService" check="false" url="dubbo://127.0.0.1:20103"/>
-
-	<dubbo:reference id="vxService" interface="com.ms.warehouse.IVxService" check="false" url="dubbo://127.0.0.1:20103"/>
 </beans>

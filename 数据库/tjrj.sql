@@ -1,151 +1,75 @@
-
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/10/15 15:58:36                          */
+/* Created on:     2018/11/2 9:44:12                            */
 /*==============================================================*/
 
 
-DROP TABLE IF EXISTS t_buy_ms;
+drop table if exists f_consultation;
 
-DROP TABLE IF EXISTS t_opinion_ms;
+drop table if exists f_sale_car;
 
-DROP TABLE IF EXISTS t_pre_buy_ms;
+drop table if exists t_car_info;
 
-DROP TABLE IF EXISTS t_pre_sell_ms;
-
-DROP TABLE IF EXISTS t_sell_ms;
-
-DROP TABLE IF EXISTS t_item_ms;
-
-DROP TABLE IF EXISTS t_game_ms;
 /*==============================================================*/
-/* Table: t_buy_ms                                              */
+/* Table: f_consultation                                        */
 /*==============================================================*/
-CREATE TABLE t_buy_ms
+create table f_consultation
 (
-   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   f_item_id            INT NOT NULL COMMENT '物品外键',
-   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '数量',
-   f_price              DECIMAL(18,2) NOT NULL COMMENT '买入价格',
-   f_buy_time           DATETIME NOT NULL COMMENT '买入时间',
-   f_exist_time         DATETIME COMMENT '到期日期',
-   f_remark             VARCHAR(500) COMMENT '备注',
-   f_createtime         DATETIME COMMENT '创建时间',
-   PRIMARY KEY (f_id)
-)
-ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-/*==============================================================*/
-/* Table: t_game_ms                                             */
-/*==============================================================*/
-CREATE TABLE t_game_ms
-(
-   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   f_name               VARCHAR(200) NOT NULL COMMENT '名称',
-   f_type               CHAR(1) COMMENT '类型',
-   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
-   f_column_a           INT COMMENT '扩展字段1',
-   f_column_b           INT COMMENT '扩展字段2',
-   f_column_c           VARCHAR(200) COMMENT '扩展字段3',
-   f_column_d           VARCHAR(200) COMMENT '扩展字段4',
-   PRIMARY KEY (f_id)
+   f_id                 int not null auto_increment comment '主键',
+   f_phone              varchar(100) comment '手机号',
+   f_remark             varchar(500) comment '描述',
+   f_car_id             int comment '咨询车辆外键',
+   primary key (f_id)
 );
 
 /*==============================================================*/
-/* Table: t_item_ms                                             */
+/* Table: f_sale_car                                            */
 /*==============================================================*/
-CREATE TABLE t_item_ms
+create table f_sale_car
 (
-   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   f_game_id            INT NOT NULL COMMENT '游戏外键',
-   f_name               VARCHAR(200) NOT NULL COMMENT '名称',
-   f_type               CHAR(1) NOT NULL COMMENT '类型',
-   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
-   f_updatetime         DATETIME COMMENT '修改时间',
-   f_remark             VARBINARY(200) COMMENT '备注',
-   PRIMARY KEY (f_id)
-)
-ENGINE=INNODB DEFAULT CHARSET=utf8;
+   f_id                 int not null auto_increment comment '主键',
+   f_phone              varchar(256) not null comment '手机号码',
+   f_status             char(1) default '0' comment '0 未处理 1 已锁定 2 已处理',
+   f_remark             varchar(500) comment '备注',
+   f_create_time        datetime comment '创建时间',
+   primary key (f_id)
+);
 
 /*==============================================================*/
-/* Table: t_opinion_ms                                          */
+/* Table: t_car_info                                            */
 /*==============================================================*/
-CREATE TABLE t_opinion_ms
+create table t_car_info
 (
-   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   f_type               CHAR(1) NOT NULL COMMENT '类型 1-意见 2-bug',
-   f_title              VARCHAR(256) NOT NULL COMMENT '标题',
-   f_remark             VARCHAR(500) COMMENT '内容',
-   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
-   f_create_peo         INT NOT NULL COMMENT '创建人外键',
-   f_handle_type        CHAR(1) NOT NULL COMMENT '处理状态 1-已反馈 2-已处理',
-   f_re_text            VARCHAR(256) COMMENT '反馈内容',
-   f_re_time            DATETIME COMMENT '反馈时间',
-   f_re_reward_text     VARCHAR(256) COMMENT '奖励内容',
-   PRIMARY KEY (f_id)
-)
-ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-/*==============================================================*/
-/* Table: t_pre_buy_ms                                          */
-/*==============================================================*/
-CREATE TABLE t_pre_buy_ms
-(
-   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   f_item_id            INT NOT NULL COMMENT '物品外键',
-   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '预买数量',
-   f_price              DECIMAL(18,2) COMMENT '预计价格',
-   f_time               DATETIME NOT NULL COMMENT '预买入时间',
-   f_remark             VARCHAR(500) COMMENT '备注',
-   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
-   PRIMARY KEY (f_id)
-)
-ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-/*==============================================================*/
-/* Table: t_pre_sell_ms                                         */
-/*==============================================================*/
-CREATE TABLE t_pre_sell_ms
-(
-   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   f_item_id            INT NOT NULL COMMENT '物品外键',
-   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '预卖数量',
-   f_price              DECIMAL(18,2) COMMENT '预计价格',
-   f_time               DATETIME NOT NULL COMMENT '预卖出时间',
-   f_remark             VARCHAR(500) COMMENT '备注',
-   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
-   PRIMARY KEY (f_id)
-)
-ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-/*==============================================================*/
-/* Table: t_sell_ms                                             */
-/*==============================================================*/
-CREATE TABLE t_sell_ms
-(
-   f_id                 INT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   f_item_id            INT NOT NULL COMMENT '物品外键',
-   f_quantity           DECIMAL(18,2) NOT NULL COMMENT '数量',
-   f_price              DECIMAL(18,2) NOT NULL COMMENT '卖出价格',
-   f_sell_time          DATETIME NOT NULL COMMENT '卖出时间',
-   f_remark             VARCHAR(500) COMMENT '备注',
-   f_createtime         DATETIME NOT NULL COMMENT '创建时间',
-   PRIMARY KEY (f_id)
-)
-ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-ALTER TABLE t_buy_ms ADD CONSTRAINT FK_Reference_4 FOREIGN KEY (f_item_id)
-      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE t_item_ms ADD CONSTRAINT FK_Reference_1 FOREIGN KEY (f_game_id)
-      REFERENCES t_game_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE t_pre_buy_ms ADD CONSTRAINT FK_Reference_2 FOREIGN KEY (f_item_id)
-      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE t_pre_sell_ms ADD CONSTRAINT FK_Reference_3 FOREIGN KEY (f_item_id)
-      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE t_sell_ms ADD CONSTRAINT FK_Reference_5 FOREIGN KEY (f_item_id)
-      REFERENCES t_item_ms (f_id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+   f_id                 int not null auto_increment comment '主键',
+   f_title              varchar(500) not null comment '标题',
+   f_price              decimal(18,2) default 0 comment '低价',
+   f_consult_price      varchar(256) comment '参考价',
+   f_new_price          decimal(18,2) default 0 comment '新车价格',
+   f_show_price         decimal(18,2) default 0 comment '显示价格',
+   f_showflag           int not null default 0 comment '关注数',
+   f_end_time           datetime comment '截止日期',
+   f_address            varchar(256) comment '地点城市',
+   f_transfer_num       int default 0 comment '过户次数',
+   f_transfer_price_state char(1) comment '是否含过户费 0 不含 1反之',
+   f_mileage            int comment '表显里程万里为单位',
+   f_upbk_time          datetime comment '上牌日期',
+   f_dw                 varchar(50) comment '档位 自动挡 手动挡',
+   f_pl                 varchar(256) comment '排量',
+   f_bk_citiy           varchar(500) comment '拍照归属',
+   f_xqbz               varchar(256) comment '限迁标准',
+   f_remark             text comment '描述',
+   f_status             char(1) comment '0 正常 1锁定',
+   f_top_img            varchar(256) comment '头图片',
+   f_imgs               varchar(500) comment '图片 id 以逗号隔开',
+   f_transaction_statu  char(1) default '1' comment '1 上架 0 下架',
+   f_offer_statue       char(1) default '0' comment '是否特价 0 不是特价 1 特价',
+   f_brand              varchar(256) comment '品牌',
+   f_type               varchar(256) comment '车型',
+   f_pk_id              int comment '外键',
+   f_str_a              varchar(256) comment '扩展字段',
+   f_str_b              varchar(256) comment '扩展字段2',
+   f_int_a              int comment '扩展字段3',
+   f_int_b              int comment '扩展字段4',
+   primary key (f_id)
+);
 
