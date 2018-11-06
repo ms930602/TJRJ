@@ -10,19 +10,19 @@ import com.ms.warehouse.common.vo.Param;
 import com.ms.warehouse.common.vo.ListVo.ListReqVO;
 import com.ms.warehouse.common.vo.ListVo.ListRespVO;
 
-import com.ms.warehouse.car.bo.FsaleCarBO;
-import com.ms.warehouse.car.entity.FsaleCarEntity;
+import com.ms.warehouse.car.bo.ConsultationBO;
+import com.ms.warehouse.car.entity.ConsultationEntity;
 
 /**
  *  业务处理
  * @author Ms
- * @Date 2018-11-02 14:43:16
+ * @Date 2018-11-05 17:02:35
  * @since 1.0
  */@Service
-public class FsaleCarService extends BaseService {
+public class ConsultationService extends BaseService {
 
 	@Autowired
-	private FsaleCarBO fsaleCarBo;
+	private ConsultationBO consultationBo;
 
 	/**
 	 * 分页查询列表
@@ -30,8 +30,8 @@ public class FsaleCarService extends BaseService {
 	 * @param reqVO
 	 * @return
 	 */
-	public ListRespVO list(ListReqVO<FsaleCarEntity> reqVO) throws CenterException {
-		return fsaleCarBo.queryPageAutomatic(reqVO);
+	public ListRespVO list(ListReqVO<ConsultationEntity> reqVO) throws CenterException {
+		return consultationBo.queryPageAutomatic(reqVO);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class FsaleCarService extends BaseService {
 	 * @return
 	 */
 	public Object queryById(@Param("id") Long id) throws CenterException {
-		return fsaleCarBo.queryById(id);
+		return consultationBo.queryById(id);
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class FsaleCarService extends BaseService {
 	 * @param reqVO
 	 * @return
 	 */
-	public Object create(FsaleCarEntity fsaleCar) throws CenterException {
-		fsaleCarBo.createForValidate(fsaleCar);
-		return fsaleCar;
+	public Object create(ConsultationEntity consultation) throws CenterException {
+		consultationBo.createForValidate(consultation);
+		return consultation;
 	}
 
 	/**
@@ -61,8 +61,8 @@ public class FsaleCarService extends BaseService {
 	 * @param reqVO
 	 * @return
 	 */
-	public BaseRespVO update(FsaleCarEntity fsaleCar) throws CenterException {
-		int updateCount = fsaleCarBo.updateForValidate(fsaleCar);
+	public BaseRespVO update(ConsultationEntity consultation) throws CenterException {
+		int updateCount = consultationBo.updateForValidate(consultation);
 		if(updateCount > 0){
 			return new BaseRespVO();
 		}else{
@@ -78,7 +78,7 @@ public class FsaleCarService extends BaseService {
 	 * @return
 	 */
 	public BaseRespVO delete(@Param("id") Long[] id) throws CenterException {
-		int deleteCount = fsaleCarBo.batchDeleteById(id);
+		int deleteCount = consultationBo.batchDeleteById(id);
 		if (deleteCount > 0) {
 			return new BaseRespVO();
 		} else {

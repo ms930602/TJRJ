@@ -32,9 +32,9 @@
 		    			<span>{{scope.row.price}}万</span>
 		      	</template>
 		    </el-table-column>
-		    <el-table-column prop="consultPrice" label="参考价">
+		    <el-table-column prop="consultPrice" label="参考价区间">
 		    	<template slot-scope="scope">
-		    			<span>{{scope.row.consultPrice}}万</span>
+		    			<span>{{scope.row.consultPrice}}</span>
 			    </template>
 		    </el-table-column>
 		    <el-table-column prop="newPrice" label="新车价位">
@@ -54,7 +54,7 @@
 		    </el-table-column>
 		    <el-table-column prop="transactionStatu" label="是否上架">
 		    	<template slot-scope="scope">
-		    			<span>{{scope.row.transactionStatu}}</span>
+<tagItem :type="scope.row.transactionStatu == 1 ? 'success' : 'danger'" :text="_dicValue(scope.row.transactionStatu, transactionStatuOption)"></tagItem>
 			    </template>
 		    </el-table-column>
 		    <el-table-column prop="status" label="状态">
@@ -67,7 +67,7 @@
 		    		<el-button-group>
 		    			<iconBtn iconClass="el-icon-edit" type="primary" content="编辑" @click="modalEdit(scope.row)"></iconBtn>
 		    <iconBtn iconClass="el-icon-warning" 
-		    type="danger"  v-if="scope.row.status == 0"
+		    type="danger"  v-if="scope.row.transactionStatu == 1"
 		    content="下架" @click="statusAction(scope.row,0)"></iconBtn>
 		    <iconBtn iconClass="el-icon-success" 
 		    type="success"  v-else
@@ -91,6 +91,10 @@
 				searchForm: {
 					title: ''
 				},
+				transactionStatuOption:[
+			      {key:'0',value:'下架'},
+			      {key:'1',value:'上架'},
+			    ],
 				dataList: []
 			}
 		},
@@ -150,7 +154,7 @@
 					if(d.state === 0)
 					{
 						this.$message({type: 'success', message: titleMsg+'操作完成'});
-						row.status = status;
+						row.transactionStatu = status;
 					}
 					else{
 						this.$message({type: 'warning', message: '失败'+ d.msg});

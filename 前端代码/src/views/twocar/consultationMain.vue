@@ -2,7 +2,7 @@
 	<div class="page-person">
     <!-- 查询条件 -->
 		<searchInputItems>
-			<searchInputItem name="标题">
+			<searchInputItem name="手机号">
 				<inputItem :value.sync="searchForm.personName" @enter="searchTable"></inputItem>
 			</searchInputItem>
 		</searchInputItems>
@@ -10,71 +10,43 @@
 		<optionItems>
 			<template slot="left">
 				<el-button-group>
-					<iconBtn iconClass="el-icon-plus" content="新增" @click="add">新增</iconBtn>
 					<iconBtn iconClass="el-icon-minus" content="删除" @click="dele">删除</iconBtn>
 					<iconBtn iconClass="el-icon-search" content="查询" @click="searchTable">查询</iconBtn>
 					<iconBtn iconClass="el-icon-refresh" content="重置" @click="reset">重置</iconBtn>
 				</el-button-group>				
 			</template>
 		</optionItems>
-		<span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：活动的宣传地址请点击行头的 ">" 符号查看</span>
 		<!-- 表格 -->
 		<elemTable :dataList="dataList" :currentPage='pageNum' :pageSize="pageSize" :pageTotal="pageTotal" :loading="dataLoading" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange" @selectionChange="selectionChange">
 			<el-table-column type="selection" width="55"></el-table-column>
-			 <el-table-column type="expand">
-		      <template slot-scope="props">
-		        <el-form label-position="left" inline class="demo-table-expand">
-		          <el-form-item label="宣传地址:">
-		            <span>{{props.row.url}}</span>
-		          </el-form-item>
-		        </el-form>
-		      </template>
-		    </el-table-column>
-		    <el-table-column prop="title" label="标题" width="400">
+		    <el-table-column prop="phone" label="手机号">
 		    	<template slot-scope="scope">
-		    		<toolTip :content="scope.row.title">
-		    			<span>{{scope.row.title}}</span>
-		    		</toolTip>
+		    			<span>{{scope.row.phone}}</span>
 		      	</template>
 		    </el-table-column>
-			<el-table-column prop="startTime" label="活动时间">
+			<el-table-column prop="carTitle" label="咨询汽车">
 		    	<template slot-scope="scope">
-		    		<toolTip :content="scope.row.startTime">
-		    			<span>{{scope.row.startTime}}</span>
-		    		</toolTip>
+		    			<span>{{scope.row.carTitle}}</span>
 		      	</template>
 		    </el-table-column>
-		    <el-table-column prop="price" label="价格">
+		    <el-table-column prop="context" label="咨询内容">
 		    	<template slot-scope="scope">
-					<toolTip :content="scope.row.price">
-		    			<span>{{scope.row.price}}</span>
-		    		</toolTip>
+		    			<span>{{scope.row.context}}</span>
 			    </template>
 		    </el-table-column>
-		    <el-table-column prop="phone" label="客户电话">
+		    <el-table-column prop="createtime" label="创建时间">
 		    	<template slot-scope="scope">
-		    		<toolTip :content="scope.row.phone">
-		    			<span>{{scope.row.phone}}</span>
-		    		</toolTip>
+		    			<span>{{scope.row.createtime}}</span>
 		      	</template>
 		    </el-table-column>
-            <el-table-column prop="payNum" label="购买人数">
+			<el-table-column prop="remark" label="备注">
 		    	<template slot-scope="scope">
-		    		<toolTip :content="scope.row.payNum">
-		    			<span>{{scope.row.payNum}}</span>
-		    		</toolTip>
-		      	</template>
-		    </el-table-column>
-			<el-table-column prop="selectNum" label="浏览数">
-		    	<template slot-scope="scope">
-					<toolTip :content="scope.row.selectNum">
-		    			<span>{{scope.row.selectNum}}</span>
-		    		</toolTip>
+		    			<span>{{scope.row.remark}}</span>
 			    </template>
 		    </el-table-column>
 		    <el-table-column prop="status" label="状态">
 		    	<template slot-scope="scope">
-<tagItem :type="scope.row.status == 0 ? 'success' : 'danger'" :text="_dicValue(scope.row.status, activitiStatusOption)"></tagItem>
+<tagItem :type="scope.row.status == 2 ? 'success' : 'danger'" :text="_dicValue(scope.row.status, statusOption)"></tagItem>
 			    </template>
 		    </el-table-column>
 		    <el-table-column label="操作">
@@ -82,27 +54,29 @@
 		    		<el-button-group>
 		    			<iconBtn iconClass="el-icon-edit" type="primary" content="编辑" @click="modalEdit(scope.row)"></iconBtn>
 		    <iconBtn iconClass="el-icon-warning" 
-		    type="danger"  v-if="scope.row.status == 0"
-		    content="停用" @click="statusAction(scope.row,1)"></iconBtn>
-		    <iconBtn iconClass="el-icon-success" 
-		    type="success"  v-else
-		    content="启用" @click="statusAction(scope.row,0)"></iconBtn>
-					    <iconBtn iconClass="el-icon-minus" content="删除" @click="delRow(scope.row)"></iconBtn>
+		    type="danger" 
+		    content="锁定" @click="statusAction(scope.row,1)"></iconBtn>
+		    <iconBtn iconClass="el-icon-warning" 
+		    type="success" 
+		    content="已处理" @click="statusAction(scope.row,2)"></iconBtn>
 		    		</el-button-group>		    		
 		    	</template>
 		    </el-table-column>
 		</elemTable>
+		<carConsultationModal v-if="modalShow" :modal="modalShow" :personInfoModalType="modalType" @close="modalClose" :personinfo="modalObj" @submit="modalSubmit"></carConsultationModal>
     </div>
 </template>
 
 <script>
     import mixin from '../../mixin/mixin.js'
+    import carConsultationModal from '.././component/modal/carConsultationModal.vue'
 	import local from '../../local.js'
 	export default {
 		mixins: [mixin],
+		components: {carConsultationModal},
 		data() {
 			return {
-				activitiStatusOption:[],
+				statusOption:[],
 				searchForm: {
 					title: ''
 				},
@@ -110,25 +84,28 @@
 			}
 		},
         mounted() {
-            this._searchDic('VX_ACTI_STATUS')
+            this._searchDic('CAR_CSN_STATUS')
 			.then((function(d) {
-				this.activitiStatusOption = this._dicKey(d)
+				this.statusOption = this._dicKey(d)
 				this.searchTable();
 			}).bind(this))
 		},
 		methods: {
 			add(){
-				this.$router.push({path:"/activities/a"});
+				this.modalType = 'add'
+                this.modalShow = true
 			},
             modalEdit(o) {
-                this.$router.push({path:"/activities/u",query:{id:o.id}});
+                this.modalObj = o
+                this.modalType = 'edit'
+                this.modalShow = true
 		    },
 			searchTable() {
 				Object.assign(this.searchForm, {
 					pageNum: this.pageNum,
 					pageSize: this.pageSize
 				})
-				return this._ajax({url: this.rootAPI, name: 'carInfo/list', param: this.searchForm, loading: 'dataLoading'}).then(this.renderTable)
+				return this._ajax({url: this.rootAPI, name: 'consultation/list', param: this.searchForm, loading: 'dataLoading'}).then(this.renderTable)
 			},
 			reset() {
 				Object.assign(this.searchForm, {
@@ -150,9 +127,9 @@
 	        	}	
 			},
 			statusAction(row,status){
-				this._comfirm('确定停用该活动？')
+				this._comfirm('标记已处理该咨询？')
         		.then((function() {        			
-        			return this._ajax({url: this.rootAPI + 'carInfo/update', param: {
+        			return this._ajax({url: this.rootAPI + 'consultation/update', param: {
         				id:row.id,
         				status:status
         			}, arr:true})
@@ -160,7 +137,7 @@
         		.then((function(d) {
 					if(d.state === 0)
 					{
-						this.$message({type: 'success', message: '已停用'});
+						this.$message({type: 'success', message: '已修改'});
 						row.status = status;
 					}
 					else{
@@ -178,7 +155,7 @@
 			delSubmit(o) {
 				this._comfirm('确定删除？')
         		.then((function() {        			
-        			return this._ajax({url: this.rootAPI + 'carInfo/delete', param: o, arr:true})
+        			return this._ajax({url: this.rootAPI + 'consultation/delete', param: o, arr:true})
         		}).bind(this))
         		.then((function(d) {
 					if(d.state === 0)

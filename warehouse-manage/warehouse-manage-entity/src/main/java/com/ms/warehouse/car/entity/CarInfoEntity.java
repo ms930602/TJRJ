@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-11-02 14:43:19
+ * @Date 2018-11-05 16:19:25
  * @since 1.0
  */
 @TableName("t_car_info")
@@ -51,7 +51,7 @@ public class CarInfoEntity extends BaseEntity {
 	private String transferPriceState;
 	
 	/** 表显里程万里为单位. */
-	private Long mileage;
+	private String mileage;
 	
 	/** 上牌日期. */
 	private java.util.Date upbkTime;
@@ -286,18 +286,18 @@ public class CarInfoEntity extends BaseEntity {
 	
 
     /** set 表显里程万里为单位. */
-	public void setMileage(Long mileage) {
+	public void setMileage(String mileage) {
 		this.mileage = mileage;
 	}
 	
 	/** get 表显里程万里为单位. */
-	public Long getMileage() {
+	public String getMileage() {
 		return this.mileage;
 	}
 	
 	@JsonIgnore
-	public Long getMileageByLike() {
-		return this.mileage;
+	public String getMileageByLike() {
+		return "%"+this.mileage+"%";
 	}
 	
 
@@ -625,7 +625,7 @@ public class CarInfoEntity extends BaseEntity {
 	 * @param intA			扩展字段3
 	 * @param intB			扩展字段4
 	 */
-	public CarInfoEntity(String title,java.math.BigDecimal price,String consultPrice,java.math.BigDecimal newPrice,java.math.BigDecimal showPrice,Long showflag,java.util.Date endTime,String address,Long transferNum,String transferPriceState,Long mileage,java.util.Date upbkTime,String dw,String pl,String bkCitiy,String xqbz,String remark,String status,String topImg,String imgs,String transactionStatu,String offerStatue,String brand,String type,Long pkId,String strA,String strB,Long intA,Long intB){
+	public CarInfoEntity(String title,java.math.BigDecimal price,String consultPrice,java.math.BigDecimal newPrice,java.math.BigDecimal showPrice,Long showflag,java.util.Date endTime,String address,Long transferNum,String transferPriceState,String mileage,java.util.Date upbkTime,String dw,String pl,String bkCitiy,String xqbz,String remark,String status,String topImg,String imgs,String transactionStatu,String offerStatue,String brand,String type,Long pkId,String strA,String strB,Long intA,Long intB){
 		this();
 		this.title = title;
 		this.price = price;

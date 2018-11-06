@@ -1,5 +1,7 @@
 package com.ms.warehouse.car.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +11,11 @@ import com.ms.warehouse.common.vo.BaseRespVO;
 import com.ms.warehouse.common.vo.Param;
 import com.ms.warehouse.common.vo.ListVo.ListReqVO;
 import com.ms.warehouse.common.vo.ListVo.ListRespVO;
-
+import com.ms.warehouse.inventory.bo.BaseUploadfilerecodeBO;
+import com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity;
 import com.ms.warehouse.car.bo.CarInfoBO;
 import com.ms.warehouse.car.entity.CarInfoEntity;
+import com.ms.warehouse.car.entity.CarInfoForm;
 
 /**
  *  业务处理
@@ -23,6 +27,9 @@ public class CarInfoService extends BaseService {
 
 	@Autowired
 	private CarInfoBO carInfoBo;
+	
+	@Autowired
+	private BaseUploadfilerecodeBO baseUploadfilerecodeBO;
 
 	/**
 	 * 分页查询列表
@@ -41,7 +48,22 @@ public class CarInfoService extends BaseService {
 	 * @return
 	 */
 	public Object queryById(@Param("id") Long id) throws CenterException {
-		return carInfoBo.queryById(id);
+		CarInfoEntity entity = carInfoBo.queryById(id);
+		if(entity == null) return null;
+		CarInfoForm carInfoForm = new CarInfoForm(entity);
+		
+		String topImg = entity.getTopImg();
+		BaseUploadfilerecodeEntity topImageObj = null;
+		if(topImg != null)topImageObj = baseUploadfilerecodeBO.queryById(Long.parseLong(topImg));
+		
+		String detailImg = entity.getImgs();
+		List<BaseUploadfilerecodeEntity> detailImgs = null;
+		if(detailImg != null)detailImgs = baseUploadfilerecodeBO.queryByIds(detailImg);
+		
+		carInfoForm.setTopImgObj(topImageObj);
+		carInfoForm.setDetailImgObj(detailImgs);
+		
+		return carInfoForm;
 	}
 
 	/**
