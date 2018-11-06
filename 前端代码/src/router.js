@@ -131,6 +131,52 @@ export default [{
                     require(['./views/statisticalAnalysis/inventoryStatistics.vue'], resolve)
                 }
             },
+            //二手车路由配置 -----start
+            {
+                path: '/carInfoMain',
+                name: 'carInfoMain',
+                meta: {
+                    father: '车辆信息',
+                    name: '车辆信息',
+                },
+                component: function(resolve) {
+                    require(['./views/twocar/carInfoMain.vue'], resolve)
+                }
+            },{
+                path: '/consultationMain',
+                name: 'consultationMain',
+                meta: {
+                    father: '咨询信息',
+                    name: '咨询信息',
+                },
+                component: function(resolve) {
+                    require(['./views/twocar/consultationMain.vue'], resolve)
+                }
+            },{
+                path: '/carInfo/a',
+                name: 'carInfoA',
+                meta: {
+                    father: '车辆信息',
+                    name: '车辆信息新增',
+                    fatherpath: 'carInfoMain'
+                },
+                component: function(resolve) {
+                    require(['./views/twocar/carInfoAU.vue'], resolve)
+                }
+            },
+
+            {
+                path: '/carInfo/u',
+                name: 'carInfoU',
+                meta: {
+                    father: '车辆信息',
+                    name: '车辆信息修改',
+                    fatherpath: 'carInfoMain'
+                },
+                component: function(resolve) {
+                    require(['./views/twocar/carInfoAU.vue'], resolve)
+                }
+            },
 
             //微信路由配置 -----start
             {

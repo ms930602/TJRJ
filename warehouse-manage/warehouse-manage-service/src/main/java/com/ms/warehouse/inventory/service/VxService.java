@@ -140,7 +140,7 @@ public class VxService implements IVxService{
 									promotersData,
 									MHCname,"500","1",
 									queryById.getRedpackContent(),"提成红包","谢谢您的推广!",ip,filePath);
-							vxBuyInfoEntity.setReMoney(new BigDecimal(5));
+							vxBuyInfoEntity.setReMoney(new BigDecimal(500));
 							vxBuyInfoEntity.setShareMoney(new BigDecimal(priceA));
 						} catch (Exception e) {
 							e.printStackTrace();
