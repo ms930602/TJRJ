@@ -134,10 +134,10 @@ public class InfoToService  extends BaseService {
         String nonce_str = strReq;
 
         //商品描述
-        String body = "活动商品";
+        String body = "ActivityGoods";
 
         //附加数据
-        String attach = "基本商品信息";
+        String attach = "ActivityGoodsInfo";
 
         //商户订单号
         String out_trade_no = orderNo;
@@ -191,13 +191,15 @@ public class InfoToService  extends BaseService {
         	SAXReader saxReader = new SAXReader();
             Document document;
             try {
-                document = saxReader.read(new ByteArrayInputStream(doPostXml.getBytes()));
-                Map map = ParseXMLUtils.Dom2Map(document);
-                
-                if("FAIL".equals(map.get("return_code"))){
-                	return new BaseRespVO(99, "统一支付接口订单出错A!");
-                }
-                prepay_id = map.get("prepay_id") + "";
+            	if(doPostXml != null && !"".equals(doPostXml.trim())){
+            		document = saxReader.read(new ByteArrayInputStream(doPostXml.getBytes()));
+            		Map map = ParseXMLUtils.Dom2Map(document);
+            		
+            		if("FAIL".equals(map.get("return_code"))){
+            			return new BaseRespVO(99, "统一支付接口订单出错A!");
+            		}
+            		prepay_id = map.get("prepay_id") + "";
+            	}
             } catch (DocumentException e) {
                 e.printStackTrace();
             }

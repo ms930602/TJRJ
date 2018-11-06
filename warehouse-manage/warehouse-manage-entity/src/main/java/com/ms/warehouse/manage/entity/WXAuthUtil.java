@@ -128,7 +128,7 @@ public class WXAuthUtil {
 			
 			System.out.println("executing request" + httpPost.getRequestLine());
 			//请求的xml需转码为iso8859-1编码，否则易出现签名错误或红包上的文字显示有误
-			StringEntity reqEntity = new StringEntity(new String(xml.getBytes(), "ISO8859-1"));
+			StringEntity reqEntity = new StringEntity(new String(xml.getBytes(), "UTF-8"));
 			// 设置类型
 		
 			httpPost.setEntity(reqEntity);

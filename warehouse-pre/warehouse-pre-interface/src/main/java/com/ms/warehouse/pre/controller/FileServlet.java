@@ -7,6 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.hutool.setting.dialect.Props;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +28,9 @@ public class FileServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
 //        ResourceBundle resource = ResourceBundle.getBundle("application");
-        String path = "F:\\data\\" + request.getParameter("path");
+		Props PathProps = new Props("pathConf.properties");
+		String fileRoot=PathProps.getProperty("file.upload.path");
+        String path = fileRoot + request.getParameter("path");
         String name = request.getParameter("fileName");
 
         Path source = Paths.get(path);
