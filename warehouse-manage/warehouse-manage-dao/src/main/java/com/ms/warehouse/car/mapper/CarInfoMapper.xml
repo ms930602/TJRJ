@@ -25,6 +25,7 @@
 		<result property="remark" jdbcType="LONGVARCHAR" column="f_remark"/>
 		<result property="status" jdbcType="CHAR" column="f_status"/>
 		<result property="topImg" jdbcType="VARCHAR" column="f_top_img"/>
+		<result property="topImgStr" jdbcType="VARCHAR" column="c_top_img_str"/>
 		<result property="imgs" jdbcType="VARCHAR" column="f_imgs"/>
 		<result property="transactionStatu" jdbcType="CHAR" column="f_transaction_statu"/>
 		<result property="offerStatue" jdbcType="CHAR" column="f_offer_statue"/>
@@ -379,8 +380,15 @@
 	
 	<!-- 按对象查询 -->
 	<select id="queryByEntity" parameterType="com.ms.warehouse.car.entity.CarInfoEntity" resultMap="BaseResultMap">
-		SELECT <include refid="BaseColumnList" />
-		<include refid="queryFrom" /> t
+		SELECT 
+		t.f_id,t.f_title,t.f_price,t.f_consult_price,t.f_new_price,t.f_show_price,
+		t.f_showflag,t.f_end_time,t.f_address,t.f_transfer_num,t.f_transfer_price_state,
+		t.f_mileage,t.f_upbk_time,t.f_dw,t.f_pl,t.f_bk_citiy,t.f_xqbz,t.f_remark,t.f_status,t.f_top_img,
+		t.f_imgs,t.f_transaction_statu,t.f_offer_statue,t.f_brand,t.f_type,t.f_pk_id,t.f_str_a,t.f_str_b,
+		t.f_int_a,t.f_int_b,b.`f_file_path` AS c_top_img_str
+		FROM `t_car_info` t 
+		LEFT JOIN t_base_uploadfilerecode b ON t.`f_top_img` = b.`f_id`
+		
 		<include refid="where" />
 	</select>
 	

@@ -77,6 +77,8 @@ public class CarInfoEntity extends BaseEntity {
 	/** 头图片. */
 	private String topImg;
 	
+	private String topImgStr;
+	
 	/** 图片 id 以逗号隔开. */
 	private String imgs;
 	
@@ -107,9 +109,15 @@ public class CarInfoEntity extends BaseEntity {
 	/** 扩展字段4. */
 	private Long intB;
 	
-	
+    public String getTopImgStr() {
+		return topImgStr;
+	}
 
-    /** set 主键. */
+	public void setTopImgStr(String topImgStr) {
+		this.topImgStr = topImgStr;
+	}
+
+	/** set 主键. */
 	public void setId(Long id) {
 		this.id = id;
 	}

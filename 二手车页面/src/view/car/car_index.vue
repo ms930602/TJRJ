@@ -19,17 +19,12 @@
 		<yd-slider class='index_slider' autoplay="3000">
 			<yd-slider-item>
 				<a >
-					<img src="../../assets/img/title.png">
+					<img src="../../assets/img/hf1.jpg">
 				</a>
 			</yd-slider-item>
 			<yd-slider-item>
-				<a href="http://www.ydcss.com">
-					<img src="http://static.ydcss.com/uploads/ydui/2.jpg">
-				</a>
-			</yd-slider-item>
-			<yd-slider-item>
-				<a href="http://www.ydcss.com">
-					<img src="http://static.ydcss.com/uploads/ydui/3.jpg">
+				<a >
+					<img src="../../assets/img/hf2.jpg">
 				</a>
 			</yd-slider-item>
 		</yd-slider>
