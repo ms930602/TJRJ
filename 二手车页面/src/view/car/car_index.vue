@@ -2,7 +2,7 @@
 
 	<div id='carIndex'>
 		<div class="index_bg">
-			<span id="numSpan">12,183,666</span>&nbsp;&nbsp;位家庭已使用买车服务
+			<span id="numSpan">12,183,666</span>&nbsp;&nbsp;位已使用买车服务
 		</div>
 		<div class="index_nav">
 			<div class="nav_list">
@@ -37,7 +37,7 @@
 		</div>
 		<div class="car_list_f">
 			<div ref='carList' class="car_list">
-				<div ref='carListChildren' v-for='item in carCXList' class="list_children">
+				<div ref='carListChildren' @click='goCarXq(item.id)' v-for='item in carCXList' class="list_children">
 					<div class="c_top">
 						<img class="c_img" :src="$root.config.img_url+item.topImgStr" alt="" />
 						<div class="c_time">距结束:{{item.endTime|haveDate}}</div>

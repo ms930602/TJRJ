@@ -243,6 +243,7 @@ export default {
   mixins: [mixin],
   data() {
     return {
+			toPage:null,
       transferPriceStateOption:[
         {key:'0',value:'不含'},
         {key:'1',value:'包含'},
@@ -278,6 +279,7 @@ export default {
         transactionStatu:'1',
         showPrice:null,
 				xqbz:'国V',
+				strA:'',
 				firstPrice:3.86,
         newPrice:null,
         consultPrice:null,
@@ -328,6 +330,7 @@ export default {
   },
   mounted() {
     var id = this.$route.query.id;
+		this.toPage = this.$route.query.pageNum
     if (id) {
       this.form.id = id;
       this.searchObject();
@@ -416,7 +419,11 @@ export default {
       }
     },
     cancel() {
-      this.$router.push({ path: "/carInfoMain" });
+			if(this.toPage){
+				this.$router.push({ path: "/consultationMain",query:{pageNum:this.toPage} });
+			}else{
+				this.$router.push({ path: "/carInfoMain" });
+			}
     },
     save() {
       var detailImageIds = '';

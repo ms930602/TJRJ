@@ -1,5 +1,7 @@
 package com.ms.warehouse.car.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,7 @@ public class ConsultationService extends BaseService {
 	 * @return
 	 */
 	public Object create(ConsultationEntity consultation) throws CenterException {
+		consultation.setCreatetime(new Date());
 		consultationBo.createForValidate(consultation);
 		return consultation;
 	}

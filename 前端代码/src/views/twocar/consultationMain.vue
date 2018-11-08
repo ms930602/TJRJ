@@ -26,7 +26,9 @@
 		    </el-table-column>
 			<el-table-column prop="carTitle" label="咨询汽车">
 		    	<template slot-scope="scope">
-		    			<span>{{scope.row.carTitle}}</span>
+						<iconBtn iconClass="el-icon-search" v-if="scope.row.carId"
+						content="查看" @click="searchToCar(scope.row.carId)"></iconBtn>
+						<span>{{scope.row.carTitle}}</span>
 		      	</template>
 		    </el-table-column>
 		    <el-table-column prop="context" label="咨询内容">
@@ -80,10 +82,13 @@
 				searchForm: {
 					title: ''
 				},
-				dataList: []
+				dataList: [],
 			}
 		},
         mounted() {
+			var toPage = this.$route.query.pageNum;
+			if(toPage && toPage > 0)
+				this.pageNum = this.$route.query.pageNum
             this._searchDic('CAR_CSN_STATUS')
 			.then((function(d) {
 				this.statusOption = this._dicKey(d)
@@ -91,6 +96,11 @@
 			}).bind(this))
 		},
 		methods: {
+			searchToCar(carId){
+				if(carId){
+					this.$router.push({path:"/carInfo/u",query:{id:carId,pageNum:this.pageNum}});
+				}
+			},
 			add(){
 				this.modalType = 'add'
                 this.modalShow = true

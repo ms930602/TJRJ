@@ -30,7 +30,22 @@
 			</yd-slider>
 			<div class="xq_page ">{{sliderPage}}/{{carInfo.detailImgObj.length}}</div>
 		</div>
-		
+		<div class="xq_center_info">
+			<p>
+			<span style="">30.94</span><span>万</span>
+			<span>低价出售</span>
+			<span>
+				<span>3</span>时
+				<span>52</span>分
+				<span>14</span>秒
+			</span>
+			</p>
+			<p>
+				<span>1132人关注</span>
+				<i class="">!</i>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span>留下电话&nbsp;&nbsp;立即享</span>
+			</p>
+		</div>
 		<div class="content">
 			<div class="car_name">{{carInfo.title}}</div>
 			<div class="car_bq">
@@ -237,10 +252,13 @@
 				}
 				if(this.isPhone){
 					this.$root.ajax({
-						name:'carTo/queryById',
-						type:'get',
+						name:'carTo/saveConsu',
 						params:{
-							id:id
+							phone:this.phoneNum,
+							status:0,
+							carId:this.carInfo.id,
+							context:'我要砍价',
+							carTitle:this.carInfo.title
 						},
 					}).then((d)=>{
 						if(d.state == 0){
@@ -306,6 +324,11 @@
 </script>
 
 <style lang='scss'>
+	.xq_center_info{
+		margin-left: -3px;
+		width: 108%;
+		background: url(../../assets/img/cvvd.png);
+	}
 	.car_money_aa{
 		color: #999;
 		font-size: 10px;
@@ -410,6 +433,7 @@
 				padding: .18rem .2rem;
 				font-size: .26rem;
 				color: #FF3D15;
+				text-align: center;
 				span{
 					font-size: .28rem;
 					font-weight: 600;
