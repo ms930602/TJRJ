@@ -79,6 +79,8 @@ public class CarInfoForm extends CarInfoEntity{
 		this.setIntA(temp.getIntA());
 		/** 扩展字段4. */
 		this.setIntB(temp.getIntB());
+		this.setFirstPrice(temp.getFirstPrice());
+		this.setCreatetime(temp.getCreatetime());
 	}
 
 	public BaseUploadfilerecodeEntity getTopImgObj() {

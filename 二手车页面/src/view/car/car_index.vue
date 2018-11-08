@@ -37,15 +37,15 @@
 		</div>
 		<div class="car_list_f">
 			<div ref='carList' class="car_list">
-				<div ref='carListChildren' v-for='i in 5' class="list_children">
+				<div ref='carListChildren' v-for='item in carCXList' class="list_children">
 					<div class="c_top">
-						<img class="c_img" src="" alt="" />
-						<div class="c_time">距离结束:02天00时33分</div>
+						<img class="c_img" :src="$root.config.img_url+item.topImgStr" alt="" />
+						<div class="c_time">距结束:{{item.endTime|haveDate}}</div>
 					</div>
-					<div class="c_name">本田本田本田本田本田本田</div>
+					<div class="c_name">{{item.title}}</div>
 					<div class="c_money">
-						<span class="c_n_money">18.88万</span>
-						<span class="c_j_money">已降4.09万</span>
+						<span class="c_n_money">{{item.price}}万</span>
+						<span class="c_j_money">已降{{(item.showPrice * 100 - item.price * 100)/100}}万</span>
 					</div>
 				</div>
 			</div>
@@ -84,15 +84,15 @@
 		</div>
 		<div class="other_like_title">你可能还喜欢</div>
 		<div class="other_like">
-			<div class="like_list" @click='goCarXq(item)' v-for='item in 5'>
-				<img src="" class="list_img" alt="" />
+			<div class="like_list" @click='goCarXq(item.id)' v-for='item in carList'>
+				<img :src="$root.config.img_url+item.topImgStr" class="list_img" alt="" />
 				<div class="list_right">
-					<div class="list_name">车子名字车子名字车子名字车子名字车子名字车子名字车子名字</div>
-					<div class="list_badge">地址&nbsp;/&nbsp;0.1万公里&nbsp;/&nbsp;2018年&nbsp;/&nbsp;商家</div>
+					<div class="list_name">{{item.title}}</div>
+					<div class="list_badge">{{item.address}}&nbsp;/&nbsp;{{item.mileage}}万公里&nbsp;/&nbsp;{{item.upbkTime?item.upbkTime.split(' ')[0].split('-')[0]:''}}年&nbsp;/&nbsp;商家</div>
 					<div class="list_bottom">
-						<strong>20.8万</strong>
+						<strong>{{item.showPrice}}万</strong>
 						<span class="list_b_1">准新车</span>
-						<span class="list_b_1">0过户</span>
+						<span class="list_b_1">{{item.transferNum}}过户</span>
 						<span class="list_b_2">质保</span>
 					</div>
 				</div>
@@ -113,7 +113,27 @@
 		},
 		data() {
 			return {
+				carList:[],
+				carCXList:[],
+			}
+		},
+		filters:{
+			haveDate(time){
+				let carDate = time.replace(/-/g,'/');
+				carDate =  new Date(carDate);
+				let date = new Date();
+				let currentTime = parseInt(date.getTime() / 1000);
+				let carTime = parseInt(carDate.getTime() / 1000);
+				//game.create_time是从后台获取的时间，单位是秒
+				if(carTime < currentTime) return '活动已结束!';
+				let residualTime =  carTime - currentTime ;
+				//这是剩余的所有秒数（规定时间过期时间－（本机距离1970年1月1日00:00:00的秒数－后台的创建时间））
 
+				let day = parseInt(residualTime / (24 * 3600)); //剩余天数
+				let hour = parseInt((residualTime) % (24 * 3600) / 3600); //剩余小时
+				let minute = parseInt((residualTime) % 3600 / 60); //剩余分钟
+
+				return `${day}天${hour}小时${minute}分`;
 			}
 		},
 		created() {
@@ -126,9 +146,42 @@
 
 		},
 		mounted() {
-
+			this.queryCarInfo();
+			this.queryCarInfoCX();
 		},
 		methods: {
+			queryCarInfo(type){
+				var searchPatam = {
+					offerStatue:0,
+					pageNum:1,
+					pageSize:20,
+					orderField:'f_end_time'
+				};
+				this.$root.ajax({
+					name:'carTo/queryInfo',
+					params:searchPatam,
+				}).then((d)=>{
+					if(d.state == 0){
+						this.carList = d.aaData;
+					}
+				})
+			},
+			queryCarInfoCX(type){
+				var searchPatam = {
+					offerStatue:1,
+					pageNum:1,
+					pageSize:10,
+					orderField:'f_end_time'
+				};
+				this.$root.ajax({
+					name:'carTo/queryInfo',
+					params:searchPatam,
+				}).then((d)=>{
+					if(d.state == 0){
+						this.carCXList = d.aaData;
+					}
+				})
+			},
 			goCarBuy() {
 				this.$router.push({
 					name: 'car_discover'
@@ -193,11 +246,11 @@
 						.c_img {
 							width: 3rem;
 							height: 2rem;
-							background: red;
 						}
 						.c_time {
 							text-align: center;
 							color: white;
+							font-weight: bold;
 							position: absolute;
 							bottom: 0;
 							left: 0;
@@ -234,6 +287,7 @@
 		.index_title {
 			padding: .4rem .25rem;
 			display: flex;
+			color:#585151;
 			justify-content: space-between;
 			align-items: center;
 			.title_left {
@@ -253,6 +307,7 @@
 		.fkzl {
 			padding: .1rem .1rem;
 			display: flex;
+			color:#585151;
 			margin: 0 0 .3rem .15rem;
 			overflow: auto;
 			&::-webkit-scrollbar {
@@ -293,7 +348,6 @@
 				.list_img {
 					width: 2rem;
 					height: 1.5rem;
-					background: red;
 					margin-right: .25rem;
 					flex-grow: 0;
 				}

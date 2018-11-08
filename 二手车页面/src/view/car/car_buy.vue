@@ -33,6 +33,7 @@
 				</select>
 			</div>
 		</div>
+		<!-- <img :src="$root.config.img_url" alt=""> -->
 			
 		<!--<yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">-->
 			<div class="other_like">

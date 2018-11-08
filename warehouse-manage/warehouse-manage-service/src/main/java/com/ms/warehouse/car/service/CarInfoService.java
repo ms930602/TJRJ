@@ -47,7 +47,7 @@ public class CarInfoService extends BaseService {
 	 * @param reqVO
 	 * @return
 	 */
-	public Object queryById(@Param("id") Long id) throws CenterException {
+	public Object queryById(@Param("id") Long id) throws CenterException{
 		CarInfoEntity entity = carInfoBo.queryById(id);
 		if(entity == null) return null;
 		CarInfoForm carInfoForm = new CarInfoForm(entity);

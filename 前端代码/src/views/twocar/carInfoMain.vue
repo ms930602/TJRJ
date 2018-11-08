@@ -20,7 +20,12 @@
 		<!-- 表格 -->
 		<elemTable :dataList="dataList" :currentPage='pageNum' :pageSize="pageSize" :pageTotal="pageTotal" :loading="dataLoading" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange" @selectionChange="selectionChange">
 			<el-table-column type="selection" width="55"></el-table-column>
-		    <el-table-column prop="title" label="标题" width="400">
+		    <el-table-column prop="title" label="" >
+		    	<template slot-scope="scope">
+		    		<img :src="fileURL + scope.row.topImgStr" alt="" width="100px">
+		    		</template>
+		    </el-table-column>
+				<el-table-column prop="title" label="标题" width="400">
 		    	<template slot-scope="scope">
 		    		<toolTip :content="scope.row.title">
 		    			<span>{{scope.row.title}}</span>
@@ -37,32 +42,32 @@
 		    			<span>{{scope.row.consultPrice}}</span>
 			    </template>
 		    </el-table-column>
-		    <el-table-column prop="newPrice" label="新车价位">
-		    	<template slot-scope="scope">
-		    			<span>{{scope.row.newPrice}}万</span>
-		      	</template>
-		    </el-table-column>
             <el-table-column prop="showPrice" label="显示价格">
 		    	<template slot-scope="scope">
 		    			<span>{{scope.row.showPrice}}万</span>
 		      	</template>
 		    </el-table-column>
+		    <el-table-column prop="strA" label="联系电话">
+		    	<template slot-scope="scope">
+		    			<span>{{scope.row.strA}}</span>
+		      	</template>
+		    </el-table-column>
 			<el-table-column prop="endTime" label="截止日期">
 		    	<template slot-scope="scope">
-		    			<span>{{scope.row.endTime}}</span>
+		    			<span>{{scope.row.endTime?scope.row.endTime.split(" ")[0]:''}}</span>
 			    </template>
 		    </el-table-column>
+				<el-table-column prop="offerStatue" label="是否特价">
+						<template slot-scope="scope">
+<tagItem :type="scope.row.offerStatue == 1 ? 'success' : 'danger'" :text="_dicValue(scope.row.offerStatue, offerStatueOption)"></tagItem>								
+						</template>
+					</el-table-column>
 		    <el-table-column prop="transactionStatu" label="是否上架">
 		    	<template slot-scope="scope">
 <tagItem :type="scope.row.transactionStatu == 1 ? 'success' : 'danger'" :text="_dicValue(scope.row.transactionStatu, transactionStatuOption)"></tagItem>
 			    </template>
 		    </el-table-column>
-		    <el-table-column prop="status" label="状态">
-		    	<template slot-scope="scope">
-<tagItem :type="scope.row.status == 0 ? 'success' : 'danger'" :text="_dicValue(scope.row.status, activitiStatusOption)"></tagItem>
-			    </template>
-		    </el-table-column>
-		    <el-table-column label="操作">
+		    <el-table-column label="操作" width="160">
 		    	<template slot-scope="scope">
 		    		<el-button-group>
 		    			<iconBtn iconClass="el-icon-edit" type="primary" content="编辑" @click="modalEdit(scope.row)"></iconBtn>
@@ -95,15 +100,21 @@
 			      {key:'0',value:'下架'},
 			      {key:'1',value:'上架'},
 			    ],
-				dataList: []
+				offerStatueOption:[
+			      {key:'0',value:'非特价'},
+			      {key:'1',value:'特价'},
+				],
+				dataList: [],
+				fileURL:'',
 			}
 		},
         mounted() {
+					this.fileURL = FILE_PATH;
             this._searchDic('VX_ACTI_STATUS')
-			.then((function(d) {
-				this.activitiStatusOption = this._dicKey(d)
-				this.searchTable();
-			}).bind(this))
+						.then((function(d) {
+							this.activitiStatusOption = this._dicKey(d)
+							this.searchTable();
+						}).bind(this))
 		},
 		methods: {
 			add(){

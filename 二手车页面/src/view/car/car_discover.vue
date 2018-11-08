@@ -2,12 +2,12 @@
 	<yd-layout id='carDiscover'>
 		
     <yd-search slot='top' v-model="value1" class='buy_search_input' :on-submit="submitHandler"></yd-search>
-    <img class="header_img" src="" alt="" />
+    <img class="header_img" src="../../assets/img/tjc.jpg" alt="" style="width: 100%;"/>
     	
     <!--<yd-search :result="result" fullpage v-model="value1" :item-click="itemClickHandler" :on-submit="submitHandler"></yd-search>-->
 		<div class="car_search_bq">
 			<div class="car_search_bq_1">
-				<span>赛选条件：</span>
+				<span>筛选条件：</span>
 				<select  class="car_search_bq_1_1" name="" :value="1" id="">
 				<option value="1">智能排序</option>
 				<option value="2">价格最低</option>

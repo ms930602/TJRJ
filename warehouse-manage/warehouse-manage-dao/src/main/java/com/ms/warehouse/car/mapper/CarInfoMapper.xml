@@ -36,13 +36,14 @@
 		<result property="strB" jdbcType="VARCHAR" column="f_str_b"/>
 		<result property="intA" jdbcType="INTEGER" column="f_int_a"/>
 		<result property="intB" jdbcType="INTEGER" column="f_int_b"/>
+		<result property="createtime" jdbcType="TIMESTAMP" column="f_createtime"/>
+		<result property="firstPrice" jdbcType="DECIMAL" column="f_first_price"/>
 	</resultMap>
 	
 	<!-- 查询列 -->
 	<sql id="BaseColumnList">
-		f_id,f_title,f_price,f_consult_price,f_new_price,f_show_price,f_showflag,f_end_time,f_address,f_transfer_num,f_transfer_price_state,f_mileage,f_upbk_time,f_dw,f_pl,f_bk_citiy,f_xqbz,f_remark,f_status,f_top_img,f_imgs,f_transaction_statu,f_offer_statue,f_brand,f_type,f_pk_id,f_str_a,f_str_b,f_int_a,f_int_b
+		f_id,f_title,f_price,f_consult_price,f_new_price,f_show_price,f_showflag,f_end_time,f_address,f_transfer_num,f_transfer_price_state,f_mileage,f_upbk_time,f_dw,f_pl,f_bk_citiy,f_xqbz,f_remark,f_status,f_top_img,f_imgs,f_transaction_statu,f_offer_statue,f_brand,f_type,f_pk_id,f_str_a,f_str_b,f_int_a,f_int_b,f_createtime,f_first_price
 	</sql>
-			
 	<!--创建记录 -->
 	<insert id="create" parameterType="com.ms.warehouse.car.entity.CarInfoEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO t_car_info
@@ -75,7 +76,9 @@
 			<if test="strA!=null">f_str_a,</if>
 			<if test="strB!=null">f_str_b,</if>
 			<if test="intA!=null">f_int_a,</if>
-			<if test="intB!=null">f_int_b</if>
+			<if test="intB!=null">f_int_b,</if>
+			<if test="createtime!=null">f_createtime,</if>
+			<if test="firstPrice!=null">f_first_price</if>
 		</trim>
 		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
 			<if test="title!=null">#{title,jdbcType=VARCHAR},</if>
@@ -106,7 +109,9 @@
 			<if test="strA!=null">#{strA,jdbcType=VARCHAR},</if>
 			<if test="strB!=null">#{strB,jdbcType=VARCHAR},</if>
 			<if test="intA!=null">#{intA,jdbcType=INTEGER},</if>
-			<if test="intB!=null">#{intB,jdbcType=INTEGER}</if>
+			<if test="intB!=null">#{intB,jdbcType=INTEGER},</if>
+			<if test="createtime!=null">#{createtime,jdbcType=TIMESTAMP},</if>
+			<if test="firstPrice!=null">#{firstPrice,jdbcType=DECIMAL}</if>
 		</trim>
 	</insert>
 
@@ -143,7 +148,9 @@
 					<if test="item.strA!=null">f_str_a,</if>
 					<if test="item.strB!=null">f_str_b,</if>
 					<if test="item.intA!=null">f_int_a,</if>
-					<if test="item.intB!=null">f_int_b</if>
+					<if test="item.intB!=null">f_int_b,</if>
+					<if test="item.createtime!=null">f_createtime,</if>
+					<if test="item.firstPrice!=null">f_first_price</if>
 			</trim>
 			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
 					<if test="item.title!=null">#{item.title,jdbcType=VARCHAR},</if>
@@ -174,7 +181,9 @@
 					<if test="item.strA!=null">#{item.strA,jdbcType=VARCHAR},</if>
 					<if test="item.strB!=null">#{item.strB,jdbcType=VARCHAR},</if>
 					<if test="item.intA!=null">#{item.intA,jdbcType=INTEGER},</if>
-					<if test="item.intB!=null">#{item.intB,jdbcType=INTEGER}</if>
+					<if test="item.intB!=null">#{item.intB,jdbcType=INTEGER},</if>
+					<if test="item.createtime!=null">#{item.createtime,jdbcType=TIMESTAMP},</if>
+					<if test="item.firstPrice!=null">#{item.firstPrice,jdbcType=DECIMAL}</if>
 			</trim>
 		</foreach>
 	</insert>
@@ -211,7 +220,9 @@
 			<if test="strA!=null">f_str_a = #{strA,jdbcType=VARCHAR},</if>
 			<if test="strB!=null">f_str_b = #{strB,jdbcType=VARCHAR},</if>
 			<if test="intA!=null">f_int_a = #{intA,jdbcType=INTEGER},</if>
-			<if test="intB!=null">f_int_b = #{intB,jdbcType=INTEGER}</if>
+			<if test="intB!=null">f_int_b = #{intB,jdbcType=INTEGER},</if>
+			<if test="createtime!=null">f_createtime = #{createtime,jdbcType=TIMESTAMP},</if>
+			<if test="firstPrice!=null">f_first_price = #{firstPrice,jdbcType=DECIMAL}</if>
 		</set>
 		<where> 
 			f_id  = #{id}
@@ -251,7 +262,9 @@
 				<if test="item.strA!=null">f_str_a = #{item.strA,jdbcType=VARCHAR},</if>
 				<if test="item.strB!=null">f_str_b = #{item.strB,jdbcType=VARCHAR},</if>
 				<if test="item.intA!=null">f_int_a = #{item.intA,jdbcType=INTEGER},</if>
-				<if test="item.intB!=null">f_int_b = #{item.intB,jdbcType=INTEGER}</if>
+				<if test="item.intB!=null">f_int_b = #{item.intB,jdbcType=INTEGER},</if>
+				<if test="item.createtime!=null">f_createtime = #{item.createtime,jdbcType=TIMESTAMP},</if>
+				<if test="item.firstPrice!=null">f_first_price = #{item.firstPrice,jdbcType=DECIMAL}</if>
 			</set>
 			<where> 
 				f_id  = #{item.id}
@@ -315,6 +328,8 @@
 			<if test="strB!=null and strB!=''">AND t.f_str_b = #{strB,jdbcType=VARCHAR}</if>
 			<if test="intA!=null">AND t.f_int_a = #{intA,jdbcType=INTEGER}</if>
 			<if test="intB!=null">AND t.f_int_b = #{intB,jdbcType=INTEGER}</if>
+			<if test="createtime!=null">AND t.f_createtime = #{createtime,jdbcType=TIMESTAMP}</if>
+			<if test="firstPrice!=null">AND t.f_first_price = #{firstPrice,jdbcType=DECIMAL}</if>
 		</where>
 	</sql>
 	
@@ -328,10 +343,18 @@
 			<if test="whereCondition!=null">
 				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
 				<if test="whereCondition.title!=null and whereCondition.title!=''">AND t.f_title like #{whereCondition.titleByLike,jdbcType=VARCHAR}</if>
-				<if test="whereCondition.price!=null">AND t.f_price = #{whereCondition.price,jdbcType=DECIMAL}</if>
+				<if test="whereCondition.searchType!=null">
+					<if test="whereCondition.searchType!=1">
+						AND t.showPrice &gt; #{minPrice,jdbcType=INTEGER}
+						AND t.showPrice &lt; #{maxPrice,jdbcType=INTEGER}
+				    </if>
+					<if test="whereCondition.searchType!=2">
+						AND t.f_price &gt; #{minPrice,jdbcType=INTEGER}
+						AND t.f_price &lt; #{maxPrice,jdbcType=INTEGER}
+				    </if>
+				</if>
 				<if test="whereCondition.consultPrice!=null and whereCondition.consultPrice!=''">AND t.f_consult_price like #{whereCondition.consultPriceByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.newPrice!=null">AND t.f_new_price = #{whereCondition.newPrice,jdbcType=DECIMAL}</if>
-				<if test="whereCondition.showPrice!=null">AND t.f_show_price = #{whereCondition.showPrice,jdbcType=DECIMAL}</if>
 				<if test="whereCondition.showflag!=null">AND t.f_showflag = #{whereCondition.showflag,jdbcType=INTEGER}</if>
 				<if test="whereCondition.endTime!=null">AND t.f_end_time = #{whereCondition.endTime,jdbcType=TIMESTAMP}</if>
 				<if test="whereCondition.address!=null and whereCondition.address!=''">AND t.f_address like #{whereCondition.addressByLike,jdbcType=VARCHAR}</if>
@@ -380,24 +403,22 @@
 	
 	<!-- 按对象查询 -->
 	<select id="queryByEntity" parameterType="com.ms.warehouse.car.entity.CarInfoEntity" resultMap="BaseResultMap">
-		SELECT 
-		t.f_id,t.f_title,t.f_price,t.f_consult_price,t.f_new_price,t.f_show_price,
-		t.f_showflag,t.f_end_time,t.f_address,t.f_transfer_num,t.f_transfer_price_state,
-		t.f_mileage,t.f_upbk_time,t.f_dw,t.f_pl,t.f_bk_citiy,t.f_xqbz,t.f_remark,t.f_status,t.f_top_img,
-		t.f_imgs,t.f_transaction_statu,t.f_offer_statue,t.f_brand,t.f_type,t.f_pk_id,t.f_str_a,t.f_str_b,
-		t.f_int_a,t.f_int_b,b.`f_file_path` AS c_top_img_str
-		FROM `t_car_info` t 
-		LEFT JOIN t_base_uploadfilerecode b ON t.`f_top_img` = b.`f_id`
-		
+		SELECT <include refid="BaseColumnList" />
+		<include refid="queryFrom" /> t
 		<include refid="where" />
 	</select>
 	
 	<!-- 分页查询 -->
 	<select id="queryByPage" parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO"
 		resultMap="BaseResultMap">
-		SELECT
-		<include refid="BaseColumnList" />
-		<include refid="queryFrom" /> t
+		SELECT 
+		t.f_id,t.f_title,t.f_price,t.f_consult_price,t.f_new_price,t.f_show_price,
+		t.f_showflag,t.f_end_time,t.f_address,t.f_transfer_num,t.f_transfer_price_state,
+		t.f_mileage,t.f_upbk_time,t.f_dw,t.f_pl,t.f_bk_citiy,t.f_xqbz,t.f_remark,t.f_status,t.f_top_img,
+		t.f_imgs,t.f_transaction_statu,t.f_offer_statue,t.f_brand,t.f_type,t.f_pk_id,t.f_str_a,t.f_str_b,
+		t.f_int_a,t.f_int_b,t.`f_createtime`,t.`f_first_price`,b.`f_file_path` AS c_top_img_str
+		FROM `t_car_info` t 
+		LEFT JOIN t_base_uploadfilerecode b ON t.`f_top_img` = b.`f_id`
 		<include refid="whereForLike" />
 		<choose>
 			<when test="orderField==null">

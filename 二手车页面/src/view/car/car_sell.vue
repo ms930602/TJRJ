@@ -1,7 +1,7 @@
 <template>
 	<yd-layout id='carSell'>
 		<div class="sell_header">
-			<img class="header_img" src="" alt="" />
+			<img class="header_img" src="../../assets/img/maititle.jpg" style="width: 100%;" alt="" />
 		</div>
 		<div class="sell_car">
 			<div class="popup_input popup_input_1">
@@ -23,23 +23,23 @@
 			</div>
 			<div class="lc_list_f">
 				<div class="lc_list">
-					<img class="list_img" src="" alt="" />
+					<img class="list_img" src="../../assets/img/mb.png" alt="" />
 					<p>在线登记</p>
 				</div>
 				<div class="lc_list">
-					<img class="list_img" src="" alt="" />
+					<img class="list_img" src="../../assets/img/md.png" alt="" />
 					<p>客服致电</p>
 				</div>
 				<div class="lc_list">
-					<img class="list_img" src="" alt="" />
+					<img class="list_img" src="../../assets/img/ma.png" alt="" />
 					<p>上门检测</p>
 				</div>
 				<div class="lc_list">
-					<img class="list_img" src="" alt="" />
+					<img class="list_img" src="../../assets/img/me.png" alt="" />
 					<p>最高报价</p>
 				</div>
 				<div class="lc_list">
-					<img class="list_img" src="" alt="" />
+					<img class="list_img" src="../../assets/img/mc.png" alt="" />
 					<p>交车打款</p>
 				</div>
 			</div>
@@ -54,25 +54,25 @@
 		<div class="fwjs">
 
 			<div class="fwjs_list">
-				<img class="list_img" src="" alt="" />
+				<img class="list_img" src="../../assets/img/cc1.png" alt="" />
 				<p class="p_1">买家多</p>
 				<p class="p_2">万千买家竞价</p>
 				<p class="p_3">高价胜出</p>
 			</div>
 			<div class="fwjs_list">
-				<img class="list_img" src="" alt="" />
+				<img class="list_img" src="../../assets/img/cc2.png" alt="" />
 				<p class="p_1">零费用</p>
 				<p class="p_2">从登记信息到成交</p>
 				<p class="p_3">全程0费用</p>
 			</div>
 			<div class="fwjs_list">
-				<img class="list_img" src="" alt="" />
+				<img class="list_img" src="../../assets/img/cc4.png" alt="" />
 				<p class="p_1">更安全</p>
 				<p class="p_2">专属1对1服务</p>
 				<p class="p_3">信息保安全</p>
 			</div>
 			<div class="fwjs_list">
-				<img class="list_img" src="" alt="" />
+				<img class="list_img" src="../../assets/img/cc3.png" alt="" />
 				<p class="p_1">成交快</p>
 				<p class="p_2">高效检测上拍</p>
 				<p class="p_3">快至一天售出</p>
@@ -87,19 +87,50 @@
 				</div>
 			</div>
 			<yd-accordion accordion>
-				<yd-accordion-item class='accordion_before' title="李白李白李白李白李白李白李白李白李白李白李白李白李白李白李白李白李白李白李白李白" open>
-					<div style="padding: .24rem;">
-						李白（701年－762年），字太白，号青莲居士，又号“谪仙人”，是唐代伟大的浪漫主义诗人，被后人誉为“诗仙”，与杜甫并称为“李杜”，为了与另两位诗人李商隐与杜牧即“小李杜”区别，杜甫与李白又合称“大李杜”。其人爽朗大方，爱饮酒作诗，喜交友。
+				<yd-accordion-item class='accordion_before' title="买车流程是什么？" open>
+					<div style="padding: .24rem;color:#5f5959;margin-left: 10px;">
+						<p>在报名页填写预约买车信息，或填写信息咨询我们；</p>
+						<p>客服会在24小时内致电邀约检测时间，由专门检测师免费上门为您检测爱车；</p>
+						<p>检测报告上传拍场，全国5万家经销商一同竞价；</p>
+						<p>双方确认价格后，在门店完成交易。</p>
 					</div>
 				</yd-accordion-item>
-				<yd-accordion-item class='accordion_before' title="杜甫">
-					<div style="padding: .24rem;">
-						杜甫（712年—770年），字子美，汉族，本襄阳人，后徙河南巩县。自号少陵野老，唐代伟大的现实主义诗人，与李白合称“李杜”。为了与另两位诗人李商隐与杜牧即“小李杜”区别，杜甫与李白又合称“大李杜”，杜甫也常被称为“老杜”。
+				<yd-accordion-item class='accordion_before' title="在门店交易要多久">
+					<div style="padding: .24rem;color:#5f5959;margin-left: 10px;">
+						<p>通常我们的成交手续会在120分钟内完成；</p>
 					</div>
 				</yd-accordion-item>
-				<yd-accordion-item class='accordion_before' title="王维">
-					<div style="padding: .24rem;">
-						王维（701年－761年，一说699年—761年），河东蒲州（今山西运城）人，祖籍山西祁县。唐朝著名诗人、画家，字摩诘，号摩诘居士。
+				<yd-accordion-item class='accordion_before' title="完成交易后,办理过户手续有哪些事项？">
+					<div style="padding: .24rem;color:#5f5959;margin-left: 10px;">
+						<p>在拿到退牌单（沪牌）或过户证明（外牌）后，将在4个工作日内完成客户押金的退还；</p>
+						<p>手续常规办理时限：收齐上家材料起；</p>
+						<p>上海：</p>
+						<p>沪大牌：6个工作日、沪C牌：10个工作日、外地牌：20个工作日内完成过户。</p>
+						<p>北京、天津：</p>
+						<p>本地牌：7个工作日、外地牌：15个工作日内完成过户。</p>
+						<p>广州、东莞、深圳、佛山：</p>
+						<p>本地牌、外地牌：20个工作日内完成过户。</p>
+						<p>成都、重庆、武汉、南京、苏州、杭州：</p>
+						<p>本地牌、外地牌：7个工作日内完成过户。</p>
+						<p style="color: red;">*以上时间均为工作日</p>
+					</div>
+				</yd-accordion-item>
+				<yd-accordion-item class='accordion_before' title="如果在门店未能如愿提交,后续会如何处理？">
+					<div style="padding: .24rem;color:#5f5959;margin-left: 10px;">
+						<p>如您今天最终未能如愿成交，我们建议您选择进行二次拍卖，已找到更加合理的价格出售。</p>
+					</div>
+				</yd-accordion-item>
+				<yd-accordion-item class='accordion_before' title="到店成交需要哪些材料？">
+					<div style="padding: .24rem;color:#5f5959;margin-left: 10px;">
+						<p>机动车行驶证</p>
+						<p>机动车登记证（产证）</p>
+						<p>车辆主钥匙、备用钥匙</p>
+						<p>车辆购置税完税证</p>
+						<p>交强险保单</p>
+						<p>车辆说明书</p>
+						<p>车主身份证明原件</p>
+						<p>车主银行卡复印件</p>
+						<p>保养手册</p>
 					</div>
 				</yd-accordion-item>
 			</yd-accordion>
@@ -123,6 +154,9 @@
 			return {
 				firstStart: false,
 				start: false,
+				form:{
+					
+				},
 				phoneNum: '',
 				phoneYzm: '',
 			}
@@ -138,12 +172,10 @@
 		},
 		mounted() {
 			this.$root.ajax({
-				name: 'inmarketdetail/updateStatusByMainId',
+				name: 'carTo/queryById',
+				type:'get',
 				params: {
-					id: 31,
-					statusId: 1,
-					inWeight: 33,
-					token: "45791d63-4602-4ef7-b0e2-999a6f803734",
+					id: 1
 				}
 			}).then(() => {
 

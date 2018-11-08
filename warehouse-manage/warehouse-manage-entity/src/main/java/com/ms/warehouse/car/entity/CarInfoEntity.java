@@ -8,7 +8,7 @@ import com.ms.warehouse.common.vo.TableName;
 /**
  * 
  * @author Ms
- * @Date 2018-11-05 16:19:25
+ * @Date 2018-11-08 15:10:24
  * @since 1.0
  */
 @TableName("t_car_info")
@@ -32,6 +32,9 @@ public class CarInfoEntity extends BaseEntity {
 	/** 新车价格. */
 	private java.math.BigDecimal newPrice;
 	
+	private Integer searchType;
+	private Integer minPrice;
+	private Integer maxPrice;
 	/** 显示价格. */
 	private java.math.BigDecimal showPrice;
 	
@@ -109,12 +112,42 @@ public class CarInfoEntity extends BaseEntity {
 	/** 扩展字段4. */
 	private Long intB;
 	
+	/** 创建日期. */
+	private java.util.Date createtime;
+	
+	/** 首付. */
+	private java.math.BigDecimal firstPrice;
+	
     public String getTopImgStr() {
 		return topImgStr;
 	}
 
 	public void setTopImgStr(String topImgStr) {
 		this.topImgStr = topImgStr;
+	}
+
+	public Integer getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(Integer searchType) {
+		this.searchType = searchType;
+	}
+
+	public Integer getMinPrice() {
+		return minPrice;
+	}
+
+	public void setMinPrice(Integer minPrice) {
+		this.minPrice = minPrice;
+	}
+
+	public Integer getMaxPrice() {
+		return maxPrice;
+	}
+
+	public void setMaxPrice(Integer maxPrice) {
+		this.maxPrice = maxPrice;
 	}
 
 	/** set 主键. */
@@ -596,6 +629,38 @@ public class CarInfoEntity extends BaseEntity {
 		return this.intB;
 	}
 	
+
+    /** set 创建日期. */
+	public void setCreatetime(java.util.Date createtime) {
+		this.createtime = createtime;
+	}
+	
+	/** get 创建日期. */
+	public java.util.Date getCreatetime() {
+		return this.createtime;
+	}
+	
+	@JsonIgnore
+	public java.util.Date getCreatetimeByLike() {
+		return this.createtime;
+	}
+	
+
+    /** set 首付. */
+	public void setFirstPrice(java.math.BigDecimal firstPrice) {
+		this.firstPrice = firstPrice;
+	}
+	
+	/** get 首付. */
+	public java.math.BigDecimal getFirstPrice() {
+		return this.firstPrice;
+	}
+	
+	@JsonIgnore
+	public java.math.BigDecimal getFirstPriceByLike() {
+		return this.firstPrice;
+	}
+	
     /** constructor */
 	public CarInfoEntity() {
 		super();
@@ -632,8 +697,10 @@ public class CarInfoEntity extends BaseEntity {
 	 * @param strB			扩展字段2
 	 * @param intA			扩展字段3
 	 * @param intB			扩展字段4
+	 * @param createtime			创建日期
+	 * @param firstPrice			首付
 	 */
-	public CarInfoEntity(String title,java.math.BigDecimal price,String consultPrice,java.math.BigDecimal newPrice,java.math.BigDecimal showPrice,Long showflag,java.util.Date endTime,String address,Long transferNum,String transferPriceState,String mileage,java.util.Date upbkTime,String dw,String pl,String bkCitiy,String xqbz,String remark,String status,String topImg,String imgs,String transactionStatu,String offerStatue,String brand,String type,Long pkId,String strA,String strB,Long intA,Long intB){
+	public CarInfoEntity(String title,java.math.BigDecimal price,String consultPrice,java.math.BigDecimal newPrice,java.math.BigDecimal showPrice,Long showflag,java.util.Date endTime,String address,Long transferNum,String transferPriceState,String mileage,java.util.Date upbkTime,String dw,String pl,String bkCitiy,String xqbz,String remark,String status,String topImg,String imgs,String transactionStatu,String offerStatue,String brand,String type,Long pkId,String strA,String strB,Long intA,Long intB,java.util.Date createtime,java.math.BigDecimal firstPrice){
 		this();
 		this.title = title;
 		this.price = price;
@@ -664,6 +731,8 @@ public class CarInfoEntity extends BaseEntity {
 		this.strB = strB;
 		this.intA = intA;
 		this.intB = intB;
+		this.createtime = createtime;
+		this.firstPrice = firstPrice;
 	}
 	
 	@Override
@@ -698,7 +767,9 @@ public class CarInfoEntity extends BaseEntity {
 			.append("StrA=").append(getStrA()).append(", ")
 			.append("StrB=").append(getStrB()).append(", ")
 			.append("IntA=").append(getIntA()).append(", ")
-			.append("IntB=").append(getIntB())
+			.append("IntB=").append(getIntB()).append(", ")
+			.append("Createtime=").append(getCreatetime()).append(", ")
+			.append("FirstPrice=").append(getFirstPrice())
 		.append("]").toString();
 	}
 	

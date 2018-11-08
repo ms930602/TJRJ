@@ -1,99 +1,104 @@
 <template>
 	<yd-layout id='carXq'>
+		<div class="xq_header_c"  slot='top'>
+			<div class="header_back" @click="$router.back()">
+				<img class="header_img" src="../../assets/img/listd_icon_right@2x.png" alt="">
+				<span>返回</span>
+			</div>
+			
+		</div>
 		<div class="xq_header">
+			
 			<yd-slider autoplay="3000" class='xq_slider' :show-pagination='false' :callback='callback'>
 				
-				<yd-slider-item  v-for='(item,index) in dataList' :key='item.src'>
-					<!--<a href="http://www.ydcss.com">
-						<img :src="item.src">
-					</a>-->
+				<yd-slider-item  v-for='(item,index) in carInfo.detailImgObj' :key='item.filePath'>
 					<yd-lightbox>
-						<template  v-for='(i,n) in dataList'>
-							<yd-lightbox-img v-show='index==n' :key='i.src' :src="i.src" :original="i.original"></yd-lightbox-img>
+						<template  v-for='(i,n) in carInfo.detailImgObj'>
+							<yd-lightbox-img v-show='index==n' :key='i.filePath' :src="$root.config.img_url+i.filePath" :original="$root.config.img_url+i.filePath"></yd-lightbox-img>
 							<yd-lightbox-txt>
-								<h1 slot="top">双瞳如小窗 佳景观历历</h1>
+								<h1 slot="top">{{carInfo.title}}</h1>
 								<div slot="content">
-									<p>相机：灵犀相通，妙不可言。</p>
-									<p>设计：美不胜收，爱不释手。</p>
-									<p>体验：强劲性能，持久动力。</p>
-									<p>mCharge 4.0：上善若水，不止于快。</p>
-									<p>mTouch：指尖轻点，安全随行。</p>
+									<p>表显里程：{{carInfo.mileage}}。</p>
+									<p>上牌日期：{{carInfo.upbkTime?carInfo.upbkTime.split(" ")[0]:''}}。</p>
+									<p>档位/排量：{{carInfo.dw}}/{{carInfo.pl}}。</p>
+									<p>拍照归属：{{carInfo.bkCitiy}}。</p>
 								</div>
 							</yd-lightbox-txt>
 						</template>
 					</yd-lightbox>
 				</yd-slider-item>
 			</yd-slider>
-			<div class="xq_page ">{{sliderPage}}/{{dataList.length}}</div>
+			<div class="xq_page ">{{sliderPage}}/{{carInfo.detailImgObj.length}}</div>
 		</div>
 		
 		<div class="content">
-			<div class="car_name">凯美瑞</div>
+			<div class="car_name">{{carInfo.title}}</div>
 			<div class="car_bq">
-				<span>美国</span>
-				<span>0次过户</span>
+				<span>{{carInfo.address}}</span>
+				<span>{{carInfo.transferNum}}次过户</span>
 			</div>
 			<div class="car_money">
 				<div class="car_money_left">
-					<span>10.2万</span>(不包含过户费)
+					<span>{{carInfo.showPrice}}&nbsp;<span style="font-size: 10px;">万</span></span>
+					<span v-if="carInfo.transferPriceState==0" class="car_money_aa">(不包含过户费)</span>
+					<span else  class="car_money_aa">(包含过户费)</span>
 				</div>
 				<div  class="car_money_right" @click='wykjClick'>询问底价</div>
 			</div>
 			<div class="new_car_money">
-				<div class="new_car_money_1">新车含税价：<span>19.52万</span></div>
-				<div class="new_car_money_2">参考价：10.27-12.05万</div>
+				<div class="new_car_money_1">新车含税价：<span>{{carInfo.newPrice}}万</span></div>
+				<div class="new_car_money_2">参考价：{{carInfo.consultPrice}}</div>
 			</div>
-			<div class="fqfa"><span>分期方案：</span>首付：3.06万</div>
+			<div class="fqfa"><span>分期方案：</span>首付：{{carInfo.firstPrice}}万</div>
 			
 		</div>
 		<div class="content_2">
 			<div class="clxx_title">车辆信息</div>
 			<div class="clxx">
 				<div class="clxx_list">
-					<div>6万公里</div>
+					<div>{{carInfo.mileage}}万公里</div>
 					<p>表显里程</p>
 				</div>
 				<div class="clxx_list">
-					<div>2013-9</div>
+					<div>{{carInfo.upbkTime?carInfo.upbkTime.split(" ")[0]:''}}</div>
 					<p>上牌日期</p>
 				</div>
 				<div class="clxx_list">
-					<div>自动/2L</div>
+					<div>{{carInfo.dw}}/{{carInfo.pl}}</div>
 					<p>表显里程</p>
 				</div>
 				<div class="clxx_list">
-					<div>0次</div>
-					<p>表显里程</p>
+					<div>{{carInfo.transferNum}}次</div>
+					<p>过户次数</p>
 				</div>
 				<div class="clxx_list">
-					<div>新疆乌鲁木齐</div>
+					<div>{{carInfo.bkCitiy}}</div>
 					<p>牌照归属</p>
 				</div>
 				<div class="clxx_list">
-					<div>欧IV</div>
-					<p>查询准迁地</p>
+					<div>{{carInfo.xqbz}}</div>
+					<p>迁地标准</p>
 				</div>
 			</div>
 			<div class="clxx_title" style="margin-bottom: .2rem;">车辆实拍</div>
 		</div>
 		
-		<yd-lightbox :num="dataList.length" class='list_img'>
-			<yd-lightbox-img v-for="item in dataList" :key='item.src' :src="item.src" :original="item.original"></yd-lightbox-img>
+		<yd-lightbox :num="carInfo.detailImgObj.length" class='list_img'>
+			<yd-lightbox-img v-for="item in carInfo.detailImgObj" :key='item.filePath' :src="$root.config.img_url+item.filePath" :original="$root.config.img_url+item.filePath"></yd-lightbox-img>
 
 			<yd-lightbox-txt>
-				<h1 slot="top">双瞳如小窗 佳景观历历</h1>
+				<h1 slot="top">{{carInfo.title}}</h1>
 				<div slot="content">
-					<p>相机：灵犀相通，妙不可言。</p>
-					<p>设计：美不胜收，爱不释手。</p>
-					<p>体验：强劲性能，持久动力。</p>
-					<p>mCharge 4.0：上善若水，不止于快。</p>
-					<p>mTouch：指尖轻点，安全随行。</p>
+					<p>表显里程：{{carInfo.mileage}}。</p>
+					<p>上牌日期：{{carInfo.upbkTime?carInfo.upbkTime.split(" ")[0]:''}}。</p>
+					<p>档位/排量：{{carInfo.dw}}/{{carInfo.pl}}。</p>
+					<p>拍照归属：{{carInfo.bkCitiy}}。</p>
 				</div>
 			</yd-lightbox-txt>
 		</yd-lightbox>
 		<div class='xq_footer' slot='bottom'>
 			<div @click='wykjClick'>我要砍价</div>
-			<a href="tel:15281037642"><yd-icon name="phone2" size='.32rem'></yd-icon>&nbsp;资讯车况</a>
+			<a :href="'tel:'+carInfo.strA"><yd-icon name="phone2" size='.32rem'></yd-icon>&nbsp;资讯车况</a>
 		</div>
 		<yd-popup v-model="bottomShow" position="bottom" height="50%">
 			<div class="popup_input popup_input_1">
@@ -135,27 +140,47 @@
 		},
 		data() {
 			return {
+				carInfo:{
+					address:"",
+					bkCitiy:"",
+					brand:"",
+					consultPrice:"",
+					detailImgObj:[],
+					dw:"",
+					endTime:"",
+					id:null,
+					imgs:"",
+					intA:null,
+					intB:null,
+					maxPrice:null,
+					mileage:"",
+					minPrice:null,
+					newPrice:0,
+					offerStatue:"",
+					pkId:null,
+					pl:"",
+					price:0,
+					firstPrice:0,
+					remark:"",
+					searchType:null,
+					showPrice:0,
+					showflag:0,
+					status:"",
+					strA:null,
+					strB:null,
+					title:"",
+					topImg:"",
+					topImgObj:{},
+					topImgStr:null,
+					transactionStatu:"",
+					transferNum:0,
+					transferPriceState:"",
+					type:"",
+					upbkTime:"",
+					xqbz:null
+				},
 				start: false,
 				sliderPage: 1,
-				dataList: [{
-						src: 'http://static.ydcss.com/uploads/lightbox/meizu_s1.jpg'
-					},
-					{
-						src: 'http://static.ydcss.com/uploads/lightbox/meizu_s2.jpg'
-					},
-					{
-						src: 'http://static.ydcss.com/uploads/lightbox/meizu_s3.jpg'
-					},
-					{
-						src: 'http://static.ydcss.com/uploads/lightbox/meizu_s4.jpg'
-					},
-					{
-						src: 'http://static.ydcss.com/uploads/lightbox/meizu_s5.jpg'
-					},
-					{
-						src: 'http://static.ydcss.com/uploads/lightbox/meizu_s6.jpg'
-					}
-				],
 				firstStart:true,
 				isPhone:false,
 				bottomShow:false,
@@ -173,11 +198,35 @@
 
 		},
 		mounted() {
-			console.log(this.$route)
-			console.log(this.$route.query.id)
-			console.log(this.$route.params)
+			var id = this.$route.query.id;
+			if(id){
+				this.queryCar(id);
+			}else{
+				this.$dialog.toast({
+					mes: '页面错误！',
+					timeout: 1500
+				});
+			}
 		},
 		methods: {
+			queryCar(id){
+				this.$root.ajax({
+					name:'carTo/queryById',
+					type:'get',
+					params:{
+						id:id
+					},
+				}).then((d)=>{
+					if(d.state == 0){
+						Object.assign(this.carInfo, d.aaData);
+						if(this.carInfo.detailImgObj && this.carInfo.detailImgObj.length>0
+							&& this.carInfo.topImgObj)
+						{
+							this.carInfo.detailImgObj.unshift({filePath:this.carInfo.topImgObj.filePath,fileName:this.carInfo.topImgObj.fileName})
+						}
+					}
+				})
+			},
 			submit(){
 				if(!this.phoneNum){
 					this.$dialog.toast({
@@ -187,7 +236,25 @@
 	                return
 				}
 				if(this.isPhone){
-					this.$root.ajax({})
+					this.$root.ajax({
+						name:'carTo/queryById',
+						type:'get',
+						params:{
+							id:id
+						},
+					}).then((d)=>{
+						if(d.state == 0){
+							this.$dialog.toast({
+								mes: '成功预约，客服马上与您联系！',
+								timeout: 1500
+							});
+						}else{
+							this.$dialog.toast({
+								mes: '预约失败，后台错误！',
+								timeout: 1500
+							});
+						}
+					})
 				}else{
 					this.$dialog.toast({
 	                    mes: '请输入正确的手机号码！',
@@ -239,7 +306,29 @@
 </script>
 
 <style lang='scss'>
+	.car_money_aa{
+		color: #999;
+		font-size: 10px;
+		margin-left: 20px;
+	}
+	.yd-lightbox-head>a{
+		color:white;
+	}
 	#carXq {
+		.xq_header_c{
+			font-size: .25rem;
+			padding: .25rem .2rem .25rem .2rem;
+			.header_img{
+				transform: rotate(180deg);
+				width:.14rem;
+				height: .24rem;
+				margin-right: .15rem;
+			}
+			.header_back{
+				display: flex;
+				align-items: center;
+			}
+		}
 		.xq_header {
 			position: relative;
 			.xq_page {
@@ -252,6 +341,7 @@
 				text-align: right;
 				padding: 0 .3rem .1rem 0;
 			}
+			
 		}
 		.xq_slider{
 			img{
@@ -344,7 +434,7 @@
 						font-size: .26rem;
 					}
 					p{
-						color: #D6D6D6;
+						color: #888;
 						margin: .05rem 0 .2rem 0;
 					}
 				}

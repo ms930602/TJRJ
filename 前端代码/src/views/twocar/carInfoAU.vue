@@ -2,7 +2,11 @@
 	<div>
 		<el-card class="box-card" style="margin-right: 5px; margin-left: 5px;" shadow="hover">
   <div slot="header" class="clearfix" >
-    <span>上架信息</span>
+    <span>上架信息</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span style="color: red;font-size: 8px;">
+			提示：特价商品差价为【显示价】 减去 【最低价】 以【最低价】出售，非特价用户只看得到【显示价】
+			特价商品会使用截止日期
+		</span>
   </div>
 	<div>
   <el-form class="modal-form" :inline="true" :model="form" :rules="rules" ref="form" label-width="120px">
@@ -37,15 +41,26 @@
       </el-row>
 
       <el-row >
+				<el-col :span="6">
+					<el-form-item label="首付价格(万)"  prop='firstPrice'>
+							<inputItem :value.sync="form.firstPrice" type="number" maxlength="9"></inputItem>
+					</el-form-item>
+				</el-col>
+				<el-col :span="6">
+							<el-form-item label="是否上架"  prop='transactionStatu'>
+									<selectInput :value.sync="form.transactionStatu">
+											<el-option
+													v-for="item in transactionStatuOption"
+													:key="item.key"
+													:label="item.value"
+													:value="item.key">
+												</el-option>
+										</selectInput>
+							</el-form-item>
+				</el-col>
         <el-col :span="6">
               <el-form-item label="关注数"  prop='showflag'>
                    <inputItem :value.sync="form.showflag" type="number" maxlength="9"></inputItem>
-              </el-form-item>
-        </el-col>
-        <el-col :span="6">
-              <el-form-item label="截止日期"  prop='endTime'>
-                   <dateEditorDaterange :dateValue.sync="form.endTime" 
-                   :showPickerOptions="false" type="date" style="width: 200px;"></dateEditorDaterange>
               </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -55,6 +70,11 @@
         </el-col>
       </el-row>
       <el-row>
+				<el-col :span="6">
+							<el-form-item label="限迁标准"  prop='xqbz'>
+									<inputItem :value.sync="form.xqbz"></inputItem>
+							</el-form-item>
+				</el-col>
         <el-col :span="6">
               <el-form-item label="是否特价"  prop='offerStatue'>
                    <selectInput :value.sync="form.offerStatue">
@@ -67,18 +87,12 @@
                     </selectInput>
               </el-form-item>
         </el-col>
-        <el-col :span="6">
-              <el-form-item label="是否上架"  prop='transactionStatu'>
-                   <selectInput :value.sync="form.transactionStatu">
-                      <el-option
-                          v-for="item in transactionStatuOption"
-                          :key="item.key"
-                          :label="item.value"
-                          :value="item.key">
-                        </el-option>
-                    </selectInput>
-              </el-form-item>
-        </el-col>
+				<el-col :span="6">
+							<el-form-item label="截止日期"  prop='endTime'>
+									<dateEditorDaterange :dateValue.sync="form.endTime" 
+									:showPickerOptions="false" type="date" style="width: 200px;"></dateEditorDaterange>
+							</el-form-item>
+				</el-col>
         <el-col :span="6">
               <el-form-item label="状态"  prop='status'>
                    <selectInput :value.sync="form.status">
@@ -177,6 +191,11 @@
                    <inputItem :value.sync="form.mileage" type="number" maxlength="9"></inputItem>
               </el-form-item>
         </el-col>
+				<el-col :span="6">
+							<el-form-item label="咨询电话"  prop='strA'>
+									<inputItem :value.sync="form.strA" maxlength="20"></inputItem>
+							</el-form-item>
+				</el-col>
         
       </el-row>
       <el-row>
@@ -258,6 +277,8 @@ export default {
         status:'0',
         transactionStatu:'1',
         showPrice:null,
+				xqbz:'国V',
+				firstPrice:3.86,
         newPrice:null,
         consultPrice:null,
         showflag:null,
@@ -298,6 +319,9 @@ export default {
         pl: [this._ruleRequired("排量")],
         bkCitiy: [this._ruleRequired("拍照归属")],
         brand: [this._ruleRequired("品牌")],
+				strA: [this._ruleRequired("咨询电话")],
+				xqbz: [this._ruleRequired("限迁标准")],
+				
         
       }
     };
@@ -433,6 +457,9 @@ export default {
                 bkCitiy:this.form.bkCitiy,
                 brand:this.form.brand,
                 topImg:this.form.topImg,
+								xqbz:this.form.xqbz,
+								firstPrice:this.form.firstPrice,
+								strA:this.form.strA,
                 imgs:detailImageIds
               }
               if(this.form.id && this.form.id > 0) {
