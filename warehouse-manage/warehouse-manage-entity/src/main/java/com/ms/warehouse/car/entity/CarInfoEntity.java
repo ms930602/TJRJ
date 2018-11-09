@@ -35,6 +35,8 @@ public class CarInfoEntity extends BaseEntity {
 	private Integer searchType;
 	private Integer minPrice;
 	private Integer maxPrice;
+	//0智能 1 价格 2 最新 3 里程
+	private Integer filter;
 	/** 显示价格. */
 	private java.math.BigDecimal showPrice;
 	
@@ -54,7 +56,7 @@ public class CarInfoEntity extends BaseEntity {
 	private String transferPriceState;
 	
 	/** 表显里程万里为单位. */
-	private String mileage;
+	private java.math.BigDecimal mileage;
 	
 	/** 上牌日期. */
 	private java.util.Date upbkTime;
@@ -124,6 +126,14 @@ public class CarInfoEntity extends BaseEntity {
 
 	public void setTopImgStr(String topImgStr) {
 		this.topImgStr = topImgStr;
+	}
+
+	public Integer getFilter() {
+		return filter;
+	}
+
+	public void setFilter(Integer filter) {
+		this.filter = filter;
 	}
 
 	public Integer getSearchType() {
@@ -327,12 +337,12 @@ public class CarInfoEntity extends BaseEntity {
 	
 
     /** set 表显里程万里为单位. */
-	public void setMileage(String mileage) {
+	public void setMileage(java.math.BigDecimal mileage) {
 		this.mileage = mileage;
 	}
 	
 	/** get 表显里程万里为单位. */
-	public String getMileage() {
+	public java.math.BigDecimal getMileage() {
 		return this.mileage;
 	}
 	
@@ -700,7 +710,7 @@ public class CarInfoEntity extends BaseEntity {
 	 * @param createtime			创建日期
 	 * @param firstPrice			首付
 	 */
-	public CarInfoEntity(String title,java.math.BigDecimal price,String consultPrice,java.math.BigDecimal newPrice,java.math.BigDecimal showPrice,Long showflag,java.util.Date endTime,String address,Long transferNum,String transferPriceState,String mileage,java.util.Date upbkTime,String dw,String pl,String bkCitiy,String xqbz,String remark,String status,String topImg,String imgs,String transactionStatu,String offerStatue,String brand,String type,Long pkId,String strA,String strB,Long intA,Long intB,java.util.Date createtime,java.math.BigDecimal firstPrice){
+	public CarInfoEntity(String title,java.math.BigDecimal price,String consultPrice,java.math.BigDecimal newPrice,java.math.BigDecimal showPrice,Long showflag,java.util.Date endTime,String address,Long transferNum,String transferPriceState,java.math.BigDecimal mileage,java.util.Date upbkTime,String dw,String pl,String bkCitiy,String xqbz,String remark,String status,String topImg,String imgs,String transactionStatu,String offerStatue,String brand,String type,Long pkId,String strA,String strB,Long intA,Long intB,java.util.Date createtime,java.math.BigDecimal firstPrice){
 		this();
 		this.title = title;
 		this.price = price;

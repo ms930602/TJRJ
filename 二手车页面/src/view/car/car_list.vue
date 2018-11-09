@@ -6,20 +6,22 @@
 			<div></div>
 		</div>
 		<div @click="openCarLit()" class="popup_list">
-			<div style="padding: .2rem;font-weight: bold;font-size: .28rem;">不限品牌</div>
+			<div style="padding: .2rem;font-weight: bold;font-size: .28rem;">
+				不限品牌&nbsp;&nbsp;<span style="border: 1px solid;color: #b2b2b2;font-size: 10px;">点击</span> </div>
+			<hr/>
 		</div>
-		<div @click="openCarLit(item)" v-for='item in 30' class="popup_list">
-			<img src="" alt="" />
-			<p>奥迪{{item}}</p>
+		<div @click="openCarLit(item)" v-for='item in brandList' class="popup_list">
+			<img :src="$root.config.img_url+item.imgStr" alt="" />
+			<p>{{item.name}}</p>
 		</div>
 		<yd-popup v-model="carListShow" width='70%' class='p_2_z' position="right">
 			<div class="p_2_title">
 				<div>全部车系</div>
 				<span @click='closeAll'>关闭</span>
 			</div>
-			<div class="p_2_name">奥迪汽车</div>
-			<div @click="closeTwoPopup" v-for='item in 15' class="popup_2_list">
-				<p>奥迪{{item}}</p>
+			<div class="p_2_name">{{selectItem.name}}</div>
+			<div @click="closeTwoPopup(item)" v-for='item in brandTypeList' class="popup_2_list">
+				<p>{{item}}</p>
 				<div>车型</div>
 			</div>
 		</yd-popup>
@@ -35,11 +37,12 @@
 		data() {
 			return {
 				carListShow: false,
+				brandList:[],
+				brandTypeList:[],
+				selectItem:{},
 			}
 		},
 		created() {
-			console.log(this.$route.query.url)
-			console.log(this.$route.params.url)
 			if(!this.$route.params.url){
 				this.$router.back()
 			}
@@ -51,9 +54,21 @@
 
 		},
 		mounted() {
-
+			this.loadBrand();
 		},
 		methods: {
+			loadBrand(){
+				this.$root.ajax({
+					name:'carTo/queryBrand',
+					params:{
+						pageNum:1
+					},
+				}).then((d)=>{
+					if(d.state == 0){
+						this.brandList = d.aaData;
+					}
+				})
+			},
 			closeAll(){
 				this.carListShow=false
 			},
@@ -61,20 +76,32 @@
 				this.$router.push({
 					name:this.$route.params.url,
 					query:{
-						carId1:'1',
-						carId2:'2'
+						carId1:this.selectItem.name,
+						carId2:item
 					}
 				})
 			},
 			//
 			openCarLit(item){
 				if(item){
-					this.carListShow=true
+					this.selectItem = item;
+					this.$root.ajax({
+						name:'carTo/queryBrandType',
+						params:{
+							type:item.name
+						},
+					}).then((d)=>{
+						if(d.state == 0){
+							this.brandTypeList = d.aaData;
+							this.carListShow=true
+						}
+					})
 				}else{
 					this.$router.push({
 						name:this.$route.params.url,
 						query:{
-							
+							carId1:'无限制',
+							carId2:'无限制'
 						}
 					});
 				}

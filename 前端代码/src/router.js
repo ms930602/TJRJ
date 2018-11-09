@@ -176,7 +176,18 @@ export default [{
                 component: function(resolve) {
                     require(['./views/twocar/carInfoAU.vue'], resolve)
                 }
+            },{
+                path: '/carBrandMain',
+                name: 'carBrandMain',
+                meta: {
+                    father: '品牌管理',
+                    name: '品牌管理',
+                },
+                component: function(resolve) {
+                    require(['./views/twocar/carBrandMain.vue'], resolve)
+                }
             },
+			
 
             //微信路由配置 -----start
             {

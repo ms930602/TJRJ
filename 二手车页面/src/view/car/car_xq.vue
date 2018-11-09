@@ -21,7 +21,7 @@
 									<p>表显里程：{{carInfo.mileage}}。</p>
 									<p>上牌日期：{{carInfo.upbkTime?carInfo.upbkTime.split(" ")[0]:''}}。</p>
 									<p>档位/排量：{{carInfo.dw}}/{{carInfo.pl}}。</p>
-									<p>拍照归属：{{carInfo.bkCitiy}}。</p>
+									<p>牌照归属：{{carInfo.bkCitiy}}。</p>
 								</div>
 							</yd-lightbox-txt>
 						</template>
@@ -30,20 +30,23 @@
 			</yd-slider>
 			<div class="xq_page ">{{sliderPage}}/{{carInfo.detailImgObj.length}}</div>
 		</div>
-		<div class="xq_center_info">
-			<p>
-			<span style="">30.94</span><span>万</span>
-			<span>低价出售</span>
-			<span>
-				<span>3</span>时
-				<span>52</span>分
-				<span>14</span>秒
+		<div class="xq_center_info" v-if="carInfo.offerStatue==1">
+			<div style="height:10px"></div>
+			<p >&nbsp;&nbsp;&nbsp;&nbsp;
+			<span style="font-size: .40rem;">
+				{{carInfo.price}}
+			</span>
+			<span>万</span>
+			<span style="border: 1px solid;">低价出售</span>
+			<span style="float: right;margin-right: 10px;" class="time_div">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<yd-countdown :time="carInfo.endTime"></yd-countdown>
 			</span>
 			</p>
-			<p>
-				<span>1132人关注</span>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span>{{carInfo.showflag}}人关注</span>
 				<i class="">!</i>&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>留下电话&nbsp;&nbsp;立即享</span>
+				<span style="float: right;margin-right: 10px;" @click='wykjClick'>★留下电话&nbsp;&nbsp;立即享★</span>
 			</p>
 		</div>
 		<div class="content">
@@ -54,7 +57,7 @@
 			</div>
 			<div class="car_money">
 				<div class="car_money_left">
-					<span>{{carInfo.showPrice}}&nbsp;<span style="font-size: 10px;">万</span></span>
+					<span :class="carInfo.offerStatue==1?'removeCl':''">{{carInfo.showPrice}}&nbsp;</span><span style="font-size: 10px;">万</span>
 					<span v-if="carInfo.transferPriceState==0" class="car_money_aa">(不包含过户费)</span>
 					<span else  class="car_money_aa">(包含过户费)</span>
 				</div>
@@ -107,7 +110,7 @@
 					<p>表显里程：{{carInfo.mileage}}。</p>
 					<p>上牌日期：{{carInfo.upbkTime?carInfo.upbkTime.split(" ")[0]:''}}。</p>
 					<p>档位/排量：{{carInfo.dw}}/{{carInfo.pl}}。</p>
-					<p>拍照归属：{{carInfo.bkCitiy}}。</p>
+					<p>牌照归属：{{carInfo.bkCitiy}}。</p>
 				</div>
 			</yd-lightbox-txt>
 		</yd-lightbox>
@@ -142,6 +145,7 @@
 	import { Slider, SliderItem } from 'vue-ydui/dist/lib.rem/slider';
 	import {SendCode} from 'vue-ydui/dist/lib.rem/sendcode';
 	import { LightBox, LightBoxImg, LightBoxTxt } from 'vue-ydui/dist/lib.rem/lightbox';
+	import {CountDown} from 'vue-ydui/dist/lib.rem/countdown';
 	export default {
 		components: {
 			[Slider.name]: Slider,
@@ -152,6 +156,7 @@
 			[LightBoxTxt.name]: LightBoxTxt,
 			[Popup.name]: Popup,
 			[SendCode.name]: SendCode,
+			[CountDown.name]: CountDown,
 		},
 		data() {
 			return {
@@ -201,6 +206,7 @@
 				bottomShow:false,
 				phoneNum:'',
 				phoneYzm:'',
+				
 			}
 		},
 		created() {
@@ -324,9 +330,14 @@
 </script>
 
 <style lang='scss'>
+	.removeCl{
+		text-decoration: line-through;
+	}
 	.xq_center_info{
 		margin-left: -3px;
-		width: 108%;
+		font-weight: bold;
+		height: 60px;
+		color: white;
 		background: url(../../assets/img/cvvd.png);
 	}
 	.car_money_aa{

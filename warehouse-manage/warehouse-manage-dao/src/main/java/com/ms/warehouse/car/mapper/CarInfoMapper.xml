@@ -16,7 +16,7 @@
 		<result property="address" jdbcType="VARCHAR" column="f_address"/>
 		<result property="transferNum" jdbcType="INTEGER" column="f_transfer_num"/>
 		<result property="transferPriceState" jdbcType="CHAR" column="f_transfer_price_state"/>
-		<result property="mileage" jdbcType="VARCHAR" column="f_mileage"/>
+		<result property="mileage" jdbcType="DECIMAL" column="f_mileage"/>
 		<result property="upbkTime" jdbcType="TIMESTAMP" column="f_upbk_time"/>
 		<result property="dw" jdbcType="VARCHAR" column="f_dw"/>
 		<result property="pl" jdbcType="VARCHAR" column="f_pl"/>
@@ -202,7 +202,7 @@
 			<if test="address!=null">f_address = #{address,jdbcType=VARCHAR},</if>
 			<if test="transferNum!=null">f_transfer_num = #{transferNum,jdbcType=INTEGER},</if>
 			<if test="transferPriceState!=null">f_transfer_price_state = #{transferPriceState,jdbcType=CHAR},</if>
-			<if test="mileage!=null">f_mileage = #{mileage,jdbcType=VARCHAR},</if>
+			<if test="mileage!=null">f_mileage = #{mileage,jdbcType=DECIMAL},</if>
 			<if test="upbkTime!=null">f_upbk_time = #{upbkTime,jdbcType=TIMESTAMP},</if>
 			<if test="dw!=null">f_dw = #{dw,jdbcType=VARCHAR},</if>
 			<if test="pl!=null">f_pl = #{pl,jdbcType=VARCHAR},</if>
@@ -244,7 +244,7 @@
 				<if test="item.address!=null">f_address = #{item.address,jdbcType=VARCHAR},</if>
 				<if test="item.transferNum!=null">f_transfer_num = #{item.transferNum,jdbcType=INTEGER},</if>
 				<if test="item.transferPriceState!=null">f_transfer_price_state = #{item.transferPriceState,jdbcType=CHAR},</if>
-				<if test="item.mileage!=null">f_mileage = #{item.mileage,jdbcType=VARCHAR},</if>
+				<if test="item.mileage!=null">f_mileage = #{item.mileage,jdbcType=DECIMAL},</if>
 				<if test="item.upbkTime!=null">f_upbk_time = #{item.upbkTime,jdbcType=TIMESTAMP},</if>
 				<if test="item.dw!=null">f_dw = #{item.dw,jdbcType=VARCHAR},</if>
 				<if test="item.pl!=null">f_pl = #{item.pl,jdbcType=VARCHAR},</if>
@@ -309,7 +309,7 @@
 			<if test="address!=null and address!=''">AND t.f_address = #{address,jdbcType=VARCHAR}</if>
 			<if test="transferNum!=null">AND t.f_transfer_num = #{transferNum,jdbcType=INTEGER}</if>
 			<if test="transferPriceState!=null">AND t.f_transfer_price_state = #{transferPriceState,jdbcType=CHAR}</if>
-			<if test="mileage!=null and mileage!=''">AND t.f_mileage = #{mileage,jdbcType=VARCHAR}</if>
+			<if test="mileage!=null">AND t.f_mileage = #{mileage,jdbcType=DECIMAL}</if>
 			<if test="upbkTime!=null">AND t.f_upbk_time = #{upbkTime,jdbcType=TIMESTAMP}</if>
 			<if test="dw!=null and dw!=''">AND t.f_dw = #{dw,jdbcType=VARCHAR}</if>
 			<if test="pl!=null and pl!=''">AND t.f_pl = #{pl,jdbcType=VARCHAR}</if>
@@ -344,14 +344,16 @@
 				<if test="whereCondition.id!=null">AND t.f_id = #{whereCondition.id,jdbcType=INTEGER}</if>
 				<if test="whereCondition.title!=null and whereCondition.title!=''">AND t.f_title like #{whereCondition.titleByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.searchType!=null">
-					<if test="whereCondition.searchType!=1">
-						AND t.showPrice &gt; #{minPrice,jdbcType=INTEGER}
-						AND t.showPrice &lt; #{maxPrice,jdbcType=INTEGER}
-				    </if>
-					<if test="whereCondition.searchType!=2">
-						AND t.f_price &gt; #{minPrice,jdbcType=INTEGER}
-						AND t.f_price &lt; #{maxPrice,jdbcType=INTEGER}
-				    </if>
+					<if test="whereCondition.minPrice!=null and whereCondition.maxPrice!=null">
+						<if test="whereCondition.searchType==1">
+							    AND t.f_show_price &gt; #{whereCondition.minPrice,jdbcType=INTEGER}
+								AND t.f_show_price &lt; #{whereCondition.maxPrice,jdbcType=INTEGER}
+					    </if>
+						<if test="whereCondition.searchType==2">
+							AND t.f_price &gt; #{whereCondition.minPrice,jdbcType=INTEGER}
+							AND t.f_price &lt; #{whereCondition.maxPrice,jdbcType=INTEGER}
+						</if>
+					</if>
 				</if>
 				<if test="whereCondition.consultPrice!=null and whereCondition.consultPrice!=''">AND t.f_consult_price like #{whereCondition.consultPriceByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.newPrice!=null">AND t.f_new_price = #{whereCondition.newPrice,jdbcType=DECIMAL}</if>
@@ -360,7 +362,7 @@
 				<if test="whereCondition.address!=null and whereCondition.address!=''">AND t.f_address like #{whereCondition.addressByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.transferNum!=null">AND t.f_transfer_num = #{whereCondition.transferNum,jdbcType=INTEGER}</if>
 				<if test="whereCondition.transferPriceState!=null">AND t.f_transfer_price_state = #{whereCondition.transferPriceState,jdbcType=CHAR}</if>
-				<if test="whereCondition.mileage!=null and whereCondition.mileage!=''">AND t.f_mileage like #{whereCondition.mileageByLike,jdbcType=VARCHAR}</if>
+				<if test="whereCondition.mileage!=null">AND t.f_mileage = #{whereCondition.mileage,jdbcType=DECIMAL}</if>
 				<if test="whereCondition.upbkTime!=null">AND t.f_upbk_time = #{whereCondition.upbkTime,jdbcType=TIMESTAMP}</if>
 				<if test="whereCondition.dw!=null and whereCondition.dw!=''">AND t.f_dw like #{whereCondition.dwByLike,jdbcType=VARCHAR}</if>
 				<if test="whereCondition.pl!=null and whereCondition.pl!=''">AND t.f_pl like #{whereCondition.plByLike,jdbcType=VARCHAR}</if>
@@ -385,7 +387,6 @@
 						t.f_title like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_consult_price like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_address like #{keyWordByLike,jdbcType=VARCHAR}  OR 
-						t.f_mileage like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_dw like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_pl like #{keyWordByLike,jdbcType=VARCHAR}  OR 
 						t.f_bk_citiy like #{keyWordByLike,jdbcType=VARCHAR}  OR 
@@ -437,6 +438,12 @@
 		SELECT COUNT(1)  
 		<include refid="queryFrom" /> t
 		<include refid="whereForLike" />
+	</select>
+	
+	<select id="queryBrandType" resultType="string"
+	parameterType="string">
+		SELECT f_type
+		FROM t_car_info WHERE f_brand = #{name}
 	</select>
 </mapper>
 

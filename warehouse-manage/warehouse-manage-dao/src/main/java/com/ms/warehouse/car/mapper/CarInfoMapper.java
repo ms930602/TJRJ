@@ -5,6 +5,8 @@ import com.ms.warehouse.common.mapper.IBaseMapper;
 
 import com.ms.warehouse.car.entity.CarInfoEntity;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CarInfoMapper extends IBaseMapper<CarInfoEntity>{
+
+	List<String> queryBrandType(String type);
 	
 }

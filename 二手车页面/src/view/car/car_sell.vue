@@ -159,6 +159,7 @@
 				},
 				phoneNum: '',
 				phoneYzm: '',
+				submitPhoneNum:''
 			}
 		},
 		created() {
@@ -171,18 +172,17 @@
 
 		},
 		mounted() {
-			this.$root.ajax({
-				name: 'carTo/queryById',
-				type:'get',
-				params: {
-					id: 1
-				}
-			}).then(() => {
-
-			})
 		},
 		methods: {
 			submit() {
+				if(this.submitPhoneNum == this.phoneNum){
+					this.$dialog.toast({
+						mes: '申请成功，客服马上与您联系!！',
+						timeout: 1500
+					});
+					return;
+				}
+				this.submitPhoneNum = this.phoneNum
 				if(!this.phoneNum) {
 					this.$dialog.toast({
 						mes: '请输入手机号码！',
@@ -191,7 +191,26 @@
 					return
 				}
 				if(this.isPhone) {
-					this.$root.ajax({})
+					this.$root.ajax({
+						name:'carTo/saveConsu',
+						params:{
+							phone:this.phoneNum,
+							status:0,
+							context:'我要卖车'
+						},
+					}).then((d)=>{
+						if(d.state == 0){
+							this.$dialog.toast({
+								mes: '申请成功，客服马上与您联系！',
+								timeout: 1500
+							});
+						}else{
+							this.$dialog.toast({
+								mes: '申请失败，后台错误！',
+								timeout: 1500
+							});
+						}
+					})
 				} else {
 					this.$dialog.toast({
 						mes: '请输入正确的手机号码！',

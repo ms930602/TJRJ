@@ -87,8 +87,10 @@
 		},
         mounted() {
 			var toPage = this.$route.query.pageNum;
-			if(toPage && toPage > 0)
-				this.pageNum = this.$route.query.pageNum
+			if(toPage && toPage > 0){
+				this.pageNum =parseInt( this.$route.query.pageNum)
+			}
+				
             this._searchDic('CAR_CSN_STATUS')
 			.then((function(d) {
 				this.statusOption = this._dicKey(d)
@@ -115,7 +117,8 @@
 					pageNum: this.pageNum,
 					pageSize: this.pageSize
 				})
-				return this._ajax({url: this.rootAPI, name: 'consultation/list', param: this.searchForm, loading: 'dataLoading'}).then(this.renderTable)
+				return this._ajax({url: this.rootAPI, name: 'consultation/list', param: this.searchForm, loading: 'dataLoading'})
+				.then(this.renderTable)
 			},
 			reset() {
 				Object.assign(this.searchForm, {

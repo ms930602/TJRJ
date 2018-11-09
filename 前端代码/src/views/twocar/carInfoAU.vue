@@ -10,6 +10,25 @@
   </div>
 	<div>
   <el-form class="modal-form" :inline="true" :model="form" :rules="rules" ref="form" label-width="120px">
+			<el-row>
+				<el-col :span="6">
+							<el-form-item label="品牌"  prop='intA' >
+										<selectInput :value.sync="form.intA" @selectChange="selectChange">
+											<el-option
+													v-for="item in brandOption"
+													:key="item.key"
+													:label="item.value"
+													:value="item.key">
+												</el-option>
+										</selectInput>
+							</el-form-item>
+				</el-col>
+				<el-col :span="6">
+							<el-form-item label="车型"  prop='type'>
+									<inputItem :value.sync="form.type"></inputItem>
+							</el-form-item>
+				</el-col>
+			</el-row>
       <el-row>
         <el-col :span="24">
              <el-form-item label="车辆标题"  prop='title'>
@@ -143,16 +162,16 @@
                 </selectInput>
             </el-form-item>
         </el-col>
-        <el-col :span="6">
-              <el-form-item label="品牌"  prop='brand'>
-                    <inputItem :value.sync="form.brand"></inputItem>
-              </el-form-item>
-        </el-col>
-        <el-col :span="6">
-              <el-form-item label="车型"  prop='type'>
-                   <inputItem :value.sync="form.type"></inputItem>
-              </el-form-item>
-        </el-col>
+				<el-col :span="6">
+							<el-form-item label="表显里程(万里)"  prop='mileage'>
+									 <inputItem :value.sync="form.mileage" type="number" maxlength="9"></inputItem>
+							</el-form-item>
+				</el-col>
+				<el-col :span="6">
+							<el-form-item label="咨询电话"  prop='strA'>
+									<inputItem :value.sync="form.strA" maxlength="20"></inputItem>
+							</el-form-item>
+				</el-col>
       </el-row>
       <el-row >
         <el-col :span="6">
@@ -183,20 +202,6 @@
                    <inputItem :value.sync="form.bkCitiy"></inputItem>
               </el-form-item>
         </el-col>
-      </el-row>
-      <el-row >
-
-        <el-col :span="6">
-              <el-form-item label="表显里程(万里)"  prop='mileage'>
-                   <inputItem :value.sync="form.mileage" type="number" maxlength="9"></inputItem>
-              </el-form-item>
-        </el-col>
-				<el-col :span="6">
-							<el-form-item label="咨询电话"  prop='strA'>
-									<inputItem :value.sync="form.strA" maxlength="20"></inputItem>
-							</el-form-item>
-				</el-col>
-        
       </el-row>
       <el-row>
         <el-col :span="24">
@@ -264,6 +269,7 @@ export default {
         {key:'0',value:'正常'},
         {key:'1',value:'锁定'},
       ],
+			brandOption:[],
       uploadURL:'',
       uploadDetailURL:'',
       imageUrl:'',
@@ -280,6 +286,7 @@ export default {
         showPrice:null,
 				xqbz:'国V',
 				strA:'',
+				intA:1,
 				firstPrice:3.86,
         newPrice:null,
         consultPrice:null,
@@ -331,6 +338,7 @@ export default {
   mounted() {
     var id = this.$route.query.id;
 		this.toPage = this.$route.query.pageNum
+		this.loadBrand();
     if (id) {
       this.form.id = id;
       this.searchObject();
@@ -339,6 +347,24 @@ export default {
     }
   },
   methods: {
+		selectChange(vId){
+			let obj = {};
+      obj = this.brandOption.find((item)=>{//这里的userList就是上面遍历的数据源
+          return item.key === vId;//筛选出匹配数据
+      });
+			this.form.brand = obj.value;
+		},
+		loadBrand(){
+			var _this = this;
+			let method = 'carBrand/list';
+			this._ajax({url: this.rootAPI + method }).then((function(d) {
+				if(d.aaData && d.aaData.length > 0){
+						d.aaData.forEach(temp=>{
+							_this.brandOption.push({key:temp.id,value:temp.name})
+						});
+				}
+			}).bind(this))
+		},
     detailSuccess(res, file){
       var imgYU = ROOT_API+'servlet/getfile?path=' + res.aaData.path;
       this.detailImg.push({loadId: res.aaData.loadId,url: imgYU})
@@ -463,6 +489,7 @@ export default {
                 pl:this.form.pl,
                 bkCitiy:this.form.bkCitiy,
                 brand:this.form.brand,
+								intA:this.form.intA,
                 topImg:this.form.topImg,
 								xqbz:this.form.xqbz,
 								firstPrice:this.form.firstPrice,

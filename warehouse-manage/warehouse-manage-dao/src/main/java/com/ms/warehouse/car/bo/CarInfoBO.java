@@ -1,6 +1,8 @@
 
 package com.ms.warehouse.car.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,4 +29,8 @@ public class CarInfoBO extends AbstractBaseBO<CarInfoEntity> {
     protected IBaseMapper<CarInfoEntity> getMapper() {
 	    return carInfoMapper;
     }
+
+	public List<String> queryBrandType(String type) {
+		return carInfoMapper.queryBrandType(type);
+	}
 }

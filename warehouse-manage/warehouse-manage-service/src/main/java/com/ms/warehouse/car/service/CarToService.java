@@ -1,9 +1,13 @@
 package com.ms.warehouse.car.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ms.warehouse.car.bo.CarBrandBO;
 import com.ms.warehouse.car.bo.CarInfoBO;
+import com.ms.warehouse.car.entity.CarBrandEntity;
 import com.ms.warehouse.car.entity.CarInfoEntity;
 import com.ms.warehouse.car.entity.ConsultationEntity;
 import com.ms.warehouse.common.exception.CenterException;
@@ -22,6 +26,9 @@ public class CarToService extends BaseService{
 	 
 	 @Autowired
 	 private CarInfoBO carInfoBo;
+	 
+	 @Autowired
+	 private CarBrandBO carBrandBo;
 	 
 	 @Autowired
 	 private CarInfoService carInfoService;
@@ -44,4 +51,16 @@ public class CarToService extends BaseService{
 		 return consultationService.create(consultation);
 	 }
 	 
+	 /**
+	  * 获取品牌  
+	  * @param
+	  * @return
+	  */
+	 public ListRespVO queryBrand(ListReqVO<CarBrandEntity> reqVO){
+		 return carBrandBo.queryPageAutomatic(reqVO);
+	 }
+	 
+	 public List<String> queryBrandType(@Param("type") String type){
+		 return carInfoBo.queryBrandType(type);
+	 }
 }

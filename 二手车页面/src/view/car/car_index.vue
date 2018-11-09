@@ -5,12 +5,12 @@
 			<span id="numSpan">12,183,666</span>&nbsp;&nbsp;位已使用买车服务
 		</div>
 		<div class="index_nav">
-			<div class="nav_list">
+			<div @click="goNext('car_buy')" class="nav_list">
 				<br/>
-				<yd-icon name="maiche2" custom slot="icon" size="0.39rem" class="iconIT" style="color:#e44c4c;"></yd-icon>
+				<yd-icon name="maiche2" custom slot="icon" size="0.39rem"  class="iconIT" style="color:#e44c4c;"></yd-icon>
 				<p>我要买车</p>
 			</div>
-			<div class="nav_list">
+			<div @click="goNext('car_sell')"  class="nav_list">
 				<br/>
 				<yd-icon name="maiche1" custom slot="icon" size="0.54rem" class="iconIT" style="color:rgb(226, 129, 5);"></yd-icon>
 				<p>我要卖车</p>
@@ -150,6 +150,9 @@
 			this.queryCarInfoCX();
 		},
 		methods: {
+			goNext(url){
+				this.$router.push({name:url})
+			},
 			queryCarInfo(type){
 				var searchPatam = {
 					offerStatue:0,
