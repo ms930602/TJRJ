@@ -7,13 +7,18 @@
 		<div class="index_nav">
 			<div @click="goNext('car_buy')" class="nav_list">
 				<br/>
-				<yd-icon name="maiche2" custom slot="icon" size="0.39rem"  class="iconIT" style="color:#e44c4c;"></yd-icon>
+				<img src="../../assets/img/a111.png" alt="" class="iconIT">
 				<p>我要买车</p>
 			</div>
 			<div @click="goNext('car_sell')"  class="nav_list">
 				<br/>
-				<yd-icon name="maiche1" custom slot="icon" size="0.54rem" class="iconIT" style="color:rgb(226, 129, 5);"></yd-icon>
+				<img src="../../assets/img/a333.png" alt="" class="iconIT">
 				<p>我要卖车</p>
+			</div>
+			<div  class="nav_list">
+				<br/>
+				<img src="../../assets/img/a222.png" alt="" class="iconIT">
+				<p>车辆评估</p>
 			</div>
 		</div>
 		<yd-slider class='index_slider' autoplay="3000">
@@ -29,7 +34,9 @@
 			</yd-slider-item>
 		</yd-slider>
 		<div class="index_title">
-			<div class="title_left">限时特惠</div>
+			<div class="title_left title_left_a">
+				限时特惠<img src="../../assets/img/dfs.png" alt="" style="width: .4rem;height: .5rem;float: left;margin-top: -5px;">
+			</div>
 			<div @click="goCarBuy" class="title_right">
 				<span>更多</span>
 				<img src="../../assets/img/listd_icon_right@2x.png" alt="" />
@@ -208,11 +215,11 @@
 <style lang='scss'>
 	#carIndex {
 		.index_bg {
-			height: 2rem;
+			height: 2.5rem;
 			color:#F0F0F0;
 			background: url(../../assets/img/title.png) no-repeat;
 			background-size: 100% ;
-			line-height:160px;
+			line-height:3.1rem;
 		}
 		#numSpan{
 			font-size:30px;
@@ -223,10 +230,10 @@
 			.nav_list {
 				text-align: center;
 				width: 25%;
-				iconIT {
-					margin: .4rem auto .2rem;
-					width: 1rem;
-					height: 1rem;
+				.iconIT {
+					margin: .1rem auto .2rem;
+					width: 1.1rem;
+					height: 1.1rem;
 				}
 			}
 		}
@@ -296,6 +303,14 @@
 			.title_left {
 				font-size: .4rem;
 				font-weight: bold;
+			}
+			.title_left_a{
+				display: inline-block;
+				color: green;
+				font-family: '微软雅黑';
+				background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgb(234, 86, 86)), to(rgba(226, 70, 70, 0.61)));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
 			}
 			.title_right {
 				display: flex;
