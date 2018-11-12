@@ -422,7 +422,7 @@
 		LEFT JOIN t_base_uploadfilerecode b ON t.`f_top_img` = b.`f_id`
 		<include refid="whereForLike" />
 		<choose>
-			<when test="orderField==null">
+			<when test="orderField==null or orderField=='null' or orderField=''">
 				ORDER BY f_id DESC
 			</when>
 			<otherwise>

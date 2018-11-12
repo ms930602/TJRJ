@@ -34,6 +34,16 @@ export default new Router({
       	},
       ]
     },
+		{
+			path: '/car_assess',
+			name: 'car_assess',
+			component: () => import('@/view/car/car_assess.vue')
+		},
+    {
+      path: '/car_publish',
+      name: 'car_publish',
+      component: () => import('@/view/car/car_publish.vue')
+    },
     {
       path: '/car_xq',
       name: 'car_xq',

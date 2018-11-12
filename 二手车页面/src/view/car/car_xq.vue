@@ -33,7 +33,7 @@
 		<div class="xq_center_info" v-if="carInfo.offerStatue==1">
 			<div style="height:10px"></div>
 			<p >&nbsp;&nbsp;&nbsp;&nbsp;
-			<span style="font-size: .40rem;">
+			<span style="font-size: .50rem;">
 				{{carInfo.price}}
 			</span>
 			<span>万</span>
@@ -57,9 +57,9 @@
 			</div>
 			<div class="car_money">
 				<div class="car_money_left">
-					<span :class="carInfo.offerStatue==1?'removeCl':''">{{carInfo.showPrice}}&nbsp;</span><span style="font-size: 10px;">万</span>
+					<span :class="carInfo.offerStatue==1?'removeCl':''" style="font-size: .50rem;">{{carInfo.showPrice}}&nbsp;</span><span style="font-size: .1rem;">万</span>
 					<span v-if="carInfo.transferPriceState==0" class="car_money_aa">(不包含过户费)</span>
-					<span else  class="car_money_aa">(包含过户费)</span>
+					<span v-else  class="car_money_aa">(包含过户费)</span>
 				</div>
 				<div  class="car_money_right" @click='wykjClick'>询问底价</div>
 			</div>
@@ -409,13 +409,16 @@
 				    border-radius: .04rem;
 				}
 			}
+			.showPrice-span{
+				font-size: .42rem;
+			}
 			.car_money{
 				justify-content: space-between;
 				display: flex;
 				.car_money_left{
 					color:#D6D6D6;
 					span{
-						font-size: .32rem;
+						font-size: .22rem;
 						font-weight: 600;
 						color: #FF3D15;
 					}

@@ -15,7 +15,7 @@
 				<img src="../../assets/img/a333.png" alt="" class="iconIT">
 				<p>我要卖车</p>
 			</div>
-			<div  class="nav_list">
+			<div @click="goNext('car_assess')"  class="nav_list">
 				<br/>
 				<img src="../../assets/img/a222.png" alt="" class="iconIT">
 				<p>车辆评估</p>

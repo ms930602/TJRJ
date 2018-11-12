@@ -1,40 +1,43 @@
 <template>
 	<yd-layout id='carBuy'>
-    <yd-search slot='top'  v-model="value1" class='buy_search_input' :on-submit="submitHandler"></yd-search>
+	<yd-actionsheet :items="myItems2" v-model="show2"></yd-actionsheet>
+	<yd-actionsheet :items="myItems1" v-model="show1"></yd-actionsheet>
+    <yd-search slot='top'  v-model="value1" class='buy_search_input' :on-submit="submitHandler" :on-cancel="cancelHandler"></yd-search>
     <!--<yd-search :result="result" fullpage v-model="value1" :item-click="itemClickHandler" :on-submit="submitHandler"></yd-search>-->
-		<div style="background-color: #efeff4;">
-			&nbsp;&nbsp;&nbsp;
-			<span style="color: #365eb9;">智能排序 ∨</span>&nbsp;
-			<span style="color: #365eb9;">品牌 ∨</span>&nbsp;
-			<span style="color: #365eb9;">价格区间 ∨</span>&nbsp;
-		<span @click="reset" style="float: right;color: rgb(54,94,185);margin-right: 10px;">点击重置</span>
-        <yd-actionsheet :items="myItems2" v-model="show2"></yd-actionsheet>
-		<yd-actionsheet :items="myItems1" v-model="show1"></yd-actionsheet>
+		<div style="background-color: #efeff4;" class="search-div">
+			<div style="display: flex;align-items: center;">
+				&nbsp;&nbsp;&nbsp;
+				<span @click="carPp">
+					品牌<img src="../../assets/img/search.png" alt="">
+				</span>&nbsp;&nbsp;&nbsp;
+				<span @click="show2 = true">
+					智能排序<img src="../../assets/img/search.png" alt="">
+				</span>&nbsp;&nbsp;&nbsp;
+				<span @click="show1 = true">
+					价格区间<img src="../../assets/img/search.png" alt="">
+				</span>&nbsp;&nbsp;&nbsp;
+			</div>
+			<span @click="reset" style="float: right;margin-right: 10px;">点击重置</span>
 		</div>
-		<div class="car_search_bq">
-			<div class="car_search_bq_1">
-				<span>筛选条件：</span>
-				<div @click="show2 = true" class="car_pp car_search_bq_1_1">
-					<span v-if="searchParam.orderField==''">智能排序</span>
-					<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
-					<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
-					<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
-				</div>
-			</div>
-			<div class="car_search_bq_1">
-				<span>品牌：</span>
-				<div @click="carPp" class="car_pp car_search_bq_1_1">{{brandType}}</div>
-			</div>
-			<div class="car_search_bq_1">
-				<span>价格区间：</span>
-				<div @click="show1 = true" class="car_pp car_search_bq_1_1">
-					<span v-if="searchParam.maxPrice==null">无限制</span>
-					<span v-else>
-					{{searchParam.minPrice}}&nbsp;&nbsp;~&nbsp;&nbsp;{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
-					</span>
-				</div>
-			</div>
-		</div>
+		<br/>
+		&nbsp;&nbsp;&nbsp;
+		<yd-badge type="warning" v-if="brandType!=null && brandType!=''">
+			{{brandType}} 
+			<span class="sx_badge" @click="removeBadge(2)">X</span>
+		</yd-badge>
+		<yd-badge type="warning" v-if="searchParam.orderField!=null">
+			<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
+			<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
+			<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
+			<span class="sx_badge" @click="removeBadge(1)">X</span>
+		</yd-badge>
+		<yd-badge type="warning" v-if="searchParam.maxPrice!=null">
+			<span >
+			{{searchParam.minPrice}}&nbsp;&nbsp;~&nbsp;&nbsp;{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
+			</span>
+			<span class="sx_badge" @click="removeBadge(3)">X</span>
+		</yd-badge>
+		<br/><br/>
 		<!-- <img :src="$root.config.img_url" alt=""> -->
 		<yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
 			<div class="other_like" slot="list" >
@@ -59,6 +62,23 @@
 			<img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg" />
 
 		</yd-infinitescroll>
+		<hr/><br/>
+		<div class="other_like_title" v-if="carList!=null && carList.length>0">你可能还喜欢</div>
+		<div class="other_like"  v-if="carList!=null && carList.length>0">
+			<div class="like_list" @click='goCarXq(item.id)' v-for='item in carList'>
+				<img :src="$root.config.img_url+item.topImgStr" class="list_img" alt="" />
+				<div class="list_right">
+					<div class="list_name">{{item.title}}</div>
+					<div class="list_badge">{{item.address}}&nbsp;/&nbsp;{{item.mileage}}万公里&nbsp;/&nbsp;{{item.upbkTime?item.upbkTime.split(' ')[0].split('-')[0]:''}}年&nbsp;/&nbsp;商家</div>
+					<div class="list_bottom">
+						<strong>{{item.showPrice}}万</strong>
+						<span class="list_b_1">准新车</span>
+						<span class="list_b_1">{{item.transferNum}}过户</span>
+						<span class="list_b_2">质保</span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</yd-layout>
 </template>
 
@@ -67,19 +87,21 @@
 	import { TabBar, TabBarItem } from 'vue-ydui/dist/lib.rem/tabbar';
 	import {InfiniteScroll} from 'vue-ydui/dist/lib.rem/infinitescroll';
 	import {ActionSheet} from 'vue-ydui/dist/lib.rem/actionsheet';
+	import {Badge} from 'vue-ydui/dist/lib.rem/badge';
 	export default {
 		components: {
 			[TabBar.name]: TabBar,
 			[TabBarItem.name]: TabBarItem,
 			[Search.name]: Search,
 			[InfiniteScroll.name]: InfiniteScroll,
-			[ActionSheet.name]:ActionSheet
+			[ActionSheet.name]:ActionSheet,
+			[Badge.name]:Badge,
 		},
 		data() {
 			return {
 				searchParam:{
 					offerStatue:0,
-					orderField:'f_createtime',
+					orderField:null,
 					pageSize:10,
 					pageNum:1,
 					searchType:1,//1 非特价车 2 特价车
@@ -87,11 +109,12 @@
 					minPrice:null,
 					maxPrice:null
 				},
-				brandType:'无限制',
+				brandType:null,
 				pageNum:1,
 				pageSize:10,
 				value1: '',
 				result: [],
+				carList:[],
 				rightPopup:false,
 				carListShow:false,
 				dataList:[],
@@ -100,7 +123,7 @@
 					{
 						label: '智能排序',
 						callback: () => {
-							this.searchParam.orderField = 'f_createtime';
+							this.searchParam.orderField = null;
 							this.reLoadList();
 						}
 					},
@@ -203,13 +226,42 @@
 					this.searchParam.type = carId2;
 				}
 			}
-			this.loadList()
+			this.reLoadList()
 		},
 		methods: {
+			queryCarInfo(){
+				var searchPatam = {
+					offerStatue:0,
+					pageNum:1,
+					pageSize:20,
+					orderField:'f_upbk_time'
+				};
+				this.$root.ajax({
+					name:'carTo/queryInfo',
+					params:searchPatam,
+				}).then((d)=>{
+					if(d.state == 0){
+						this.carList = d.aaData;
+					}
+				})
+			},
+			removeBadge(index){
+				if(index == 1){
+					this.searchParam.orderField = null;
+				}else if(index == 2){
+					this.brandType = '';
+					this.searchParam.type = '';
+				}else if(index == 3){
+					this.searchParam.minPrice = null;
+					this.searchParam.maxPrice = null;
+				}
+				
+				this.reLoadList()
+			},
 			reset(){
 				this.searchParam = {
 					offerStatue:0,
-					orderField:'f_createtime',
+					orderField:null,
 					pageSize:10,
 					pageNum:1,
 					searchType:1,//1 非特价车 2 特价车
@@ -217,6 +269,8 @@
 					minPrice:null,
 					maxPrice:null
 				};
+				this.brandType = '';
+				this.carList = [];
 				this.reLoadList();
 			},
 			carPp(){
@@ -230,15 +284,24 @@
 			},
 			reLoadList(){
 				this.dataList = [];
+				this.carList = [];
 				this.loadList();
 			},
+			cancelHandler() {
+				this.value1='';
+				this.searchParam.title='';
+				this.reLoadList();
+			},
 			loadList(){
+				this.searchParam.title = this.value1;
 				this.searchParam.pageNum = this.pageNum;
 				this.$root.ajax({
 					name:'carTo/queryInfo',
 					params:this.searchParam,
 				}).then((d)=>{
-					
+					if(d.aaData == null || d.aaData.length == 0){
+						this.queryCarInfo();
+					}
                     this.dataList = [...this.dataList, ...d.aaData];
                     if (this.dataList>=d.dataCount) {
                         /* 所有数据加载完毕 */
@@ -265,9 +328,7 @@
 				});
 			},
 			submitHandler(value) {
-				this.$dialog.toast({
-					mes: `搜索：${value}`
-				});
+				this.reLoadList();
 			},
 			goCarXq(item) {
 				this.$router.push({
@@ -285,6 +346,80 @@
 </script>
 
 <style lang='scss'>
+	.other_like_title {
+		font-size: .28rem;
+		padding: 0 0 .35rem .25rem;
+		font-weight: bold;
+	}
+	.other_like {
+		padding: 0 .25rem .1rem .25rem;
+		.like_list {
+			margin-bottom: .42rem;
+			line-height: .35rem;
+			display: flex;
+			.list_img {
+				width: 2rem;
+				height: 1.5rem;
+				margin-right: .25rem;
+				flex-grow: 0;
+			}
+			.list_right {
+				width: 3rem;
+				flex-grow: 1;
+				.list_name {
+					font-size: .28rem;
+					font-weight: bold;
+				}
+				.list_badge {
+					color: #666666;
+					margin: .05rem 0 .1rem 0;
+				}
+				.list_bottom {
+					display: flex;
+					align-content: center;
+					align-items: center;
+					strong {
+						font-weight: 500;
+						color: #FF3D15;
+						font-size: .3rem;
+					}
+					span {
+						font-size: .24rem;
+						line-height: .28rem;
+						padding: 0 .1rem;
+						margin: 0 .1rem;
+						border-radius: .04rem;
+					}
+					.list_b_1 {
+						background: sandybrown;
+						color: white;
+					}
+					.list_b_2 {
+						background: red;
+						color: white;
+					}
+				}
+			}
+		}
+	}
+	.search-div{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		span{
+			font-size: .27rem;
+			display: flex;
+			align-items: center;
+			color: #8a92a0;
+		}
+		img{
+			display: inline-table;
+		}
+	}
+	.sx_badge{
+		color: #000000b3;
+		font-weight: bold;
+	}
 	#carBuy {
 		.buy_search_input{
 			.yd-search-input{
@@ -420,6 +555,7 @@
 				margin-bottom: .42rem;
 				line-height: .35rem;
 				display: flex;
+				border-bottom: 1px #d9d9d9 solid;
 				.list_img {
 					width: 2rem;
 					height: 1.5rem;

@@ -9,7 +9,9 @@ import com.ms.warehouse.car.bo.CarBrandBO;
 import com.ms.warehouse.car.bo.CarInfoBO;
 import com.ms.warehouse.car.entity.CarBrandEntity;
 import com.ms.warehouse.car.entity.CarInfoEntity;
+import com.ms.warehouse.car.entity.CarUserEntity;
 import com.ms.warehouse.car.entity.ConsultationEntity;
+import com.ms.warehouse.car.entity.EstimateEntity;
 import com.ms.warehouse.common.exception.CenterException;
 import com.ms.warehouse.common.service.BaseService;
 import com.ms.warehouse.common.vo.Param;
@@ -35,6 +37,12 @@ public class CarToService extends BaseService{
 	 
 	 @Autowired
 	 private ConsultationService consultationService;
+	 @Autowired
+	 private CarUserService carUserService;
+	 
+	 @Autowired
+	 private EstimateService estimateService;
+	 
 	 /**
 	  * 通过条件查询车辆信息
 	  * @return
@@ -49,6 +57,14 @@ public class CarToService extends BaseService{
 	 
 	 public Object saveConsu(ConsultationEntity consultation) throws CenterException{
 		 return consultationService.create(consultation);
+	 }
+	 
+	 public Object saveCarUser(CarUserEntity user) throws CenterException{
+		 return carUserService.create(user);
+	 }
+	 
+	 public Object saveEstimate(EstimateEntity user) throws CenterException{
+		 return estimateService.create(user);
 	 }
 	 
 	 /**

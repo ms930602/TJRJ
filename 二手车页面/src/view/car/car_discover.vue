@@ -1,40 +1,43 @@
 <template>
 	<yd-layout id='carBuy'>
+	<yd-actionsheet :items="myItems2" v-model="show2"></yd-actionsheet>
+	<yd-actionsheet :items="myItems1" v-model="show1"></yd-actionsheet>
     <yd-search slot='top'  v-model="value1" class='buy_search_input' :on-submit="submitHandler" :on-cancel="cancelHandler"></yd-search>
     <img class="header_img" src="../../assets/img/tjc.jpg" alt="" style="width: 100%;" />
-		<div style="background-color: #efeff4;">
-			&nbsp;&nbsp;&nbsp;
-			<span style="color: #365eb9;">智能排序 ∨</span>&nbsp;
-			<span style="color: #365eb9;">品牌 ∨</span>&nbsp;
-			<span style="color: #365eb9;">价格区间 ∨</span>&nbsp;
-			<span @click="reset" style="float: right;color: rgb(54,94,185);margin-right: 10px;">点击重置</span>
-        <yd-actionsheet :items="myItems2" v-model="show2"></yd-actionsheet>
-		<yd-actionsheet :items="myItems1" v-model="show1"></yd-actionsheet>
+		<div style="background-color: #efeff4;" class="search-div">
+			<div style="display: flex;align-items: center;">
+				&nbsp;&nbsp;&nbsp;
+				<span @click="carPp">
+					品牌<img src="../../assets/img/search.png" alt="">
+				</span>&nbsp;&nbsp;
+				<span @click="show2 = true">
+					智能排序<img src="../../assets/img/search.png" alt="">
+				</span>&nbsp;&nbsp;
+				<span @click="show1 = true">
+					价格区间<img src="../../assets/img/search.png" alt="">
+				</span>&nbsp;&nbsp;
+			</div>
+			<span @click="reset" style="float: right;margin-right: 10px;">点击重置</span>
 		</div>
-		<div class="car_search_bq">
-			<div class="car_search_bq_1">
-				<span>筛选条件：</span>
-				<div @click="show2 = true" class="car_pp car_search_bq_1_1">
-					<span v-if="searchParam.orderField==''">智能排序</span>
-					<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
-					<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
-					<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
-				</div>
-			</div>
-			<div class="car_search_bq_1">
-				<span>品牌：</span>
-				<div @click="carPp" class="car_pp car_search_bq_1_1">{{brandType}}</div>
-			</div>
-			<div class="car_search_bq_1">
-				<span>价格区间：</span>
-				<div @click="show1 = true" class="car_pp car_search_bq_1_1">
-					<span v-if="searchParam.maxPrice==null">无限制</span>
-					<span v-else>
-					{{searchParam.minPrice}}&nbsp;&nbsp;~&nbsp;&nbsp;{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
-					</span>
-				</div>
-			</div>
-		</div>
+		<br/>
+		&nbsp;&nbsp;&nbsp;
+		<yd-badge type="warning" v-if="brandType!=null && brandType!=''">
+			{{brandType}} 
+			<span class="sx_badge" @click="removeBadge(2)">X</span>
+		</yd-badge>
+		<yd-badge type="warning" v-if="searchParam.orderField!=null">
+			<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
+			<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
+			<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
+			<span class="sx_badge" @click="removeBadge(1)">X</span>
+		</yd-badge>
+		<yd-badge type="warning" v-if="searchParam.maxPrice!=null">
+			<span >
+			{{searchParam.minPrice}}&nbsp;&nbsp;~&nbsp;&nbsp;{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
+			</span>
+			<span class="sx_badge" @click="removeBadge(3)">X</span>
+		</yd-badge>
+		<br/><br/>
 		<!-- <img :src="$root.config.img_url" alt=""> -->
 		<yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
 			<div class="other_like" slot="list" >
@@ -68,19 +71,21 @@
 	import { TabBar, TabBarItem } from 'vue-ydui/dist/lib.rem/tabbar';
 	import {InfiniteScroll} from 'vue-ydui/dist/lib.rem/infinitescroll';
 	import {ActionSheet} from 'vue-ydui/dist/lib.rem/actionsheet';
+	import {Badge} from 'vue-ydui/dist/lib.rem/badge';
 	export default {
 		components: {
 			[TabBar.name]: TabBar,
 			[TabBarItem.name]: TabBarItem,
 			[Search.name]: Search,
 			[InfiniteScroll.name]: InfiniteScroll,
-			[ActionSheet.name]:ActionSheet
+			[ActionSheet.name]:ActionSheet,
+			[Badge.name]:Badge,
 		},
 		data() {
 			return {
 				searchParam:{
 					offerStatue:1,//特价车
-					orderField:'f_createtime',
+					orderField:null,
 					pageSize:10,
 					pageNum:1,
 					searchType:2,//1 非特价车 2 特价车
@@ -88,7 +93,7 @@
 					minPrice:null,
 					maxPrice:null
 				},
-				brandType:'无限制',
+				brandType:'',
 				pageNum:1,
 				pageSize:10,
 				value1: '',
@@ -101,7 +106,7 @@
 					{
 						label: '智能排序',
 						callback: () => {
-							this.searchParam.orderField = 'f_createtime';
+							this.searchParam.orderField = null;
 							this.reLoadList();
 						}
 					},
@@ -216,20 +221,32 @@
 			var carId2 = this.$route.query.carId2
 			if(carId1 && carId2){
 				if(carId1 == '无限制'){
-					this.brandType = carId1;
+					this.brandType = '';
 					this.searchParam.type = '';
 				}else{
 					this.brandType=carId1+"--"+carId2;
 					this.searchParam.type = carId2;
 				}
 			}
-			this.loadList()
+			this.reLoadList()
 		},
 		methods: {
+			removeBadge(index){
+				if(index == 1){
+					this.searchParam.orderField = null;
+				}else if(index == 2){
+					this.brandType = '';
+					this.searchParam.type = '';
+				}else if(index == 3){
+					this.searchParam.minPrice = null;
+					this.searchParam.maxPrice = null;
+				}
+				this.reLoadList()
+			},
 			reset(){
 				this.searchParam = {
-					offerStatue:1,//特价车
-					orderField:'f_createtime',
+					offerStatue:1,
+					orderField:null,
 					pageSize:10,
 					pageNum:1,
 					searchType:2,//1 非特价车 2 特价车
@@ -237,6 +254,7 @@
 					minPrice:null,
 					maxPrice:null
 				};
+				this.brandType = '';
 				this.reLoadList();
 			},
 			carPp(){
@@ -304,6 +322,24 @@
 </script>
 
 <style lang='scss'>
+	.search-div{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		span{
+			font-size: .27rem;
+			display: flex;
+			align-items: center;
+			color: #8a92a0;
+		}
+		img{
+			display: inline-table;
+		}
+	}
+	.sx_badge{
+		color: #000000b3;
+		font-weight: bold;
+	}
 	.c_time{
 		color:#f44;
 	}
@@ -445,10 +481,11 @@
 				margin-bottom: .42rem;
 				line-height: .35rem;
 				display: flex;
+				border-bottom: 1px #d9d9d9 solid;
 				.list_img {
 					width: 2rem;
 					height: 1.5rem;
-					background: red;
+					background: #dddddd;
 					margin-right: .25rem;
 					flex-grow: 0;
 				}

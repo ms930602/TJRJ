@@ -11,6 +11,7 @@
 				</div>
 			</div>
 			<div class="popup_submit" @click='submit'>我要卖车</div>
+			<div class="fbpt-span"><span @click="toPublish">发布至平台</span></div>
 		</div>
 
 		<div class="sell_lc">
@@ -174,6 +175,9 @@
 		mounted() {
 		},
 		methods: {
+			toPublish(){
+				this.$router.push({name:'car_publish'})
+			},
 			submit() {
 				if(this.submitPhoneNum == this.phoneNum){
 					this.$dialog.toast({
@@ -232,6 +236,7 @@
 </script>
 
 <style lang='scss'>
+	
 	#carSell {
 		margin-bottom: .5rem;
 		.sell_header {
@@ -241,6 +246,12 @@
 		}
 		.yd-scrollview:after {
 			/*display: none;*/
+		}
+		.fbpt-span{
+			color: #f56c6c;
+			text-align: center;
+			margin-top: .2rem;
+			font-size: .30rem;
 		}
 		.popup_input {
 			margin: .2rem;
