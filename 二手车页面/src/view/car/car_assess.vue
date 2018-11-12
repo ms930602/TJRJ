@@ -1,5 +1,6 @@
 <template>
-	<yd-layout id='carSell'>
+	<yd-layout id='carSell' >
+		<div class="assessOut">
 		<yd-popup v-model="show3" position="left" width="60%" class="showPrice">
 			<br/>
 			<p>★车系：{{form.brand}}</p>
@@ -9,12 +10,12 @@
 			<p>★行驶里程：{{form.mileage}}万公里</p>
 			<p>★精计算，您的爱车粗算价值</p>
 			<br/>
-			<p class="price-p">{{form.mPrice}}万元</p>
+			<p class="price-p">{{form.mprice}}万元</p>
 			<br/>
 			<p>★具体价格请来电咨询或预约卖车。</p>
-        </yd-popup>
+    </yd-popup>
 		<yd-navbar title="估值">
-			<router-link to="car_sell" slot="left">
+			<router-link to="index" slot="left">
 				<yd-navbar-back-icon></yd-navbar-back-icon>
 			</router-link>
 		</yd-navbar>
@@ -41,7 +42,7 @@
 			</yd-cell-item>
 			<yd-cell-item arrow>
 				<span slot="left">首次上牌：</span>
-				<yd-datetime type="month" v-model="form.upbkTime" slot="right"></yd-datetime>
+				<yd-datetime type="date" v-model="form.upbkTime" slot="right"></yd-datetime>
 			</yd-cell-item>
 			<yd-cell-item>
 				<span slot="left">行驶里程：</span>
@@ -88,6 +89,7 @@
 				</div>
 			</div>
 		</yd-cell-group>
+		</div>
 	</yd-layout>
 </template>
 
@@ -129,15 +131,14 @@
 				checkbox1:true,
 				show3:false,
 				form:{
-					price:'',
+					price:null,
 					brand:'',
 					type:'',
-					mPrice:0,
+					mprice:0,
 					bkCitiy:'',
-					upbkTime:'2018-11',
+					upbkTime:'2018-11-01',
 					mileage:'',
-					phone:'',
-					imgId:null
+					phone:''
 				}
 			}
 		},
@@ -153,7 +154,54 @@
 		mounted() {
 		},
 		methods: {
+			assessFlag(){
+				if(this.form.price==null || this.form.price <= 0){
+					this.$dialog.toast({
+						mes: '请输入正确的买入价格！',
+						timeout: 1500
+					});
+					return false;
+				}
+				if(this.form.brand==null || this.form.brand==''){
+					this.$dialog.toast({
+						mes: '请输入正确的车系！',
+						timeout: 1500
+					});
+					return false;
+				}
+				if(this.form.type==null || this.form.type==''){
+					this.$dialog.toast({
+						mes: '请输入正确的车型！',
+						timeout: 1500
+					});
+					return false;
+				}
+				if(this.form.bkCitiy==null || this.form.bkCitiy==''){
+					this.$dialog.toast({
+						mes: '请输入正确的上牌地点！',
+						timeout: 1500
+					});
+					return false;
+				}
+				if(this.form.mileage==null || this.form.mileage==''){
+					this.$dialog.toast({
+						mes: '请输入正确的里程数！',
+						timeout: 1500
+					});
+					return false;
+				}
+				var reg=/^1[345789][0-9]{9}$/;
+				if(!reg.test(this.form.phone)){
+					this.$dialog.toast({
+						mes: '请输入正确的手机号！',
+						timeout: 1500
+					});
+					return false;
+				}
+				return true;
+			},
 			assessAction(){
+				if(!this.assessFlag())return;
 				var yearPrice = 0;
 				var mileagePrice = 0;
 				var oldYear = this.getYearOld();
@@ -169,7 +217,7 @@
 				var oldIndex = mileage / 6;
 				var mlv = 0;
 				if(oldIndex > 0){//6万公里以上
-				    if(oldIndex < 1){//小于6万公里
+				  if(oldIndex < 1){//小于6万公里
 						
 					}
 					if(oldIndex >= 1){
@@ -191,12 +239,20 @@
 				mlv = parseInt(mlv / 15 * 100);
 				mileagePrice = this.form.price * mlv / 100;
 				
-				if(yearPrice > mileagePrice){
-					this.form.mPrice = mileagePrice;
+				if(yearPrice > mileagePrice && mileagePrice > 0){
+					this.form.mprice = mileagePrice;
 				}else{
-					this.form.mPrice = yearPrice;
+					this.form.mprice = yearPrice;
 				}
 				this.show3 = true
+				this.save();
+			},
+			save(){
+				this.$root.ajax({
+					name:'carTo/saveEstimate',
+					params:this.form,
+				}).then((d)=>{
+				})
 			},
 			getYearOld(){
 				var formatDate = this.form.upbkTime;
@@ -213,7 +269,7 @@
 				return parseInt(day / 360);
 			},
 			toPublish(){
-				this.$router.push({name:'car_publish'})
+				this.$router.push({name:'car_index'})
 			},
 			handleAvatarSuccess(){
 				
@@ -226,8 +282,10 @@
 </script>
 
 <style lang='scss'>
+	.assessOut{
+			background-color: #eee;
+	}
 	#carSell{
-		background-color: #eee;
 		.showPrice{
 			p{
 				font-size: .25rem;

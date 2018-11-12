@@ -153,6 +153,26 @@ export default [{
                     require(['./views/twocar/consultationMain.vue'], resolve)
                 }
             },{
+                path: '/estimateMain',
+                name: 'estimateMain',
+                meta: {
+                    father: '估价信息',
+                    name: '估价信息',
+                },
+                component: function(resolve) {
+                    require(['./views/twocar/estimateMain.vue'], resolve)
+                }
+            },{
+                path: '/carUserMain',
+                name: 'carUserMain',
+                meta: {
+                    father: '卖车信息',
+                    name: '卖车信息',
+                },
+                component: function(resolve) {
+                    require(['./views/twocar/carUserMain.vue'], resolve)
+                }
+            },{
                 path: '/carInfo/a',
                 name: 'carInfoA',
                 meta: {

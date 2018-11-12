@@ -1,5 +1,6 @@
 package com.ms.warehouse.car.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,7 @@ public class CarToService extends BaseService{
 	 }
 	 
 	 public Object saveCarUser(CarUserEntity user) throws CenterException{
+		 user.setCreatetime(new Date());
 		 return carUserService.create(user);
 	 }
 	 
