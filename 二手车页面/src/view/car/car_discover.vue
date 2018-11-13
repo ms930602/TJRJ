@@ -4,7 +4,7 @@
 	<yd-actionsheet :items="myItems1" v-model="show1"></yd-actionsheet>
     <yd-search slot='top'  v-model="value1" class='buy_search_input' :on-submit="submitHandler" :on-cancel="cancelHandler"></yd-search>
     <img class="header_img" src="../../assets/img/tjc.jpg" alt="" style="width: 100%;" />
-		<div style="background-color: #efeff4;" class="search-div">
+		<div class="search-div">
 			<div style="display: flex;align-items: center;">
 				&nbsp;&nbsp;&nbsp;
 				<span @click="carPp">
@@ -17,27 +17,26 @@
 					价格区间<img src="../../assets/img/search.png" alt="">
 				</span>&nbsp;&nbsp;
 			</div>
-			<span @click="reset" style="float: right;margin-right: 10px;">点击重置</span>
+			<span @click="reset" style="float: right;">点击重置</span>
 		</div>
-		<br/>
-		&nbsp;&nbsp;&nbsp;
-		<yd-badge type="warning" v-if="brandType!=null && brandType!=''">
-			{{brandType}} 
-			<span class="sx_badge" @click="removeBadge(2)">X</span>
-		</yd-badge>
-		<yd-badge type="warning" v-if="searchParam.orderField!=null">
-			<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
-			<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
-			<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
-			<span class="sx_badge" @click="removeBadge(1)">X</span>
-		</yd-badge>
-		<yd-badge type="warning" v-if="searchParam.maxPrice!=null">
-			<span >
-			{{searchParam.minPrice}}&nbsp;&nbsp;~&nbsp;&nbsp;{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
-			</span>
-			<span class="sx_badge" @click="removeBadge(3)">X</span>
-		</yd-badge>
-		<br/><br/>
+		<div class="y-badge">
+			<yd-badge shape="square" type="hollow" scale="1.1" v-if="brandType!=null && brandType!=''" @click.native="removeBadge(2)">
+				{{brandType}} 
+				<i style="color: black;margin-left: .1rem;">X</i>
+			</yd-badge>
+			<yd-badge shape="square" type="hollow" scale="1.1" v-if="searchParam.orderField!=null" @click.native="removeBadge(1)">
+				<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
+				<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
+				<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
+				<i style="color: black;margin-left: .1rem;">X</i>
+			</yd-badge>
+			<yd-badge shape="square" type="hollow" scale="1.1" v-if="searchParam.maxPrice!=null" @click.native="removeBadge(3)">
+				<span >
+				{{searchParam.minPrice}}&nbsp;&nbsp;~&nbsp;&nbsp;{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
+				</span>
+				<i style="color: black;margin-left: .1rem;">X</i>
+			</yd-badge>
+		</div>
 		<!-- <img :src="$root.config.img_url" alt=""> -->
 		<yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
 			<div class="other_like" slot="list" >
@@ -323,16 +322,19 @@
 
 <style lang='scss'>
 	.search-div{
+		width: 95%;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		background-color: #f9f9f9;
+		margin: .1rem auto 0;
 		span{
-			font-size: .27rem;
+			font-size: .3rem;
 			display: flex;
 			align-items: center;
-			color: #8a92a0;
 		}
 		img{
+			margin-top: .05rem;
 			display: inline-table;
 		}
 	}
@@ -347,6 +349,14 @@
 		height: 2.5rem;
 	}
 	#carBuy {
+		.y-badge{
+			height: .6rem;
+			margin-top: .2rem;
+			margin-left: .26rem;
+			span{
+				margin-right: .2rem;
+			}
+		}
 		.buy_search_input{
 			.yd-search-input{
 				background: white;

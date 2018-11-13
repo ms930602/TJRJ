@@ -6,34 +6,34 @@
 					<yd-navbar-back-icon></yd-navbar-back-icon>
 				</router-link>
 			</yd-navbar>
-			<yd-cell-group>
+			<yd-cell-group class="bt-group">
 				<div class="title-a">车辆基础信息</div>
 				<br/>
 				<hr/>
 				<yd-cell-item>
-					<span slot="left"><span class="index_c">*</span>车系/品牌：</span>
-					<input slot="right" type="text" placeholder="如:宝马,奥迪等" v-model="form.brand">
+					<p slot="left"><span class="index_c">*</span>车系/品牌</p>
+					<input slot="right" type="text" placeholder="请输入品牌" v-model="form.brand">
 				</yd-cell-item>
 				<yd-cell-item>
-					<span slot="left"><span class="index_c">*</span>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</span>
+					<p slot="left"><span class="index_c">*</span>车型</p>
 					<input slot="right" type="text" placeholder="如:宝马1系2018款" v-model="form.type">
 				</yd-cell-item>
 				<yd-cell-item>
-					<span slot="left"><span class="index_c">*</span>上牌地点：</span>
+					<p slot="left"><span class="index_c">*</span>上牌地点</p>
 					<input slot="right" type="text" placeholder="如:四川成都" v-model="form.bkCitiy">
 				</yd-cell-item>
 				<yd-cell-item arrow>
-					<span slot="left"><span class="index_c">*</span>上牌时间：</span>
+					<p slot="left"><span class="index_c">*</span>上牌时间</p>
 					<yd-datetime type="date" slot="right" v-model="form.upbkTime"></yd-datetime>
 				</yd-cell-item>
 				<yd-cell-item>
-					<span slot="left"><span class="index_c">*</span>行驶里程：</span>
+					<p slot="left"><span class="index_c">*</span>行驶里程</p>
 					<input slot="right" type="text" v-model="form.mileage">
 					<span slot="right">(万公里)</span>
 				</yd-cell-item>
 			</yd-cell-group>
 			<yd-cell-group >
-				<div class="title-a"><span class="index_c">*</span>车源图片</div>
+				<div class="title-a">车源图片</div>
 				<br/>
 				<hr/>
 				<div >
@@ -50,10 +50,10 @@
 							:before-upload="topBeforeUpload">
 							<img v-if="imageUrl" :src="imageUrl" class="avatar">
 							<i v-if="(videoFlag == false && !imageUrl)" class="el-icon-picture-outline avatar-uploader-icon"></i>
-							<el-progress v-if="videoFlag == true" type="circle" :width="100" :percentage="videoUploadPercent"></el-progress>
+							<i v-if="(videoFlag == true && !imageUrl)" class="el-icon-loading avatar-uploader-icon"></i>
 							</el-upload>
 						</div>
-						<div slot="right" style="text-align: left;">
+						<div slot="right" style="text-align: left;width: 100%;">
 							<p class="img-title-a">&nbsp;上传一张车辆正45°照片</p>
 							<br/>
 							&nbsp;&nbsp;提示：横向牌照更清晰.
@@ -86,16 +86,15 @@
 					<input slot="right" type="text" placeholder="请输入手机号码" v-model="form.phone">
 				</yd-cell-item>
 				<br/>
-				<div style="width:100%;">
-					<yd-button size="large" color="#586ac7" 
-					@click.native="save()"
-					style="border: 1px solid;width: 80%;height: .7rem;margin: 0 auto;background-color: #fffffff2;">
+				<div style="width:100%;display: flex;">
+					<button class="btn-wen">
 						提交审核
-					</yd-button>
+					</button>
 				</div>
 				<div class="butt-div">
-					<p>
-					&nbsp;&nbsp;&nbsp;&nbsp;您的个人信息已经提交，可能会受到买车意向客户的咨询，(如个人、经销商、中介机构等)，
+					<p style="font-size: .25rem;color:#555;">
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					您的个人信息已经提交，可能会受到买车意向客户的咨询，(如个人、经销商、中介机构等)，
 					请保持电话畅通并保证车辆信息的真实性。提交及代表您同意《个人信息保护声明》</p>
 				</div>
 			</yd-cell-group>
@@ -115,7 +114,7 @@
 	import {Switch} from 'vue-ydui/dist/lib.rem/switch';
 	import {Button} from 'vue-ydui/dist/lib.rem/button';
 	import uploadOneImg from '../../components/uploadOneImg.vue'
-	import { Upload, Dialog , Progress } from 'element-ui';
+	import { Upload, Dialog } from 'element-ui';
 	export default {
 		components: {
 			[SendCode.name]: SendCode,
@@ -134,7 +133,6 @@
 			[uploadOneImg.name]:uploadOneImg,
 			[Upload.name]: Upload,
 			[Dialog.name]: Dialog,
-			[Progress.name]: Progress,
 			
 		},
 		data() {
@@ -156,8 +154,7 @@
 					imgId:null,
 					imgPath:'',
 				},
-				videoFlag:false,
-				videoUploadPercent:0
+				videoFlag:false
 			}
 		},
 		created() {
@@ -174,7 +171,6 @@
 		methods: {
 			uploadVideoProcess(event, file, fileList){
 					this.videoFlag = true;
-					this.videoUploadPercent = file.percentage;
 			},
 			assessFlag(){
 				if(this.form.imgId==null || this.form.imgId ==''){
@@ -299,6 +295,21 @@
 			background-color: #eee;
 	}
 	#carSell{
+		.bt-group{
+			p{
+				width: 1.7rem;
+			}
+		}
+		.btn-wen{
+			border: 1px solid;
+			color:#586ac7;
+			width: 80%;
+			height: .7rem;
+			margin: 0 auto;
+			background-color: #fffffff2;
+			font-size: .3rem;
+			border-radius: .05rem;
+		}
 		.avatar-uploader .el-upload {
 			border: 1px dashed #d9d9d9;
 			border-radius: 6px;
@@ -312,18 +323,18 @@
 		  .avatar-uploader-icon {
 			font-size: .5rem;
 			color: #8c939d;
-			width: 2rem;
-			height: 2rem;
-			line-height: 2rem;
+			width: 2.2rem;
+			height: 1.6rem;
+			line-height: 1.6rem;
 			text-align: center;
 		  }
 		  .avatar {
 			width: 2rem;
-			height: 2rem;
+			height: 1.6rem;
 			display: block;
 		  }
 		.img-title-a{
-			font-size: .4rem;
+			font-size: .3rem;
 			color: #606266;
 		}
 		.index_c{
@@ -340,7 +351,7 @@
 		.title-a{
 			line-height: 30px;
 			font-size: .30rem;
-			font-weight: bold;
+			margin-left: .15rem;
 			color: #555;
 		}
 		.yd-cell-left{

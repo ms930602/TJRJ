@@ -3,8 +3,7 @@
 	<yd-actionsheet :items="myItems2" v-model="show2"></yd-actionsheet>
 	<yd-actionsheet :items="myItems1" v-model="show1"></yd-actionsheet>
     <yd-search slot='top'  v-model="value1" class='buy_search_input' :on-submit="submitHandler" :on-cancel="cancelHandler"></yd-search>
-    <!--<yd-search :result="result" fullpage v-model="value1" :item-click="itemClickHandler" :on-submit="submitHandler"></yd-search>-->
-		<div style="background-color: #efeff4;" class="search-div">
+		<div class="search-div">
 			<div style="display: flex;align-items: center;">
 				&nbsp;&nbsp;&nbsp;
 				<span @click="carPp">
@@ -17,27 +16,27 @@
 					价格区间<img src="../../assets/img/search.png" alt="">
 				</span>&nbsp;&nbsp;&nbsp;
 			</div>
-			<span @click="reset" style="float: right;margin-right: 10px;">点击重置</span>
+			<span @click="reset" style="float: right;">点击重置</span>
 		</div>
-		<br/>
-		&nbsp;&nbsp;&nbsp;
-		<yd-badge type="warning" v-if="brandType!=null && brandType!=''">
-			{{brandType}} 
-			<span class="sx_badge" @click="removeBadge(2)">X</span>
-		</yd-badge>
-		<yd-badge type="warning" v-if="searchParam.orderField!=null">
-			<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
-			<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
-			<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
-			<span class="sx_badge" @click="removeBadge(1)">X</span>
-		</yd-badge>
-		<yd-badge type="warning" v-if="searchParam.maxPrice!=null">
-			<span >
-			{{searchParam.minPrice}}&nbsp;&nbsp;~&nbsp;&nbsp;{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
-			</span>
-			<span class="sx_badge" @click="removeBadge(3)">X</span>
-		</yd-badge>
-		<br/><br/>
+		<div class="y-badge">
+			<yd-badge shape="square" type="hollow" scale="1.1" v-if="brandType!=null && brandType!=''" @click.native="removeBadge(2)">
+				{{brandType}} <i style="color: black;margin-left: .1rem;">X</i>
+			</yd-badge>
+			<yd-badge shape="square" type="hollow" scale="1.1" v-if="searchParam.orderField!=null" @click.native="removeBadge(1)">
+				<span v-if="searchParam.orderField=='f_show_price'">价格最低</span>
+				<span v-if="searchParam.orderField=='f_createtime'">最新发布</span>
+				<span v-if="searchParam.orderField=='f_mileage'">里程最少</span>
+				<i style="color: black;margin-left: .1rem;">X</i>
+			</yd-badge>
+			<yd-badge shape="square" type="hollow" scale="1.1" v-if="searchParam.maxPrice!=null" @click.native="removeBadge(3)">
+				<span >
+				{{searchParam.minPrice}}
+				&nbsp;~&nbsp;
+				{{searchParam.maxPrice==10000?'*':searchParam.maxPrice}}&nbsp;万
+				</span>
+				<i style="color: black;margin-left: .1rem;">X</i>
+			</yd-badge>
+		</div>
 		<!-- <img :src="$root.config.img_url" alt=""> -->
 		<yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
 			<div class="other_like" slot="list" >
@@ -62,7 +61,7 @@
 			<img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg" />
 
 		</yd-infinitescroll>
-		<hr/><br/>
+		<hr  v-if="carList!=null && carList.length>0"/><br/>
 		<div class="other_like_title" v-if="carList!=null && carList.length>0">你可能还喜欢</div>
 		<div class="other_like"  v-if="carList!=null && carList.length>0">
 			<div class="like_list" @click='goCarXq(item.id)' v-for='item in carList'>
@@ -217,6 +216,7 @@
 		mounted() {
 			var carId1 = this.$route.query.carId1
 			var carId2 = this.$route.query.carId2
+			var searchName = this.$route.query.search;
 			if(carId1 && carId2){
 				if(carId1 == '无限制'){
 					this.brandType = carId1;
@@ -225,6 +225,10 @@
 					this.brandType=carId1+"--"+carId2;
 					this.searchParam.type = carId2;
 				}
+			}
+			if(searchName && searchName.length > 0){
+				this.searchParam.title = searchName;
+				this.value1 = searchName;
 			}
 			this.reLoadList()
 		},
@@ -347,9 +351,8 @@
 
 <style lang='scss'>
 	.other_like_title {
-		font-size: .28rem;
+		font-size: .3rem;
 		padding: 0 0 .35rem .25rem;
-		font-weight: bold;
 	}
 	.other_like {
 		padding: 0 .25rem .1rem .25rem;
@@ -368,7 +371,6 @@
 				flex-grow: 1;
 				.list_name {
 					font-size: .28rem;
-					font-weight: bold;
 				}
 				.list_badge {
 					color: #666666;
@@ -395,7 +397,7 @@
 						color: white;
 					}
 					.list_b_2 {
-						background: red;
+						background: #ececec;
 						color: white;
 					}
 				}
@@ -403,16 +405,19 @@
 		}
 	}
 	.search-div{
+		width: 95%;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		background-color: #f9f9f9;
+		margin: .1rem auto 0;
 		span{
-			font-size: .27rem;
+			font-size: .3rem;
 			display: flex;
 			align-items: center;
-			color: #8a92a0;
 		}
 		img{
+			margin-top: .05rem;
 			display: inline-table;
 		}
 	}
@@ -421,6 +426,14 @@
 		font-weight: bold;
 	}
 	#carBuy {
+		.y-badge{
+			height: .6rem;
+			margin-top: .2rem;
+			margin-left: .26rem;
+			span{
+				margin-right: .2rem;
+			}
+		}
 		.buy_search_input{
 			.yd-search-input{
 				background: white;
@@ -559,7 +572,7 @@
 				.list_img {
 					width: 2rem;
 					height: 1.5rem;
-					background: red;
+					background: #ececec;
 					margin-right: .25rem;
 					flex-grow: 0;
 				}
@@ -567,8 +580,8 @@
 					width: 3rem;
 					flex-grow: 1;
 					.list_name {
-						font-size: .28rem;
-						font-weight: bold;
+						font-size: .3rem;
+						font-weight: normal;
 						overflow: hidden;
 						white-space: nowrap;
 						text-overflow: ellipsis;

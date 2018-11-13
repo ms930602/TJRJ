@@ -19,43 +19,43 @@
 				<yd-navbar-back-icon></yd-navbar-back-icon>
 			</router-link>
 		</yd-navbar>
-		<yd-cell-group>
+		<yd-cell-group class="bt-group">
 			<div class="title-a">填写资料</div>
 			<br/>
 			<hr/>
 			<yd-cell-item>
-				<span slot="left">购买价格：</span>
+				<p slot="left">购买价格</p>
 				<input slot="right" type="number" v-model="form.price">
 				<span slot="right">(万元)</span>
 			</yd-cell-item>
 			<yd-cell-item>
-				<span slot="left">车系/品牌：</span>
-				<input slot="right" type="text" placeholder="如:宝马,奥迪等" v-model="form.brand">
+				<p slot="left">车系/品牌</p>
+				<input slot="right" type="text" placeholder="请输入汽车品牌" v-model="form.brand">
 			</yd-cell-item>
 			<yd-cell-item>
-				<span slot="left">车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</span>
+				<p slot="left">车型</p>
 				<input slot="right" type="text" placeholder="如:宝马1系2018款" v-model="form.type">
 			</yd-cell-item>
 			<yd-cell-item>
-				<span slot="left">上牌地点：</span>
+				<p slot="left">上牌地点</p>
 				<input slot="right" type="text" placeholder="如:四川成都" v-model="form.bkCitiy">
 			</yd-cell-item>
 			<yd-cell-item arrow>
-				<span slot="left">首次上牌：</span>
+				<p slot="left">首次上牌</p>
 				<yd-datetime type="date" v-model="form.upbkTime" slot="right"></yd-datetime>
 			</yd-cell-item>
 			<yd-cell-item>
-				<span slot="left">行驶里程：</span>
+				<p slot="left">行驶里程</p>
 				<input slot="right" type="number" v-model="form.mileage">
 				<span slot="right">(万公里)</span>
 			</yd-cell-item>
 			<yd-cell-item>
-				<span slot="left">联系方式：</span>
+				<p slot="left">联系方式</p>
 				<input slot="right" type="text" placeholder="请输入手机号码" v-model="form.phone">
 			</yd-cell-item>
 			<br/>
-			<yd-button size="large"  @click.native="assessAction()"
-			style="width: 80%;height: .7rem;margin: 0 auto;background-color: #ff833df2;">
+			<yd-button size="large"  @click.native="assessAction()" :disabled="!checkbox1"
+			:class="{'ok-btn':checkbox1,'no-btn':!checkbox1}">
 				卖车估价
 			</yd-button>
 			<br/>
@@ -72,17 +72,17 @@
 			<div class="fkzl">
 				<div class="fkzl_children">
 					<div  class="fkzl_list" ref='fkzlRef'>
-						<yd-icon class='list_icon' size='.32rem' color='#da4b4f' custom name="zixun"></yd-icon>
+						<img src="../../assets/img/meony.png"  class='list_icon' alt="">
 						<div class="list_title">快速卖车</div>
 						<p class="list_name">卖得快，价更高</p>
 					</div>
 					<div class="fkzl_list" ref='fkzlRef'>
-						<yd-icon class='list_icon' size='.32rem' color='#06a88c' custom name="daogou"></yd-icon>
+						<img src="../../assets/img/car.png"  class='list_icon' alt="">
 						<div class="list_title">买放心车</div>
 						<p class="list_name">大平台，车源多</p>
 					</div>
 					<div class="fkzl_list" ref='fkzlRef'>
-						<yd-icon class='list_icon' size='.4rem' color='#ebb44b'  custom name="tubiaofangwei"></yd-icon>
+						<img src="../../assets/img/se.png"  class='list_icon' alt="">
 						<div class="list_title">车辆置换</div>
 						<p class="list_name">买卖车，超方便</p>
 					</div>
@@ -286,6 +286,23 @@
 			background-color: #eee;
 	}
 	#carSell{
+		.ok-btn{
+			width: 80%;
+			height: .7rem;
+			margin: 0 auto;
+			background-color: #ff833df2;
+		}
+		.no-btn{
+			width: 80%;
+			height: .7rem;
+			margin: 0 auto;
+			background-color: #948f8cf2;
+		}
+		.bt-group{
+			p{
+				width: 1.7rem;
+			}
+		}
 		.showPrice{
 			p{
 				font-size: .25rem;
@@ -354,8 +371,8 @@
 		}
 		.title-a{
 			line-height: 30px;
-			font-size: .30rem;
-			font-weight: bold;
+			font-size: .3rem;
+			margin-left: .15rem;
 			color: #555;
 		}
 		.yd-cell-left{
@@ -365,7 +382,7 @@
 			border-bottom: 1px #d6d6d6 solid;
 		}
 		.title-b{
-			font-size: .3rem;
+			font-size: .28rem;
 			color: #666;
 			margin-top: .25rem;
 			margin-bottom: .2rem;
@@ -377,11 +394,17 @@
 			display: flex;
 			color:#585151;
 			margin: 0 0 .3rem .1rem;
+			text-align: center;
 			overflow: auto;
 			&::-webkit-scrollbar {
 				width: 0px;
 				opacity: 0;
 				-webkit-overflow-scrolling: touch;
+			}
+			.list_icon{
+				width: .61rem;
+				height: .61rem;
+				margin: 0 auto;
 			}
 			.fkzl_children {
 				display: flex;
@@ -393,13 +416,13 @@
 				width: 2.3rem;
 				margin-right: .15rem;
 				.list_title {
-					font-size: .2rem;
+					font-size: .27rem;
 					font-weight: bold;
 					margin-bottom: .15rem;
 				}
 				.list_name {
 					color: #606266;
-					font-size: .1rem;
+					font-size: .25rem;
 				}
 			}
 		}

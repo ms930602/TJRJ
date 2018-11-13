@@ -4,6 +4,10 @@
 		<div class="index_bg">
 			<span id="numSpan">12,183,666</span>&nbsp;&nbsp;位已使用买车服务
 		</div>
+		<div class="search-title-div">
+			<i class="icon-search"></i>
+			<input type="text" class="search-title-input" placeholder="诚信联盟" maxlength="20" v-on:keyup.enter="submit" v-model="searchName"/>
+		</div>
 		<div class="index_nav">
 			<div @click="goNext('car_buy')" class="nav_list">
 				<br/>
@@ -89,7 +93,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="other_like_title">你可能还喜欢</div>
+		<div class="index_title">
+			<div class="title_left">发现好车</div>
+		</div>
 		<div class="other_like">
 			<div class="like_list" @click='goCarXq(item.id)' v-for='item in carList'>
 				<img :src="$root.config.img_url+item.topImgStr" class="list_img" alt="" />
@@ -120,6 +126,7 @@
 		},
 		data() {
 			return {
+				searchName:'',
 				carList:[],
 				carCXList:[],
 			}
@@ -157,6 +164,9 @@
 			this.queryCarInfoCX();
 		},
 		methods: {
+			submit(){
+				this.$router.push({name:"car_buy",query:{search:this.searchName}})
+			},
 			goNext(url){
 				this.$router.push({name:url})
 			},
@@ -214,6 +224,7 @@
 
 <style lang='scss'>
 	#carIndex {
+		background-color: #fdfdfd;
 		.index_bg {
 			height: 2.5rem;
 			color:#F0F0F0;
@@ -221,15 +232,39 @@
 			background-size: 100% ;
 			line-height:3.1rem;
 		}
+		.search-title-div{
+			width: 100%;
+			height: .65rem;
+			margin-top: -.28rem;
+			display: flex;
+			position: relative;
+			.search-title-input{
+				height: .65rem;
+				width: 80%;
+				margin: 0 auto;
+				background-color: white;
+				border-radius: .35rem;
+				padding-left: .8rem;
+			}
+			.icon-search{
+                background: url(../../assets/img/search2.png) no-repeat;
+				background-size: .4rem;
+                width: .4rem;
+                height: .4rem;
+                position: absolute;
+                top: 6px;
+                left: 1rem;
+            }
+		}
 		#numSpan{
-			font-size:30px;
-			margin-left:30px;
+			font-size:.5rem;
+			margin-left:.6rem;
 		}
 		.index_nav {
 			display: flex;
 			.nav_list {
 				text-align: center;
-				width: 25%;
+				width: 33%;
 				.iconIT {
 					margin: .1rem auto .2rem;
 					width: 1.1rem;
@@ -355,7 +390,6 @@
 		.other_like_title {
 			font-size: .28rem;
 			padding: 0 0 .35rem .25rem;
-			font-weight: bold;
 		}
 		.other_like {
 			padding: 0 .25rem .1rem .25rem;

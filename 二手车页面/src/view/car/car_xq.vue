@@ -3,7 +3,6 @@
 		<div class="xq_header_c"  slot='top'>
 			<div class="header_back" @click="$router.back()">
 				<img class="header_img" src="../../assets/img/listd_icon_right@2x.png" alt="">
-				<span>返回</span>
 			</div>
 			
 		</div>
@@ -354,9 +353,9 @@
 			padding: .25rem .2rem .25rem .2rem;
 			.header_img{
 				transform: rotate(180deg);
-				width:.14rem;
+				width:.17rem;
 				height: .24rem;
-				margin-right: .15rem;
+				margin-right: .2rem;
 			}
 			.header_back{
 				display: flex;
