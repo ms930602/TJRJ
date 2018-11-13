@@ -87,7 +87,7 @@
 				</yd-cell-item>
 				<br/>
 				<div style="width:100%;display: flex;">
-					<button class="btn-wen">
+					<button class="btn-wen" @click="save()">
 						提交审核
 					</button>
 				</div>

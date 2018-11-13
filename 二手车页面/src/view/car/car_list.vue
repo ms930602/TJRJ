@@ -1,9 +1,10 @@
 <template>
 	<yd-layout id='carList'>
-		<div class="popup_header">
-			<img @click="goBack" src="../../assets/img/listd_icon_right@2x.png" alt="" />
-			<div>选择品牌</div>
-			<div></div>
+		<div class="xq_header_c"  slot='top'>
+			<div class="header_back" @click="$router.back()">
+				<img class="header_img" src="../../assets/img/listd_icon_right@2x.png" alt="">
+			</div>
+			
 		</div>
 		<div @click="openCarLit()" class="popup_list">
 			<div style="padding: .2rem;font-weight: bold;font-size: .28rem;">
@@ -116,6 +117,20 @@
 
 <style lang='scss'>
 	#carList {
+		.xq_header_c{
+			font-size: .25rem;
+			padding: .25rem .2rem .25rem .2rem;
+			.header_img{
+				transform: rotate(180deg);
+				width:.17rem;
+				height: .24rem;
+				margin-right: .2rem;
+			}
+			.header_back{
+				display: flex;
+				align-items: center;
+			}
+		}
 		.popup_header{
 			display: flex;
 			font-size: .32rem;

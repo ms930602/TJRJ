@@ -1,22 +1,41 @@
 <template>
 	<yd-layout id='carBuy'>
+	
 	<yd-actionsheet :items="myItems2" v-model="show2"></yd-actionsheet>
 	<yd-actionsheet :items="myItems1" v-model="show1"></yd-actionsheet>
     <yd-search slot='top'  v-model="value1" class='buy_search_input' :on-submit="submitHandler" :on-cancel="cancelHandler"></yd-search>
+	<div class="had-mod" v-if="modelIs" @click="closeShow()"></div>
 		<div class="search-div">
-			<div style="display: flex;align-items: center;">
+			<div style="display: flex;align-items: center;" class="dis-a">
 				&nbsp;&nbsp;&nbsp;
-				<span @click="carPp">
-					品牌<img src="../../assets/img/search.png" alt="">
-				</span>&nbsp;&nbsp;&nbsp;
-				<span @click="show2 = true">
+				<div @click="carPp">
+					品牌&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../assets/img/search.png" alt="">
+				</div>&nbsp;&nbsp;&nbsp;
+				<div @click="openZN()" id="bicA">
 					智能排序<img src="../../assets/img/search.png" alt="">
-				</span>&nbsp;&nbsp;&nbsp;
-				<span @click="show1 = true">
+				</div>&nbsp;&nbsp;&nbsp;
+				<div @click="openJG()" id="bicB">
 					价格区间<img src="../../assets/img/search.png" alt="">
-				</span>&nbsp;&nbsp;&nbsp;
+				</div>&nbsp;&nbsp;&nbsp;
 			</div>
-			<span @click="reset" style="float: right;">点击重置</span>
+			<span @click="reset" style="float: right;">重置</span>
+		</div>
+		<div class="my-xiala-a" v-show="selectA" id="bicAA">
+			<p @click="selectActionA(1)">智能排序</p>
+			<p @click="selectActionA(2)">价格最低</p>
+			<p @click="selectActionA(3)">最新发布</p>
+			<p @click="selectActionA(4)">里程最少</p>
+			<br>
+		</div>
+		<div class="my-xiala-a" v-show="selectB" id="bicBB">
+			<p @click="selectActionA(5)">无限制</p>
+			<p @click="selectActionA(6)">0 ~ 5 万</p>
+			<p @click="selectActionA(7)">5 ~ 10 万</p>
+			<p @click="selectActionA(8)">10 ~ 15 万</p>
+			<p @click="selectActionA(9)">15 ~ 20 万</p>
+			<p @click="selectActionA(10)">20 ~ 30 万</p>
+			<p @click="selectActionA(11)">30 以上</p>
+			<br>
 		</div>
 		<div class="y-badge">
 			<yd-badge shape="square" type="hollow" scale="1.1" v-if="brandType!=null && brandType!=''" @click.native="removeBadge(2)">
@@ -82,7 +101,9 @@
 </template>
 
 <script>
+	import 'vue-ydui/dist/ydui.base.css';
 	import { Search } from 'vue-ydui/dist/lib.rem/search';
+	import {Accordion, AccordionItem} from 'vue-ydui/dist/lib.rem/accordion';
 	import { TabBar, TabBarItem } from 'vue-ydui/dist/lib.rem/tabbar';
 	import {InfiniteScroll} from 'vue-ydui/dist/lib.rem/infinitescroll';
 	import {ActionSheet} from 'vue-ydui/dist/lib.rem/actionsheet';
@@ -95,9 +116,14 @@
 			[InfiniteScroll.name]: InfiniteScroll,
 			[ActionSheet.name]:ActionSheet,
 			[Badge.name]:Badge,
+			[Accordion.name]:Accordion,
+			[AccordionItem.name]:AccordionItem,
 		},
 		data() {
 			return {
+				modelIs:false,
+				selectA:false,
+				selectB:false,
 				searchParam:{
 					offerStatue:0,
 					orderField:null,
@@ -230,9 +256,46 @@
 				this.searchParam.title = searchName;
 				this.value1 = searchName;
 			}
-			this.reLoadList()
+			//this.reLoadList()
 		},
 		methods: {
+			closeShow(){
+// 				this.selectA = false;
+// 				this.selectB = false;
+// 				this.modelIs = false;
+// 				document.getElementById("bicA").style.cssText = "z-index:0";
+// 				document.getElementById("bicAA").style.cssText = "z-index:0";
+// 				document.getElementById("bicB").style.cssText = "z-index:0";
+// 				document.getElementById("bicBB").style.cssText = "z-index:0";
+			},
+			selectActionA(index){
+				console.log(index)
+			},
+			openZN(){
+				this.selectA = !this.selectA;
+				if(this.selectA){
+					document.getElementById("bicA").style.cssText = "z-index:101";
+					document.getElementById("bicAA").style.cssText = "z-index:101";
+				}else{
+					document.getElementById("bicA").style.cssText = "z-index:0";
+					document.getElementById("bicAA").style.cssText = "z-index:0";
+				}
+				
+				this.modelIs = this.selectA;
+			},
+			openJG(){
+				this.selectB = !this.selectB;
+				if(this.selectB){
+					document.getElementById("bicB").style.cssText = "z-index:101";
+					document.getElementById("bicBB").style.cssText = "z-index:101";
+				}else{
+					document.getElementById("bicB").style.cssText = "z-index:0";
+					document.getElementById("bicBB").style.cssText = "z-index:0";
+				}
+				
+				
+				this.modelIs = this.selectB;
+			},
 			queryCarInfo(){
 				var searchPatam = {
 					offerStatue:0,
@@ -354,6 +417,15 @@
 		font-size: .3rem;
 		padding: 0 0 .35rem .25rem;
 	}
+	.had-mod{
+		position: absolute;
+		left:0;
+		top:0;
+		width: 100%;
+		height: 100%;
+		background-color: #d0cbcb96;
+		z-index: 100;
+	}
 	.other_like {
 		padding: 0 .25rem .1rem .25rem;
 		.like_list {
@@ -409,16 +481,20 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		background-color: #f9f9f9;
-		margin: .1rem auto 0;
-		span{
-			font-size: .3rem;
-			display: flex;
-			align-items: center;
-		}
-		img{
-			margin-top: .05rem;
-			display: inline-table;
+		.dis-a{
+			div{
+				background-color: white;
+				font-size: .3rem;
+				display: flex;
+				color: #444;
+				align-items: center;
+			}
+			img{
+				margin-top: .05rem;
+				width: .43rem;
+				display: inline-table;
+			}
+			
 		}
 	}
 	.sx_badge{
@@ -426,6 +502,23 @@
 		font-weight: bold;
 	}
 	#carBuy {
+		.yd-accordion-head{
+			width: 2rem;
+			text-align: right;
+		}
+		.my-xiala-a{
+			position: absolute;
+			background-color: white;
+			width: 100%;
+			left:0;
+			p{
+				font-size: .27rem;
+				color:#736a6a;
+				margin-top: .6rem;
+				margin-left: .25rem;
+				border-bottom: 1px #f3f3f3 solid;
+			}
+		}
 		.y-badge{
 			height: .6rem;
 			margin-top: .2rem;
@@ -500,7 +593,7 @@
 				padding: .25rem 0;
 				overflow: hidden;
 				overflow: hidden;
-				text-overflow:ellipsis;
+				text-overflow: ellipsis;
 				white-space: nowrap;
 				margin-left: .2rem;
 			}
