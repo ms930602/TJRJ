@@ -3,17 +3,17 @@
 		<router-view/>
 		<yd-tabbar slot="tabbar"  active-color='#ff0000'>
 	        <yd-tabbar-item title="首页" @click.native='footerNav(1)' :active='active1' link="/index">
-	            <yd-icon name="home"  slot="icon" size="0.54rem"></yd-icon>
+	            <yd-icon name="home"  slot="icon" size="0.45rem"></yd-icon>
 	        </yd-tabbar-item>
 	        <yd-tabbar-item title="买车" @click.native='footerNav(2)' :active='active2' link="/car_buy">
-	            <yd-icon name="maiche2" custom slot="icon" size="0.39rem"></yd-icon>
+	            <yd-icon name="maiche2" custom slot="icon" size="0.31rem"></yd-icon>
 	        </yd-tabbar-item>
 	        <yd-tabbar-item title="卖车" @click.native='footerNav(3)' :active='active3' link="/car_sell">
-	            <yd-icon name="maiche1" custom slot="icon" size="0.54rem"></yd-icon>
+	            <yd-icon name="maiche1" custom slot="icon" size="0.45rem"></yd-icon>
 	        </yd-tabbar-item>
 	        
 	        <yd-tabbar-item title="促销" @click.native='footerNav(4)' :active='active4' link="/car_discover">
-				<yd-icon name="iconfontzhizuobiaozhun0299" custom slot="icon" size="0.42rem"></yd-icon>
+				<yd-icon name="iconfontzhizuobiaozhun0299" custom slot="icon" size="0.36rem"></yd-icon>
 	        </yd-tabbar-item>
 	    </yd-tabbar>
 	</yd-layout>

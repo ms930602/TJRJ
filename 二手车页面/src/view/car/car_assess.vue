@@ -3,8 +3,7 @@
 		<div class="assessOut">
 		<yd-popup v-model="show3" position="left" width="60%" class="showPrice">
 			<br/>
-			<p>★车系：{{form.brand}}</p>
-			<p>★车型：{{form.type}}</p>
+			<p>★<span>车系车型：</span>{{form.brand}} {{form.type}}</p>
 			<p>★上牌地点：{{form.bkCitiy}}</p>
 			<p>★上牌时间：{{form.upbkTime}}</p>
 			<p>★行驶里程：{{form.mileage}}万公里</p>
@@ -13,6 +12,10 @@
 			<p class="price-p">{{form.mprice}}万元</p>
 			<br/>
 			<p>★具体价格请来电咨询或预约卖车。</p>
+			<br>
+			<div style="width: 100%;display: flex;">
+				<yd-button @click.native="show3 = false" style="margin: 0 auto;" type="warning">关闭</yd-button>
+			</div>
     </yd-popup>
 		<yd-navbar title="估值">
 			<router-link to="index" slot="left">

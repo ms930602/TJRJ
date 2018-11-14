@@ -78,7 +78,9 @@
 					name:this.$route.params.url,
 					query:{
 						carId1:this.selectItem.name,
-						carId2:item
+						carId2:item,
+						searchA:this.$route.params.searchA,
+						searchB:this.$route.params.searchB
 					}
 				})
 			},
