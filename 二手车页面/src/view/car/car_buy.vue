@@ -504,7 +504,6 @@
 				align-items: center;
 			}
 			img{
-				margin-top: .05rem;
 				width: .43rem;
 				display: inline-table;
 			}
