@@ -227,7 +227,7 @@
 		.index_bg {
 			height: 2.5rem;
 			color:#F0F0F0;
-			background: url(../../assets/img/title.png) no-repeat;
+			background: url(../../assets/img/title.png);
 			background-size: 100% ;
 			line-height:3.1rem;
 		}
