@@ -2,7 +2,6 @@
 
 	<div id='carIndex'>
 		<div class="index_bg">
-			<span id="numSpan">12,183,666</span>&nbsp;&nbsp;位已使用买车服务
 		</div>
 		<div class="search-title-div">
 			<i class="icon-search"></i>
