@@ -7,9 +7,9 @@
 			<p>★上牌地点：{{form.bkCitiy}}</p>
 			<p>★上牌时间：{{form.upbkTime}}</p>
 			<p>★行驶里程：{{form.mileage}}万公里</p>
-			<p>★精计算，您的爱车粗算价值</p>
+			<p>★经计算，您的爱车粗算价值</p>
 			<br/>
-			<p class="price-p">{{form.mprice}}万元</p>
+			<p class="price-p">{{minPrice}} ~ {{maxPrice}}万元</p>
 			<br/>
 			<p>★具体价格请来电咨询或预约卖车。</p>
 			<br>
@@ -133,6 +133,8 @@
 			return {
 				checkbox1:true,
 				show3:false,
+				minPrice:0,
+				maxPrice:0,
 				form:{
 					price:null,
 					brand:'',
@@ -218,34 +220,35 @@
 				
 				var mileage = this.form.mileage;
 				var oldIndex = mileage / 6;
-				var mlv = 0;
+				var mlv = 14;
 				if(oldIndex > 0){//6万公里以上
-				  if(oldIndex < 1){//小于6万公里
-						
-					}
-					if(oldIndex >= 1){
-						mlv += 5;
-					}
-					if(oldIndex >= 2){
-						mlv += 4;
-					}
-					if(oldIndex >=3){
-						mlv += 3;
-					}
-					if(oldIndex >= 4){
-						mlv += 2;
-					}
-					if(oldIndex >= 5){
-						mlv += 1;
+				  if(oldIndex <= 1){//小于6万公里
+						mlv = 14;
+					}else
+					if(oldIndex <= 2){
+						mlv = 10;
+					}else
+					if(oldIndex <= 3){
+						mlv = 6;
+					}else
+					if(oldIndex <= 4){
+						mlv = 3;
+					}else
+					if(oldIndex <= 5){
+						mlv = 1;
 					}
 				}
 				mlv = parseInt(mlv / 15 * 100);
 				mileagePrice = this.form.price * mlv / 100;
-				
+				console.log('mileagePrice,:',mileagePrice,'yearPrice:',yearPrice)
 				if(yearPrice > mileagePrice && mileagePrice > 0){
 					this.form.mprice = mileagePrice;
+					this.minPrice = mileagePrice;
+					this.maxPrice = yearPrice;
 				}else{
 					this.form.mprice = yearPrice;
+					this.minPrice = yearPrice;
+					this.maxPrice = mileagePrice;
 				}
 				this.show3 = true
 				this.save();

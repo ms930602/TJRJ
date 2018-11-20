@@ -97,6 +97,13 @@
 					<p>迁地标准</p>
 				</div>
 			</div>
+			<div class="clxx_title">咨询电话</div>
+			<div style="width: 100%;">
+				&nbsp;&nbsp;&nbsp;
+				座机号：<a href="tel:0692-2111599">0692-2111599</a>
+				&nbsp;&nbsp;
+				手机号：<a href="tel:13708625940">13708625940</a>
+			</div>
 			<div class="clxx_title" style="margin-bottom: .2rem;">车辆实拍</div>
 		</div>
 		
@@ -220,7 +227,7 @@
 		mounted() {
 			var id = this.$route.query.id;
 			if(id){
-				this.queryCar(id);
+				//this.queryCar(id);
 			}else{
 				this.$dialog.toast({
 					mes: '页面错误！',
