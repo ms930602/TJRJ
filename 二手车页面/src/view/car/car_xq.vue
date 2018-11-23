@@ -98,12 +98,15 @@
 				</div>
 			</div>
 			<div class="clxx_title">咨询电话</div>
-			<div style="width: 100%;">
+			<div style="width: 100%;font-size: .3rem;border-bottom: .2rem solid #ddd;">
+				<br/>
 				&nbsp;&nbsp;&nbsp;
-				座机号：<a href="tel:0692-2111599">0692-2111599</a>
+				座机号：<a href="tel:0692-2111599" style="color: #0c2bd0;">0692-2111599</a>
 				&nbsp;&nbsp;
-				手机号：<a href="tel:13708625940">13708625940</a>
+				手机号：<a href="tel:13708625940" style="color: #0c2bd0;">13708625940</a>
+				<br/><br/>
 			</div>
+			<br/>
 			<div class="clxx_title" style="margin-bottom: .2rem;">车辆实拍</div>
 		</div>
 		

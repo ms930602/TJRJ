@@ -3,7 +3,7 @@
 		<div class="assessOut">
 		<yd-popup v-model="show3" position="left" width="60%" class="showPrice">
 			<br/>
-			<p>★<span>车系车型：</span>{{form.brand}} {{form.type}}</p>
+			<p>★车系车型：{{form.brand}} {{form.type}}</p>
 			<p>★上牌地点：{{form.bkCitiy}}</p>
 			<p>★上牌时间：{{form.upbkTime}}</p>
 			<p>★行驶里程：{{form.mileage}}万公里</p>
@@ -97,6 +97,7 @@
 </template>
 
 <script>
+	import 'vue-ydui/dist/ydui.base.css';
 	import {CheckBox} from 'vue-ydui/dist/lib.rem/checkbox';
 	import { SendCode } from 'vue-ydui/dist/lib.rem/sendcode';
 	import { Accordion, AccordionItem } from 'vue-ydui/dist/lib.rem/accordion';
@@ -288,6 +289,29 @@
 </script>
 
 <style lang='scss'>
+	input::-webkit-input-placeholder { /* WebKit browsers */ 
+	
+		color: #dedddd; 
+	
+		} 
+	
+		input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+	
+		color: #dedddd; 
+	
+		} 
+	
+		input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+	
+		color: #dedddd; 
+	
+		} 
+	
+		input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+	
+		color: #dedddd; 
+	
+		}
 	.assessOut{
 			background-color: #eee;
 	}

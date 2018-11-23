@@ -103,6 +103,7 @@
 </template>
 
 <script>
+	import 'vue-ydui/dist/ydui.base.css';
 	import {BackTop} from 'vue-ydui/dist/lib.rem/backtop';
 	import { SendCode } from 'vue-ydui/dist/lib.rem/sendcode';
 	import { Accordion, AccordionItem } from 'vue-ydui/dist/lib.rem/accordion';
@@ -338,6 +339,29 @@
 </script>
 
 <style lang='scss'>
+	input::-webkit-input-placeholder { /* WebKit browsers */ 
+	
+		color: #dedddd; 
+	
+		} 
+	
+		input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+	
+		color: #dedddd; 
+	
+		} 
+	
+		input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+	
+		color: #dedddd; 
+	
+		} 
+	
+		input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+	
+		color: #dedddd; 
+	
+		}
 	.assessOut{
 			background-color: #eee;
 	}

@@ -13,7 +13,7 @@
 		</div>
 		<div @click="openCarLit(item)" v-for='item in brandList' class="popup_list">
 			<img :src="$root.config.img_url+item.imgStr" alt="" />
-			<p>{{item.name}}</p>
+			<p>&nbsp;&nbsp;{{item.name}}</p>
 		</div>
 		<yd-popup v-model="carListShow" width='70%' class='p_2_z' position="right">
 			<div class="p_2_title">
@@ -150,9 +150,10 @@
 			padding: 0 .2rem;
 			align-items: center;
 			font-size: .26rem;
+			margin-left: .2rem;
 			img{
-				width: .5rem;
-				height: .5rem;
+				width: .8rem;
+				height: .81rem;
 			}
 			p{
 				border-bottom: 1px solid #DDDDDD;
