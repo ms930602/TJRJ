@@ -227,7 +227,7 @@
 		mounted() {
 			var id = this.$route.query.id;
 			if(id){
-				//this.queryCar(id);
+				this.queryCar(id);
 			}else{
 				this.$dialog.toast({
 					mes: '页面错误！',

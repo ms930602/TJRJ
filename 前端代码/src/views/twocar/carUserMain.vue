@@ -2,8 +2,8 @@
 	<div class="page-person">
     <!-- 查询条件 -->
 		<searchInputItems>
-			<searchInputItem name="名称">
-				<inputItem :value.sync="searchForm.name" @enter="searchTable"></inputItem>
+			<searchInputItem name="电话">
+				<inputItem :value.sync="searchForm.phone" @enter="searchTable"></inputItem>
 			</searchInputItem>
 		</searchInputItems>
 <!-- 操作按钮 -->
@@ -88,7 +88,7 @@
 				showFilePath:'',
 				statusOption:[],
 				searchForm: {
-					title: ''
+					phone: ''
 				},
 				fileURL:'',
 				dataList: [],
@@ -112,7 +112,7 @@
 			},
 			reset() {
 				Object.assign(this.searchForm, {
-					name: ''
+					phone: ''
 				})
 				this.handleCurrentChange(1)
 			},			
@@ -138,7 +138,7 @@
 			delSubmit(o) {
 				this._comfirm('确定删除？')
         		.then((function() {        			
-        			return this._ajax({url: this.rootAPI + 'carBrand/delete', param: o, arr:true})
+        			return this._ajax({url: this.rootAPI + 'carUser/delete', param: o, arr:true})
         		}).bind(this))
         		.then((function(d) {
 					if(d.state === 0)

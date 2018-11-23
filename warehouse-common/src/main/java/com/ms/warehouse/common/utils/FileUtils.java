@@ -19,6 +19,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -218,7 +220,7 @@ public class FileUtils {
 	public static void saveFileByBase64(String base64Str, String filePath, String fileName) {
 		saveFileByBytes(Base64Utils.decodeFromString(base64Str), filePath, fileName);
 	}
-
+	
 	/**
 	 * 通过读取文件并获取其width及height的方式，来判断判断当前文件是否图片
 	 * 

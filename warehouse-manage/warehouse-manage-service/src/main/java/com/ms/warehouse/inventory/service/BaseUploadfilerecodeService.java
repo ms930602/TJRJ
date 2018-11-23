@@ -163,6 +163,53 @@ public class BaseUploadfilerecodeService extends BaseService {
 	 * 
 	 * @param vo
 	 * @return
+	 * @throws IOException 
+	 */
+	public BaseRespVO uploadBase64(
+			@Param("fileSize")Long fileSize,
+			@Param("fileName")String name,
+			@Param("data")String dataParam,
+			@Param("savePath")String savePath) throws IOException {
+		Props PathProps = new Props("pathConf.properties");
+		String FILE_UPLOAD_PATH =PathProps.getProperty("file.manager.upload.path");
+		String FILE_ACCESS_PATH = PathProps.getProperty("file.manager.access.path");
+		if (dataParam == null || "".equals(dataParam.trim())) {
+			return BaseRespVO.error("上传文件为空");
+		}
+		if (StringUtils.isEmpty(savePath)) {
+			return BaseRespVO.error("缺少 savePath（文件保存目录） 参数");
+		}
+		String data = dataParam.substring(dataParam.indexOf(",")+1).replaceAll(" ", "+");
+		String filePath = DateUtilSafe.getCurrentDate() + "/" + savePath + "/";
+
+		String fileName = Base64Utils.encodeToString((System.currentTimeMillis() + "").getBytes());
+		FileUtils.saveFileByBase64(data, FILE_UPLOAD_PATH + filePath, fileName);
+		
+		Map<String, String> resutMap = new HashMap<String, String>();
+		resutMap.put("path", FILE_ACCESS_PATH + filePath + fileName);
+		resutMap.put("size", fileSize + "");
+
+		ValueRespVO resp = new ValueRespVO();
+		resp.setAaData(resutMap);
+		BaseUploadfilerecodeEntity baseUploadfilerecode = new BaseUploadfilerecodeEntity();
+		baseUploadfilerecode.setFileName(name);
+		baseUploadfilerecode.setFilePath(resutMap.get("path"));
+		baseUploadfilerecode.setFileSize(fileSize);
+		baseUploadfilerecode.setSourceObjectId(1L);
+		try {
+			this.create(baseUploadfilerecode);
+			resutMap.put("loadId", baseUploadfilerecode.getId().toString());
+		} catch (CenterException e) {
+			e.printStackTrace();
+		}
+		return resp;
+	}
+	
+	/**
+	 * 文件上传
+	 * 
+	 * @param vo
+	 * @return
 	 */
 	public BaseRespVO upload(UploadReqVo vo) {
 		this.voo=vo;

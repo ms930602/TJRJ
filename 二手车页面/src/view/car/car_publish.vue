@@ -44,9 +44,8 @@
 							class="avatar-uploader"
 							:action="uploadURL"
 							:show-file-list="false"
-							:on-success="topSuccess"
 							accept="image/*"
-							:on-progress="uploadVideoProcess"
+							:http-request="myHttpRequest"
 							:before-upload="topBeforeUpload">
 							<img v-if="imageUrl" :src="imageUrl" class="avatar">
 							<i v-if="(videoFlag == false && !imageUrl)" class="el-icon-picture-outline avatar-uploader-icon"></i>
@@ -115,6 +114,8 @@
 	import {Button} from 'vue-ydui/dist/lib.rem/button';
 	import uploadOneImg from '../../components/uploadOneImg.vue'
 	import { Upload, Dialog } from 'element-ui';
+	import axios from 'axios';
+	import '../../assets/js/lrz.all.bundle.js'
 	export default {
 		components: {
 			[SendCode.name]: SendCode,
@@ -169,8 +170,82 @@
 		mounted() {
 		},
 		methods: {
-			uploadVideoProcess(event, file, fileList){
-					this.videoFlag = true;
+			myHttpRequest(param){
+				this.videoFlag = true;
+				var _this = this;
+				lrz(param.file, {width: 300,height:300})
+						.then(function (rst) {
+								_this.imageUrl = rst.base64;
+								_this.videoFlag = false;
+								return rst;
+						})
+						.then(function (rst) {
+								_this.$root.ajax({
+									name:'baseUploadfilerecode/uploadBase64',
+									params:{
+										fileSize:rst.fileLen,
+										fileName:rst.origin.name,
+										data:rst.base64,
+										savePath:'caruser'
+									},
+								}).then((d)=>{
+									if(d.state == 0){
+										_this.form.imgId = d.aaData.loadId;
+										_this.form.imgPath = d.aaData.path;
+									}else{
+										this.$message({ type: "error", message: "无法连接服务器!" });
+									}
+								})
+								return rst;
+						})
+						.catch(function (err) {
+							this.$message({ type: "error", message: "无法连接服务器@!" });
+						})
+						.always(function () {
+								// 不管是成功失败，这里都会执行
+						});
+				
+			},
+			uploadImage(param){
+				axios(param).then(function(response) {
+						console.log(response)
+						if(response.data.success) {
+							_this.topSuccess(response.data)
+						} else {
+							this.$message({ type: "error", message: "无法连接服务器!" });
+						}
+					})
+					.catch(function(error) {
+						this.$message({ type: "error", message: "无法连接服务器!!" });
+					});
+			},
+			topSuccess(res) {
+				this.videoFlag = false;
+				this.videoUploadPercent = 0;
+				if(res.state == 0){
+					this.form.imgId = res.aaData.loadId;
+					this.form.imgPath = res.aaData.path;
+					this.imageUrl = this.$root.config.img_url+ res.aaData.path;
+				}else{
+					this.$message({ type: "error", message: "上传失败!" });
+				}
+			},
+			topBeforeUpload(file) {
+				return new Promise((resolve, reject) => {
+						this.$nextTick(() => {
+										var fileType = file.type
+										//图片限制4M，其他附件限制50M
+										let limitType = 10
+										this.uploadURL = this.$root.config.api_url+'baseUploadfilerecode/upload?savePath=caruser'
+										const isLt = file.size / 1024 / 1024 < limitType;
+										if (!isLt) {
+											this.$message.error('上传文件大小不能超过 '+limitType+'MB!');
+											reject()
+										}else {
+											resolve()
+										}
+							})
+					})  
 			},
 			assessFlag(){
 				if(this.form.imgId==null || this.form.imgId ==''){
@@ -257,34 +332,6 @@
 						});
 					}
 				})
-			},
-			topSuccess(res, file) {
-				this.videoFlag = false;
-				this.videoUploadPercent = 0;
-				if(res.state == 0){
-					this.form.imgId = res.aaData.loadId;
-					this.form.imgPath = res.aaData.path;
-					this.imageUrl = this.$root.config.img_url+ res.aaData.path;
-				}else{
-					this.$message({ type: "error", message: "上传失败!" });
-				}
-			},
-			topBeforeUpload(file) {
-				return new Promise((resolve, reject) => {
-						this.$nextTick(() => {
-										var fileType = file.type
-										//图片限制4M，其他附件限制50M
-										let limitType = 10
-										this.uploadURL = this.$root.config.api_url+'baseUploadfilerecode/upload?savePath=caruser'
-										const isLt = file.size / 1024 / 1024 < limitType;
-										if (!isLt) {
-											this.$message.error('上传文件大小不能超过 '+limitType+'MB!');
-											reject()
-										}else {
-											resolve()
-										}
-							})
-					})  
 			}
 		}
 	}

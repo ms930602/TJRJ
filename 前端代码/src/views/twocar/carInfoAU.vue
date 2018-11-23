@@ -135,7 +135,7 @@
                       class="avatar-uploader"
                       :action="uploadURL"
                       :show-file-list="false"
-                      :on-success="topSuccess"
+                      :http-request="myHttpRequest"
                       accept="image/*"
                       :before-upload="topBeforeUpload">
                       <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -219,7 +219,7 @@
             :action="uploadDetailURL"
             list-type="picture-card"
             :file-list="detailImg"
-            :on-success="detailSuccess"
+            :http-request="myHttpRequestB"
             :before-upload="beforeDetailUpload"
             :on-remove="onRemoveDetail">
             <i class="el-icon-plus"></i>
@@ -244,6 +244,7 @@
 import mixin from "../../mixin/mixin.js";
 import local from "../../local.js";
 import configs from "../../configs.js";
+import '../../../lib/js/lrz.all.bundle.js'
 export default {
   mixins: [mixin],
   data() {
@@ -347,6 +348,75 @@ export default {
     }
   },
   methods: {
+			myHttpRequest(param){
+				var _this = this;
+				lrz(param.file, {width: 500,height:400})
+						.then(function (rst) {
+								_this.imageUrl = rst.base64;
+								return rst;
+						})
+						.then(function (rst) {
+								_this._ajax({
+									url: _this.rootAPI + "baseUploadfilerecode/uploadBase64",
+									param: {
+										fileSize:rst.fileLen,
+										fileName:rst.origin.name,
+										data:rst.base64,
+										savePath:'caruser'
+									}
+								}).then(
+									function(d) {
+										if(d.state == 0){
+											_this.form.topImg = d.aaData.loadId;
+										}else{
+											_this.$message({ type: "error", message: "上传失败!" });
+										}
+									}
+								);
+								return rst;
+						})
+						.catch(function (err) {
+							console.log(err)
+							_this.$message({ type: "error", message: "请使用谷歌浏览器!" });
+						})
+						.always(function () {
+								// 不管是成功失败，这里都会执行
+						});
+				
+		},
+		myHttpRequestB(param){
+				var _this = this;
+				lrz(param.file, {width: 500,height:400})
+						.then(function (rst) {
+								_this._ajax({
+									url: _this.rootAPI + "baseUploadfilerecode/uploadBase64",
+									param: {
+										fileSize:rst.fileLen,
+										fileName:rst.origin.name,
+										data:rst.base64,
+										savePath:'caruser'
+									}
+								}).then(
+									function(d) {
+										if(d.state == 0){
+											var imgYU = ROOT_API+'servlet/getfile?path=' + d.aaData.path;
+											_this.detailImg.push({loadId: d.aaData.loadId,url: imgYU})
+										}else{
+											_this.$message({ type: "error", message: "上传失败!" });
+										}
+									}
+								);
+								return rst;
+						})
+						.catch(function (err) {
+							console.log(err)
+							_this.$message({ type: "error", message: "请使用谷歌浏览器!" });
+						})
+						.always(function () {
+								// 不管是成功失败，这里都会执行
+						});
+				
+		},
 		selectChange(vId){
 			let obj = {};
       obj = this.brandOption.find((item)=>{//这里的userList就是上面遍历的数据源
@@ -365,10 +435,6 @@ export default {
 				}
 			}).bind(this))
 		},
-    detailSuccess(res, file){
-      var imgYU = ROOT_API+'servlet/getfile?path=' + res.aaData.path;
-      this.detailImg.push({loadId: res.aaData.loadId,url: imgYU})
-    },
     onRemoveDetail(file, fileList){
       this.detailImg = fileList;
     },
@@ -388,14 +454,6 @@ export default {
                   }
             })
         })  
-    },
-    topSuccess(res, file) {
-      if(res.state == 0){
-        this.form.topImg = res.aaData.loadId;
-        this.imageUrl = ROOT_API+'servlet/getfile?path=' + res.aaData.path;
-      }else{
-        this.$message({ type: "error", message: "上传失败!" });
-      }
     },
     topBeforeUpload(file) {
       return new Promise((resolve, reject) => {
