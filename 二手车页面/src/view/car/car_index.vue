@@ -65,30 +65,20 @@
 		</div>
 		<div class="fkzl">
 			<div class="fkzl_children">
-				<div  class="fkzl_list" ref='fkzlRef'>
+				<div  class="fkzl_list" ref='fkzlRef' @click='goCarShowinfo()'>
 					<div class="list_title">教你小白变专家</div>
 					<yd-icon class='list_icon' size='.32rem' color='#da4b4f' custom name="zixun"></yd-icon>
 					<p class="list_name">最新资讯</p>
 				</div>
-				<div class="fkzl_list" ref='fkzlRef'>
+				<div class="fkzl_list" ref='fkzlRef' @click='goCarShowinfo()'>
 					<div class="list_title">选车挑车不纠结</div>
 					<yd-icon class='list_icon' size='.32rem' color='#06a88c' custom name="daogou"></yd-icon>
 					<p class="list_name">选车导购</p>
 				</div>
-				<div class="fkzl_list" ref='fkzlRef'>
+				<div class="fkzl_list" ref='fkzlRef' @click='goCarShowinfo()'>
 					<div class="list_title">防坑防骗小技巧</div>
 					<yd-icon class='list_icon' size='.4rem' color='#ebb44b'  custom name="tubiaofangwei"></yd-icon>
 					<p class="list_name">干货课堂</p>
-				</div>
-				<div class="fkzl_list" ref='fkzlRef'>
-					<div class="list_title">提问回答涨姿势</div>
-					<yd-icon class='list_icon' size='.32rem' color='#1296db' custom name="stup"></yd-icon>
-					<p class="list_name">二手车论坛</p>
-				</div>
-				<div class="fkzl_list" ref='fkzlRef'>
-					<div class="list_title">看车聊车撩主播</div>
-					<yd-icon class='list_icon' size='.32rem' color='#04d0bf' custom name="zhibo"></yd-icon>
-					<p class="list_name">直播</p>
 				</div>
 			</div>
 		</div>
@@ -199,6 +189,11 @@
 					if(d.state == 0){
 						this.carCXList = d.aaData;
 					}
+				})
+			},
+			goCarShowinfo(){
+				this.$router.push({
+					name: 'car_showInfo'
 				})
 			},
 			goCarBuy() {

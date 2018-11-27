@@ -31,6 +31,10 @@ export default new Router({
       		path:'/car_discover',
       		name:'car_discover',
       		component: () => import('@/view/car/car_discover.vue')
+      	},{
+      		path:'/car_showInfo',
+      		name:'car_showInfo',
+      		component: () => import('@/view/car/car_showInfo.vue')
       	},
       ]
     },

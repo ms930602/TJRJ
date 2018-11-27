@@ -12,7 +12,9 @@
 			<hr/>
 		</div>
 		<div @click="openCarLit(item)" v-for='item in brandList' class="popup_list">
-			<img :src="$root.config.img_url+item.imgStr" alt="" />
+			<span style="color: #a0a0a0;">{{item.groupName}}</span>&nbsp;&nbsp;
+			<img v-if="item.groupName" :src="item.imgStr" alt="" />
+			<img v-else :src="$root.config.img_url+item.imgStr" alt="" />
 			<p>&nbsp;&nbsp;{{item.name}}</p>
 		</div>
 		<yd-popup v-model="carListShow" width='70%' class='p_2_z' position="right">
@@ -31,12 +33,14 @@
 
 <script>
 	import {Popup} from 'vue-ydui/dist/lib.rem/popup';
+	import axios from 'axios';
 	export default {
 		components: {
 			[Popup.name]: Popup,
 		},
 		data() {
 			return {
+				temps:'',
 				carListShow: false,
 				brandList:[],
 				brandTypeList:[],
@@ -55,7 +59,24 @@
 
 		},
 		mounted() {
-			this.loadBrand();
+			var _this = this;
+			axios({
+				method: 'get',
+				url: 'http://m.jingzhengu.com/carStyle/getMakeList?isEst=1&produceStatus=0',
+				headers: { "Content-Type": "application/x-www-form-urlencoded" }
+			}).then(function(response) {
+				if(response.status == 200 && response.data.list.length > 0){
+					_this.brandList = [];
+					response.data.list.forEach(temp=>{
+						_this.brandList.push({groupName:temp.groupName,name:temp.makeName,imgStr:temp.logoUrl});
+					})
+				}else{
+					_this.loadBrand();
+				}
+			})
+			.catch(function(error) {
+				_this.loadBrand();
+			});
 		},
 		methods: {
 			loadBrand(){
@@ -65,7 +86,7 @@
 						pageNum:1
 					},
 				}).then((d)=>{
-					if(d.state == 0){
+					if(d.state == 0 && d.aaData.length > 0){
 						this.brandList = d.aaData;
 					}
 				})
@@ -84,7 +105,6 @@
 					}
 				})
 			},
-			//
 			openCarLit(item){
 				if(item){
 					this.selectItem = item;
