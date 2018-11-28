@@ -109,7 +109,8 @@
 			<br/>
 			<div class="clxx_title" style="margin-bottom: .2rem;">车辆实拍</div>
 		</div>
-		
+		<p style="margin-left: .2rem;width: 95%;font: .25rem;">{{carInfo.strB}}</p>
+		<br>
 		<yd-lightbox :num="carInfo.detailImgObj.length" class='list_img'>
 			<yd-lightbox-img v-for="item in carInfo.detailImgObj" :key='item.filePath' :src="$root.config.img_url+item.filePath" :original="$root.config.img_url+item.filePath"></yd-lightbox-img>
 
@@ -388,7 +389,7 @@
 		}
 		.xq_slider{
 			img{
-				height: 3.5rem;
+				height: 7rem;
 			}
 			
 		}

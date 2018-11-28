@@ -96,9 +96,9 @@
 						<div class="list_badge">{{item.address}}&nbsp;/&nbsp;{{item.mileage}}万公里&nbsp;/&nbsp;{{item.upbkTime?item.upbkTime.split(' ')[0].split('-')[0]:''}}年&nbsp;/&nbsp;商家</div>
 						<div class="list_bottom">
 							<strong>{{item.price}}万</strong>
-							<span class="list_b_1">准新车</span>
+							<span class="list_b_1" v-if="item.intB==1 || item.intB==3">准新车</span>
 							<span class="list_b_1">{{item.transferNum}}过户</span>
-							<span class="list_b_2">质保</span>
+							<span class="list_b_2" v-if="item.intB==2 || item.intB==3">质保</span>
 						</div>
 						<div class="c_time">距结束:{{item.endTime|haveDate}}</div>
 					</div>

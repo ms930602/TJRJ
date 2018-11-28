@@ -29,7 +29,7 @@ public class FileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
 		Props PathProps = new Props("pathConf.properties");
 		String FILE_UPLOAD_PATH =PathProps.getProperty("file.manager.upload.path");
-        String path = "/data/" + request.getParameter("path");
+        String path = FILE_UPLOAD_PATH + request.getParameter("path");
         String name = request.getParameter("fileName");
 
         Path source = Paths.get(path);

@@ -11,7 +11,7 @@
 			<br/>
 			<p class="price-p">{{minPrice}} ~ {{maxPrice}}万元</p>
 			<br/>
-			<p>★具体价格请来电咨询或预约卖车。</p>
+			<p>★估算价格还不精确，欢迎来电咨询或预约卖车。</p>
 			<br>
 			<div style="width: 100%;display: flex;">
 				<yd-button @click.native="show3 = false" style="margin: 0 auto;" type="warning">关闭</yd-button>
@@ -61,6 +61,7 @@
 			:class="{'ok-btn':checkbox1,'no-btn':!checkbox1}">
 				卖车估价
 			</yd-button>
+			<h5 style="width: 100%;text-align: center;">★估算价格还不精确，欢迎来电咨询或预约卖车</h5>
 			<br/>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<yd-checkbox v-model="checkbox1">提交代表我同意：《个人信息保护声明》</yd-checkbox>

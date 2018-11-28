@@ -12,20 +12,32 @@
   <el-form class="modal-form" :inline="true" :model="form" :rules="rules" ref="form" label-width="120px">
 			<el-row>
 				<el-col :span="6">
-							<el-form-item label="品牌"  prop='intA' >
-										<selectInput :value.sync="form.intA" @selectChange="selectChange">
+							<el-form-item label="品牌"  prop='brand' >
+										<selectInput :value.sync="form.brand" filterable>
 											<el-option
 													v-for="item in brandOption"
 													:key="item.key"
 													:label="item.value"
 													:value="item.key">
 												</el-option>
-										</selectInput>
+										</selectInput><span style="font-size: 10px;color: red;">输入查询</span>
 							</el-form-item>
 				</el-col>
 				<el-col :span="6">
 							<el-form-item label="车型"  prop='type'>
 									<inputItem :value.sync="form.type"></inputItem>
+							</el-form-item>
+				</el-col>
+				<el-col :span="6">
+							<el-form-item label="显示标签"  prop='intB'>
+									<selectInput :value.sync="form.intB">
+										<el-option
+												v-for="item in intBOption"
+												:key="item.key"
+												:label="item.value"
+												:value="item.key">
+											</el-option>
+									</selectInput>
 							</el-form-item>
 				</el-col>
 			</el-row>
@@ -212,6 +224,13 @@
       </el-row>
       <h5>详情图片</h5>
       <hr/>
+			<el-row>
+				<el-col :span="24">
+					<el-form-item label="图片描述" >
+								<el-input type="textarea" v-model="form.strB"  style="width:800px;" :autosize="{ minRows: 10}"></el-input>
+					</el-form-item>
+				</el-col>
+			</el-row>
       <el-row>
 				<el-col :span="24">
           <el-upload
@@ -258,6 +277,12 @@ export default {
         {key:'自动挡',value:'自动挡'},
         {key:'手动挡',value:'手动挡'},
       ],
+			intBOption:[
+				{key:'0',value:'无质保准新车'},
+				{key:'1',value:'准新车'},
+				{key:'2',value:'质保'},
+				{key:'3',value:'质保准新车'},
+			],
       offerStatueOption:[
         {key:'0',value:'否'},
         {key:'1',value:'是'},
@@ -287,7 +312,9 @@ export default {
         showPrice:null,
 				xqbz:'国V',
 				strA:'',
+				strB:'',
 				intA:1,
+				intB:'3',
 				firstPrice:3.86,
         newPrice:null,
         consultPrice:null,
@@ -339,7 +366,7 @@ export default {
   mounted() {
     var id = this.$route.query.id;
 		this.toPage = this.$route.query.pageNum
-		this.loadBrand();
+		this.loadWartBrand();
     if (id) {
       this.form.id = id;
       this.searchObject();
@@ -424,6 +451,38 @@ export default {
       });
 			this.form.brand = obj.value;
 		},
+		loadWartBrand(){
+			var _this = this;
+			$.ajax({ url: 'http://m.jingzhengu.com/carStyle/getMakeList?isEst=1&produceStatus=0',
+					headers: { "Content-Type": "application/x-www-form-urlencoded" }, 
+					success: function(response){
+						if(response.status == 200 && response.list.length > 0){
+							_this.brandList = [];
+							response.list.forEach(temp=>{
+								_this.brandOption.push({key:temp.makeName,value:temp.groupName+" "+temp.makeName})
+							})
+						}
+					},error:function(){
+						_this.loadBrand();
+					}});
+// 				axios({
+// 					method: 'get',
+// 					url: 'http://m.jingzhengu.com/carStyle/getMakeList?isEst=1&produceStatus=0',
+// 					headers: { "Content-Type": "application/x-www-form-urlencoded" }
+// 				}).then(function(response) {
+// 					if(response.status == 200 && response.data.list.length > 0){
+// 						_this.brandList = [];
+// 						response.data.list.forEach(temp=>{
+// 							_this.brandOption.push({key:temp.makeName,value:temp.makeName})
+// 						})
+// 					}else{
+// 						_this.loadBrand();
+// 					}
+// 				})
+// 				.catch(function(error) {
+// 					_this.loadBrand();
+// 				});
+		},
 		loadBrand(){
 			var _this = this;
 			let method = 'carBrand/list';
@@ -482,6 +541,7 @@ export default {
         function(d) {
           if (d.state === 0) {
             Object.assign(this.form, d.aaData);
+						this.form.intB +='';
             this.doFileSet(d.aaData);
           } else {
             this.$message({ type: "error", message: "服务器错误!" });
@@ -548,10 +608,12 @@ export default {
                 bkCitiy:this.form.bkCitiy,
                 brand:this.form.brand,
 								intA:this.form.intA,
+								intB:this.form.intB,
                 topImg:this.form.topImg,
 								xqbz:this.form.xqbz,
 								firstPrice:this.form.firstPrice,
 								strA:this.form.strA,
+								strB:this.form.strB,
                 imgs:detailImageIds
               }
               if(this.form.id && this.form.id > 0) {

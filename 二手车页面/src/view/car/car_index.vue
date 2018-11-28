@@ -55,7 +55,7 @@
 					<div class="c_name">{{item.title}}</div>
 					<div class="c_money">
 						<span class="c_n_money">{{item.price}}万</span>
-						<span class="c_j_money">已降{{(item.showPrice * 100 - item.price * 100)/100}}万</span>
+						<span class="c_j_money">已降{{(item.showPrice - item.price).toFixed(2)}}万</span>
 					</div>
 				</div>
 			</div>
@@ -93,9 +93,9 @@
 					<div class="list_badge">{{item.address}}&nbsp;/&nbsp;{{item.mileage}}万公里&nbsp;/&nbsp;{{item.upbkTime?item.upbkTime.split(' ')[0].split('-')[0]:''}}年&nbsp;/&nbsp;商家</div>
 					<div class="list_bottom">
 						<strong>{{item.showPrice}}万</strong>
-						<span class="list_b_1">准新车</span>
+						<span class="list_b_1" v-if="item.intB==1 || item.intB==3">准新车</span>
 						<span class="list_b_1">{{item.transferNum}}过户</span>
-						<span class="list_b_2">质保</span>
+						<span class="list_b_2" v-if="item.intB==2 || item.intB==3">质保</span>
 					</div>
 				</div>
 			</div>
