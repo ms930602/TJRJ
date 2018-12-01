@@ -377,7 +377,7 @@ export default {
   methods: {
 			myHttpRequest(param){
 				var _this = this;
-				lrz(param.file, {width: 500,height:400})
+				lrz(param.file)
 						.then(function (rst) {
 								_this.imageUrl = rst.base64;
 								return rst;
@@ -413,7 +413,7 @@ export default {
 		},
 		myHttpRequestB(param){
 				var _this = this;
-				lrz(param.file, {width: 500,height:400})
+				lrz(param.file)
 						.then(function (rst) {
 								_this._ajax({
 									url: _this.rootAPI + "baseUploadfilerecode/uploadBase64",
