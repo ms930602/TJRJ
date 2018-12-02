@@ -2,53 +2,73 @@
 
 	<div id='carIndex'>
 		<div style="height: 4.5rem;"></div>
-		<div style="background-color: #883636b0;border-radius: 10%;">
+		<div style="background-color: #883636b0;border-radius: 10%;" @click="show1 = true">
 			<br>
 			<div class="egg-div">
-				<img src="../../assets/img/egg.png" alt="" id="egg1">
-				<img src="../../assets/img/egg.png" alt=""  id="egg2">
-				<img src="../../assets/img/egg.png" alt=""  id="egg3">
+				<img src="../../assets/img/egg.png" alt="" id="egg1" >
+				<img src="../../assets/img/egg.png" alt=""  id="egg2" >
+				<img src="../../assets/img/egg.png" alt=""  id="egg3" >
 			</div>
 			<div class="egg-div">
-				<img src="../../assets/img/egg.png" alt="" id="egg4">
-				<img src="../../assets/img/egg.png" alt="" id="egg5">
-				<img src="../../assets/img/egg.png" alt="" id="egg6">
+				<img src="../../assets/img/egg.png" alt="" id="egg4" >
+				<img src="../../assets/img/egg.png" alt="" id="egg5" >
+				<img src="../../assets/img/egg.png" alt="" id="egg6" >
 			</div>
 			<div class="egg-div">
-				<img src="../../assets/img/egg.png" alt="" id="egg7">
-				<img src="../../assets/img/egg.png" alt="" id="egg8">
-				<img src="../../assets/img/egg.png" alt="" id="egg9">
+				<img src="../../assets/img/egg.png" alt="" id="egg7" >
+				<img src="../../assets/img/egg.png" alt="" id="egg8" >
+				<img src="../../assets/img/egg.png" alt="" id="egg9" >
 			</div>
 		</div>
 		
-		<div class="fkzl">
-			<div class="fkzl_children">
-				<div  class="fkzl_list" ref='fkzlRef' @click='goCarShowinfo()'>
-					<img src="../../assets/img/88redb.png" alt="">
-				</div>
-				<div class="fkzl_list" ref='fkzlRef' @click='goCarShowinfo()'>
-					<img src="../../assets/img/88redb.png" alt="">
-				</div>
-				<div class="fkzl_list" ref='fkzlRef' @click='goCarShowinfo()'>
-					<img src="../../assets/img/88redb.png" alt="">
+		<div style="position: fixed;bottom: 0;width: 100%;">
+			<div class="fkzl">
+				<div class="fkzl_children">
+					<div  class="fkzl_list" ref='fkzlRef' style="">
+						<img src="../../assets/img/asd.png" alt="">
+					</div>
+					<div  class="fkzl_list" ref='fkzlRef'>
+						<img src="../../assets/img/88redb.png" alt="">
+					</div>
+					<div class="fkzl_list" ref='fkzlRef'>
+						<img src="../../assets/img/50redb.png" alt="">
+					</div>
+					<div class="fkzl_list" ref='fkzlRef'>
+						<img src="../../assets/img/10redb.png" alt="">
+					</div>
+					<div class="fkzl_list" ref='fkzlRef'>
+						<img src="../../assets/img/sjredb.png" alt="">
+					</div>
+					<div class="fkzl_list" ref='fkzlRef'>
+						<img src="../../assets/img/lb.png" alt="" style="width: 1.5rem;height: 1.2rem;margin-top: -10px;">
+					</div>
 				</div>
 			</div>
 		</div>
+		
+		<yd-popup v-model="show1" position="center" width="90%">
+            <div class="popDiv">
+							<a href="javascript:void(0)" style="float: right;width: 1rem;" @click="show1=false">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            </div>
+        </yd-popup>
 	</div>
 </template>
 
 <script>
 	import { Slider, SliderItem } from 'vue-ydui/dist/lib.rem/slider';
 	import { Tab, TabPanel } from 'vue-ydui/dist/lib.rem/tab';
+	import {Popup} from 'vue-ydui/dist/lib.rem/popup';
 	export default {
 		components: {
 			[Slider.name]: Slider,
 			[SliderItem.name]: SliderItem,
 			[Tab.name]: Tab,
 			[TabPanel.name]: TabPanel,
+			[Popup.name]: Popup,
 		},
 		data() {
 			return {
+				show1:false,
 				isStatus:0,
 				index:1,
 				left:'rotate(-15deg)',
@@ -109,15 +129,18 @@
 			text-align:center;
 			img{
 				display: inline;
-				width: 2rem;
+				width: 1.5rem;
 			}
+		}
+		.popDiv{
+			height: 6rem;
+			width: 90%;
+			 background-image: url(../../assets/img/ddd.png);
+			 background-size: 100%;
 		}
 		.fkzl {
 			padding: .1rem .1rem;
-			display: flex;
-			margin: 0 0 .3rem .15rem;
-			overflow: auto;
-			background-color: white;
+			background-color: #ffdd00;
 			&::-webkit-scrollbar {
 				width: 0px;
 				opacity: 0;
@@ -125,17 +148,15 @@
 			}
 			.fkzl_children {
 				display: flex;
-				height: 1.5rem;
-				width: 1.5rem;
+				height: 1rem;
+				width: 1rem;
 			}
 			.fkzl_list {
-				box-shadow: 0px 0px 1px 1px #D6D6D6;
-				padding: .2rem .4rem .2rem .44rem;
 				width: 2.2rem;
 				margin-right: .25rem;
 				img{
-					width: .9rem;
-					height: .5rem;
+					width: 1rem;
+					height: 1rem;
 				}
 			}
 		}
