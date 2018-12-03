@@ -422,7 +422,7 @@
 		LEFT JOIN t_base_uploadfilerecode b ON t.`f_top_img` = b.`f_id`
 		<include refid="whereForLike" />
 		<choose>
-			<when test="orderField==null or orderField=='null' or orderField=''">
+			<when test="orderField==null or orderField=='null' or orderField==''">
 				ORDER BY f_id DESC
 			</when>
 			<otherwise>
@@ -436,7 +436,8 @@
 	<select id="queryCount" resultType="int"
 		parameterType="com.ms.warehouse.common.vo.ListVo.ListReqVO">
 		SELECT COUNT(1)  
-		<include refid="queryFrom" /> t
+		FROM `t_car_info` t 
+		LEFT JOIN t_base_uploadfilerecode b ON t.`f_top_img` = b.`f_id`
 		<include refid="whereForLike" />
 	</select>
 	

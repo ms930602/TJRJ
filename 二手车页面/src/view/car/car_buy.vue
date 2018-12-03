@@ -155,6 +155,7 @@
 				modelIs:false,
 				selectA:false,
 				selectB:false,
+				isok:false,
 				searchParam:{
 					offerStatue:0,
 					orderField:null,
@@ -217,6 +218,8 @@
 				this.setSearchParam(parseInt(paramB));
 			}
 			this.reLoadList()
+			
+			// this.queryCarInfo();
 		},
 		methods: {
 			closeShow(){
@@ -225,6 +228,8 @@
 				this.modelIs = false;
 			},
 			setSearchParam(index){
+				this.pageNum = 1;
+				this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.reInit');
 				switch(index)
 				{
 					case 1:
@@ -295,7 +300,7 @@
 				var searchPatam = {
 					offerStatue:0,
 					pageNum:1,
-					pageSize:20,
+					pageSize:9,
 					orderField:'f_upbk_time'
 				};
 				this.$root.ajax({
@@ -357,6 +362,7 @@
 				this.reLoadList();
 			},
 			loadList(){
+				if(this.isok)return;
 				this.searchParam.title = this.value1;
 				this.searchParam.pageNum = this.pageNum;
 				this.$root.ajax({
@@ -364,14 +370,10 @@
 					params:this.searchParam,
 				}).then((d)=>{
 					if(d.aaData == null || d.aaData.length == 0){
-						this.queryCarInfo();
+						/* 所有数据加载完毕 */
+						this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
 					}
                     this.dataList = [...this.dataList, ...d.aaData];
-                    if (this.dataList>=d.dataCount) {
-                        /* 所有数据加载完毕 */
-                        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.loadedDone');
-                        return;
-                    }
 
                     /* 单次请求数据完毕 */
                     this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
