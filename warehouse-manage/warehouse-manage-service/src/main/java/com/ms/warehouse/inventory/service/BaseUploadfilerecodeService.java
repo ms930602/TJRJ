@@ -1,9 +1,11 @@
 package com.ms.warehouse.inventory.service;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +34,7 @@ import com.ms.warehouse.inventory.bo.BaseUploadfilerecodeBO;
 import com.ms.warehouse.inventory.entity.BaseUploadfilerecodeEntity;
 
 import cn.hutool.setting.dialect.Props;
+import net.coobird.thumbnailator.Thumbnails;
 
 /**
  * 上传文件 业务处理
@@ -227,6 +230,48 @@ public class BaseUploadfilerecodeService extends BaseService {
 		String fileName = Base64Utils.encodeToString((System.currentTimeMillis() + "").getBytes());
 		long fileSize = FileUtils.saveFileByBytes(vo.getFile(), FILE_UPLOAD_PATH + filePath, fileName);
 		
+		Map<String, String> resutMap = new HashMap<String, String>();
+		resutMap.put("path", FILE_ACCESS_PATH + filePath + fileName);
+		resutMap.put("size", fileSize + "");
+
+		ValueRespVO resp = new ValueRespVO();
+		resp.setAaData(resutMap);
+		BaseUploadfilerecodeEntity baseUploadfilerecode = new BaseUploadfilerecodeEntity();
+		baseUploadfilerecode.setFileName(vo.getFile_FILENAME());
+		baseUploadfilerecode.setFilePath(resutMap.get("path"));
+		baseUploadfilerecode.setFileSize(fileSize);
+		baseUploadfilerecode.setSourceObjectId(vo.getSort());
+		try {
+			this.create(baseUploadfilerecode);
+			resutMap.put("loadId", baseUploadfilerecode.getId().toString());
+		} catch (CenterException e) {
+			e.printStackTrace();
+		}
+		return resp;
+	}
+	public BaseRespVO imgUploadFirst(UploadReqVo vo) throws IOException {
+		this.voo=vo;
+		Props PathProps = new Props("pathConf.properties");
+		String FILE_UPLOAD_PATH =PathProps.getProperty("file.manager.upload.path");
+		String FILE_ACCESS_PATH = PathProps.getProperty("file.manager.access.path");
+		if (vo.getFile() == null || vo.getFile().length == 0) {
+			return BaseRespVO.error("上传文件为空，文件参数名为：file");
+		}
+		if (StringUtils.isEmpty(vo.getSavePath())) {
+			return BaseRespVO.error("缺少 savePath（文件保存目录） 参数");
+		}
+		String filePath = DateUtilSafe.getCurrentDate() + "/" + vo.getSavePath() + "/";
+
+		String fileName = Base64Utils.encodeToString((System.currentTimeMillis() + "").getBytes())+".jpg";
+		InputStream input = new ByteArrayInputStream(vo.getFile());
+		File file = new File(FILE_UPLOAD_PATH + filePath);
+		if(!file.exists()){
+			file.mkdirs();
+		}
+		Thumbnails.of(input).size(180,150).toFile(FILE_UPLOAD_PATH + filePath + fileName);
+		long fileSize = vo.getFile().length;
+		//long fileSize = FileUtils.saveFileByBytes(vo.getFile(), FILE_UPLOAD_PATH + filePath, fileName);
+
 		Map<String, String> resutMap = new HashMap<String, String>();
 		resutMap.put("path", FILE_ACCESS_PATH + filePath + fileName);
 		resutMap.put("size", fileSize + "");

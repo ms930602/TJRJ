@@ -257,11 +257,6 @@
 				}).then((d)=>{
 					if(d.state == 0){
 						Object.assign(this.carInfo, d.aaData);
-						if(this.carInfo.detailImgObj && this.carInfo.detailImgObj.length>0
-							&& this.carInfo.topImgObj)
-						{
-							this.carInfo.detailImgObj.unshift({filePath:this.carInfo.topImgObj.filePath,fileName:this.carInfo.topImgObj.fileName})
-						}
 					}
 				})
 			},
