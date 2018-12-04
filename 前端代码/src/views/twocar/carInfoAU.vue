@@ -226,7 +226,7 @@
       <hr/>
 			<el-row>
 				<el-col :span="24">
-					<el-form-item label="图片描述" >
+					<el-form-item label="车辆描述" >
 								<el-input type="textarea" v-model="form.strB"  style="width:800px;" :autosize="{ minRows: 10}"></el-input>
 					</el-form-item>
 				</el-col>
@@ -278,10 +278,10 @@ export default {
         {key:'手动挡',value:'手动挡'},
       ],
 			intBOption:[
-				{key:'0',value:'无质保准新车'},
+				{key:'0',value:'无'},
 				{key:'1',value:'准新车'},
 				{key:'2',value:'质保'},
-				{key:'3',value:'质保准新车'},
+				{key:'3',value:'质保+准新车'},
 			],
       offerStatueOption:[
         {key:'0',value:'否'},
@@ -377,7 +377,7 @@ export default {
   methods: {
 			myHttpRequest(param){
 				var _this = this;
-				lrz(param.file, {width: 500,height:400})
+				lrz(param.file)
 						.then(function (rst) {
 								_this.imageUrl = rst.base64;
 								return rst;
@@ -413,7 +413,7 @@ export default {
 		},
 		myHttpRequestB(param){
 				var _this = this;
-				lrz(param.file, {width: 500,height:400})
+				lrz(param.file)
 						.then(function (rst) {
 								_this._ajax({
 									url: _this.rootAPI + "baseUploadfilerecode/uploadBase64",

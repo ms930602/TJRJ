@@ -11,7 +11,7 @@
 			<yd-slider autoplay="3000" class='xq_slider' :show-pagination='false' :callback='callback'>
 				
 				<yd-slider-item  v-for='(item,index) in carInfo.detailImgObj' :key='item.filePath'>
-					<yd-lightbox>
+					<yd-lightbox class='list_img'>
 						<template  v-for='(i,n) in carInfo.detailImgObj'>
 							<yd-lightbox-img v-show='index==n' :key='i.filePath' :src="$root.config.img_url+i.filePath" :original="$root.config.img_url+i.filePath"></yd-lightbox-img>
 							<yd-lightbox-txt>
@@ -347,6 +347,10 @@
 </script>
 
 <style lang='scss'>
+	.yd-slider-item img{
+		max-width:100%;
+		max-height:100%;
+	}
 	.removeCl{
 		text-decoration: line-through;
 	}
@@ -395,16 +399,17 @@
 			
 		}
 		.xq_slider{
-			img{
-				height: 7rem;
-			}
-			
 		}
 		.list_img{
+			float:left;
+
+			  margin:5px;
+
+			  padding:5px;
 			img{
 				margin:0 auto .3rem;
-				width: 6.8rem;
-				height: 5rem;
+				max-width:100%;
+				max-height:100%;
 			}
 		}
 		.content{
